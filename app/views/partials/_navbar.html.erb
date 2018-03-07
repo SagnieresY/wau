@@ -24,10 +24,6 @@
   <!-- Right Navigation -->
   <div class="navbar-wau-right hidden-xs hidden-sm">
     <% if user_signed_in?  %>
-      <%= link_to 'Sign Out', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
-    <% end %>
-
-    <% if user_signed_in?  %>
       <%= link_to investements_path, { class: "navbar-wau-item navbar-wau-link" } do %>
         My Investments
       <% end %>
@@ -43,7 +39,7 @@
           <ul class="dropdown-menu dropdown-menu-right navbar-wau-dropdown-menu">
             <%= link_to 'My Profile', root_path, class: "navbar-wau-item navbar-wau-link" %>
             <br>
-            <%= link_to 'Create Investment',  new_investement_path, class: "navbar-wau-item navbar-wau-link" %>
+            <%= link_to 'New Investment',  new_investement_path, class: "navbar-wau-item navbar-wau-link" %>
             <br>
             <%= link_to 'Sign Out', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
             </ul>
@@ -51,5 +47,34 @@
       </div>
     <% end %>
   </div>
-</div>
 
+  <!-- Dropdown list appearing on mobile only -->
+  <div class="navbar-wau-item hidden-md hidden-lg">
+    <div class="dropdown">
+      <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
+      <ul class="dropdown-menu dropdown-menu-right navbar-wau-dropdown-menu">
+        <% unless user_signed_in? %>
+          <%= link_to  new_user_session_path, { class: "navbar-wau-item navbar-wau-link" } do %>
+            Login
+          <% end %>
+        <% end %>
+
+        <% if user_signed_in?  %>
+          <%= link_to 'My Profile', root_path, class: "navbar-wau-item navbar-wau-link" %>
+          <br>
+          <%= link_to investements_path, { class: "navbar-wau-item navbar-wau-link" } do %>
+            My Investments
+          <% end %>
+          <br>
+          <%= link_to dashboard_path, { class: "navbar-wau-item navbar-wau-link" } do %>
+            My Dashboard
+          <% end %>
+          <br>
+          <%= link_to 'New Investment',  new_investement_path, class: "navbar-wau-item navbar-wau-link" %>
+          <br>
+          <%= link_to 'Sign Out', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
