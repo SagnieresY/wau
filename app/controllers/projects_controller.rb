@@ -14,11 +14,7 @@ class ProjectsController < ApplicationController
   def update
     authorize @project
   end
-
-  def show
-    authorize @project
-  end
-
+  
   def destroy
     authorize @project
   end
