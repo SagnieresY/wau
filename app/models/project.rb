@@ -18,4 +18,7 @@ class Project < ApplicationRecord
     milestones.order('deadline ASC')
   end
 
+  def nearest_milestone_index
+    milestones.count - milestones.select{|m| !m.unlocked}.count
+  end
 end

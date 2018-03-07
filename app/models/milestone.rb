@@ -13,11 +13,4 @@ class Milestone < ApplicationRecord
     accessible
   end
 
-  def meme
-    investment.milestones.order('deadline ASC').each_with_index do |m,i|
-      if m.id = id
-        return i
-      end
-    end
-  end
 end
