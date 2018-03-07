@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
-FOCUS_AREAS = ['child care', 'memes sharing', 'holocaust deniers', 'Animal rights']
+FOCUS_AREAS = ['child care', 'memes sharing', 'capybara ideology', 'Animal rights']
 MILESTONES_AMOUNT = [420,69]
 MILESTONES_TASK = ['Find the lost emerald', 'gibe reborts pls', 'call Ellen', 'Go to AA meeting', 'Find the meaning of life']
 puts 'generating geos...'
