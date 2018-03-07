@@ -11,4 +11,6 @@ class Investment < ApplicationRecord
     end
     valid_milestones.reduce(0, :+)
   end
+
+
 end
