@@ -4,24 +4,52 @@
     <%=cl_image_tag("Unicorn-Logo", height: 50) %>
   <% end %>
 
+  <% unless user_signed_in? %>
+      <%= link_to  new_user_registration_path, { class: "btn btn-sign-up-home" } do %>
+       Sign Up!
+      <% end %>
+    <% end %>
 
-  <div class="navbar-search-bar">
-   <div class="search">
-      <input type="text" class="searchTerm" placeholder="Search">
-      <button type="submit" class="searchButton">
-        <i class="fa fa-search"></i>
-     </button>
-   </div>
-  </div>
+  <% if user_signed_in?  %>
+    <div class="navbar-search-bar">
+     <div class="search">
+        <input type="text" class="searchTerm" placeholder="Search">
+        <button type="submit" class="searchButton">
+          <i class="fa fa-search"></i>
+       </button>
+     </div>
+    </div>
+  <% end %>
 
+  <!-- Right Navigation -->
+  <div class="navbar-wau-right hidden-xs hidden-sm">
+    <% if user_signed_in?  %>
+      <%= link_to 'Sign Out', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
+    <% end %>
 
-  <div class="wrapper-right-section">
-      <div class="navbar-right-navigation">
-      <a href="" class="navbar-wau-item navbar-wau-link">My Dashboard</a>
-    <a href="" class="navbar-wagon-item navbar-wau-link">My Investments</a>
+    <% if user_signed_in?  %>
+      <%= link_to investements_path, { class: "navbar-wau-item navbar-wau-link" } do %>
+        My Investments
+      <% end %>
+      <%= link_to dashboard_path, { class: "navbar-wau-item navbar-wau-link" } do %>
+        My Dashboard
+      <% end %>
 
-  </div>
-    <img src="https://kitt.lewagon.com/placeholder/users/ssaunier" class="avatar dropdown-toggle" id="navbar-wagon-menu" data-toggle="dropdown">
+      <!-- Avatar with dropdown menu -->
+      <div class="navbar-wau-item">
+        <div class="dropdown">
+          <img src="https://kitt.lewagon.com/placeholder/users/ssaunier" class="avatar dropdown-toggle" id="navbar-wau-menu" data-toggle="dropdown">
+
+          <ul class="dropdown-menu dropdown-menu-right navbar-wau-dropdown-menu">
+            <%= link_to 'My Profile', root_path, class: "navbar-wau-item navbar-wau-link" %>
+            <br>
+            <%= link_to 'Create Investment',  new_investement_path, class: "navbar-wau-item navbar-wau-link" %>
+            <br>
+            <%= link_to 'Sign Out', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
+            </ul>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 

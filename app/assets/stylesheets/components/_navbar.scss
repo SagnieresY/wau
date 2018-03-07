@@ -44,16 +44,20 @@
    background-color: rgb(200,200,200);
 }
 
+/* Basic navbar item */
+.navbar-wau-item {
+  cursor: pointer;
+  padding: 0 20px;
+}
+
 .navbar-wau-link {
-  font-size: 16px;
+  font-size: 14px;
   text-decoration: none;
   color: black;
-  padding: 5px;
 }
 
 .navbar-wau-link:hover {
   color: #BF00FF;
-  text-decoration: none;
 }
 
 .navbar-wau .avatar {
@@ -61,10 +65,14 @@
   width: 35px;
   border-radius: 50%;
 }
-.wrapper-right-section{
+
+/* Right section */
+.navbar-wau-right {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
+
 .navbar-right-navigation {
     padding-right: 20px;
 }
