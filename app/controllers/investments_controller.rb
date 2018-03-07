@@ -1,5 +1,6 @@
 class InvestmentsController < ApplicationController
   def index
+    authorize @investment
     #foundation projects where they have investments
         #total funding with projects
         #project name
@@ -9,22 +10,27 @@ class InvestmentsController < ApplicationController
   end
 
   def new
+    authorize @investment
     #form
   end
 
   def create
+    authorize @investment
     # normal
   end
 
   def edit
+    authorize @investment
     #normal
   end
 
   def update
+    authorize @investment
     #normal
   end
 
   def show
+    authorize @investment
     #milestones for project
         #amount for milestone
         #task
@@ -35,6 +41,7 @@ class InvestmentsController < ApplicationController
   end
 
   def destroy
+    authorize @investment
   end
 
 end
