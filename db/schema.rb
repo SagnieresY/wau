@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180306161736) do
+ActiveRecord::Schema.define(version: 20180307184752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20180306161736) do
     t.bigint "investment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "accessible", default: true
     t.index ["investment_id"], name: "index_milestones_on_investment_id"
   end
 

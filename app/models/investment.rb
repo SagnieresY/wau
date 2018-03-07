@@ -7,7 +7,7 @@ class Investment < ApplicationRecord
   def projected_amount
     #calculates projected amount minus the missed milestones
     valid_milestones = milestones.map do |m| #map passed deadline (if the milestone task was done or is b4 deadline)
-      Date.today > m.deadline || m.unlocked ? 0 : m.amount
+      m.accessible ? m.amount : 0
     end
 
     valid_milestones.reduce(0, :+) #sums the valid milestones and returns it
@@ -19,7 +19,7 @@ class Investment < ApplicationRecord
     unlocked_milestones_amount.reduce(0, :+) #sums unlocked milestones and returns it
   end
 
-  def milestones_by_date
+  def milestones_by_nearest_deadline
     milestones.order('deadline ASC') #returns an array of milestone by the nearest deadline
   end
 end
