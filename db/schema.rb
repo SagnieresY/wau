@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20180307184752) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
-    t.bigint "foundation_id"
+    t.integer "foundation_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["foundation_id"], name: "index_users_on_foundation_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
