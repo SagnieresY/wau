@@ -1,54 +1,27 @@
+<div class="navbar-wau">
 
-<div class="navbar-unicorn">
-  <!-- Logo -->
-  <img src="https://image.flaticon.com/icons/svg/141/141712.svg" class="navbar-unicorn-brand avatar" alt="unicorn logo">
+  <%= link_to root_path, class: "navbar-wau-logo" do %>
+    <%=cl_image_tag("Unicorn-Logo", height: 50) %>
+  <% end %>
 
 
-  <div class="flexbox-class">
-    <div class="search-box">
-      <form action="/search" method="get">
-        <input type="text" name="query" class = "search-field">
-        <input type="submit" value="Search" class = "search-button" >
-      </form>
-    </div>
+  <div class="navbar-search-bar">
+   <div class="search">
+      <input type="text" class="searchTerm" placeholder="Search">
+      <button type="submit" class="searchButton">
+        <i class="fa fa-search"></i>
+     </button>
+   </div>
   </div>
 
-  <!-- Right Navigation -->
-  <div class="navbar-unicorn-right hidden-xs hidden-sm">
 
-    <!-- Links -->
-    <%= link_to "My Dashboard", "#", class: "navbar-unicorn-item navbar-unicorn-link" %>
-    <%= link_to "My Investments", "#", class: "navbar-unicorn-item navbar-unicorn-link" %>
+  <div class="wrapper-right-section">
+      <div class="navbar-right-navigation">
+      <a href="" class="navbar-wau-item navbar-wau-link">My Dashboard</a>
+    <a href="" class="navbar-wagon-item navbar-wau-link">My Investments</a>
 
-    <!-- Avatar with dropdown menu -->
-    <div class="navbar-unicorn-item">
-      <div class="dropdown">
-        <%= image_tag "http://placehold.it/30x30", class: "avatar dropdown-toggle", id: "navbar-unicorn-menu", "data-toggle" => "dropdown" %>
-        <ul class="dropdown-menu dropdown-menu-right navbar-unicorn-dropdown-menu">
-          <li>
-            <%= link_to "#" do %>
-            <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
-            <% end %>
-          </li>
-          <li>
-            <%= link_to "#" do %>
-            <i class="fa fa-cog"></i>  <%= t(".settings", default: "Settings") %>
-            <% end %>
-          </li>
-        </ul>
-      </div>
-    </div>
   </div>
-
-  <!-- Dropdown list appearing on mobile only -->
-  <div class="navbar-unicorn-item hidden-md hidden-lg">
-    <div class="dropdown">
-      <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
-      <ul class="dropdown-menu dropdown-menu-right navbar-unicorn-dropdown-menu">
-        <li><a href="#">Some mobile link</a></li>
-        <li><a href="#">Other one</a></li>
-        <li><a href="#">Other one</a></li>
-      </ul>
-    </div>
+    <img src="https://kitt.lewagon.com/placeholder/users/ssaunier" class="avatar dropdown-toggle" id="navbar-wagon-menu" data-toggle="dropdown">
   </div>
 </div>
+
