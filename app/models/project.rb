@@ -9,4 +9,8 @@ class Project < ApplicationRecord
   validates :focus_area, presence: true
   validates :main_contact, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
     message: "Please enter an valid email" }
+  def nearest_milestone
+    #get all milestones
+    milestones.order('deadline ASC').first
+  end
 end
