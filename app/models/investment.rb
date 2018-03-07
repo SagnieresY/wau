@@ -6,11 +6,16 @@ class Investment < ApplicationRecord
   validates :foundation, presence: true
   def projected_amount
     #calculates projected amount minus the missed milestones
-    valid_milestones = milestones.map do |m| #check if deadline passed or if the milestone task was done
+    valid_milestones = milestones.map do |m| #map passed deadline (if the milestone task was done or is b4 deadline)
       Date.today > m.deadline || m.unlocked ? 0 : m.amount
     end
-    valid_milestones.reduce(0, :+)
+
+    valid_milestones.reduce(0, :+) #sums the valid milestones and returns it
   end
 
+  def given_amount
+    unlocked_milestones_amount = milestones.map {|m| m.unlocked ? m.amount : 0} #maps unlocked milestones
 
+    unlocked_milestones_amount.reduce(0, :+) #sums unlocked milestones and returns it
+  end
 end
