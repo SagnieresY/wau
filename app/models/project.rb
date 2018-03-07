@@ -10,7 +10,8 @@ class Project < ApplicationRecord
   validates :main_contact, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
     message: "Please enter an valid email" }
   def nearest_milestone
-    #get all milestones
-    milestones.order('deadline ASC').first
+    milestones.order('deadline ASC').first #orders project milestones by deadline then select the first one
   end
+
+
 end
