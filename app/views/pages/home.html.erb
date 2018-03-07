@@ -1,34 +1,40 @@
-<div class="fullpage">
-  <div class="chart-box">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Composition_of_38th_Parliament.png" class="home-chart" alt="chart">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Composition_of_38th_Parliament.png" class="home-chart" alt="chart">
-  </div>
 
-  <div class="home-page-flex-parent">
-    <div class="home-page-child-row">
-      <div class="home-page-child-box purple-border-bottom all-caps"><p>Ngo Name</p></div>
-      <div class="home-page-child-box purple-border-bottom"><p>Project Name</p></div>
-    </div>
-    <div class="home-page-child-row">
+
+<div class="chart-box">
+   <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Composition_of_38th_Parliament.png" class="home-chart" alt="chart">
+   <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Composition_of_38th_Parliament.png" class="home-chart" alt="chart">
+</div>
+<% @projects.each_with_index do |project, index| %>
+<div class="home-page-flex-parent">
+   <div class="home-page-child-row">
+      <div class="home-page-child-box purple-border-bottom all-caps">
+         <p><%= project.ngo %></p>
+      </div>
+      <div class="home-page-child-box purple-border-bottom">
+         <p><%= project.name %></p>
+      </div>
+   </div>
+   <div class="home-page-child-row">
       <div class="home-page-child-box">
-        <div class="home-page-days-left">14 days</div>
+         <div class="home-page-days-left"><%= project.nearest_milestone.days_left %> days</div>
       </div>
       <div class="home-page-child-box no-margin milestone-description">
-        <h4>Milestone 2</h>
-          <h5>$250,000</h5>
-        </div>
-        <div class="home-page-child-box description-text">Lorem .</div>
-        <div class="buttons-home-page">
-        <div class="home-page-child-box">
-          <div class="card-button accept-button"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="home-page-child-box">
-          <div class="card-button decline-button"><i class="fas fa-times"></i></div>
-        </div>
-        <div class="home-page-child-box">
-          <div class="card-button edit-button"><i class="fas fa-pencil-alt"></i></div>
-        </div>
-        </div>
+         <h4>
+         Milestone <%= project.nearest_milestone.local_index + 1 %></h>
+         <h5>$ <%= project.nearest_milestone.amount %></h5>
       </div>
-    </div>
-  </div>
+      <div class="home-page-child-box description-text"><%= project.nearest_milestone.task %></div>
+      <div class="buttons-home-page">
+         <div class="home-page-child-box">
+            <div class="card-button accept-button"><i class="fas fa-check"></i></div>
+         </div>
+         <div class="home-page-child-box">
+            <div class="card-button decline-button"><i class="fas fa-times"></i></div>
+         </div>
+         <div class="home-page-child-box">
+            <div class="card-button edit-button"><i class="fas fa-pencil-alt"></i></div>
+         </div>
+      </div>
+   </div>
+</div>
+<% end %>

@@ -7,6 +7,7 @@ class PagesController < ApplicationController
         #given amount
         #task
         #time left
+      @projects = current_user.foundation.projects_by_nearest_milestone
   end
 
   def dashboard
