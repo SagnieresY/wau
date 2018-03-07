@@ -18,4 +18,8 @@ class Investment < ApplicationRecord
 
     unlocked_milestones_amount.reduce(0, :+) #sums unlocked milestones and returns it
   end
+
+  def milestones_by_date
+    milestones.order('deadline ASC') #returns an array of milestone by the nearest deadline
+  end
 end
