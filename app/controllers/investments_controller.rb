@@ -16,11 +16,11 @@ class InvestmentsController < ApplicationController
   end
 
   def create
-    new_investement = Investement.new(investement_params)
-    new_investement.user = current_user
-    authorize new_investement
-    new_investement.save!
-    redirect_to investment_path(new_investement)
+    new_investment = Investment.new(investment_params)
+    new_investment.user = current_user
+    authorize new_investment
+    new_investment.save!
+    redirect_to investment_path(new_investment)
   end
 
   def edit
