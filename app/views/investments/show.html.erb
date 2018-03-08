@@ -1,3 +1,7 @@
 <% @investment.milestones.each do |m| %>
 <%= m.amount %>
 <% end %>
+
+<%= link_to  new_investment_milestone_path(@investment.id), { class: "btn btn-primary" } do %>
+    New Milestone
+    <% end %>
