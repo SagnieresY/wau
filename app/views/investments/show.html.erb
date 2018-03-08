@@ -1,2 +1,3 @@
-<h1>Investments#show</h1>
-<p>Find me in app/views/investments/show.html.erb</p>
+<% @investment.milestones.each do |m| %>
+<%= m.amount %>
+<% end %>

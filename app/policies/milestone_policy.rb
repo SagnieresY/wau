@@ -6,11 +6,11 @@ class MilestonePolicy < ApplicationPolicy
   end
 
   def new?
-    record.investment.foundation == user.foundation
+    record.foundation == user.foundation
   end
 
   def create?
-    record.investment.foundation == user.foundation
+    record.foundation == user.foundation
   end
 
   def edit?
