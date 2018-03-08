@@ -1,0 +1,53 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+@import url(https://use.fontawesome.com/releases/v5.0.8/css/all.css);
+
+.invest-index-parent-card {
+font-family: Raleway;
+  max-width: 1250px;
+  min-width: 875px;
+  margin: 0 auto;
+  padding: 10px 13px;
+  background-color: white;
+  margin-bottom: 15px;
+}
+
+
+.invest-index-parent-card:hover {
+  border-left: 3px solid #bf00ff;
+  border-right: 3px solid #bf00ff;
+  padding: 10px 10px;
+}
+
+.invest-index-child-row {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.invest-index-child-box {
+  padding-left: 5px;
+  padding-right: 5px;
+  flex: 1/8;
+}
+
+.border-bottom {
+  border-bottom: 2px solid #bf00ff;
+}
+
+.no-margin{
+  h3, h4 {
+    margin: 0px;
+  }
+}
+
+.days-left-invest-index {
+  align-self: flex-start;
+  border: 2px solid #bf00ff;
+  border-radius: 3px;
+  text-align: center;
+  color: #bf00ff;
+  min-width: 150px;
+  padding-top: 9px;
+  margin: 9px 0px;
+}
+
