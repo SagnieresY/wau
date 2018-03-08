@@ -4,11 +4,14 @@
    <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Composition_of_38th_Parliament.png" class="home-chart" alt="chart">
    <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Composition_of_38th_Parliament.png" class="home-chart" alt="chart">
 </div>
+<%= link_to new_investment_path, { class: "btn btn-primary" } do %>
+    New Investment
+    <% end %>
 <% @projects.each_with_index do |project, index| %>
 <div class="home-page-flex-parent">
    <div class="home-page-child-row">
       <div class="home-page-child-box purple-border-bottom all-caps">
-         <p><%= project.ngo %></p>
+         <p><%= project.ngo %> <%=project.nearest_milestone.id  %> </p>
       </div>
       <div class="home-page-child-box purple-border-bottom">
          <p><%= project.name %></p>
@@ -24,7 +27,7 @@
          <h5>$ <%= project.nearest_milestone.amount %></h5>
       </div>
       <div class="home-page-child-box description-text"><%= project.nearest_milestone.task %></div>
-      <div class="buttons-home-page">
+      <div class="buttons-flex">
          <div class="home-page-child-box">
             <div class="card-button accept-button"><i class="fas fa-check"></i></div>
          </div>

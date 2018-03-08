@@ -21,4 +21,8 @@ class Project < ApplicationRecord
   def nearest_milestone_index
     milestones.count - milestones.select{|m| !m.unlocked}.count
   end
+
+  def total_funding
+    milestones.map(&:amount).reduce(0,:+)
+  end
 end

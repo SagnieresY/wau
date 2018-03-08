@@ -1,26 +1,5 @@
-// Specific CSS for your home-page
-@import url(https://fonts.googleapis.com/css?family=Raleway);
-@import url(https://use.fontawesome.com/releases/v5.0.8/css/all.css);
-
-.fullpage{
-  background-color: #F8E5FF;
-}
-
-.chart-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.home-chart {
-  width: 25%;
-  height: 25%;
-  padding: 0px 50px;
-  margin: 10px 0px;
-}
-
-.home-page-flex-parent {
-  font-family: Raleway;
+.invest-page-parent-card {
+font-family: Raleway;
   max-width: 1250px;
   min-width: 875px;
   margin: 0 auto;
@@ -29,40 +8,36 @@
   margin-bottom: 15px;
 }
 
-.home-page-flex-parent:hover {
+
+.invest-page-parent-card:hover {
   border-left: 3px solid #bf00ff;
   border-right: 3px solid #bf00ff;
   padding: 10px 10px;
 }
 
-.home-page-child-row {
+.invest-page-child-row {
   display: flex;
   align-items: center;
   justify-content: left;
 }
 
-.home-page-child-box {
+.invest-page-child-box {
   padding-left: 5px;
   padding-right: 5px;
   flex: 1/8;
 }
 
-.purple-border-bottom {
+.border-bottom {
   border-bottom: 2px solid #bf00ff;
 }
 
-.all-caps {
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-.no-margin {
-  h1, h2, h3, h4, h5, h6 {
+.no-margin{
+  h3, h4 {
     margin: 0px;
   }
 }
 
-.home-page-days-left {
+.days-left {
   align-self: flex-start;
   border: 2px solid #bf00ff;
   border-radius: 3px;
@@ -73,7 +48,7 @@
   padding: 15px 10px;
 }
 
-.milestone-description {
+.milestone-description{
   min-width: 120px;
 }
 
