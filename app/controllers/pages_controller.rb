@@ -29,7 +29,6 @@ class PagesController < ApplicationController
   end
 
   def no_foundation
-    render layout: false
-    redirect_to root_path if current_user
+
   end
 end
