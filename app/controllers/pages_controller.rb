@@ -7,9 +7,12 @@ class PagesController < ApplicationController
         #given amount
         #task
         #time left
+
+
       if current_user.foundation
+
         @projects = current_user.foundation.projects_by_nearest_milestone
-      elsif condition
+      else
 
         redirect_to no_foundation_path
       end
