@@ -1,0 +1,33 @@
+.footer-wau {
+  background: #F4F4F4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  padding: 0px 50px;
+  background-color: #FFFFFF;
+  color:#484848;
+}
+
+.logo-project-grace-footer {
+  position: relative;
+  top:-5px;
+}
+
+.footer-copyright {
+  margin-left: 10px;
+}
+
+.footer-languages a {
+  text-decoration: none;
+  color:#484848;
+   &:hover {
+    color: #BF00FF;
+  }
+}
+
+.footer-left-section {
+  display: flex;
+  align-items: center;
+
+}
