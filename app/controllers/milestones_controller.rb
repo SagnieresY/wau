@@ -1,28 +1,47 @@
 class MilestonesController < ApplicationController
   def new
+    @investment = investment
     @milestone = Milestone.new
-    authorize @milestone
+    @milestone.investment = investment
 
+    authorize @milestone
   end
 
   def create
-    authorize @milestone
+    new_milestone = Milestone.new(milestone_params)
+    authorize new_milestone
+    new_milestone.save!
+    redirect_to investment_path(investment)
   end
 
   def edit
+    @milestone = selected_milestone
     authorize @milestone
   end
 
   def update
-    authorize @milestone
+    milestone = selected_milestone
+    authorize milestone
+    milestone.update(milestone_params)
+    redirect_to investment_path(investment)
   end
 
   def destroy
-    authorize @milestone
+    authorize selected_milestone
+    selected_milestone.destroy
+    redirect_to investment_path(investment)
   end
 
   private
   def milestone_params
-    params.require(:milestone).permit(:task,:amount,:deadline,)
+    params.require(:milestone).permit(:task,:amount,:deadline)
+  end
+
+  def investment
+    Investment.find(params[:investment_id])
+  end
+
+    def selected_milestone
+    Milestone.find(id)
   end
 end
