@@ -1,0 +1,18 @@
+
+<div class="devise-container">
+  <h2>investment</h2>
+  <%= simple_form_for([@investment]) do |f| %>
+ <% if @investment.errors.any? %>
+    <div class="error-container">
+      <ul>
+        <% @investment.errors.full_message each do |message|  %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.association :project %>
+  <%= f.submit 'Ready!', class: "btn btn-create"%>
+<% end %>
+
+</div>

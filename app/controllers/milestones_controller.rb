@@ -1,15 +1,14 @@
 class MilestonesController < ApplicationController
   def new
-    @investment = investment
     @milestone = Milestone.new
-    @milestone.investment = investment
-
-    authorize @milestone
+    @investment = investment
+    authorize investment
   end
 
   def create
     new_milestone = Milestone.new(milestone_params)
-    authorize new_milestone
+    new_milestone.investment = investment
+    authorize investment
     new_milestone.save!
     redirect_to investment_path(investment)
   end
