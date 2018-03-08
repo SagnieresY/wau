@@ -8,4 +8,9 @@ class Milestone < ApplicationRecord
     #calculates the days left til deadline
     (deadline - Date.today).to_i #pretty much straight forward
   end
+
+  def accessible?
+    accessible
+  end
+
 end

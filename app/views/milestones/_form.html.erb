@@ -1,0 +1,20 @@
+
+<div class="devise-container">
+  <h2>Milestone</h2>
+  <%= simple_form_for([@milestone]) do |f| %>
+ <% if @milestone.errors.any? %>
+    <div class="error-container">
+      <ul>
+        <% @milestone.errors.full_message each do |message|  %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.input :amount, as: 'number' %>
+  <%= f.input :deadline, as: :date %>
+  <%= f.input :task %>
+  <%= f.submit 'Ready!', class: "btn btn-create"%>
+<% end %>
+
+</div>
