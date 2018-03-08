@@ -23,7 +23,10 @@
         <div class="invest-index-child-box description-text"><%= investment.project.description %></div>
         <div class="buttons-flex">
           <div class="invest-index-child-box">
-            <div class="card-button accept-button"><i class="fas fa-check"></i></div>
+            <%= link_to  new_investment_path, { class: "card-button accept-button" } do %>
+            <i class="fas fa-check"></i>
+            <% end %>
+            <!-- <div class="card-button accept-button"><i class="fas fa-check"></i></div> -->
           </div>
           <div class="invest-index-child-box">
             <div class="card-button decline-button"><i class="fas fa-times"></i></div>
