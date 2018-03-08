@@ -10,7 +10,7 @@ class InvestmentPolicy < ApplicationPolicy
   end
 
   def new?
-    record.foundation == user.foundation
+    user.foundation
   end
 
   def create?
