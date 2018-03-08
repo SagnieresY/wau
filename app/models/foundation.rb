@@ -14,4 +14,8 @@ class Foundation < ApplicationRecord
     end
     sorted_projects.uniq
   end
+
+  def total_donations_amount
+    projects.map(&:total_funding).reduce(0,:+)
+  end
 end

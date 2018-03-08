@@ -5,7 +5,6 @@ class ProjectsController < ApplicationController
   end
 
   def create
-
     new_project = Project.create!(project_params)
     authorize new_project
     new_investment = Investment.create!(project:new_project,foundation:current_user.foundation)
