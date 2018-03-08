@@ -1,6 +1,8 @@
 class MilestonesController < ApplicationController
   def new
+    @milestone = Milestone.new
     authorize @milestone
+
   end
 
   def create

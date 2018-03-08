@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   def new
+    @project = Project.new
     authorize @project
   end
 
@@ -14,7 +15,7 @@ class ProjectsController < ApplicationController
   def update
     authorize @project
   end
-  
+
   def destroy
     authorize @project
   end
