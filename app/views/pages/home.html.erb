@@ -4,6 +4,9 @@
    <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Composition_of_38th_Parliament.png" class="home-chart" alt="chart">
    <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Composition_of_38th_Parliament.png" class="home-chart" alt="chart">
 </div>
+<%= link_to new_investment_path, { class: "btn btn-primary" } do %>
+    New Investment
+    <% end %>
 <% @projects.each_with_index do |project, index| %>
 <div class="home-page-flex-parent">
    <div class="home-page-child-row">
