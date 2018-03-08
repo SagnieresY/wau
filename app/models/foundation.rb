@@ -15,7 +15,11 @@ class Foundation < ApplicationRecord
     sorted_projects.uniq
   end
 
-  def total_donations_amount
+  def total_forecasted_amount
     projects.map(&:total_funding).reduce(0,:+)
+  end
+
+  def total_unlocked_amount
+    investments.map(&:unlocked_amount).reduce(0,:+)
   end
 end
