@@ -17,7 +17,7 @@ class InvestmentsController < ApplicationController
 
   def create
     new_investment = Investment.new(investment_params)
-    new_investment.user = current_user
+    new_investment.foundation = current_user.foundation
     authorize new_investment
     new_investment.save!
     redirect_to investment_path(new_investment)
