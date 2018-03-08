@@ -24,7 +24,7 @@
   <!-- Right Navigation -->
   <div class="navbar-wau-right hidden-xs hidden-sm">
     <% if user_signed_in?  %>
-      <%= link_to investements_path, { class: "navbar-wau-item navbar-wau-link" } do %>
+      <%= link_to investments_path, { class: "navbar-wau-item navbar-wau-link" } do %>
         My Investments
       <% end %>
       <%= link_to dashboard_path, { class: "navbar-wau-item navbar-wau-link" } do %>
@@ -39,7 +39,7 @@
           <ul class="dropdown-menu dropdown-menu-right navbar-wau-dropdown-menu">
             <%= link_to 'My Profile', root_path, class: "navbar-wau-item navbar-wau-link" %>
             <br>
-            <%= link_to 'New Investment',  new_investement_path, class: "navbar-wau-item navbar-wau-link" %>
+            <%= link_to 'New Investment',  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>
             <br>
             <%= link_to 'Sign Out', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
             </ul>
@@ -62,7 +62,7 @@
         <% if user_signed_in?  %>
           <%= link_to 'My Profile', root_path, class: "navbar-wau-item navbar-wau-link" %>
           <br>
-          <%= link_to investements_path, { class: "navbar-wau-item navbar-wau-link" } do %>
+          <%= link_to investments_path, { class: "navbar-wau-item navbar-wau-link" } do %>
             My Investments
           <% end %>
           <br>
@@ -70,7 +70,7 @@
             My Dashboard
           <% end %>
           <br>
-          <%= link_to 'New Investment',  new_investement_path, class: "navbar-wau-item navbar-wau-link" %>
+          <%= link_to 'New Investment',  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>
           <br>
           <%= link_to 'Sign Out', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
         <% end %>
