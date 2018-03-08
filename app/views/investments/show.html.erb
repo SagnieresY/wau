@@ -1,3 +1,42 @@
 <% @investment.milestones.each do |m| %>
 <%= m.amount %>
 <% end %>
+
+<%= link_to  new_investment_milestone_path(@investment.id), { class: "btn btn-primary" } do %>
+New Milestone
+<% end %>
+
+
+<div class="invest-page-parent-flex">
+  <div class="purple-child-box"></div>
+  <div class="purple-child-box"></div>
+  <div class="purple-child-box"></div>
+</div>
+
+<div class="invest-page-parent-card">
+  <div class="invest-page-child-row">
+    <div class="child-box border-bottom">3rd Milestone</div>
+  </div>
+  <div class="invest-page-child-row">
+    <div class="invest-page-child-box">
+      <div class="days-left">14 days</div>
+    </div>
+    <div class="invest-page-child-box no-margin milestone-description">
+      <h4> $250,000 </h4>
+    </div>
+    <div class="invest-page-child-box description-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+      It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
+    desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+    <div class="buttons-home-page">
+      <div class="invest-page-child-box">
+        <div class="card-button accept-button"><i class="fas fa-check"></i></div>
+      </div>
+      <div class="invest-page-child-box">
+        <div class="card-button decline-button"><i class="fas fa-times"></i></div>
+      </div>
+      <div class="invest-page-child-box">
+        <div class="card-button edit-button"><i class="fas fa-pencil-alt"></i></div>
+      </div>
+    </div>
+  </div>
+</div>

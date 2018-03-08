@@ -1,0 +1,68 @@
+.invest-page-parent-card {
+font-family: Raleway;
+  max-width: 1250px;
+  min-width: 875px;
+  margin: 0 auto;
+  padding: 10px 13px;
+  background-color: white;
+  margin-bottom: 15px;
+}
+
+
+.invest-page-parent-card:hover {
+  border-left: 3px solid #bf00ff;
+  border-right: 3px solid #bf00ff;
+  padding: 10px 10px;
+}
+
+.invest-page-child-row {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.invest-page-child-box {
+  padding-left: 5px;
+  padding-right: 5px;
+  flex: 1/8;
+}
+
+.border-bottom {
+  border-bottom: 2px solid #bf00ff;
+}
+
+.no-margin{
+  h3, h4 {
+    margin: 0px;
+  }
+}
+
+.days-left {
+  align-self: flex-start;
+  border: 2px solid #bf00ff;
+  border-radius: 3px;
+  text-align: center;
+  color: #bf00ff;
+  min-width: 70px;
+  margin: 9px 0px;
+  padding: 15px 10px;
+}
+
+.milestone-description{
+  min-width: 120px;
+}
+
+.description-text {
+  padding: 0 15px;
+  line-height: 1.5em;
+  height: 3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 800px) {
+  .description-text {
+    display: none;
+    color: pink;
+  }
+}
