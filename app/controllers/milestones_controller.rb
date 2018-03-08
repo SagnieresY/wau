@@ -1,6 +1,8 @@
 class MilestonesController < ApplicationController
   def new
+    @milestone = Milestone.new
     authorize @milestone
+
   end
 
   def create
@@ -17,5 +19,10 @@ class MilestonesController < ApplicationController
 
   def destroy
     authorize @milestone
+  end
+
+  private
+  def milestone_params
+    params.require(:milestone).permit(:task,:amount,:deadline,)
   end
 end
