@@ -8,9 +8,9 @@ class Foundation < ApplicationRecord
     #get projects
     #get their first milestones
     #order these
-    projects.sort do |a,b|
+    sorted_projects = projects.sort do |a,b|
       a.nearest_milestone.deadline <=> b.nearest_milestone.deadline
     end
-
+    sorted_projects.uniq
   end
 end

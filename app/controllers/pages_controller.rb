@@ -7,7 +7,12 @@ class PagesController < ApplicationController
         #given amount
         #task
         #time left
-      @projects = current_user.foundation.projects_by_nearest_milestone
+      if current_user.foundation
+        @projects = current_user.foundation.projects_by_nearest_milestone
+      elsif condition
+
+        redirect_to no_foundation_path
+      end
   end
 
   def dashboard
@@ -18,5 +23,9 @@ class PagesController < ApplicationController
       #total given
       #last milestone unlocked
       #trust worthy level (dependent on milestones unlocked?)
+  end
+
+  def no_foundation
+    render layout: false
   end
 end

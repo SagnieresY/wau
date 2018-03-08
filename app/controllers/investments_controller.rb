@@ -10,7 +10,7 @@ class InvestmentsController < ApplicationController
   end
 
   def new
-    @invesetment = @investment.new
+    @investment = @investment.new
     authorize @investment
     #form
   end

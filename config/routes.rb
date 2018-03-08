@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   end
 
   resources :projects, only: [:show, :new, :create, :edit, :update]
+  get '/no_foundation', to: 'pages#no_foundation', as: :no_foundation
   get '/dashboard', to: 'pages#dashboard', as: :dashboard
 end
