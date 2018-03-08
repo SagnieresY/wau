@@ -1,0 +1,23 @@
+
+<div class="devise-container">
+  <h2>project</h2>
+  <%= simple_form_for(@project) do |f| %>
+ <% if @project.errors.any? %>
+    <div class="error-container">
+      <ul>
+        <% @project.errors.full_message each do |message|  %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.input :name %>
+  <%= f.input :ngo %>
+  <%= f.input :description %>
+  <%= f.input :main_contact %>
+  <%= f.input :focus_area, collection:['child care', 'memes sharing', 'capybara ideology', 'Animal rights'] %>
+  <%= f.association :geos %>
+  <%= f.submit 'Ready!', class: "btn btn-create"%>
+<% end %>
+
+</div>

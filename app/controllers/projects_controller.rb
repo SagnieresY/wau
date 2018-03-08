@@ -5,7 +5,10 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    authorize @project
+
+    new_project = Project.create!(project_params)
+    authorize new_project
+    redirect_to root_path
   end
 
   def edit
@@ -18,5 +21,10 @@ class ProjectsController < ApplicationController
 
   def destroy
     authorize @project
+  end
+
+  private
+  def project_params
+    params.require(:project).permit(:name,:description,:ngo,:focus_area,:main_contact,:geos)
   end
 end
