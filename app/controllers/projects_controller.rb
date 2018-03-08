@@ -8,7 +8,8 @@ class ProjectsController < ApplicationController
 
     new_project = Project.create!(project_params)
     authorize new_project
-    redirect_to root_path
+    new_investment = Investment.create!(project:new_project,foundation:current_user.foundation)
+    redirect_to investment_path(new_investment)
   end
 
   def edit
