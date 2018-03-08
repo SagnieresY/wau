@@ -46,7 +46,7 @@ Project.all.each do |p|
   rand(1..3).times do
     i = Investment.create(project:p,foundation:Foundation.all.sample)
     rand(1..4).times do
-      Milestone.create!(task:MILESTONES_TASK.sample,investment:i,amount:(MILESTONES_TASKESTONES_AMOUNT.sample*[10,100,1000].sample),deadline:Faker::Date.forward(69))
+      Milestone.create!(task:MILESTONES_TASK.sample,investment:i,amount:(MILESTONES_AMOUNT.sample*[10,100,1000].sample),deadline:Faker::Date.forward(69))
     end
   end
 end

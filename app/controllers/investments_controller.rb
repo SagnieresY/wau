@@ -11,6 +11,7 @@ class InvestmentsController < ApplicationController
   end
 
   def new
+
     @investment = Investment.new
     authorize @investment
   end
