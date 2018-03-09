@@ -7,6 +7,8 @@
 New Investment
 <% end %>
 <% @projects.each_with_index do |project, index| %>
+<% foundation_id = current_user.foundation_id %>
+<% investment = project.investments.where(foundation_id: foundation_id).first %>
 <div class="home-page-flex-parent" data-milestone-id="<%= project.nearest_milestone.id %>">
   <div class="home-page-child-row">
     <div class="home-page-child-box purple-border-bottom all-caps-bold">
@@ -18,15 +20,15 @@ New Investment
   </div>
   <div class="home-page-child-row">
     <div class="home-page-child-box">
-      <div class="home-page-days-left"><%= project.nearest_milestone.days_left %> days</div>
+      <div class="home-page-days-left"><%= investment.project.nearest_milestone.days_left %> days</div>
     </div>
     <div class="home-page-child-box no-margin milestone-description">
       <h4>
-        Milestone <%= project.nearest_milestone_index + 1  %>
+        Milestone <%= investment.project.nearest_milestone_index + 1  %>
       </h4>
-      <h5>$ <%= nice_money(project.nearest_milestone.amount) %></h5>
+      <h5>$ <%= nice_money(investment.project.nearest_milestone.amount) %></h5>
     </div>
-    <div class="home-page-child-box description-text"><%= project.nearest_milestone.task %></div>
+    <div class="home-page-child-box description-text"><%= investment.project.nearest_milestone.task %></div>
     <div class="buttons-flex">
       <div class="home-page-child-box">
         <div class="card-button unlock-button"><i class="fas fa-check"></i></div>
@@ -47,15 +49,32 @@ New Investment
   for(let index = 0; index < unlockButtons.length; index++) {
     let unlockButton = unlockButtons[index];
     unlockButton.addEventListener("click", function(element){
+      alert("u sure")
       let milestoneId = element.srcElement.closest(".home-page-flex-parent").getAttribute("data-milestone-id");
+
       fetch("<%= unlock_milestone_path %>", {
         method: 'post',
         headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+          'Content-Type': 'application/json',
         },
-        body: `id = ${milestoneId}`
+        credentials: "same-origin",
+        body: JSON.stringify({
+          id: milestoneId
+        })
+      })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        console.info("request finished, here is the data", data);
+        // delete the element
+      })
+      .catch(function(e) {
+        console.info("oops error", e)
+        // something went wrong
       });
-
     });
   };
-
 </script>

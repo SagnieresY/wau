@@ -1,6 +1,6 @@
 class MilestonesController < ApplicationController
 
-  before_action :selected_milestone, only: [:edit, :update, :destroy ]
+  before_action :selected_milestone, only: [:edit, :update, :destroy, :unlock ]
 
   def new
     @milestone = Milestone.new
@@ -33,7 +33,7 @@ class MilestonesController < ApplicationController
   end
 
   def unlock
-    @milestone.unlock == true
+    @milestone.unlock = true
     @milestone.save
   end
 
