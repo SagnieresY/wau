@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   resources :projects, only: [:show, :new, :create, :edit, :update]
   get '/no_foundation', to: 'pages#no_foundation', as: :no_foundation
   get '/dashboard', to: 'pages#dashboard', as: :dashboard
+  post '/unlock_milestone', to: 'milestones#unlock', as: :unlock_milestone
 end
