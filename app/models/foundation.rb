@@ -15,7 +15,7 @@ class Foundation < ApplicationRecord
     sorted_projects.uniq
   end
 
-  def total_donations_amount
+  def total_forecasted_amount
     projects.map(&:total_funding).reduce(0,:+)
   end
 
@@ -45,5 +45,8 @@ class Foundation < ApplicationRecord
     output = output.map{ |month, milestones| [month,milestones.map(&:amount)]}.to_h #gets the amounts
     output = output.map{ |month, milestones| milestones = milestones.reduce(0,:+); [month,milestones]}.to_h
     return output
+
+  def total_unlocked_amount
+    investments.map(&:unlocked_amount).reduce(0,:+)
   end
 end

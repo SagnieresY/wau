@@ -1,43 +1,61 @@
-
-
 <div class="chart-box">
-   <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Composition_of_38th_Parliament.png" class="home-chart" alt="chart">
-   <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Composition_of_38th_Parliament.png" class="home-chart" alt="chart">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Composition_of_38th_Parliament.png" class="home-chart" alt="chart">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Composition_of_38th_Parliament.png" class="home-chart" alt="chart">
 </div>
+
 <%= link_to new_investment_path, { class: "btn btn-primary" } do %>
-    New Investment
-    <% end %>
+New Investment
+<% end %>
 <% @projects.each_with_index do |project, index| %>
-<div class="home-page-flex-parent">
-   <div class="home-page-child-row">
-      <div class="home-page-child-box purple-border-bottom all-caps">
-         <p><%= project.ngo %> <%=project.nearest_milestone.id  %> </p>
-      </div>
-      <div class="home-page-child-box purple-border-bottom">
-         <p><%= project.name %></p>
-      </div>
-   </div>
-   <div class="home-page-child-row">
+<div class="home-page-flex-parent" data-milestone-id="<%= project.nearest_milestone.id %>">
+  <div class="home-page-child-row">
+    <div class="home-page-child-box purple-border-bottom all-caps-bold">
+      <p><%= project.ngo %></p>
+    </div>
+    <div class="home-page-child-box purple-border-bottom">
+      <p><%= project.name %></p>
+    </div>
+  </div>
+  <div class="home-page-child-row">
+    <div class="home-page-child-box">
+      <div class="home-page-days-left"><%= project.nearest_milestone.days_left %> days</div>
+    </div>
+    <div class="home-page-child-box no-margin milestone-description">
+      <h4>
+        Milestone <%= project.nearest_milestone_index + 1  %>
+      </h4>
+      <h5>$ <%= nice_money(project.nearest_milestone.amount) %></h5>
+    </div>
+    <div class="home-page-child-box description-text"><%= project.nearest_milestone.task %></div>
+    <div class="buttons-flex">
       <div class="home-page-child-box">
-         <div class="home-page-days-left"><%= project.nearest_milestone.days_left %> days</div>
+        <div class="card-button unlock-button"><i class="fas fa-check"></i></div>
       </div>
-      <div class="home-page-child-box no-margin milestone-description">
-         <h4>
-         Milestone <%= project.nearest_milestone_index + 1  %></h>
-         <h5>$ <%= project.nearest_milestone.amount %></h5>
+      <div class="home-page-child-box">
+        <div class="card-button decline-button"><i class="fas fa-times"></i></div>
       </div>
-      <div class="home-page-child-box description-text"><%= project.nearest_milestone.task %></div>
-      <div class="buttons-home-page">
-         <div class="home-page-child-box">
-            <div class="card-button accept-button"><i class="fas fa-check"></i></div>
-         </div>
-         <div class="home-page-child-box">
-            <div class="card-button decline-button"><i class="fas fa-times"></i></div>
-         </div>
-         <div class="home-page-child-box">
-            <div class="card-button edit-button"><i class="fas fa-pencil-alt"></i></div>
-         </div>
+      <div class="home-page-child-box">
+        <div class="card-button edit-button"><i class="fas fa-pencil-alt"></i></div>
       </div>
-   </div>
+    </div>
+  </div>
 </div>
 <% end %>
+
+<script type="text/javascript">
+  let unlockButtons = document.getElementsByClassName('unlock-button');
+  for(let index = 0; index < unlockButtons.length; index++) {
+    let unlockButton = unlockButtons[index];
+    unlockButton.addEventListener("click", function(element){
+      let milestoneId = element.srcElement.closest(".home-page-flex-parent").getAttribute("data-milestone-id");
+      fetch("<%= unlock_milestone_path %>", {
+        method: 'post',
+        headers: {
+        },
+        body: `id = ${milestoneId}`
+      });
+
+    });
+  };
+
+</script>

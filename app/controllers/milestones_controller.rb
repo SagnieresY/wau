@@ -1,4 +1,7 @@
 class MilestonesController < ApplicationController
+
+  before_action :selected_milestone, only: [:edit, :update, :destroy ]
+
   def new
     @milestone = Milestone.new
     @investment = investment
@@ -14,24 +17,28 @@ class MilestonesController < ApplicationController
   end
 
   def edit
-    @milestone = selected_milestone
     authorize @milestone
   end
 
   def update
-    milestone = selected_milestone
-    authorize milestone
-    milestone.update(milestone_params)
+    authorize @milestone
+    @milestone.update(milestone_params)
     redirect_to investment_path(investment)
   end
 
   def destroy
-    authorize selected_milestone
-    selected_milestone.destroy
+    authorize @milestone
+    @milestone.destroy
     redirect_to investment_path(investment)
   end
 
+  def unlock
+    @milestone.unlock == true
+    @milestone.save
+  end
+
   private
+
   def milestone_params
     params.require(:milestone).permit(:task,:amount,:deadline)
   end
@@ -40,7 +47,7 @@ class MilestonesController < ApplicationController
     Investment.find(params[:investment_id])
   end
 
-    def selected_milestone
-    Milestone.find(id)
+  def selected_milestone
+    @milestone = Milestone.find(id)
   end
 end

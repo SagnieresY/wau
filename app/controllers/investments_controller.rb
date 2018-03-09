@@ -1,7 +1,7 @@
 class InvestmentsController < ApplicationController
   def index
     @investments = policy_scope(Investment)
-    authorize @investment
+    authorize @investments
     #foundation projects where they have investments
         #total funding with projects
         #project name
