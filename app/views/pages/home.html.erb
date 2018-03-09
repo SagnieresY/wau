@@ -6,27 +6,27 @@
 <%= link_to new_investment_path, { class: "btn btn-primary" } do %>
 New Investment
 <% end %>
-<% @projects.each_with_index do |project, index| %>
-<div class="home-page-flex-parent" data-milestone-id="<%= project.nearest_milestone.id %>">
+<% @milestones.each_with_index do |milestone, index| %>
+<div class="home-page-flex-parent" data-milestone-id="<%= milestone.id %>">
   <div class="home-page-child-row">
     <div class="home-page-child-box purple-border-bottom all-caps-bold">
-      <p><%= project.ngo %></p>
+      <p><%= milestone.investment.project.ngo %></p>
     </div>
     <div class="home-page-child-box purple-border-bottom">
-      <p><%= project.name %></p>
+      <p><%= milestone.investment.project.name %></p>
     </div>
   </div>
   <div class="home-page-child-row">
     <div class="home-page-child-box">
-      <div class="home-page-days-left"><%= project.nearest_milestone.days_left %> days</div>
+      <div class="home-page-days-left"><%= milestone.days_left %> days</div>
     </div>
     <div class="home-page-child-box no-margin milestone-description">
       <h4>
-        Milestone <%= project.nearest_milestone_index + 1  %>
+        Milestone <%= milestone.investment_index + 1  %>
       </h4>
-      <h5>$ <%= nice_money(project.nearest_milestone.amount) %></h5>
+      <h5>$ <%= nice_money(milestone.amount) %></h5>
     </div>
-    <div class="home-page-child-box description-text"><%= project.nearest_milestone.task %></div>
+    <div class="home-page-child-box description-text"><%= milestone.task %></div>
     <div class="buttons-flex">
       <div class="home-page-child-box">
         <div class="card-button unlock-button"><i class="fas fa-check"></i></div>

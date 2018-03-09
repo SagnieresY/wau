@@ -10,7 +10,7 @@ class PagesController < ApplicationController
 
 
       if current_user.foundation
-        @projects = current_user.foundation.projects_by_nearest_milestone
+        @milestones = current_user.foundation.next_milestones
       else
 
         redirect_to no_foundation_path

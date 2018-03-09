@@ -26,4 +26,9 @@ class Investment < ApplicationRecord
   def milestones_by_nearest_deadline
     milestones.order('deadline ASC') #returns an array of milestone by the nearest deadline
   end
+
+  def next_milestone
+    milestones_by_nearest_deadline.first
+  end
+
 end
