@@ -26,7 +26,7 @@ New Investment
       <h4>
         Milestone <%= investment.project.nearest_milestone_index + 1  %>
       </h4>
-      <h5>$ <%= nice_money(investment.project.nearest_milestone.amount) %></h5>
+      <h5> <%= nice_money(investment.project.nearest_milestone.amount) %></h5>
     </div>
     <div class="home-page-child-box description-text"><%= investment.project.nearest_milestone.task %></div>
     <div class="buttons-flex">

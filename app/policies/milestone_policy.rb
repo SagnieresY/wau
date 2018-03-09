@@ -6,25 +6,32 @@ class MilestonePolicy < ApplicationPolicy
   end
 
   def new?
-    record.foundation == user.foundation
+    user_foundation_check
   end
 
   def create?
-    record.foundation == user.foundation
+    user_foundation_check
   end
 
   def edit?
-    record.investment.foundation == user.foundation
+    user_foundation_check
   end
 
   def update?
-    record.investment.foundation == user.foundation
+    user_foundation_check
   end
 
   def destroy?
-    record.investment.foundation == user.foundation
+    user_foundation_check
   end
 
+  def unlock?
+    user_foundation_check
+  end
 
+  private
 
+  def user_foundation_check
+    record.investment.foundation == user.foundation
+  end
 end
