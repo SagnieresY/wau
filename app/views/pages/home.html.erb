@@ -6,7 +6,7 @@
 <%= link_to new_investment_path, { class: "btn btn-primary" } do %>
 New Investment
 <% end %>
-<% @milestones.each_with_index do |milestone, index| %>
+<% @milestones.sort{|m|m.days_left}.each_with_index do |milestone, index| %>
 <div class="home-page-flex-parent" data-milestone-id="<%= milestone.id %>">
   <div class="home-page-child-row">
     <div class="home-page-child-box purple-border-bottom all-caps-bold">

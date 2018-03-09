@@ -10,6 +10,7 @@ class PagesController < ApplicationController
 
 
       if current_user.foundation
+
         @milestones = current_user.foundation.next_milestones
       else
 

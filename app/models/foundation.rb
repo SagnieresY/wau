@@ -9,7 +9,8 @@ class Foundation < ApplicationRecord
     #filter out the investments w/out milestonesg
     #get their first milestones
     #order these
-    sorted_milestones = investments.map(&:next_milestone)
+    milestones = investments.map(&:next_milestone)
+    milestones.sort_by{|m| m.days_left}.reverse
   end
 
   def total_donations_amount
