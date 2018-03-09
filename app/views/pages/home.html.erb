@@ -7,8 +7,6 @@
 New Investment
 <% end %>
 <% @projects.each_with_index do |project, index| %>
-<% foundation_id = current_user.foundation_id %>
-<% investment = project.investments.where(foundation_id: foundation_id).first %>
 <div class="home-page-flex-parent" data-milestone-id="<%= project.nearest_milestone.id %>">
   <div class="home-page-child-row">
     <div class="home-page-child-box purple-border-bottom all-caps-bold">
@@ -20,15 +18,15 @@ New Investment
   </div>
   <div class="home-page-child-row">
     <div class="home-page-child-box">
-      <div class="home-page-days-left"><%= investment.project.nearest_milestone.days_left %> days</div>
+      <div class="home-page-days-left"><%= project.nearest_milestone.days_left %> days</div>
     </div>
     <div class="home-page-child-box no-margin milestone-description">
       <h4>
-        Milestone <%= investment.project.nearest_milestone_index + 1  %>
+        Milestone <%= project.nearest_milestone_index + 1  %>
       </h4>
-      <h5> <%= nice_money(investment.project.nearest_milestone.amount) %></h5>
+      <h5>$ <%= nice_money(project.nearest_milestone.amount) %></h5>
     </div>
-    <div class="home-page-child-box description-text"><%= investment.project.nearest_milestone.task %></div>
+    <div class="home-page-child-box description-text"><%= project.nearest_milestone.task %></div>
     <div class="buttons-flex">
       <div class="home-page-child-box">
         <div class="card-button unlock-button"><i class="fas fa-check"></i></div>
