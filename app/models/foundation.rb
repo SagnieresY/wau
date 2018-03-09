@@ -26,4 +26,5 @@ class Foundation < ApplicationRecord
   def focus_areas
     focus_areas = projects.map(&:focus_area).uniq
   end
+
 end
