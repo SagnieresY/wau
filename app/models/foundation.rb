@@ -13,7 +13,7 @@ class Foundation < ApplicationRecord
     milestones.sort_by{|m| m.days_left}.reverse
   end
 
-  def total_donations_amount
+  def total_forecasted_amount
     projects.map(&:total_funding).reduce(0,:+)
   end
 
