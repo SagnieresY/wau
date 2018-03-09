@@ -9,40 +9,43 @@
 
 .card-button {
   align-self: flex-start;
-  min-width: 100px;
+  min-width: 60px;
   text-align: center;
   padding-top: 20px;
   padding-bottom: 20px;
-  border-radius: 3px;
+  border-radius: 100%;
   display: inline-block;
 }
 
-.accept-button {
-  border: solid 4px green;
-  color: green;
+.unlock-button {
+    /* border: solid 4px green; */
+    color: green;
+    background: palegreen;
 }
 
-.accept-button:hover {
+.unlock-button:hover {
   color: white;
   background-color: green;
 }
 
 .decline-button {
-  color: red;
-  border: solid 4px red;
+  color: #A31621;
+  /* border: solid 4px red; */
+  background: indianred;
 }
 
 .decline-button:hover {
   color: white;
-  background-color: red;
+  background-color: #A31621;
 }
 
 .edit-button {
-  color: gold;
-  border: solid 4px gold;
+  color: #FFA000;
+  /* border: solid 4px gold; */
+  background: #F9D46D;
 }
 
 .edit-button:hover {
   color: white;
-  background-color: gold;
+  background-color: #FFA000;
 }

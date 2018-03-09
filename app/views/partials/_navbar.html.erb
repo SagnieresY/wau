@@ -12,13 +12,13 @@
 
   <% if user_signed_in?  %>
     <div class="navbar-search-bar">
-     <div class="search">
-        <input type="text" class="searchTerm" placeholder="Search">
-        <button type="submit" class="searchButton">
-          <i class="fa fa-search"></i>
+        <button type="submit" class="searchButton fa-4x">
+          <span class="fa-layers fa-fw">
+          <i class="fas fa-circle" style="color:#BF00ff"></i>
+          <i class="fa-inverse fas fa-search" data-fa-transform="shrink-10"></i>
        </button>
+        <input type="text" class="searchTerm" placeholder="Search">
      </div>
-    </div>
   <% end %>
 
   <!-- Right Navigation -->
