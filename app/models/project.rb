@@ -27,7 +27,7 @@ class Project < ApplicationRecord
   end
 
   def milestones_by_month
-    milestones.group_by{|m| m.deadline.month } #returns hash of months => milestones
+    milestones.group_by{|m| Date::MONTHNAMES[m.deadline.month] } #returns hash of months => milestones
   end
 
 end

@@ -28,6 +28,6 @@ class PagesController < ApplicationController
   end
 
   def no_foundation
-    raise
+
   end
 end
