@@ -1,6 +1,6 @@
 <div class="chart-box">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Composition_of_38th_Parliament.png" class="home-chart" alt="chart">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Composition_of_38th_Parliament.png" class="home-chart" alt="chart">
+  <canvas class="home-chart" alt="chart" id="myChart"></canvas>
+  <canvas class="home-chart" alt="chart" id="lineChart"></canvas>
 </div>
 
 <%= link_to new_investment_path, { class: "btn btn-primary" } do %>
@@ -42,20 +42,113 @@ New Investment
 </div>
 <% end %>
 
+<%= content_for(:after_js) do %>
 <script type="text/javascript">
   let unlockButtons = document.getElementsByClassName('unlock-button');
   for(let index = 0; index < unlockButtons.length; index++) {
     let unlockButton = unlockButtons[index];
     unlockButton.addEventListener("click", function(element){
+      alert("u sure")
       let milestoneId = element.srcElement.closest(".home-page-flex-parent").getAttribute("data-milestone-id");
+
       fetch("<%= unlock_milestone_path %>", {
         method: 'post',
         headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+          'Content-Type': 'application/json',
         },
-        body: `id = ${milestoneId}`
+        credentials: "same-origin",
+        body: JSON.stringify({
+          id: milestoneId
+        })
+      })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        console.info("request finished, here is the data", data);
+        // delete the element
+      })
+      .catch(function(e) {
+        console.info("oops error", e)
+        // something went wrong
       });
-
     });
   };
 
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+    responsive: false,
+
+    <% @projects_by_focus_area = current_user.foundation.projects_by_focus_area.map do |focus_area, projects| %>
+      <% [focus_area,projects.map(&:total_funding).reduce(0,:+)] %>
+    <% end %>
+    <% @projects_by_focus_area = @projects_by_focus_area.to_h %>
+    <% @chart_colors = []%>
+    <% @projects_by_focus_area.count.times do %>
+    <% @chart_colors.push("rgba(#{rand(1..255)}, #{rand(1..255)},#{rand(1..255)},0.6)") %>
+    <% end %>
+    // The data for our dataset
+    data: {
+        labels: <%= raw @projects_by_focus_area.keys %>,
+        datasets: [{
+            label: "My First dataset",
+            backgroundColor: <%= raw @chart_colors  %>,
+            borderColor: 'rgb(255, 99, 132)',
+            data: <%= raw @projects_by_focus_area.values %>,
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+      responsive: false,
+    }
+});
+
+
+
+var ctx2 = document.getElementById('lineChart').getContext('2d');
+var lineChart = new Chart(ctx2, {
+    // The type of chart we want to create
+    type: 'line',
+
+    <% @projects_by_month = current_user.foundation.projects_by_milestones_deadline_month  %>
+    <% @chart_colors = []%>
+    <% @projects_by_focus_area.count.times do %>
+    <% @chart_colors.push("rgba(#{rand(1..255)}, #{rand(1..255)},#{rand(1..255)},0.6)") %>
+    <% end %>
+    // The data for our dataset
+    data: {
+        labels: [
+'January',
+'February',
+'March',
+'April',
+'May',
+'June',
+'July',
+'August',
+'September',
+'October',
+'November',
+'December'
+],
+        datasets: [{
+            label: "My First dataset",
+            backgroundColor: <%= raw @chart_colors  %>,
+            borderColor: 'rgb(255, 99, 132)',
+            data: <%= raw @projects_by_month.values %>,
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+      responsive: false,
+    }
+});
+
 </script>
+<% end %>

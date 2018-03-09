@@ -45,6 +45,7 @@ class Foundation < ApplicationRecord
     output = output.map{ |month, milestones| [month,milestones.map(&:amount)]}.to_h #gets the amounts
     output = output.map{ |month, milestones| milestones = milestones.reduce(0,:+); [month,milestones]}.to_h
     return output
+  end
 
   def total_unlocked_amount
     investments.map(&:unlocked_amount).reduce(0,:+)
