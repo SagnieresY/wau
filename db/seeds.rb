@@ -29,7 +29,7 @@ puts 'generating projects...'
 end
 
 puts 'generating foundations...'
-3.times do
+1.times do
   Foundation.create(name:Faker::Cat.registry, logo:Faker::Cat.breed)
 end
 
