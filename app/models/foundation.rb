@@ -27,4 +27,23 @@ class Foundation < ApplicationRecord
     focus_areas = projects.map(&:focus_area).uniq
   end
 
+  def projects_by_milestones_deadline_month
+    output = {"January"=>[],"February"=>[],"March"=>[],"April"=>[],"May"=>[],"June"=>[],"July"=>[],
+"August"=>[],"September"=>[],"October"=>[],"November"=>[],"December"=>[]}
+    projects.reduce do |_,project|
+      project.milestones_by_month.each do |month,milestones|
+        milestones.each do |milestone|
+          if output[month].nil?
+             output[month] = milestone
+
+          else
+             output[month].push(milestone)
+          end
+        end
+      end
+    end
+    output = output.map{ |month, milestones| [month,milestones.map(&:amount)]}.to_h #gets the amounts
+    output = output.map{ |month, milestones| milestones = milestones.reduce(0,:+); [month,milestones]}.to_h
+    return output
+  end
 end
