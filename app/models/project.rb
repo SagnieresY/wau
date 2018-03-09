@@ -25,4 +25,9 @@ class Project < ApplicationRecord
   def total_funding
     milestones.map(&:amount).reduce(0,:+)
   end
+
+  def milestones_by_month
+    milestones.group_by{|m| m.deadline.month } #returns hash of months => milestones
+  end
+
 end

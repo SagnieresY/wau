@@ -1,29 +1,73 @@
 <h1>Request a foundation </h1>
 <div class="container">
   <canvas id="myChart"></canvas>
+  <canvas id="lineChart"></canvas>
 </div>
-<% content_for :after_js do %>
-<script>
+<% content_for :after_js do %><script>
 var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
     // The type of chart we want to create
     type: 'bar',
-    <% @projects_names = current_user.foundation.projects.map(&:name) %>
-    <% @projects_funding = current_user.foundation.projects.map(&:total_funding)%>
+
+    <% @projects_by_focus_area = current_user.foundation.projects_by_focus_area.map do |focus_area, projects| %>
+      <% [focus_area,projects.map(&:total_funding).reduce(0,:+)] %>
+    <% end %>
+    <% @projects_by_focus_area = @projects_by_focus_area.to_h %>
     <% @chart_colors = []%>
-    <% projects_names.count.times do %>
-    <% @chart_colors.push("") %>
+    <% @projects_by_focus_area.count.times do %>
+    <% @chart_colors.push("rgba(#{rand(1..255)}, #{rand(1..255)},#{rand(1..255)},0.6)") %>
+    <% end %>
     // The data for our dataset
     data: {
-        labels: <%= raw @projects_names %>,
+        labels: <%= raw @projects_by_focus_area.keys %>,
         datasets: [{
             label: "My First dataset",
-            backgroundColor: 'rgb(255, 99, 132)',
+            backgroundColor: <%= raw @chart_colors  %>,
             borderColor: 'rgb(255, 99, 132)',
-            data: <%= raw @projects_funding %>,
+            data: <%= raw @projects_by_focus_area.values %>,
         }]
     },
-    backgroundColor: <%= raw @projects_names.count.times do;  %>,
+
+    // Configuration options go here
+    options: {}
+});
+
+
+
+var ctx2 = document.getElementById('lineChart').getContext('2d');
+var lineChart = new Chart(ctx2, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    <% @projects_by_month = current_user.foundation. %>
+    <% @chart_colors = [] %>
+    <% @projects_by_focus_area.count.times do %>
+    <% @chart_colors.push("rgba(#{rand(1..255)}, #{rand(1..255)},#{rand(1..255)},0.6)") %>
+    <% end %>
+    // The data for our dataset
+    data: {
+        labels: [
+'January',
+'February',
+'March',
+'April',
+'May',
+'June',
+'July',
+'August',
+'September',
+'October',
+'November',
+'December'
+],
+        datasets: [{
+            label: "My First dataset",
+            backgroundColor: <%= raw @chart_colors  %>,
+            borderColor: 'rgb(255, 99, 132)',
+            data: <%= raw @projects_by_focus_area.values %>,
+        }]
+    },
+
     // Configuration options go here
     options: {}
 });

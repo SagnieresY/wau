@@ -10,7 +10,6 @@ class PagesController < ApplicationController
 
 
       if current_user.foundation
-
         @projects = current_user.foundation.projects_by_nearest_milestone
       else
 
@@ -29,6 +28,6 @@ class PagesController < ApplicationController
   end
 
   def no_foundation
-
+    raise
   end
 end

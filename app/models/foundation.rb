@@ -19,6 +19,14 @@ class Foundation < ApplicationRecord
     projects.map(&:total_funding).reduce(0,:+)
   end
 
+  def projects_by_focus_area
+    projects.group_by{ |project| project.focus_area  }
+  end
+
+  def focus_areas
+    focus_areas = projects.map(&:focus_area).uniq
+  end
+  
   def total_unlocked_amount
     investments.map(&:unlocked_amount).reduce(0,:+)
   end
