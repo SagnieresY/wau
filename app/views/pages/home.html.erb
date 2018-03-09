@@ -10,7 +10,7 @@
 <% @projects.each_with_index do |project, index| %>
 <div class="home-page-flex-parent">
    <div class="home-page-child-row">
-      <div class="home-page-child-box purple-border-bottom all-caps">
+      <div class="home-page-child-box purple-border-bottom all-caps-bold">
          <p><%= project.ngo %> <%=project.nearest_milestone.id  %> </p>
       </div>
       <div class="home-page-child-box purple-border-bottom">
@@ -27,7 +27,7 @@
          <h5>$ <%= project.nearest_milestone.amount %></h5>
       </div>
       <div class="home-page-child-box description-text"><%= project.nearest_milestone.task %></div>
-      <div class="buttons-home-page">
+      <div class="buttons-flex">
          <div class="home-page-child-box">
             <div class="card-button accept-button"><i class="fas fa-check"></i></div>
          </div>

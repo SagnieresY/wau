@@ -1,2 +1,40 @@
-<h1>Investments#index</h1>
-<p>Find me in app/views/investments/index.html.erb</p>
+<div class="purple-info-parent-flex">
+  <div class="purple-info-child-box"> YTD Investments <br> <%= current_user.foundation.investments.count %> Investments  </div>
+  <div class="purple-info-child-box">Yearly Forecasted Investments <br> <%= nice_money(current_user.foundation.total_forecasted_amount) %> </div>
+  <div class="purple-info-child-box">YTD Unlocked <br> <%= nice_money(current_user.foundation.total_unlocked_amount) %> </div>
+</div>
+
+<br>
+<br>
+
+  <% current_user.foundation.investments.each do |investment| %>
+    <div class="invest-index-parent-card">
+      <div class="invest-index-child-row">
+        <div class="invest-index-child-box border-bottom all-caps-bold"><%= investment.project.ngo.capitalize %></div>
+        <div class="invest-index-child-box border-bottom"><%= investment.project.name %></div>
+      </div>
+      <div class="invest-index-child-row">
+        <div class="invest-index-child-box top-padding">
+          <div class="days-left-invest-index"><p>Next Milestone <br><%= investment.project.nearest_milestone.days_left %> days</p></div>
+        </div>
+        <div class="invest-index-child-box no-margin milestone-description">
+          <h4> Forecasted <br> <%= nice_money(investment.forecasted_amount) %></h4>
+        </div>
+        <div class="invest-index-child-box description-text"><%= investment.project.description %></div>
+        <div class="buttons-flex">
+          <div class="invest-index-child-box">
+            <%= link_to  new_investment_path, { class: "card-button accept-button" } do %>
+            <i class="fas fa-check"></i>
+            <% end %>
+            <!-- <div class="card-button accept-button"><i class="fas fa-check"></i></div> -->
+          </div>
+          <div class="invest-index-child-box">
+            <div class="card-button decline-button"><i class="fas fa-times"></i></div>
+          </div>
+          <div class="invest-index-child-box">
+            <div class="card-button edit-button"><i class="fas fa-pencil-alt"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
