@@ -33,8 +33,11 @@ class MilestonesController < ApplicationController
   end
 
   def unlock
-    @milestone.unlock = true
-    @milestone.save
+    authorize @milestone
+    @milestone.unlocked = true
+    @milestone.save!
+
+    render json: @milestone
   end
 
   private
@@ -48,6 +51,6 @@ class MilestonesController < ApplicationController
   end
 
   def selected_milestone
-    @milestone = Milestone.find(id)
+    @milestone = Milestone.find(params[:id])
   end
 end

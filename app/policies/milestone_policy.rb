@@ -24,4 +24,7 @@ class MilestonePolicy < ApplicationPolicy
   def destroy?
     record.investment.foundation == user.foundation
   end
+
+
+
 end
