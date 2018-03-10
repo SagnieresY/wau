@@ -48,7 +48,6 @@ New Investment
   for(let index = 0; index < unlockButtons.length; index++) {
     let unlockButton = unlockButtons[index];
     unlockButton.addEventListener("click", function(element){
-      alert("u sure")
       let milestoneId = element.srcElement.closest(".home-page-flex-parent").getAttribute("data-milestone-id");
 
       fetch("<%= unlock_milestone_path %>", {

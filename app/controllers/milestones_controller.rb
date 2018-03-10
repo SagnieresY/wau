@@ -43,7 +43,7 @@ class MilestonesController < ApplicationController
   private
 
   def milestone_params
-    params.require(:milestone).permit(:task,:amount,:deadline)
+    params.require(:milestone).permit(:task,:amount,:deadline, :id)
   end
 
   def investment
