@@ -1,6 +1,6 @@
 class MilestonesController < ApplicationController
 
-  before_action :selected_milestone, only: [:edit, :update, :destroy, :unlock ]
+  before_action :selected_milestone, only: [:edit, :update, :destroy, :unlock, :decline ]
 
   def new
     @milestone = Milestone.new
@@ -41,6 +41,15 @@ class MilestonesController < ApplicationController
 
     render json: @milestone
   end
+
+  def decline
+    authorize @milestone
+    @milestone.accessible = false
+    @milestone.save!
+
+    render json: @milestone
+  end
+
 
   private
 

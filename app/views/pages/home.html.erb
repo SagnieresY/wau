@@ -1,3 +1,9 @@
+<div class="purple-info-parent-flex">
+  <div class="purple-info-child-box"> YTD Investments <br> <%= current_user.foundation.investments.count %> Investments  </div>
+  <div class="purple-info-child-box">Yearly Forecasted Investments <br> <%= nice_money(current_user.foundation.total_forecasted_amount) %> </div>
+  <div class="purple-info-child-box">YTD Unlocked <br> <%= nice_money(current_user.foundation.total_unlocked_amount) %> </div>
+</div>
+
 <div class="chart-box">
   <canvas class="home-chart" alt="chart" id="myChart"></canvas>
   <canvas class="home-chart" alt="chart" id="lineChart"></canvas>
@@ -24,7 +30,7 @@
   </thead>
   <tbody>
 <% @milestones.sort{|m|m.days_left}.each_with_index do |milestone, index| %>
-    <tr class="white-background">
+    <tr class="white-background" data-link="<%= edit_investment_milestone_path(milestone.investment, milestone) %>">
       <td><%= milestone.investment.project.ngo %></td>
       <td><%= milestone.investment.project.name %></td>
       <td><%= milestone.days_left %> days</td>
@@ -84,6 +90,37 @@
       let milestoneId = element.srcElement.closest(".home-page-flex-parent").getAttribute("data-milestone-id");
 
       fetch("<%= unlock_milestone_path %>", {
+        method: 'post',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+          'Content-Type': 'application/json',
+        },
+        credentials: "same-origin",
+        body: JSON.stringify({
+          id: milestoneId
+        })
+      })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        element.srcElement.closest(".home-page-flex-parent").remove();
+      })
+      .catch(function(e) {
+        console.info("oops error", e)
+        // something went wrong
+      });
+    });
+  };
+
+  let declineButtons = document.getElementsByClassName('decline-button');
+  for(let index = 0; index < declineButtons.length; index++) {
+    let declineButton = declineButtons[index];
+    declineButton.addEventListener("click", function(element){
+      let milestoneId = element.srcElement.closest(".home-page-flex-parent").getAttribute("data-milestone-id");
+
+      fetch("<%= decline_milestone_path %>", {
         method: 'post',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
@@ -273,5 +310,6 @@ var lineChart = new Chart(ctx2, {
         }
     }
 });
+
 </script>
 <% end %>
