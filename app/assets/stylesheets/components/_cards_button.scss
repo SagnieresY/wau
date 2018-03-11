@@ -8,19 +8,17 @@
 }
 
 .card-button {
-  align-self: flex-start;
-  min-width: 60px;
-  text-align: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  border-radius: 100%;
-  display: inline-block;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .unlock-button {
-    /* border: solid 4px green; */
+    border: solid 4px green;
     color: green;
-    background: palegreen;
 }
 
 .unlock-button:hover {
@@ -30,8 +28,7 @@
 
 .decline-button {
   color: #A31621;
-  /* border: solid 4px red; */
-  background: indianred;
+  border: solid 4px #A31621;
 }
 
 .decline-button:hover {
@@ -40,14 +37,13 @@
 }
 
 .edit-button {
-  color: #FFA000;
-  /* border: solid 4px gold; */
-  background: #F9D46D;
+  color: gold;
+  border: solid 4px gold;
 }
 
 .edit-button:hover {
   color: white;
-  background-color: #FFA000;
+  background-color: gold;
 }
 
 

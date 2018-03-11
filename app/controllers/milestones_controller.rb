@@ -18,6 +18,8 @@ class MilestonesController < ApplicationController
 
   def edit
     authorize @milestone
+    @investment = investment
+    authorize investment
   end
 
   def update
