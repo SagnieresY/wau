@@ -6,13 +6,30 @@
 
 .purple-info-child-box {
   display: flex;
-  align-items: center;
   justify-content: center;
-  width: 250px;
-  height: 65px;
-  background-color: $purple;
+  flex-direction: column;
+  width: 25vw;
+  height: 80px;
+  background-color: white;
   margin: 0px 5px;
   border-radius: 3px;
   text-align: center;
-  color: white;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.102751);
+}
+
+.container-home-info-box{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 82vw;
+}
+
+.big-number-green {
+  color: $green;
+  font-size: 32px;
+}
+
+.small-text-gray{
+  font-size: 10px;
+
 }
