@@ -178,11 +178,13 @@ var lineChart = new Chart(ctx2, {
     // The type of chart we want to create
     type: 'line',
 
-    <% @projects_by_month = current_user.foundation.projects_by_milestones_deadline_month  %>
+    <% @investments_by_month_locked_cummulative = current_user.foundation.cummulative_locked_amount_investment_by_milestones_deadline_month  %>
+    <% @investments_by_month_unlocked_cummulative = current_user.foundation.cummulative_unlocked_amount_investment_by_milestones_deadline_month  %>
     <% @chart_colors = []%>
     <% @projects_by_focus_area.count.times do %>
     <% @chart_colors.push("rgba(#{rand(1..255)}, #{rand(1..255)},#{rand(1..255)},0.6)") %>
     <% end %>
+
     // The data for our dataset
     data: {
         labels: [
@@ -200,18 +202,45 @@ var lineChart = new Chart(ctx2, {
 'December'
 ],
         datasets: [{
-            label: "My First dataset",
-            backgroundColor: <%= raw @chart_colors  %>,
-            borderColor: 'rgb(255, 99, 132)',
-            data: <%= raw @projects_by_month.values %>,
+          label: "Unlocked",
+            backgroundColor: 'rgb(145, 126, 216)',
+            borderColor: 'rgb(154, 102, 235)',
+            data: <%= raw @investments_by_month_unlocked_cummulative.values %>,
+        }, {
+            label: "Locked",
+            backgroundColor: 'rgb(185, 102, 185)',
+            borderColor: 'rgb(157, 102, 255)',
+            data: <%= raw @investments_by_month_locked_cummulative.values %>,
         }]
+
+    //   datasets: [{
+    //   label: "Unlocked",
+    //   fill: true,
+    //   backgroundColor: colors.purple.fill,
+    //   pointBackgroundColor: colors.purple.stroke,
+    //   borderColor: colors.purple.stroke,
+    //   pointHighlightStroke: colors.purple.stroke,
+    //   borderCapStyle: 'butt',
+    //   data: unv.
+
+    // }, {
+    //   label: "Locked",
+    //   fill: true,
+    //   backgroundColor: colors.green.fill,
+    //   pointBackgroundColor: colors.lightBlue.stroke,
+    //   borderColor: colors.lightBlue.stroke,
+    //   pointHighlightStroke: colors.lightBlue.stroke,
+    //   borderCapStyle: 'butt',
+    //   data: available,
+    // }]
+
     },
 
     // Configuration options go here
     options: {
       responsive: false,
        legend: {
-            display: false
+            display: true
          },
          tooltips: {
             enabled: false
@@ -223,6 +252,7 @@ var lineChart = new Chart(ctx2, {
                     }
                 }],
         yAxes: [{
+                    stacked: true,
                     gridLines: {
                         color: "rgba(0, 0, 0, 0)",
                     },

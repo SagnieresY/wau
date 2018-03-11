@@ -42,6 +42,67 @@ class Foundation < ApplicationRecord
     return output
   end
 
+  def unlocked_amount_investment_by_milestones_deadline_month
+    output = {"January"=>[],"February"=>[],"March"=>[],"April"=>[],"May"=>[],"June"=>[],"July"=>[],
+"August"=>[],"September"=>[],"October"=>[],"November"=>[],"December"=>[]}
+    projects.reduce do |_,project|
+      project.milestones_by_month_unlocked.each do |month,milestones|
+        milestones.each do |milestone|
+          if output[month].nil?
+             output[month] = milestone
+
+          else
+             output[month].push(milestone)
+          end
+        end
+      end
+    end
+    output = output.map{ |month, milestones| [month,milestones.map(&:amount)]}.to_h #gets the amounts
+    output = output.map{ |month, milestones| milestones = milestones.reduce(0,:+); [month,milestones]}.to_h
+    return output
+  end
+
+  def locked_amount_investment_by_milestones_deadline_month
+    output = {"January"=>[],"February"=>[],"March"=>[],"April"=>[],"May"=>[],"June"=>[],"July"=>[],
+"August"=>[],"September"=>[],"October"=>[],"November"=>[],"December"=>[]}
+    projects.reduce do |_,project|
+      project.milestones_by_month_locked.each do |month,milestones|
+        milestones.each do |milestone|
+          if output[month].nil?
+             output[month] = milestone
+
+          else
+             output[month].push(milestone)
+          end
+        end
+      end
+    end
+    output = output.map{ |month, milestones| [month,milestones.map(&:amount)]}.to_h #gets the amounts
+    output = output.map{ |month, milestones| milestones = milestones.reduce(0,:+); [month,milestones]}.to_h
+    return output
+  end
+
+  def cummulative_locked_amount_investment_by_milestones_deadline_month
+    sum = 0
+    updated_hash = self.locked_amount_investment_by_milestones_deadline_month
+    updated_hash.each do |k, v|
+      sum += updated_hash[k]
+      updated_hash[k] = sum
+    end
+    updated_hash
+  end
+
+  def cummulative_unlocked_amount_investment_by_milestones_deadline_month
+    sum = 0
+    updated_hash = self.unlocked_amount_investment_by_milestones_deadline_month
+    updated_hash.each do |k, v|
+      sum += updated_hash[k]
+      updated_hash[k] = sum
+    end
+    updated_hash
+  end
+
+
   def total_unlocked_amount
     investments.map(&:unlocked_amount).reduce(0,:+)
   end

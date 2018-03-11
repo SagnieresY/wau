@@ -15,7 +15,7 @@ New Milestone
 <% @investment.milestones_by_nearest_deadline.each_with_index do |milestone,index|  %>
 <div class="invest-page-parent-card">
   <div class="invest-page-child-row">
-    <div class="child-box border-bottom"><%= index + 1 %>rd Milestone</div>
+    <div class="child-box border-bottom"><%= index + 1 %> Milestone</div>
   </div>
   <div class="invest-page-child-row">
     <div class="invest-page-child-box">
@@ -33,7 +33,9 @@ New Milestone
         <div class="card-button decline-button"><i class="fas fa-times"></i></div>
       </div>
       <div class="home-page-child-box">
-        <div class="card-button edit-button"><i class="fas fa-pencil-alt"></i></div>
+        <%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "card-button edit-button" } do %>
+        <i class="fas fa-pencil-alt"></i>
+      <% end %>
       </div>
     </div>
   </div>
