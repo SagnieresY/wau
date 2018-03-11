@@ -3,9 +3,40 @@
   <canvas class="home-chart" alt="chart" id="lineChart"></canvas>
 </div>
 
-<%= link_to new_investment_path, { class: "btn btn-primary" } do %>
-New Investment
-<% end %>
+<div class="title-button-container">
+  <div class="home-title-container">
+    <h3>Upcoming Investment Milestones</h3>
+  </div>
+  <%= link_to new_investment_path, { class: "round-purple-new-btn" } do %>
+  <i class="fas fa-plus"></i>
+  <% end %>
+</div>
+
+<div class="table-container">
+<table class="table table-hover margin-center">
+  <thead>
+    <tr class="white-background">
+      <th scope="col">NGO</th>
+      <th scope="col">Project Name</th>
+      <th scope="col">New Milestone</th>
+      <th scope="col">Milestone Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+<% @milestones.sort{|m|m.days_left}.each_with_index do |milestone, index| %>
+    <tr class="white-background">
+      <td><%= milestone.investment.project.ngo %></td>
+      <td><%= milestone.investment.project.name %></td>
+      <td><%= milestone.days_left %> days</td>
+      <td><%= nice_money(milestone.amount) %></td>
+    </tr>
+      <% end %>
+  </tbody>
+</table>
+</div>
+
+
+
 <% @milestones.sort{|m|m.days_left}.each_with_index do |milestone, index| %>
 <div class="home-page-flex-parent" data-milestone-id="<%= milestone.id %>">
   <div class="home-page-child-row">
@@ -24,7 +55,7 @@ New Investment
       <h4>
         Milestone <%= milestone.investment_index + 1  %>
       </h4>
-      <h5>$ <%= nice_money(milestone.amount) %></h5>
+      <h5><%= nice_money(milestone.amount) %></h5>
     </div>
     <div class="home-page-child-box description-text"><%= milestone.task %></div>
     <div class="buttons-flex">
@@ -104,6 +135,37 @@ var chart = new Chart(ctx, {
     // Configuration options go here
     options: {
       responsive: false,
+       legend: {
+            display: false
+         },
+         tooltips: {
+            enabled: false
+         },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        color: "rgba(0, 0, 0, 0)",
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        color: "rgba(0, 0, 0, 0)",
+                    },
+                    ticks: {
+                            // Return an empty string to draw the tick line but hide the tick label
+                            // Return `null` or `undefined` to hide the tick line entirely
+                            userCallback: function(value, index, values) {
+                                // Convert the number to a string and splite the string every 3 charaters from the end
+                                value = value.toString();
+                                value = value.split(/(?=(?:...)*$)/);
+
+                                // Convert the array to a string and format the output
+                                value = value.join(',');
+                                return '$' + value;
+                                }
+                            }
+                }]
+        }
     }
 });
 
@@ -146,6 +208,37 @@ var lineChart = new Chart(ctx2, {
     // Configuration options go here
     options: {
       responsive: false,
+       legend: {
+            display: false
+         },
+         tooltips: {
+            enabled: false
+         },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        color: "rgba(0, 0, 0, 0)",
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        color: "rgba(0, 0, 0, 0)",
+                    },
+                    ticks: {
+                            // Return an empty string to draw the tick line but hide the tick label
+                            // Return `null` or `undefined` to hide the tick line entirely
+                            userCallback: function(value, index, values) {
+                                // Convert the number to a string and splite the string every 3 charaters from the end
+                                value = value.toString();
+                                value = value.split(/(?=(?:...)*$)/);
+
+                                // Convert the array to a string and format the output
+                                value = value.join(',');
+                                return '$' + value;
+                                }
+                            }
+                        }]
+        }
     }
 });
 </script>

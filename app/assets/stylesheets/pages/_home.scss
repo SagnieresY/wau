@@ -9,11 +9,51 @@
 }
 
 .home-chart {
-  width: 50%;
-  height: 50%;
-  padding: 0px 50px;
-  margin: 10px 0px;
+  width: 40vw;
+  /* height: 50%; */
+  padding: 10px 0px;
+  background: white;
+  margin: 10px;
+  border-radius: 4px;
+
 }
+
+.title-button-container {
+  display: flex;
+}
+
+.round-purple-new-btn {
+  margin-left: auto;
+  margin-bottom: 10px;
+  /* margin-top: 4px; */
+  margin-right: 40px;
+  border-radius: 100%;
+  background-color: $purple;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.24), 0px 0px 8px rgba(0, 0, 0, 0.12), inset 0px 1px 0px rgba(255, 255, 255, 0.12);
+
+  .fa-plus {
+    color: white;
+    font-size: 25px;
+  }
+}
+
+.home-title-container{
+  width: 50vw;
+  border-bottom: 1px solid $purple;
+  padding-bottom: 3px;
+  margin-bottom: 15px;
+  h3 {
+    margin: 0;
+    // position: relative;
+    // top: 39%;
+  }
+}
+
 
 .home-page-flex-parent {
   font-family: Raleway;
@@ -26,8 +66,8 @@
 }
 
 .home-page-flex-parent:hover {
-  border-left: 3px solid #bf00ff;
-  border-right: 3px solid #bf00ff;
+  border-left: 3px solid $purple;
+  border-right: 3px solid $purple;
   padding: 10px 10px;
 }
 
@@ -44,7 +84,7 @@
 }
 
 .purple-border-bottom {
-  border-bottom: 2px solid #bf00ff;
+  border-bottom: 2px solid $purple;
 }
 
 .all-caps-bold {
@@ -60,10 +100,10 @@
 
 .home-page-days-left {
   align-self: flex-start;
-  border: 2px solid #bf00ff;
+  border: 2px solid $purple;
   border-radius: 3px;
   text-align: center;
-  color: #bf00ff;
+  color: $purple;
   min-width: 70px;
   margin: 9px 0px;
   padding: 15px 10px;
@@ -87,3 +127,32 @@
     color: pink;
   }
 }
+
+.table-container{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 20px;
+}
+
+.white-background{
+  background: white;
+}
+
+table tr:first-child th:first-child {
+    border-top-left-radius: 10px;
+}
+
+table tr:first-child th:last-child {
+    border-top-right-radius: 10px;
+}
+
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+

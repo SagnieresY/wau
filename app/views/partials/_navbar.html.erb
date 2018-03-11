@@ -14,7 +14,7 @@
     <div class="navbar-search-bar">
         <button type="submit" class="searchButton fa-4x">
           <span class="fa-layers fa-fw">
-          <i class="fas fa-circle" style="color:#BF00ff"></i>
+          <i class="fas fa-circle" style="color: #BF00FF"></i>
           <i class="fa-inverse fas fa-search" data-fa-transform="shrink-10"></i>
        </button>
         <input type="text" class="searchTerm" placeholder="Search">
@@ -25,20 +25,17 @@
   <div class="navbar-wau-right hidden-xs hidden-sm">
     <% if user_signed_in?  %>
       <%= link_to investments_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-        My Investments
+        Investments
       <% end %>
       <%= link_to dashboard_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-        My Dashboard
+        Dashboard
       <% end %>
 
       <!-- Avatar with dropdown menu -->
       <div class="navbar-wau-item">
         <div class="dropdown">
-          <img src="https://kitt.lewagon.com/placeholder/users/ssaunier" class="avatar dropdown-toggle" id="navbar-wau-menu" data-toggle="dropdown">
-
+          <i class="fas fa-cog fa-lg dropdown-toggle" id="navbar-wau-menu" data-toggle="dropdown"></i>
           <ul class="dropdown-menu dropdown-menu-right navbar-wau-dropdown-menu">
-            <%= link_to 'My Profile', root_path, class: "navbar-wau-item navbar-wau-link" %>
-            <br>
             <%= link_to 'New Investment',  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>
             <br>
             <%= link_to 'Sign Out', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
@@ -63,11 +60,11 @@
           <%= link_to 'Homepage', root_path, class: "navbar-wau-item navbar-wau-link" %>
           <br>
           <%= link_to investments_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-            My Investments
+            Investments
           <% end %>
           <br>
           <%= link_to dashboard_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-            My Dashboard
+            Dashboard
           <% end %>
           <br>
           <%= link_to 'New Investment',  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>

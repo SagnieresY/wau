@@ -1,18 +1,17 @@
 .navbar-wau {
-  font-family: Raleway;
   background: white;
   height: 70px;
   padding: 0px 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid $purple;
 }
 
 .navbar-search-bar {
   display: flex;
   background-color: transparent;
   width: 300px;
-  border-bottom: 1px solid #BF00FF;
 }
 
 .searchTerm {
@@ -44,7 +43,7 @@
   text-decoration: none;
   color: black;
   &:hover {
-    color: #BF00FF;
+    color: $purple;
   }
 }
 

@@ -10,8 +10,8 @@ font-family: Raleway;
 
 
 .invest-index-parent-card:hover {
-  border-left: 3px solid #bf00ff;
-  border-right: 3px solid #bf00ff;
+  border-left: 3px solid $purple;
+  border-right: 3px solid $purple;
   padding: 10px 10px;
 }
 
@@ -28,7 +28,7 @@ font-family: Raleway;
 }
 
 .border-bottom {
-  border-bottom: 2px solid #bf00ff;
+  border-bottom: 2px solid $purple;
 }
 
 .no-margin{
@@ -39,10 +39,10 @@ font-family: Raleway;
 
 .days-left-invest-index {
   align-self: flex-start;
-  border: 2px solid #bf00ff;
+  border: 2px solid $purple;
   border-radius: 3px;
   text-align: center;
-  color: #bf00ff;
+  color: $purple;
   min-width: 150px;
   padding-top: 9px;
   margin: 9px 0px;
