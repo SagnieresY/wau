@@ -1,0 +1,5 @@
+<h1><%= @investments.count %></h1>
+<% @investments.each do |investment| %>
+  <h3>Project:<%=investment.project.name%></h3>
+  <h3><%= link_to 'More details', investment_path(investment) %></h3>
+<% end %>
