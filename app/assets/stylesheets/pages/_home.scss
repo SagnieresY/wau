@@ -3,7 +3,6 @@
 }
 
 .container-home-info-box{
-
 }
 
 .chart-box {
@@ -21,6 +20,29 @@
   border-radius: 4px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.102751);
 }
+
+// UPCOMING MILESTONE TITLE BOX
+.mid-title-box{
+  margin: 20px;
+}
+
+.mid-title-flex {
+  display: flex;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.102751);
+}
+
+.title-mid-home-page-text{
+  right-margin: auto;
+}
+
+.putting-purple-button-left{
+  left-margin: auto;
+}
+
+
+
 
 .title-button-container {
   display: flex;
@@ -58,7 +80,7 @@
   }
 }
 
-
+// HOME PAGE CARD CSS
 .home-page-flex-parent {
   font-family: Raleway;
   max-width: 1250px;
@@ -144,19 +166,53 @@
 }
 
 table tr:first-child th:first-child {
-    border-top-left-radius: 10px;
+    border-top-left-radius: 4px;
 }
 
 table tr:first-child th:last-child {
-    border-top-right-radius: 10px;
+    border-top-right-radius: 4px;
 }
 
 table tr:last-child td:first-child {
-    border-bottom-left-radius: 10px;
+    border-bottom-left-radius: 4px;
 }
 
 table tr:last-child td:last-child {
-    border-bottom-right-radius: 10px;
+    border-bottom-right-radius: 4 px;
 }
 
+// table buttons css
+
+.dropshadow-around {
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.102751);
+  border-radius: 10px;
+}
+
+
+.unlock-button-table {
+  color: green;
+}
+
+.unlock-button-table:hover {
+  color: white;
+  background-color: green;
+}
+
+.decline-button-table {
+  color: #A31621;
+}
+
+.decline-button-table:hover {
+  color: white;
+  background-color: #A31621;
+}
+
+.edit-button-table {
+  color: gold;
+}
+
+.edit-button-table:hover {
+  color: white;
+  background-color: gold;
+}
 
