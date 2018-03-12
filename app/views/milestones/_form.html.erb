@@ -1,6 +1,6 @@
 
-<div class="devise-container">
-  <h2>Milestone</h2>
+<div class="devise-container container white-dropshadow-card">
+  <h2>New Milestone</h2>
   <%= simple_form_for([@investment,@milestone]) do |f| %>
  <% if @milestone.errors.any? %>
     <div class="error-container">
@@ -15,6 +15,7 @@
   <%= f.input :deadline, as: :date %>
   <%= f.input :task %>
   <%= f.submit 'Save', class: "btn btn-success"%>
+
 <% end %>
 
 </div>

@@ -65,7 +65,7 @@ class InvestmentsController < ApplicationController
   end
 
   def selected_investment
-    investment.find(id)
+    @investment= Investment.find(params[:id])
   end
 
   def investment_params
