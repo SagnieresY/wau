@@ -1,37 +1,58 @@
-<div class="purple-info-parent-flex">
-  <div class="purple-info-child-box"> YTD Investments <br> <%= @investments.count %> On going investments  </div>
-  <div class="purple-info-child-box">Yearly Forecasted Investments <br> <%= nice_money(current_user.foundation.total_forecasted_amount) %> </div>
-  <div class="purple-info-child-box">YTD Unlocked <br> <%= nice_money(current_user.foundation.total_unlocked_amount) %> </div>
-</div>
-
 <br>
-<br>
-
-<% @investments.each do |investment| %>
-  <div class="invest-index-parent-card">
-    <div class="invest-index-child-row">
-      <div class="invest-index-child-box border-bottom all-caps-bold"><%= investment.project.ngo.capitalize %></div>
-      <div class="invest-index-child-box border-bottom"><%= investment.project.name %></div>
+<div class="white-info-parent-flex">
+  <div class="container-home-info-box">
+    <div class="white-info-child-box">
+      <div class="big-number-green"> <%= current_user.foundation.investments.count %></div>
+      <div class="small-text-gray"> YTD Investments  </div>
     </div>
-    <div class="invest-index-child-row">
-      <div class="invest-index-child-box top-padding">
-        <div class="days-left-invest-index"><p>Next Milestone <br><%= investment.project.nearest_milestone.days_left %> days</p></div>
-      </div>
-      <div class="invest-index-child-box no-margin milestone-description">
-        <h4> Forecasted <br> <%= nice_money(investment.forecasted_amount) %></h4>
-      </div>
-      <div class="invest-index-child-box description-text"><%= investment.project.description %></div>
-      <div class="buttons-flex">
-        <div class="home-page-child-box">
-          <div class="card-button unlock-button"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="home-page-child-box">
-          <div class="card-button decline-button"><i class="fas fa-times"></i></div>
-        </div>
-        <div class="home-page-child-box">
-          <div class="card-button edit-button"><i class="fas fa-pencil-alt"></i></div>
-        </div>
-      </div>
+    <div class="white-info-child-box">
+      <div class="big-number-green"> <%= nice_money(current_user.foundation.total_forecasted_amount) %></div>
+      <div class="small-text-gray"> FY Forecasted </div>
+    </div>
+    <div class="white-info-child-box">
+      <div class="big-number-green"><%= nice_money(current_user.foundation.total_unlocked_amount) %></div>
+      <div class="small-text-gray"> YTD Unlocked  </div>
     </div>
   </div>
-<% end %>
+</div>
+
+<div class="mid-title-box">
+  <div class="mid-title-flex">
+    <div class="title-mid-home-page-text">
+      <h3>Your Investments</h3>
+    </div>
+    <div class="putting-purple-button-left">
+    <%= link_to new_investment_path, { class: "round-purple-new-btn" } do %>
+    <i class="fas fa-plus"></i>
+    <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="table-container">
+<table class="table table-hover margin-center dropshadow-around">
+  <thead>
+    <tr class="white-background header-row-milestone">
+      <th scope="col" width="20%"><div class="tablesorter-header-inner">NGO<i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
+      <th scope="col" width="35%"><div class="tablesorter-header-inner">Project Name<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+      <th scope="col" width="15%"><div class="tablesorter-header-inner">Next Milestone<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
+      <th scope="col" width="15%"><div class="tablesorter-header-inner">Full Investment Amount<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+      <th scope="col" colspan="3" width="15%"></th>
+    </tr>
+  </thead>
+  <tbody>
+<% @investments.each do |investment| %>
+    <tr class="white-background table-row-investment" data-investment-id="<%= investment.id %>">
+      <td><%= investment.project.ngo.capitalize %></td>
+      <td><%= investment.project.name %></td>
+      <td><%= investment.project.nearest_milestone.days_left %> days</td>
+      <td><%= nice_money(investment.forecasted_amount) %></td>
+      <td><div class="unlock-button-table button-appear-hover"><i class="fas fa-check"></i></div></td>
+      <td><div class="decline-button-table button-appear-hover"><i class="fas fa-times"></i></div></td>
+      <td><%= link_to edit_investment_path(investment), { class: "edit-button-table button-appear-hover" } do %>
+            <i class="fas fa-pencil-alt"></i><% end %></td>
+    </tr>
+      <% end %>
+  </tbody>
+</table>
+</div>
