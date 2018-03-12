@@ -15,12 +15,11 @@ class Investment < ApplicationRecord
 
   def unlocked_amount
     unlocked_milestones_amount = milestones.map {|m| m.unlocked ? m.amount : 0} #maps unlocked milestones
-
     unlocked_milestones_amount.reduce(0, :+) #sums unlocked milestones and returns it
   end
 
   def locked_amount
-    forcasted_amount - unlocked_amount
+    forecasted_amount - unlocked_amount
   end
 
   def milestones_by_nearest_deadline
