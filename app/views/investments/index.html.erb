@@ -35,3 +35,31 @@
     </div>
   </div>
 <% end %>
+
+<div class="table-container">
+<table class="table table-hover margin-center dropshadow-around" id="myTable">
+  <thead>
+    <tr class="white-background header-row-milestone">
+      <th scope="col" width="20%"><div class="tablesorter-header-inner">NGO<i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
+      <th scope="col" width="35%"><div class="tablesorter-header-inner">Project Name<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+      <th scope="col" width="15%"><div class="tablesorter-header-inner">Next Milestone<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
+      <th scope="col" width="15%"><div class="tablesorter-header-inner">Full Investment Amount<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+      <th scope="col" colspan="3" width="15%"></th>
+    </tr>
+  </thead>
+  <tbody>
+<% @investments.each do |investment| %>
+    <tr class="white-background table-row-milestone" data-investment-id="<%= investment.id %>">
+      <td><%= investment.project.ngo.capitalize %></td>
+      <td><%= investment.project.name %></td>
+      <td><%= investment.project.nearest_milestone.days_left %> days</td>
+      <td><%= nice_money(investment.forecasted_amount) %></td>
+      <td><div class="unlock-button-table button-appear-hover"><i class="fas fa-check"></i></div></td>
+      <td><div class="decline-button-table button-appear-hover"><i class="fas fa-times"></i></div></td>
+      <td><%= link_to edit_investment_path(investment), { class: "edit-button-table button-appear-hover" } do %>
+            <i class="fas fa-pencil-alt"></i><% end %></td>
+    </tr>
+      <% end %>
+  </tbody>
+</table>
+</div>

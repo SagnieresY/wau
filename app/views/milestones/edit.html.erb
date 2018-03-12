@@ -1,4 +1,23 @@
-<h1>Milestones#edit</h1>
-<p>Find me in app/views/milestones/edit.html.erb</p>
+<div class="devise-container container white-dropshadow-card">
+  <h2>Milestone</h2>
+  <p>Project Name: <%= @milestone.investment.project.name %></p>
+  <p>NGO Name: <%= @milestone.investment.project.ngo %></p>
+  <p>Status unlocked: <%= @milestone.unlocked? %></p>
+  <p>Status accessible: <%= @milestone.accessible? %></p>
+  <%= simple_form_for([@investment,@milestone]) do |f| %>
+ <% if @milestone.errors.any? %>
+    <div class="error-container">
+      <ul>
+        <% @milestone.errors.full_message each do |message|  %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.input :amount, as: 'integer' %>
+  <%= f.input :deadline, as: :date %>
+  <%= f.input :task %>
+  <%= f.submit 'Save!', class: "btn btn-primary"%>
+<% end %>
 
-<%= render 'form' %>
+</div>

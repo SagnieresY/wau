@@ -33,8 +33,9 @@
   </div>
 </div>
 
+
 <div class="table-container">
-<table class="table table-hover margin-center dropshadow-around">
+<table class="table table-hover margin-center dropshadow-around" id="myTable">
   <thead>
     <tr class="white-background header-row-milestone">
       <th scope="col" width="20%"><div class="tablesorter-header-inner">NGO<i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
@@ -64,8 +65,7 @@
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
 
-  t = $("table");
-  t.tablesorter();
+  $("table").tablesorter();
 
   // JS for the TABLE
   let unlockButtonsTable = document.getElementsByClassName('unlock-button-table');
