@@ -4,6 +4,13 @@
   justify-content: center;
 }
 
+.container-home-info-box{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 97vw;
+}
+
 .white-info-child-box {
   display: flex;
   justify-content: center;
@@ -17,12 +24,6 @@
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.102751);
 }
 
-.container-home-info-box{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 97vw;
-}
 
 .big-number-green {
   color: $green;
