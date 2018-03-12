@@ -19,12 +19,16 @@ class InvestmentsController < ApplicationController
   end
 
   def create
-    new_investment = Investment.new(investment_params)
-    new_investment.foundation = current_user.foundation
-    authorize new_investment
-    new_investment.milestones << Milestone.create!(task:'first milestone for investment',deadline:Date.today,investment:new_investment,amount:0)
-    new_investment.save!
-    redirect_to investment_path(new_investment)
+    @investment = Investment.new(investment_params)
+    @investment.foundation = current_user.foundation
+    authorize @investment
+    @investment.milestones << Milestone.create!(task:'first milestone for investment', deadline: Date.today, investment: @investment, amount: 0)
+
+    if @investment.save
+      redirect_to investment_path(@investment)
+    else
+      render :new
+    end
   end
 
   def edit
