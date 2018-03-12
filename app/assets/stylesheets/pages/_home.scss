@@ -42,8 +42,6 @@
 }
 
 
-
-
 .title-button-container {
   display: flex;
 }
@@ -217,6 +215,17 @@ table tr:last-child td:last-child {
   background-color: gold;
 }
 
+.tablesorter-header-inner{
+  display: flex;
+  justify-content: center;
+}
+
+tr.header-row-milestone {
+  .margin-left-auto {
+    margin-left: auto;
+    line-height: unset;
+  }
+}
 
 tr.table-row-milestone {
   .button-appear-hover {
