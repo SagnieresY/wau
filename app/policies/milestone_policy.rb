@@ -29,6 +29,10 @@ class MilestonePolicy < ApplicationPolicy
     user_foundation_check
   end
 
+  def decline?
+    user_foundation_check
+  end
+
   private
 
   def user_foundation_check

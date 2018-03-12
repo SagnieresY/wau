@@ -1,4 +1,4 @@
-<div class="navbar-wau">
+<div class="navbar-wau" id="navbar">
 
   <%= link_to root_path, class: "navbar-wau-logo" do %>
     <%=cl_image_tag("Unicorn-Logo", height: 50) %>
@@ -11,34 +11,30 @@
     <% end %>
 
   <% if user_signed_in?  %>
-    <div class="navbar-search-bar">
+  <!-- HIDE SEARCH BAR FOR NOW -->
+    <!-- <div class="navbar-search-bar">
         <button type="submit" class="searchButton fa-4x">
-          <span class="fa-layers fa-fw">
-          <i class="fas fa-circle" style="color:#BF00ff"></i>
-          <i class="fa-inverse fas fa-search" data-fa-transform="shrink-10"></i>
+          <i class="fas fa-search" style="color: #BF00FF"></i>
        </button>
         <input type="text" class="searchTerm" placeholder="Search">
-     </div>
+     </div> -->
   <% end %>
 
   <!-- Right Navigation -->
   <div class="navbar-wau-right hidden-xs hidden-sm">
     <% if user_signed_in?  %>
       <%= link_to investments_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-        My Investments
+        Investments
       <% end %>
       <%= link_to dashboard_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-        My Dashboard
+        Dashboard
       <% end %>
 
       <!-- Avatar with dropdown menu -->
       <div class="navbar-wau-item">
         <div class="dropdown">
-          <img src="https://kitt.lewagon.com/placeholder/users/ssaunier" class="avatar dropdown-toggle" id="navbar-wau-menu" data-toggle="dropdown">
-
+          <i class="fas fa-cog fa-lg dropdown-toggle" id="navbar-wau-menu" data-toggle="dropdown"></i>
           <ul class="dropdown-menu dropdown-menu-right navbar-wau-dropdown-menu">
-            <%= link_to 'My Profile', root_path, class: "navbar-wau-item navbar-wau-link" %>
-            <br>
             <%= link_to 'New Investment',  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>
             <br>
             <%= link_to 'Sign Out', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
@@ -63,11 +59,11 @@
           <%= link_to 'Homepage', root_path, class: "navbar-wau-item navbar-wau-link" %>
           <br>
           <%= link_to investments_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-            My Investments
+            Investments
           <% end %>
           <br>
           <%= link_to dashboard_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-            My Dashboard
+            Dashboard
           <% end %>
           <br>
           <%= link_to 'New Investment',  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>
@@ -78,3 +74,36 @@
     </div>
   </div>
 </div>
+
+<%= content_for(:after_js) do %>
+<!-- <script type="text/javascript">
+// When the user scrolls the page, execute myFunction
+window.onscroll = function() {myFunction()};
+
+// Get the navbar
+var navbar = document.getElementById("navbar");
+
+// Get the offset position of the navbar
+var sticky = navbar.offsetTop;
+
+// Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+</script> -->
+
+<script type="text/javascript">
+  $('#myAffix').affix({
+  offset: {
+    top: 100,
+    bottom: function () {
+      return (this.bottom = $('.footer').outerHeight(true))
+    }
+  }
+})
+</script>
+<% end %>

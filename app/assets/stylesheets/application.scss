@@ -6,6 +6,8 @@
 // External libraries
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 // Your CSS partials
 @import "layouts/index";
@@ -13,5 +15,5 @@
 @import "pages/index";
 
 body {
-  background-color: $background-color;
+  background: $background-color;
 }

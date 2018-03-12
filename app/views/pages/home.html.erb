@@ -1,54 +1,77 @@
+<div class="purple-info-parent-flex">
+  <div class="container-home-info-box">
+    <div class="purple-info-child-box">
+      <div class="big-number-green"> <%= current_user.foundation.investments.count %></div>
+      <div class="small-text-gray"> YTD Investments  </div>
+    </div>
+    <div class="purple-info-child-box">
+      <div class="big-number-green"> <%= nice_money(current_user.foundation.total_forecasted_amount) %></div>
+      <div class="small-text-gray"> FY Forecasted </div>
+    </div>
+    <div class="purple-info-child-box">
+      <div class="big-number-green"><%= nice_money(current_user.foundation.total_unlocked_amount) %></div>
+      <div class="small-text-gray"> YTD Unlocked  </div>
+    </div>
+  </div>
+</div>
+
 <div class="chart-box">
   <canvas class="home-chart" alt="chart" id="myChart"></canvas>
   <canvas class="home-chart" alt="chart" id="lineChart"></canvas>
 </div>
 
-<%= link_to new_investment_path, { class: "btn btn-primary" } do %>
-New Investment
-<% end %>
-<% @milestones.sort{|m|m.days_left}.each_with_index do |milestone, index| %>
-<div class="home-page-flex-parent" data-milestone-id="<%= milestone.id %>">
-  <div class="home-page-child-row">
-    <div class="home-page-child-box purple-border-bottom all-caps-bold">
-      <p><%= milestone.investment.project.ngo %></p>
+<div class="mid-title-box">
+  <div class="mid-title-flex">
+    <div class="title-mid-home-page-text">
+      <h3>Upcoming Investment Milestones</h3>
     </div>
-    <div class="home-page-child-box purple-border-bottom">
-      <p><%= milestone.investment.project.name %></p>
-    </div>
-  </div>
-  <div class="home-page-child-row">
-    <div class="home-page-child-box">
-      <div class="home-page-days-left"><%= milestone.days_left %> days</div>
-    </div>
-    <div class="home-page-child-box no-margin milestone-description">
-      <h4>
-        Milestone <%= milestone.investment_index + 1  %>
-      </h4>
-      <h5>$ <%= nice_money(milestone.amount) %></h5>
-    </div>
-    <div class="home-page-child-box description-text"><%= milestone.task %></div>
-    <div class="buttons-flex">
-      <div class="home-page-child-box">
-        <div class="card-button unlock-button"><i class="fas fa-check"></i></div>
-      </div>
-      <div class="home-page-child-box">
-        <div class="card-button decline-button"><i class="fas fa-times"></i></div>
-      </div>
-      <div class="home-page-child-box">
-        <div class="card-button edit-button"><i class="fas fa-pencil-alt"></i></div>
-      </div>
+    <div class="putting-purple-button-left">
+    <%= link_to new_investment_path, { class: "round-purple-new-btn" } do %>
+    <i class="fas fa-plus"></i>
+    <% end %>
     </div>
   </div>
 </div>
-<% end %>
+
+<div class="table-container">
+<table class="table table-hover margin-center dropshadow-around">
+  <thead>
+    <tr class="white-background">
+      <th scope="col">NGO</th>
+      <th scope="col">Project Name</th>
+      <th scope="col">New Milestone</th>
+      <th scope="col">Milestone Amount</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+<% @milestones.sort{|m|m.days_left}.each_with_index do |milestone, index| %>
+    <tr class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>">
+      <td><%= milestone.investment.project.ngo %></td>
+      <td><%= milestone.investment.project.name %></td>
+      <td><%= milestone.days_left %> days</td>
+      <td><%= nice_money(milestone.amount) %></td>
+      <td><div class="unlock-button-table"><i class="fas fa-check"></i></div></td>
+      <td><div class="decline-button-table"><i class="fas fa-times"></i></div></td>
+      <td><%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "edit-button-table" } do %>
+            <i class="fas fa-pencil-alt"></i><% end %></td>
+    </tr>
+      <% end %>
+  </tbody>
+</table>
+</div>
 
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
-  let unlockButtons = document.getElementsByClassName('unlock-button');
-  for(let index = 0; index < unlockButtons.length; index++) {
-    let unlockButton = unlockButtons[index];
+
+  // JS for the TABLE
+  let unlockButtonsTable = document.getElementsByClassName('unlock-button-table');
+  for(let index = 0; index < unlockButtonsTable.length; index++) {
+    let unlockButton = unlockButtonsTable[index];
     unlockButton.addEventListener("click", function(element){
-      let milestoneId = element.srcElement.closest(".home-page-flex-parent").getAttribute("data-milestone-id");
+      let milestoneId = element.srcElement.closest(".table-row-milestone").getAttribute("data-milestone-id");
 
       fetch("<%= unlock_milestone_path %>", {
         method: 'post',
@@ -66,8 +89,7 @@ New Investment
         return response.json();
       })
       .then(function(data) {
-        console.info("request finished, here is the data", data);
-        // delete the element
+        element.srcElement.closest(".table-row-milestone").remove();
       })
       .catch(function(e) {
         console.info("oops error", e)
@@ -75,6 +97,8 @@ New Investment
       });
     });
   };
+
+
 
 var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
@@ -104,6 +128,37 @@ var chart = new Chart(ctx, {
     // Configuration options go here
     options: {
       responsive: false,
+       legend: {
+            display: false
+         },
+         tooltips: {
+            enabled: false
+         },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        color: "rgba(0, 0, 0, 0)",
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        color: "rgba(0, 0, 0, 0)",
+                    },
+                    ticks: {
+                            // Return an empty string to draw the tick line but hide the tick label
+                            // Return `null` or `undefined` to hide the tick line entirely
+                            userCallback: function(value, index, values) {
+                                // Convert the number to a string and splite the string every 3 charaters from the end
+                                value = value.toString();
+                                value = value.split(/(?=(?:...)*$)/);
+
+                                // Convert the array to a string and format the output
+                                value = value.join(',');
+                                return '$' + value;
+                                }
+                            }
+                }]
+        }
     }
 });
 
@@ -114,11 +169,13 @@ var lineChart = new Chart(ctx2, {
     // The type of chart we want to create
     type: 'line',
 
-    <% @projects_by_month = current_user.foundation.projects_by_milestones_deadline_month  %>
+    <% @investments_by_month_locked_cummulative = current_user.foundation.cummulative_locked_amount_investment_by_milestones_deadline_month  %>
+    <% @investments_by_month_unlocked_cummulative = current_user.foundation.cummulative_unlocked_amount_investment_by_milestones_deadline_month  %>
     <% @chart_colors = []%>
     <% @projects_by_focus_area.count.times do %>
     <% @chart_colors.push("rgba(#{rand(1..255)}, #{rand(1..255)},#{rand(1..255)},0.6)") %>
     <% end %>
+
     // The data for our dataset
     data: {
         labels: [
@@ -136,17 +193,77 @@ var lineChart = new Chart(ctx2, {
 'December'
 ],
         datasets: [{
-            label: "My First dataset",
-            backgroundColor: <%= raw @chart_colors  %>,
-            borderColor: 'rgb(255, 99, 132)',
-            data: <%= raw @projects_by_month.values %>,
+          label: "Unlocked",
+            backgroundColor: 'rgb(145, 126, 216)',
+            borderColor: 'rgb(154, 102, 235)',
+            data: <%= raw @investments_by_month_unlocked_cummulative.values %>,
+        }, {
+            label: "Locked",
+            backgroundColor: 'rgb(185, 102, 185)',
+            borderColor: 'rgb(157, 102, 255)',
+            data: <%= raw @investments_by_month_locked_cummulative.values %>,
         }]
+
+    //   datasets: [{
+    //   label: "Unlocked",
+    //   fill: true,
+    //   backgroundColor: colors.purple.fill,
+    //   pointBackgroundColor: colors.purple.stroke,
+    //   borderColor: colors.purple.stroke,
+    //   pointHighlightStroke: colors.purple.stroke,
+    //   borderCapStyle: 'butt',
+    //   data: unv.
+
+    // }, {
+    //   label: "Locked",
+    //   fill: true,
+    //   backgroundColor: colors.green.fill,
+    //   pointBackgroundColor: colors.lightBlue.stroke,
+    //   borderColor: colors.lightBlue.stroke,
+    //   pointHighlightStroke: colors.lightBlue.stroke,
+    //   borderCapStyle: 'butt',
+    //   data: available,
+    // }]
+
     },
 
     // Configuration options go here
     options: {
       responsive: false,
+       legend: {
+            display: true
+         },
+         tooltips: {
+            enabled: false
+         },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        color: "rgba(0, 0, 0, 0)",
+                    }
+                }],
+        yAxes: [{
+                    stacked: true,
+                    gridLines: {
+                        color: "rgba(0, 0, 0, 0)",
+                    },
+                    ticks: {
+                            // Return an empty string to draw the tick line but hide the tick label
+                            // Return `null` or `undefined` to hide the tick line entirely
+                            userCallback: function(value, index, values) {
+                                // Convert the number to a string and splite the string every 3 charaters from the end
+                                value = value.toString();
+                                value = value.split(/(?=(?:...)*$)/);
+
+                                // Convert the array to a string and format the output
+                                value = value.join(',');
+                                return '$' + value;
+                                }
+                            }
+                        }]
+        }
     }
 });
+
 </script>
 <% end %>

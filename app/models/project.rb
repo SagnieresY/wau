@@ -30,4 +30,24 @@ class Project < ApplicationRecord
     milestones.group_by{|m| Date::MONTHNAMES[m.deadline.month] } #returns hash of months => milestones
   end
 
+  def milestones_by_month_unlocked
+    milestones_unlocked = []
+    milestones.each do |milestone|
+      if milestone.unlocked == true
+        milestones_unlocked << milestone
+      end
+    end
+    milestones_unlocked.group_by{|m| Date::MONTHNAMES[m.deadline.month] } #returns hash of months => milestones
+  end
+
+ def milestones_by_month_locked
+    milestones_locked = []
+    milestones.each do |milestone|
+      if milestone.unlocked == false
+        milestones_locked << milestone
+      end
+    end
+    milestones_locked.group_by{|m| Date::MONTHNAMES[m.deadline.month] } #returns hash of months => milestones
+  end
+
 end
