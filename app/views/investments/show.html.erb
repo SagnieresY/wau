@@ -1,19 +1,21 @@
 
 
 <div class="white-info-parent-flex">
-  <div class="container-home-info-box">
-    <p class="big-number-green"><%= @investment.project.name %> </p>
-    <div class="white-info-child-box">
-      <div class="big-number-green" > <%= @investment.project.ngo %></div>
-      <div class="small-text-gray">   </div>
+  <div class="container-invest-show-info-box">
+    <div class="invest-show-white-info-name">
+      <div class="flex-name-center"><%= @investment.project.name %> </div>
     </div>
-    <div class="white-info-child-box">
-      <div class="big-number-green"> <%= nice_money(@investment.forecasted_amount) %></div>
-      <div class="small-text-gray"> FY Forecasted </div>
+    <div class="invest-show-white-info-child-box">
+      <div class="invest-show-number-green" > <%= @investment.project.ngo %></div>
+      <div class="invest-show-small-text-gray">   </div>
     </div>
-    <div class="white-info-child-box">
-      <div class="big-number-green"><%= nice_money(@investment.unlocked_amount) %></div>
-      <div class="small-text-gray"> YTD Unlocked  </div>
+    <div class="invest-show-white-info-child-box">
+      <div class="invest-show-number-green"> <%= nice_money(@investment.forecasted_amount) %></div>
+      <div class="invest-show-small-text-gray"> FY Forecasted </div>
+    </div>
+    <div class="invest-show-white-info-child-box">
+      <div class="invest-show-number-green"><%= nice_money(@investment.unlocked_amount) %></div>
+      <div class="invest-show-small-text-gray"> YTD Unlocked  </div>
     </div>
   </div>
 </div>
@@ -21,11 +23,11 @@
 
 <div class="mid-title-box">
   <div class="mid-title-flex">
-    <div class="title-mid-home-page-text">
-      <h3>Investment Milestones</h3>
+    <div class="title-mid-invest-show-page-text">
+      Investment Milestones
     </div>
-    <div class="putting-purple-button-left">
-    <%= link_to new_investment_milestone_path(@investment.id), { class: "btn btn-primary" } do %>
+    <div class="button-right">
+    <%= link_to new_investment_milestone_path(@investment.id), { class: "btn btn-success" } do %>
     New Milestone
     <% end %>
     </div>

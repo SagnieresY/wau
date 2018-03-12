@@ -1,4 +1,3 @@
-<br>
 <div class="white-info-parent-flex">
   <div class="container-home-info-box">
     <div class="white-info-child-box">
@@ -24,10 +23,10 @@
 <div class="mid-title-box">
   <div class="mid-title-flex">
     <div class="title-mid-home-page-text">
-      <h3>Upcoming Investment Milestones</h3>
+      Upcoming Milestones
     </div>
-    <div class="putting-purple-button-left">
-    <%= link_to new_investment_path, { class: "round-purple-new-btn" } do %>
+    <div class="button-right">
+    <%= link_to new_investment_path, { class: "btn btn-success" } do %>
     <i class="fas fa-plus"></i>
     <% end %>
     </div>
@@ -47,7 +46,7 @@
     </tr>
   </thead>
   <tbody>
-<% @milestones.sort{|m|m.days_left}.each_with_index do |milestone, index| %>
+  <% @milestones.sort{|m|m.days_left}.each_with_index do |milestone, index| %>
     <tr class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>">
       <td><%= milestone.investment.project.ngo %></td>
       <td><%= milestone.investment.project.name %></td>
@@ -58,7 +57,7 @@
       <td><%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "edit-button-table button-appear-hover" } do %>
             <i class="fas fa-pencil-alt"></i><% end %></td>
     </tr>
-      <% end %>
+  <% end %>
   </tbody>
 </table>
 </div>

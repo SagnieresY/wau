@@ -33,30 +33,36 @@ table tr:last-child td:last-child {
 
 
 .unlock-button-table {
-  color: green;
+  color: $green;
+  text-align: center;
 }
 
 .unlock-button-table:hover {
   color: white;
-  background-color: green;
+  background-color: $green;
+  border-radius: 4px;
 }
 
 .decline-button-table {
-  color: #A31621;
+  color: $red;
+  text-align: center;
 }
 
 .decline-button-table:hover {
   color: white;
-  background-color: #A31621;
+  background-color: $red;
+  border-radius: 4px;
 }
 
 .edit-button-table {
   color: gold;
+  text-align: center;
 }
 
 .edit-button-table:hover {
   color: white;
   background-color: gold;
+  border-radius: 4px;
 }
 
 .tablesorter-header-inner{
@@ -72,6 +78,17 @@ tr.header-row-milestone {
 }
 
 tr.table-row-milestone {
+  .button-appear-hover {
+    display: none;
+  }
+  &:hover {
+    .button-appear-hover {
+      display: block;
+    }
+  }
+}
+
+tr.table-row-investment {
   .button-appear-hover {
     display: none;
   }
