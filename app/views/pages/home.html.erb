@@ -63,48 +63,6 @@
 </table>
 </div>
 
-
-
-<% @milestones.sort{|m|m.days_left}.each_with_index do |milestone, index| %>
-  <% #if milestone.not_unlocked? %>
-    <div class="home-page-flex-parent" data-milestone-id="<%= milestone.id %>">
-      <div class="home-page-child-row">
-        <div class="home-page-child-box purple-border-bottom all-caps-bold">
-          <p><%= milestone.investment.project.ngo %></p>
-        </div>
-        <div class="home-page-child-box purple-border-bottom">
-          <p><%= milestone.investment.project.name %></p>
-        </div>
-      </div>
-      <div class="home-page-child-row">
-        <div class="home-page-child-box">
-          <div class="home-page-days-left"><%= milestone.days_left %> days</div>
-        </div>
-        <div class="home-page-child-box no-margin milestone-description">
-          <h4>
-            Milestone <%= milestone.investment_index + 1  %>
-          </h4>
-          <h5><%= nice_money(milestone.amount) %></h5>
-        </div>
-        <div class="home-page-child-box description-text"><%= milestone.task %></div>
-        <div class="buttons-flex">
-          <div class="home-page-child-box">
-            <div class="card-button unlock-button"><i class="fas fa-check"></i></div>
-          </div>
-          <div class="home-page-child-box">
-            <div class="card-button decline-button"><i class="fas fa-times"></i></div>
-          </div>
-          <div class="home-page-child-box">
-            <%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "card-button edit-button" } do %>
-            <i class="fas fa-pencil-alt"></i>
-          <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% #end %>
-<% end %>
-
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
 
