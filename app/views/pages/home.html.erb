@@ -46,7 +46,7 @@
     </tr>
   </thead>
   <tbody>
-<% @milestones.sort{|m|m.days_left}.each_with_index do |milestone, index| %>
+  <% @milestones.sort{|m|m.days_left}.each_with_index do |milestone, index| %>
     <tr class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>">
       <td><%= milestone.investment.project.ngo %></td>
       <td><%= milestone.investment.project.name %></td>
@@ -57,7 +57,7 @@
       <td><%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "edit-button-table button-appear-hover" } do %>
             <i class="fas fa-pencil-alt"></i><% end %></td>
     </tr>
-      <% end %>
+  <% end %>
   </tbody>
 </table>
 </div>
