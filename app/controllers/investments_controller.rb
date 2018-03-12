@@ -20,6 +20,7 @@ class InvestmentsController < ApplicationController
     new_investment = Investment.new(investment_params)
     new_investment.foundation = current_user.foundation
     authorize new_investment
+    new_investment.milestones << Milestone.create!(task:'first milestone for investment',deadline:Date.today,investment:new_investment,amount:0)
     new_investment.save!
     redirect_to investment_path(new_investment)
   end
