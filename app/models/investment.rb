@@ -31,4 +31,13 @@ class Investment < ApplicationRecord
     milestones_by_nearest_deadline.select{|m| !m.unlocked && m.accessible }.first
   end
 
+  def last_milestone
+    milestones_by_nearest_deadline.last
+  end
+
+  def completed?
+
+    update!(completed:true) if milestones.reject{ |m|  m.unlocked || !m.accessible}.blank?
+
+  end
 end

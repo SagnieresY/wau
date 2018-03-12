@@ -39,6 +39,8 @@ class MilestonesController < ApplicationController
     @milestone.unlocked = true
     @milestone.save!
 
+    @milestone.investment.completed? #check if investment is completed
+
     render json: @milestone
   end
 
