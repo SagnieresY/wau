@@ -21,4 +21,5 @@ class Milestone < ApplicationRecord
   def investment_index
     investment.milestones.index(self)
   end
+
 end

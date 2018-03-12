@@ -36,14 +36,12 @@
 <div class="table-container">
 <table class="table table-hover margin-center dropshadow-around">
   <thead>
-    <tr class="white-background">
-      <th scope="col">NGO</th>
-      <th scope="col">Project Name</th>
-      <th scope="col">New Milestone</th>
-      <th scope="col">Milestone Amount</th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-      <th scope="col"></th>
+    <tr class="white-background header-row-milestone">
+      <th scope="col" width="20%"><div class="tablesorter-header-inner">NGO<i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
+      <th scope="col" width="40%"><div class="tablesorter-header-inner">Project Name<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+      <th scope="col" width="15%"><div class="tablesorter-header-inner">New Milestone<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
+      <th scope="col" width="15%"><div class="tablesorter-header-inner">Milestone Amount<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+      <th scope="col" colspan="3" width="10%"></th>
     </tr>
   </thead>
   <tbody>
@@ -53,9 +51,9 @@
       <td><%= milestone.investment.project.name %></td>
       <td><%= milestone.days_left %> days</td>
       <td><%= nice_money(milestone.amount) %></td>
-      <td><div class="unlock-button-table"><i class="fas fa-check"></i></div></td>
-      <td><div class="decline-button-table"><i class="fas fa-times"></i></div></td>
-      <td><%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "edit-button-table" } do %>
+      <td><div class="unlock-button-table button-appear-hover"><i class="fas fa-check"></i></div></td>
+      <td><div class="decline-button-table button-appear-hover"><i class="fas fa-times"></i></div></td>
+      <td><%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "edit-button-table button-appear-hover" } do %>
             <i class="fas fa-pencil-alt"></i><% end %></td>
     </tr>
       <% end %>
@@ -65,6 +63,9 @@
 
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
+
+  t = $("table");
+  t.tablesorter();
 
   // JS for the TABLE
   let unlockButtonsTable = document.getElementsByClassName('unlock-button-table');
@@ -89,7 +90,40 @@
         return response.json();
       })
       .then(function(data) {
+        // if unlock didn't work -- don't delete it + show user message.
         element.target.closest(".table-row-milestone").remove();
+      })
+      .catch(function(e) {
+        console.info("oops error", e)
+        // something went wrong
+      });
+    });
+  };
+
+  let declineButtonsTable = document.getElementsByClassName('decline-button-table');
+  for(let index = 0; index < declineButtonsTable.length; index++) {
+    let declineButton = declineButtonsTable[index];
+    declineButton.addEventListener("click", function(element){
+      let milestoneId = element.target.closest(".table-row-milestone").getAttribute("data-milestone-id");
+
+      fetch("<%= decline_milestone_path %>", {
+        method: 'post',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+          'Content-Type': 'application/json',
+        },
+        credentials: "same-origin",
+        body: JSON.stringify({
+          id: milestoneId
+        })
+      })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        element.target.closest(".table-row-milestone").remove();
+        // delete the element
       })
       .catch(function(e) {
         console.info("oops error", e)
@@ -203,28 +237,6 @@ var lineChart = new Chart(ctx2, {
             borderColor: 'rgb(157, 102, 255)',
             data: <%= raw @investments_by_month_locked_cummulative.values %>,
         }]
-
-    //   datasets: [{
-    //   label: "Unlocked",
-    //   fill: true,
-    //   backgroundColor: colors.purple.fill,
-    //   pointBackgroundColor: colors.purple.stroke,
-    //   borderColor: colors.purple.stroke,
-    //   pointHighlightStroke: colors.purple.stroke,
-    //   borderCapStyle: 'butt',
-    //   data: unv.
-
-    // }, {
-    //   label: "Locked",
-    //   fill: true,
-    //   backgroundColor: colors.green.fill,
-    //   pointBackgroundColor: colors.lightBlue.stroke,
-    //   borderColor: colors.lightBlue.stroke,
-    //   pointHighlightStroke: colors.lightBlue.stroke,
-    //   borderCapStyle: 'butt',
-    //   data: available,
-    // }]
-
     },
 
     // Configuration options go here
