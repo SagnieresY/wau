@@ -11,12 +11,12 @@
   align-items: center;
   flex: 6;
   height: 80px;
-  background: white;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.102751);
-  border-radius: 4px;
+  // background: white;
+  // box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.102751);
+  // border-radius: 4px;
   font-size: 30px;
-  color: $green;
   padding: 4px;
+  color: $green;
 }
 
 .invest-show-white-info-child-box {
@@ -36,6 +36,18 @@
   color: $green;
 }
 
-.invest-show-small-text-gray{
+.invest-show-small-text-gray {
   font-size: 10px;
 }
+
+.title-mid-invest-show-page-text {
+  font-size: 18px;
+  margin-right: auto;
+  padding-left: 5px;
+}
+
+.button-right {
+  margin-left: auto;
+}
+
+
