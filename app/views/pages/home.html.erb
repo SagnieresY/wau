@@ -71,7 +71,7 @@
   for(let index = 0; index < unlockButtonsTable.length; index++) {
     let unlockButton = unlockButtonsTable[index];
     unlockButton.addEventListener("click", function(element){
-      let milestoneId = element.srcElement.closest(".table-row-milestone").getAttribute("data-milestone-id");
+      let milestoneId = element.target.closest(".table-row-milestone").getAttribute("data-milestone-id");
 
       fetch("<%= unlock_milestone_path %>", {
         method: 'post',
@@ -89,7 +89,7 @@
         return response.json();
       })
       .then(function(data) {
-        element.srcElement.closest(".table-row-milestone").remove();
+        element.target.closest(".table-row-milestone").remove();
       })
       .catch(function(e) {
         console.info("oops error", e)
