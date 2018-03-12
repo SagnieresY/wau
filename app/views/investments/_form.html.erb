@@ -1,5 +1,5 @@
 <div class="devise-container">
-  <h2>investment</h2>
+  <h2>Investment</h2>
   <%= simple_form_for([@investment]) do |f| %>
  <% if @investment.errors.any? %>
     <div class="error-container">
@@ -11,7 +11,7 @@
     </div>
   <% end %>
   <%= f.association :project %>
-  <%= f.submit 'Ready!', class: "btn btn-create"%>
+  <%= f.submit 'Ready!', class: "btn btn-success"%>
 <% end %>
-
+<br>
 </div>

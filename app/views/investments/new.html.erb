@@ -1,6 +1,20 @@
-<%= render 'form' %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+      <!-- Insert form here -->
+      <div class="form-login">
+        <%= render 'form' %>
+        <div class="bottom-section-investment-form">
+         <p>If you can't find your project you can:</p>
+         <%= link_to  new_project_path, { class: "btn btn-primary" } do %>
+         Create a new project!
+         <% end %>
+       </div>
+     </div>
+   </div>
+ </div>
+</div>
 
-<p>If you can't find your project you can:</p>
-<%= link_to  new_project_path, { class: "btn btn-primary" } do %>
-            Create a new project!
-          <% end %>
+
+
+
