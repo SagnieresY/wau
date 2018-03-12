@@ -28,7 +28,7 @@ class Investment < ApplicationRecord
   end
 
   def next_milestone
-    milestones_by_nearest_deadline.first
+    milestones_by_nearest_deadline.select{|m| !m.unlocked && m.accessible }.first
   end
 
 end

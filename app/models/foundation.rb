@@ -10,7 +10,7 @@ class Foundation < ApplicationRecord
     #get their first milestones
     #order these
     milestones = investments.map(&:next_milestone)
-    milestones.sort_by{|m| m.days_left}.reverse
+    return milestones.compact.sort_by{|m| m.days_left}.reverse #compact gets rid of nil values
   end
 
   def total_forecasted_amount
