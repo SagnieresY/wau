@@ -15,7 +15,7 @@
     </div>
     <div class="invest-index-child-row">
       <div class="invest-index-child-box top-padding">
-        <div class="days-left-invest-index"><p>Next Milestone <br><%= investment.project.nearest_milestone.days_left %> days</p></div>
+        <div class="days-left-invest-index"><p>Next Milestone <br><%= investment.project.nearest_milestone.days_left unless investment.project.nearest_milestone.nil? %> days</p></div>
       </div>
       <div class="invest-index-child-box no-margin milestone-description">
         <h4> Forecasted <br> <%= nice_money(investment.forecasted_amount) %></h4>
