@@ -1,10 +1,36 @@
-<% @investment.milestones.each do |m| %>
-<%= m.amount %>
-<% end %>
 
-<%= link_to  new_investment_milestone_path(@investment.id), { class: "btn btn-primary" } do %>
-New Milestone
-<% end %>
+
+<div class="white-info-parent-flex">
+  <div class="container-home-info-box">
+    <p class="big-number-green"><%= @investment.project.name %> </p>
+    <div class="white-info-child-box">
+      <div class="big-number-green" > <%= @investment.project.ngo %></div>
+      <div class="small-text-gray">   </div>
+    </div>
+    <div class="white-info-child-box">
+      <div class="big-number-green"> <%= nice_money(@investment.forecasted_amount) %></div>
+      <div class="small-text-gray"> FY Forecasted </div>
+    </div>
+    <div class="white-info-child-box">
+      <div class="big-number-green"><%= nice_money(@investment.unlocked_amount) %></div>
+      <div class="small-text-gray"> YTD Unlocked  </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="mid-title-box">
+  <div class="mid-title-flex">
+    <div class="title-mid-home-page-text">
+      <h3>Investment Milestones</h3>
+    </div>
+    <div class="putting-purple-button-left">
+    <%= link_to new_investment_milestone_path(@investment.id), { class: "btn btn-primary" } do %>
+    New Milestone
+    <% end %>
+    </div>
+  </div>
+</div>
 
 <div class="invest-page-parent-flex">
   <div class="purple-child-box"></div>
@@ -12,32 +38,30 @@ New Milestone
   <div class="purple-child-box"></div>
 </div>
 
+<div class="table-container">
+<table class="table table-hover margin-center dropshadow-around">
+  <thead>
+    <tr class="white-background header-row-milestone">
+      <th scope="col" width="20%"><div class="tablesorter-header-inner">NGO<i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
+      <th scope="col" width="35%"><div class="tablesorter-header-inner">Project Name<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+      <th scope="col" width="15%"><div class="tablesorter-header-inner">Next Milestone<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
+      <th scope="col" width="15%"><div class="tablesorter-header-inner">Full Investment Amount<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+      <th scope="col" colspan="3" width="15%"></th>
+    </tr>
+  </thead>
+  <tbody>
 <% @investment.milestones_by_nearest_deadline.each_with_index do |milestone,index|  %>
-<div class="invest-page-parent-card">
-  <div class="invest-page-child-row">
-    <div class="child-box border-bottom"><%= index + 1 %> Milestone</div>
-  </div>
-  <div class="invest-page-child-row">
-    <div class="invest-page-child-box">
-      <div class="days-left"><%= milestone.days_left %> days</div>
-    </div>
-    <div class="invest-page-child-box no-margin milestone-description">
-      <h4> $<%=milestone.amount%> </h4>
-    </div>
-    <div class="invest-page-child-box description-text"><%= milestone.task %></div>
-    <div class="buttons-flex">
-      <div class="home-page-child-box">
-        <div class="card-button unlock-button"><i class="fas fa-check"></i></div>
-      </div>
-      <div class="home-page-child-box">
-        <div class="card-button decline-button"><i class="fas fa-times"></i></div>
-      </div>
-      <div class="home-page-child-box">
-        <%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "card-button edit-button" } do %>
-        <i class="fas fa-pencil-alt"></i>
+    <tr class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>">
+      <td>Milestone <%= index + 1 %> </td>
+      <td><%= milestone.days_left %> days</td>
+      <td><%=  nice_money(milestone.amount) %></td>
+      <td><%= milestone.task %></td>
+      <td><div class="unlock-button-table button-appear-hover"><i class="fas fa-check"></i></div></td>
+      <td><div class="decline-button-table button-appear-hover"><i class="fas fa-times"></i></div></td>
+      <td><%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "edit-button-table button-appear-hover" } do %>
+            <i class="fas fa-pencil-alt"></i><% end %></td>
+    </tr>
       <% end %>
-      </div>
-    </div>
-  </div>
+  </tbody>
+</table>
 </div>
-<% end %>

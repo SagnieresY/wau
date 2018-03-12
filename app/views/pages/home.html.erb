@@ -1,14 +1,15 @@
-<div class="purple-info-parent-flex">
+<br>
+<div class="white-info-parent-flex">
   <div class="container-home-info-box">
-    <div class="purple-info-child-box">
+    <div class="white-info-child-box">
       <div class="big-number-green"> <%= current_user.foundation.investments.count %></div>
       <div class="small-text-gray"> YTD Investments  </div>
     </div>
-    <div class="purple-info-child-box">
+    <div class="white-info-child-box">
       <div class="big-number-green"> <%= nice_money(current_user.foundation.total_forecasted_amount) %></div>
       <div class="small-text-gray"> FY Forecasted </div>
     </div>
-    <div class="purple-info-child-box">
+    <div class="white-info-child-box">
       <div class="big-number-green"><%= nice_money(current_user.foundation.total_unlocked_amount) %></div>
       <div class="small-text-gray"> YTD Unlocked  </div>
     </div>
@@ -259,20 +260,7 @@ var lineChart = new Chart(ctx2, {
                     gridLines: {
                         color: "rgba(0, 0, 0, 0)",
                     },
-                    ticks: {
-                            // Return an empty string to draw the tick line but hide the tick label
-                            // Return `null` or `undefined` to hide the tick line entirely
-                            userCallback: function(value, index, values) {
-                                // Convert the number to a string and splite the string every 3 charaters from the end
-                                value = value.toString();
-                                value = value.split(/(?=(?:...)*$)/);
-
-                                // Convert the array to a string and format the output
-                                value = value.join(',');
-                                return '$' + value;
-                                }
-                            }
-                        }]
+                }]
         }
     }
 });
