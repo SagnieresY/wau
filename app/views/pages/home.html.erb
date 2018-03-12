@@ -98,69 +98,7 @@
     });
   };
 
-  // JS for the CARD
-  let unlockButtons = document.getElementsByClassName('unlock-button');
-  for(let index = 0; index < unlockButtons.length; index++) {
-    let unlockButton = unlockButtons[index];
-    unlockButton.addEventListener("click", function(element){
-      let milestoneId = element.srcElement.closest(".home-page-flex-parent").getAttribute("data-milestone-id");
 
-      fetch("<%= unlock_milestone_path %>", {
-        method: 'post',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-          'Content-Type': 'application/json',
-        },
-        credentials: "same-origin",
-        body: JSON.stringify({
-          id: milestoneId
-        })
-      })
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
-        element.srcElement.closest(".home-page-flex-parent").remove();
-      })
-      .catch(function(e) {
-        console.info("oops error", e)
-        // something went wrong
-      });
-    });
-  };
-
-  let declineButtons = document.getElementsByClassName('decline-button');
-  for(let index = 0; index < declineButtons.length; index++) {
-    let declineButton = declineButtons[index];
-    declineButton.addEventListener("click", function(element){
-      let milestoneId = element.srcElement.closest(".home-page-flex-parent").getAttribute("data-milestone-id");
-
-      fetch("<%= decline_milestone_path %>", {
-        method: 'post',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-          'Content-Type': 'application/json',
-        },
-        credentials: "same-origin",
-        body: JSON.stringify({
-          id: milestoneId
-        })
-      })
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
-        console.info("request finished, here is the data", data);
-        // delete the element
-      })
-      .catch(function(e) {
-        console.info("oops error", e)
-        // something went wrong
-      });
-    });
-  };
 
 var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
