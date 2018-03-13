@@ -15,9 +15,8 @@
   </div>
 </div>
 
-<div class="chart-box">
-  <canvas class="home-chart" alt="chart" id="myChart"></canvas>
-  <canvas class="home-chart" alt="chart" id="lineChart"></canvas>
+<div class="chart-box">"
+  <%= render partial: "charts" %>
 </div>
 
 <div class="mid-title-box">
@@ -65,6 +64,13 @@
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
 
+
+
+
+
+
+t = $("table");
+  t.tablesorter();
   $("table").tablesorter();
 
   // JS for the TABLE
@@ -73,6 +79,11 @@
     let unlockButton = unlockButtonsTable[index];
     unlockButton.addEventListener("click", function(element){
       let milestoneId = element.target.closest(".table-row-milestone").getAttribute("data-milestone-id");
+
+      //Updating chart//
+      console.log(unlockButton.parentElement.parentElement)
+      //--------------//
+
 
       fetch("<%= unlock_milestone_path %>", {
         method: 'post',
@@ -134,6 +145,8 @@
 
 
 
+<<<<<<< HEAD
+=======
 var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
     // The type of chart we want to create
@@ -263,6 +276,7 @@ var lineChart = new Chart(ctx2, {
         }
     }
 });
+>>>>>>> 8f215be651c806995ef475a5e28827ceef1bdac4
 
 </script>
 <% end %>
