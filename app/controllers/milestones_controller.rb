@@ -41,6 +41,7 @@ class MilestonesController < ApplicationController
   def unlock
     authorize @milestone
     @milestone.unlocked = true
+    @milestone.accessible = true #makes sure investment is accessible
     @milestone.save!
     @investment = @milestone.investment
 
@@ -67,7 +68,16 @@ class MilestonesController < ApplicationController
     end
   end
 
-  def decline
+  def lock
+    authorize @milestone
+    @milestone.unlocked = false
+    @milestone.accessible = true #makes sure investment is accessible
+    @milestone.save!
+    @investment = @milestone.investment
+  end
+
+  def rescind
+    #only way to rescind milestone
     authorize @milestone
     @milestone.accessible = false
     @milestone.save!

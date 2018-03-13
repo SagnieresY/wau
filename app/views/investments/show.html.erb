@@ -71,7 +71,7 @@
           <i class="fas fa-check"></i>
         <% end %>
       <td>
-        <%= link_to decline_milestone_path(id: milestone.id, page: 'show'),:remote => true, :method => :post, :class => "decline-button-table button-appear-hover" do %>
+        <%= link_to rescind_milestone_path(id: milestone.id, page: 'show'),:remote => true, :method => :post, :class => "rescind-button-table button-appear-hover" do %>
           <i class="fas fa-times"></i>
         <% end %>
       <td>
@@ -126,7 +126,7 @@
   //   });
   // };
 
-  // let declineButtonsTable = document.getElementsByClassName('decline-button-table');
+  // let rescindButtonsTable = document.getElementsByClassName('decline-button-table');
   // for(let index = 0; index < declineButtonsTable.length; index++) {
   //   let declineButton = declineButtonsTable[index];
   //   declineButton.addEventListener("click", function(element){
