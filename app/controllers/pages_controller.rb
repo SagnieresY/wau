@@ -12,10 +12,10 @@ class PagesController < ApplicationController
 
       if current_user.nil?
         render :landing
-
       elsif current_user.foundation
-
         @milestones = current_user.foundation.next_milestones
+        @investments_by_month_locked_cummulative = current_user.foundation.cummulative_locked_amount_investment_by_milestones_deadline_month
+        @investments_by_month_unlocked_cummulative = current_user.foundation.cummulative_unlocked_amount_investment_by_milestones_deadline_month
       else
         redirect_to no_foundation_path
       end

@@ -1,9 +1,17 @@
-
 <% if @page == "show" %>
   $("#unlocked-amount").html( "<%= j render 'investments/total_unlocked', investment: @milestone.investment %>" );
   $("#<%= @milestone.id %> > td:nth-child(2) > div").removeClass("locked-status-icon").addClass("unlocked-status-icon").text("unlocked")
 
 <% elsif @page == 'home' %>
+  $("#unlocked-amount").html( "<%= j render '/partials/total_unlocked_home' %>" );
+  lineChartOptions = {
+    investmentsByMonthLockedCummulative: <%= @investments_by_month_locked_cummulative.values %>,
+    investmentsByMonthUnlockedCummulative: <%= @investments_by_month_unlocked_cummulative.values %>,
+  };
+
+  drawLineChart(lineChartOptions);
+  drawBarChart();
+
   $("#<%= @milestone.id %>").remove();
 <% end %>
 
