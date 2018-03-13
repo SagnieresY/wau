@@ -39,8 +39,8 @@ var lineChart = new Chart(ctx2, {
     // The type of chart we want to create
     type: 'line',
 
-    <% @investments_by_month_locked_cummulative = current_user.foundation.cumulative_locked_amount_by_month  %>
-    <% @investments_by_month_unlocked_cummulative = current_user.foundation.cumulative_unlocked_amount_by_month  %>
+    <% @investments_by_month_locked_cummulative = current_user.foundation.cummulative_locked_amount_investment_by_milestones_deadline_month  %>
+    <% @investments_by_month_unlocked_cummulative = current_user.foundation.cummulative_unlocked_amount_investment_by_milestones_deadline_month  %>
     <% @chart_colors = []%>
     <% @projects_by_focus_area.count.times do %>
     <% @chart_colors.push("rgba(#{rand(1..255)}, #{rand(1..255)},#{rand(1..255)},0.6)") %>
