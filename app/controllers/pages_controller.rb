@@ -9,7 +9,6 @@ class PagesController < ApplicationController
         #task
         #time leftr
 
-
       if current_user.nil?
         render :landing
 
@@ -32,7 +31,7 @@ class PagesController < ApplicationController
   end
 
   def landing
-
+    render :layout => false
   end
 
   def no_foundation
