@@ -22,6 +22,7 @@ class PagesController < ApplicationController
   end
 
   def dashboard
+
     #investment index
       #project name
       #project type
