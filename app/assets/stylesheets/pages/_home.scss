@@ -26,9 +26,9 @@
 .mid-title-flex {
   display:flex;
   align-items: center;
-  background: white;
-  border-radius: 4px;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.102751);
+  // background: white;
+  // border-radius: 4px;
+  // box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.102751);
 }
 
 .title-mid-home-page-text{
@@ -41,6 +41,11 @@
   padding-left: 5px;
 }
 
+.title-flex {
+  display: flex;
+  align-items: left;
+  justify-content: center;
+}
 
 // HOME PAGE CARD CSS
 .home-page-flex-parent {
