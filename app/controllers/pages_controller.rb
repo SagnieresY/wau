@@ -6,7 +6,7 @@ class PagesController < ApplicationController
         #projectect amount
         #given amount
         #task
-        #time left
+        #time leftr
 
 
       if current_user.foundation
@@ -31,4 +31,15 @@ class PagesController < ApplicationController
   def no_foundation
 
   end
+
+  def archive
+
+    if current_user.foundation
+      @investments = current_user.foundation.completed_investments_by_time_created
+    else
+      redirect_to no_foundation_path
+    end
+
+  end
+
 end

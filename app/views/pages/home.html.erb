@@ -1,14 +1,14 @@
-<div class="purple-info-parent-flex">
+<div class="white-info-parent-flex">
   <div class="container-home-info-box">
-    <div class="purple-info-child-box">
+    <div class="white-info-child-box">
       <div class="big-number-green"> <%= current_user.foundation.investments.count %></div>
       <div class="small-text-gray"> YTD Investments  </div>
     </div>
-    <div class="purple-info-child-box">
+    <div class="white-info-child-box">
       <div class="big-number-green"> <%= nice_money(current_user.foundation.total_forecasted_amount) %></div>
       <div class="small-text-gray"> FY Forecasted </div>
     </div>
-    <div class="purple-info-child-box">
+    <div class="white-info-child-box">
       <div class="big-number-green"><%= nice_money(current_user.foundation.total_unlocked_amount) %></div>
       <div class="small-text-gray"> YTD Unlocked  </div>
     </div>
@@ -22,29 +22,30 @@
 <div class="mid-title-box">
   <div class="mid-title-flex">
     <div class="title-mid-home-page-text">
-      <h3>Upcoming Investment Milestones</h3>
+      Upcoming Milestones
     </div>
-    <div class="putting-purple-button-left">
-    <%= link_to new_investment_path, { class: "round-purple-new-btn" } do %>
+    <div class="button-right">
+    <%= link_to new_investment_path, { class: "btn btn-success" } do %>
     <i class="fas fa-plus"></i>
     <% end %>
     </div>
   </div>
 </div>
 
+
 <div class="table-container">
 <table class="table table-hover margin-center dropshadow-around">
   <thead>
     <tr class="white-background header-row-milestone">
       <th scope="col" width="20%"><div class="tablesorter-header-inner">NGO<i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
-      <th scope="col" width="40%"><div class="tablesorter-header-inner">Project Name<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+      <th scope="col" width="35%"><div class="tablesorter-header-inner">Project Name<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
       <th scope="col" width="15%"><div class="tablesorter-header-inner">New Milestone<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
       <th scope="col" width="15%"><div class="tablesorter-header-inner">Milestone Amount<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-      <th scope="col" colspan="3" width="10%"></th>
+      <th scope="col" colspan="3" width="15%"></th>
     </tr>
   </thead>
   <tbody>
-<% @milestones.sort{|m|m.days_left}.each_with_index do |milestone, index| %>
+  <% @milestones.sort{|m|m.days_left}.each_with_index do |milestone, index| %>
     <tr class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>">
       <td><%= milestone.investment.project.ngo %></td>
       <td><%= milestone.investment.project.name %></td>
@@ -55,7 +56,7 @@
       <td><%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "edit-button-table button-appear-hover" } do %>
             <i class="fas fa-pencil-alt"></i><% end %></td>
     </tr>
-      <% end %>
+  <% end %>
   </tbody>
 </table>
 </div>
@@ -70,6 +71,7 @@
 
 t = $("table");
   t.tablesorter();
+  $("table").tablesorter();
 
   // JS for the TABLE
   let unlockButtonsTable = document.getElementsByClassName('unlock-button-table');
@@ -143,6 +145,138 @@ t = $("table");
 
 
 
+<<<<<<< HEAD
+=======
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+    responsive: false,
+
+    <% @projects_by_focus_area = current_user.foundation.projects_by_focus_area.map do |focus_area, projects| %>
+      <% [focus_area,projects.map(&:total_funding).reduce(0,:+)] %>
+    <% end %>
+    <% @projects_by_focus_area = @projects_by_focus_area.to_h %>
+    <% @chart_colors = []%>
+    <% @projects_by_focus_area.count.times do %>
+    <% @chart_colors.push("rgba(#{rand(1..255)}, #{rand(1..255)},#{rand(1..255)},0.6)") %>
+    <% end %>
+    // The data for our dataset
+    data: {
+        labels: <%= raw @projects_by_focus_area.keys %>,
+        datasets: [{
+            label: "My First dataset",
+            backgroundColor: <%= raw @chart_colors  %>,
+            borderColor: 'rgb(255, 99, 132)',
+            data: <%= raw @projects_by_focus_area.values %>,
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+      responsive: false,
+       legend: {
+            display: false
+         },
+         tooltips: {
+            enabled: false
+         },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        color: "rgba(0, 0, 0, 0)",
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        color: "rgba(0, 0, 0, 0)",
+                    },
+                    ticks: {
+                            // Return an empty string to draw the tick line but hide the tick label
+                            // Return `null` or `undefined` to hide the tick line entirely
+                            userCallback: function(value, index, values) {
+                                // Convert the number to a string and splite the string every 3 charaters from the end
+                                value = value.toString();
+                                value = value.split(/(?=(?:...)*$)/);
+
+                                // Convert the array to a string and format the output
+                                value = value.join(',');
+                                return '$' + value;
+                                }
+                            }
+                }]
+        }
+    }
+});
+
+
+
+var ctx2 = document.getElementById('lineChart').getContext('2d');
+var lineChart = new Chart(ctx2, {
+    // The type of chart we want to create
+    type: 'line',
+
+    <% @investments_by_month_locked_cummulative = current_user.foundation.cummulative_locked_amount_investment_by_milestones_deadline_month  %>
+    <% @investments_by_month_unlocked_cummulative = current_user.foundation.cummulative_unlocked_amount_investment_by_milestones_deadline_month  %>
+    <% @chart_colors = []%>
+    <% @projects_by_focus_area.count.times do %>
+    <% @chart_colors.push("rgba(#{rand(1..255)}, #{rand(1..255)},#{rand(1..255)},0.6)") %>
+    <% end %>
+
+    // The data for our dataset
+    data: {
+        labels: [
+'January',
+'February',
+'March',
+'April',
+'May',
+'June',
+'July',
+'August',
+'September',
+'October',
+'November',
+'December'
+],
+        datasets: [{
+          label: "Unlocked",
+            backgroundColor: 'rgb(145, 126, 216)',
+            borderColor: 'rgb(154, 102, 235)',
+            data: <%= raw @investments_by_month_unlocked_cummulative.values %>,
+        }, {
+            label: "Locked",
+            backgroundColor: 'rgb(185, 102, 185)',
+            borderColor: 'rgb(157, 102, 255)',
+            data: <%= raw @investments_by_month_locked_cummulative.values %>,
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+      responsive: false,
+       legend: {
+            display: true
+         },
+         tooltips: {
+            enabled: false
+         },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        color: "rgba(0, 0, 0, 0)",
+                    }
+                }],
+        yAxes: [{
+                    stacked: true,
+                    gridLines: {
+                        color: "rgba(0, 0, 0, 0)",
+                    },
+                }]
+        }
+    }
+});
+>>>>>>> 8f215be651c806995ef475a5e28827ceef1bdac4
 
 </script>
 <% end %>

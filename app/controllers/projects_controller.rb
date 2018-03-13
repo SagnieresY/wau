@@ -5,10 +5,15 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    new_project = Project.create!(project_params)
-    authorize new_project
-    new_investment = Investment.create!(project:new_project,foundation:current_user.foundation)
-    redirect_to investment_path(new_investment)
+    @project = Project.new(project_params)
+    authorize @project
+
+    if @project.save
+      new_investment = Investment.create!(project: @project,foundation: current_user.foundation)
+      redirect_to investment_path(new_investment)
+    else
+      render :new
+    end
   end
 
   def edit

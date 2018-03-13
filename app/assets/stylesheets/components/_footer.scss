@@ -3,10 +3,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
   padding: 0px 50px;
   background-color: #FFFFFF;
   color:#484848;
+  position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 60px;
+    width: 100%;
+    overflow:hidden;
 }
 
 .logo-project-grace-footer {
@@ -31,3 +36,13 @@
   align-items: center;
 
 }
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin: 0 0 60px; /* bottom = footer height */
+    // padding: 25px;
+  }
