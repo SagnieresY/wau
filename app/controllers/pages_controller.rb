@@ -39,14 +39,4 @@ class PagesController < ApplicationController
 
   end
 
-  def archive
-
-    if current_user.foundation
-      @investments = current_user.foundation.completed_investments_by_time_created
-    else
-      redirect_to no_foundation_path
-    end
-
-  end
-
 end
