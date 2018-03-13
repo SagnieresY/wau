@@ -47,7 +47,7 @@ class Foundation < ApplicationRecord
   end
 
   def unlocked_amount_investment_by_milestones_deadline_month
-    output = milestones_by_month.map do |month, milestones|
+    output = accessible_milestones_by_month.map do |month, milestones|
       [month,sum_unlocked_milestones(milestones)]
     end
 
@@ -61,7 +61,7 @@ class Foundation < ApplicationRecord
   end
 
   def locked_amount_investment_by_milestones_deadline_month
-    output = milestones_by_month.map do |month, milestones|
+    output = accessible_milestones_by_month.map do |month, milestones|
       [month,sum_locked_milestones(milestones)]
     end
     output = output.to_h
