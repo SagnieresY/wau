@@ -50,4 +50,21 @@
   margin-left: auto;
 }
 
+.unlocked-status-icon{
+  color: white;
+  background-color: $green;
+  border-radius: 5px;
+  height: 23px;
+  width: 63px;
+  padding: 3px;
+}
+
+.locked-status-icon{
+  color: white;
+  background-color: $red;
+  border-radius: 5px;
+  height: 23px;
+  width: 47px;
+  padding: 3px;
+}
 

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :users
   root to: 'pages#home'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -14,4 +15,5 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'pages#dashboard', as: :dashboard
   post '/unlock_milestone', to: 'milestones#unlock', as: :unlock_milestone
   post '/decline_milestone', to: 'milestones#decline', as: :decline_milestone
+  post '/investment_unlocked_amount', to: 'investments#unlocked_amount', as: :investment_unlocked_amount
 end

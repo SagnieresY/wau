@@ -24,7 +24,7 @@ childcare_project_name = ['Give Coding lessons in School', 'Meet Chuck Norris', 
 community_ngo = ['Santropole Roulant', 'YMCA', 'Women Aware Femme Averties', 'Kids Code Jeunesse']
 community_project_name = ['Open New Farms', 'Renovate basketball court', 'Legal Defense', 'Create Afterschool Programs']
 environmental_ngo = ['Equiterre', 'Avaaz.org', 'Canadian Wind Energy Association', 'Greenpeace Canada']
-environmental_project_name = ['Energy-Efficient Lighting', 'Save the bees', 'R&D fpr Electric Turbines', 'Global Climate March']
+environmental_project_name = ['Energy-Efficient Lighting', 'Save the bees', 'R&D for Electric Turbines', 'Global Climate March']
 
 puts 'generating projects...'
 

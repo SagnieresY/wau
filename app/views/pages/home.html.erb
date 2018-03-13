@@ -47,13 +47,20 @@
   </thead>
   <tbody>
   <% @milestones.sort{|m|m.days_left}.each_with_index do |milestone, index| %>
-    <tr class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>">
+    <tr id="<%= milestone.id %>" class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>">
       <td><%= milestone.investment.project.ngo %></td>
-      <td><%= milestone.investment.project.name %></td>
+      <td><%= link_to investment_path(milestone.investment) do %>
+            <%= milestone.investment.project.name %> <% end %>
+        </td>
       <td><%= milestone.days_left %> days</td>
       <td><%= nice_money(milestone.amount) %></td>
-      <td><div class="unlock-button-table button-appear-hover"><i class="fas fa-check"></i></div></td>
-      <td><div class="decline-button-table button-appear-hover"><i class="fas fa-times"></i></div></td>
+      <td>
+      <%= link_to unlock_milestone_path(id: milestone.id, page: 'home'),:remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
+        <i class="fas fa-check"></i>
+      <% end %>
+      <td><%= link_to decline_milestone_path(id: milestone.id), { class: "decline-button-table button-appear-hover" }, :remote => true, method: :post do %>
+        <i class="fas fa-times"></i>
+      <% end %>
       <td><%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "edit-button-table button-appear-hover" } do %>
             <i class="fas fa-pencil-alt"></i><% end %></td>
     </tr>
@@ -67,70 +74,70 @@
 
   $("table").tablesorter();
 
-  // JS for the TABLE
-  let unlockButtonsTable = document.getElementsByClassName('unlock-button-table');
-  for(let index = 0; index < unlockButtonsTable.length; index++) {
-    let unlockButton = unlockButtonsTable[index];
-    unlockButton.addEventListener("click", function(element){
-      let milestoneId = element.target.closest(".table-row-milestone").getAttribute("data-milestone-id");
+  // // JS for the TABLE
+  // let unlockButtonsTable = document.getElementsByClassName('unlock-button-table');
+  // for(let index = 0; index < unlockButtonsTable.length; index++) {
+  //   let unlockButton = unlockButtonsTable[index];
+  //   unlockButton.addEventListener("click", function(element){
+  //     let milestoneId = element.target.closest(".table-row-milestone").getAttribute("data-milestone-id");
 
-      fetch("<%= unlock_milestone_path %>", {
-        method: 'post',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-          'Content-Type': 'application/json',
-        },
-        credentials: "same-origin",
-        body: JSON.stringify({
-          id: milestoneId
-        })
-      })
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
-        // if unlock didn't work -- don't delete it + show user message.
-        element.target.closest(".table-row-milestone").remove();
-      })
-      .catch(function(e) {
-        console.info("oops error", e)
-        // something went wrong
-      });
-    });
-  };
+  //     fetch("<%= unlock_milestone_path %>", {
+  //       method: 'post',
+  //       headers: {
+  //         'X-Requested-With': 'XMLHttpRequest',
+  //         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+  //         'Content-Type': 'application/json',
+  //       },
+  //       credentials: "same-origin",
+  //       body: JSON.stringify({
+  //         id: milestoneId
+  //       })
+  //     })
+  //     .then(function(response) {
+  //       return response.json();
+  //     })
+  //     .then(function(data) {
+  //       // if unlock didn't work -- don't delete it + show user message.
+  //       element.target.closest(".table-row-milestone").remove();
+  //     })
+  //     .catch(function(e) {
+  //       console.info("oops error", e)
+  //       // something went wrong
+  //     });
+  //   });
+  // };
 
-  let declineButtonsTable = document.getElementsByClassName('decline-button-table');
-  for(let index = 0; index < declineButtonsTable.length; index++) {
-    let declineButton = declineButtonsTable[index];
-    declineButton.addEventListener("click", function(element){
-      let milestoneId = element.target.closest(".table-row-milestone").getAttribute("data-milestone-id");
+  // let declineButtonsTable = document.getElementsByClassName('decline-button-table');
+  // for(let index = 0; index < declineButtonsTable.length; index++) {
+  //   let declineButton = declineButtonsTable[index];
+  //   declineButton.addEventListener("click", function(element){
+  //     let milestoneId = element.target.closest(".table-row-milestone").getAttribute("data-milestone-id");
 
-      fetch("<%= decline_milestone_path %>", {
-        method: 'post',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-          'Content-Type': 'application/json',
-        },
-        credentials: "same-origin",
-        body: JSON.stringify({
-          id: milestoneId
-        })
-      })
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
-        element.target.closest(".table-row-milestone").remove();
-        // delete the element
-      })
-      .catch(function(e) {
-        console.info("oops error", e)
-        // something went wrong
-      });
-    });
-  };
+  //     fetch("<%= decline_milestone_path %>", {
+  //       method: 'post',
+  //       headers: {
+  //         'X-Requested-With': 'XMLHttpRequest',
+  //         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+  //         'Content-Type': 'application/json',
+  //       },
+  //       credentials: "same-origin",
+  //       body: JSON.stringify({
+  //         id: milestoneId
+  //       })
+  //     })
+  //     .then(function(response) {
+  //       return response.json();
+  //     })
+  //     .then(function(data) {
+  //       element.target.closest(".table-row-milestone").remove();
+  //       // delete the element
+  //     })
+  //     .catch(function(e) {
+  //       console.info("oops error", e)
+  //       // something went wrong
+  //     });
+  //   });
+  // };
 
 
 
