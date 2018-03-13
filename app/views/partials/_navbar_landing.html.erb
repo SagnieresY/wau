@@ -1,7 +1,8 @@
-<div class="navbar-wau" id="navbar">
+<div class="navbar-landing" id="navbar">
 
-  <%= link_to root_path, class: "navbar-wau-logo" do %>
-    <%=cl_image_tag("Unicorn-Logo", height: 50) %>
+  <%= link_to root_path, class: "landing-wau-logo" do %>
+    <%= image_tag "http://res.cloudinary.com/dqkzp8fae/image/upload/c_scale,f_auto,w_50/v1520957148/Unicorn-Landing-Logo.svg" %>
+    <%#cl_image_tag("Unicorn-Landing-Logo.svg", :fetch_format=>:auto)%>
   <% end %>
 
 
@@ -38,11 +39,17 @@
         </div>
       </div>
     <% else %>
-      <%= link_to  new_user_registration_path, { class: "btn btn-sign-up-home" } do %>
-       Sign Up!
+    <div>
+      <%= link_to  new_user_registration_path, { class: "button-signup-landing" } do %>
+      Sign Up
       <% end %>
-    <% end %>
     </div>
+
+    <%= link_to  new_user_session_path, { class: "btn-login-landing" } do %>
+    Login
+    <% end %>
+    <% end %>
+  </div>
 
   <!-- Dropdown list appearing on mobile only -->
   <div class="navbar-wau-item hidden-md hidden-lg">

@@ -1,0 +1,78 @@
+.navbar-landing {
+  height: 70px;
+  padding: 0px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: -10;
+}
+
+
+/* Basic navbar item */
+.navbar-wau-item {
+  cursor: pointer;
+  padding: 0 20px;
+}
+
+.navbar-wau-link {
+  font-size: 12px;
+  text-decoration: none;
+  color: black;
+  &:hover {
+    color: $purple;
+  }
+}
+
+
+/* Right section */
+.navbar-wau-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-right-navigation {
+    padding-right: 20px;
+}
+
+.btn-login-landing {
+   width: 120px;
+    border-radius:4px;
+    opacity: 1;
+    font-size: 18px;
+    background: #B5E9E9;
+    color: rgb(95, 95, 95);
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: box-shadow 0.3s ease-in-out;
+    text-decoration: none;
+    border-style: solid 2px;
+    &:hover {
+    opacity: 0.9;
+    box-shadow: 1.5px 1.5px 10px rgba(0,0,0,0.15);
+    text-decoration: none;
+    }
+}
+
+.button-signup-landing {
+  width: 120px;
+  border-radius:4px;
+  opacity: 1;
+  background: #B5E9E9;
+  color: rgb(90, 90, 90);
+  font-size: 18px;
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease-in-out;
+  text-decoration: none;
+  &:hover {
+    opacity: 0.9;
+    box-shadow: 1.5px 1.5px 10px rgba(0,0,0,0.15);
+    text-decoration: none;
+    }
+}

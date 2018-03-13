@@ -1,0 +1,29 @@
+body.pages_home {
+   background: white; /* For browsers that do not support gradients */
+   background: linear-gradient(#A8EDEA, #FED6E3); /* Standard syntax (must be last) */
+}
+
+.landing {
+  // height: calc(100vh - 70px);
+  top: calc(50% - 70px);
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  h1 {
+    font-size: 38px;
+    color: white;
+    font-family: $title-font;
+    font-weight: 900;
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+  p {
+    font-size: 30px;
+    font-family: $body-font;
+    font-weight: 500;
+    color: #282940
+  }
+}
+
+
