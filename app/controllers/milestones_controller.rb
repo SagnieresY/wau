@@ -52,8 +52,11 @@ class MilestonesController < ApplicationController
     # }
     @page = params[:page]
     if @milestone.save
+      @investments_by_month_locked_cummulative = current_user.foundation.cummulative_locked_amount_investment_by_milestones_deadline_month
+      @investments_by_month_unlocked_cummulative = current_user.foundation.cummulative_unlocked_amount_investment_by_milestones_deadline_month
+
       respond_to do |format|
-        format.html { unlock_milestone_path}
+        format.html { unlock_milestone_path }
         format.js
       end
     else

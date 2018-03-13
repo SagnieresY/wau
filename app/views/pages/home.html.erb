@@ -15,8 +15,8 @@
   </div>
 </div>
 
-<div class="chart-box">"
-  <%= render partial: "/partials/charts" %>
+<div id="charts-home" class="chart-box">
+  <%= render partial: "/partials/charts", current_user: @current_user %>
 </div>
 
 <div class="mid-title-box">
@@ -70,82 +70,6 @@
 
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
-
-
-
-
-
-
-t = $("table");
-  t.tablesorter();
   $("table").tablesorter();
-
-  // // JS for the TABLE
-  // let unlockButtonsTable = document.getElementsByClassName('unlock-button-table');
-  // for(let index = 0; index < unlockButtonsTable.length; index++) {
-  //   let unlockButton = unlockButtonsTable[index];
-  //   unlockButton.addEventListener("click", function(element){
-  //     let milestoneId = element.target.closest(".table-row-milestone").getAttribute("data-milestone-id");
-  //     fetch("<%= unlock_milestone_path %>", {
-  //       method: 'post',
-  //       headers: {
-  //         'X-Requested-With': 'XMLHttpRequest',
-  //         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-  //         'Content-Type': 'application/json',
-  //       },
-  //       credentials: "same-origin",
-  //       body: JSON.stringify({
-  //         id: milestoneId
-  //       })
-  //     })
-  //     .then(function(response) {
-  //       return response.json();
-  //     })
-  //     .then(function(data) {
-  //       // if unlock didn't work -- don't delete it + show user message.
-  //       element.target.closest(".table-row-milestone").remove();
-  //     })
-  //     .catch(function(e) {
-  //       console.info("oops error", e)
-  //       // something went wrong
-  //     });
-  //   });
-  // };
-  
-  // let declineButtonsTable = document.getElementsByClassName('decline-button-table');
-  // for(let index = 0; index < declineButtonsTable.length; index++) {
-  //   let declineButton = declineButtonsTable[index];
-  //   declineButton.addEventListener("click", function(element){
-  //     let milestoneId = element.target.closest(".table-row-milestone").getAttribute("data-milestone-id");
-
-  //     fetch("<%= decline_milestone_path %>", {
-  //       method: 'post',
-  //       headers: {
-  //         'X-Requested-With': 'XMLHttpRequest',
-  //         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-  //         'Content-Type': 'application/json',
-  //       },
-  //       credentials: "same-origin",
-  //       body: JSON.stringify({
-  //         id: milestoneId
-  //       })
-  //     })
-  //     .then(function(response) {
-  //       return response.json();
-  //     })
-  //     .then(function(data) {
-  //       element.target.closest(".table-row-milestone").remove();
-  //       // delete the element
-  //     })
-  //     .catch(function(e) {
-  //       console.info("oops error", e)
-  //       // something went wrong
-  //     });
-  //   });
-  // };
-
-
-
-
 </script>
 <% end %>
