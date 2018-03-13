@@ -26,9 +26,6 @@
 .mid-title-flex {
   display:flex;
   align-items: center;
-  background: white;
-  border-radius: 4px;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.102751);
 }
 
 .title-mid-home-page-text{
@@ -39,4 +36,10 @@
   font-size: 18px;
   margin-right: auto;
   padding-left: 5px;
+}
+
+.title-flex {
+  display: flex;
+  align-items: left;
+  justify-content: center;
 }

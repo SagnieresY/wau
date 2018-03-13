@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  skip_before_action :authenticate_user!, :only => [:home,:landing]
   def home
     #todo read chart maker doc
     #upcoming milestones for each project
@@ -9,16 +10,19 @@ class PagesController < ApplicationController
         #time leftr
 
 
-      if current_user.foundation
+      if current_user.nil?
+        render :landing
+
+      elsif current_user.foundation
 
         @milestones = current_user.foundation.next_milestones
       else
-
         redirect_to no_foundation_path
       end
   end
 
   def dashboard
+
     #investment index
       #project name
       #project type
@@ -28,17 +32,11 @@ class PagesController < ApplicationController
       #trust worthy level (dependent on milestones unlocked?)
   end
 
-  def no_foundation
+  def landing
 
   end
 
-  def archive
-
-    if current_user.foundation
-      @investments = current_user.foundation.completed_investments_by_time_created
-    else
-      redirect_to no_foundation_path
-    end
+  def no_foundation
 
   end
 
