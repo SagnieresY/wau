@@ -9,9 +9,8 @@
       <div class="invest-show-number-green" > <%= @investment.project.ngo %></div>
       <div class="invest-show-small-text-gray">   </div>
     </div>
-    <div class="invest-show-white-info-child-box">
-      <div class="invest-show-number-green"> <%= nice_money(@investment.forecasted_amount) %></div>
-      <div class="invest-show-small-text-gray"> FY Forecasted </div>
+    <div id="forecasted-amount" class="invest-show-white-info-child-box">
+      <%= render partial: "/partials/forecasted_amount_invest_show", investment: @investment %>
     </div>
     <div id="unlocked-amount" class="invest-show-white-info-child-box">
       <%= render "total_unlocked", investment: @investment %>
@@ -55,23 +54,31 @@
 <% @investment.milestones_by_nearest_deadline.each_with_index do |milestone,index|  %>
     <tr id="<%= milestone.id %>" class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>" data-investment-id="<%= milestone.investment.id %>">
       <td>Milestone <%= index + 1 %> </td>
-      <% if milestone.unlocked? %>
-        <td><div class="unlocked-status-icon">unlocked</div></td>
-        <% else %>
-        <td><div class="locked-status-icon" id="locked-button">locked</div></td>
+      <% if milestone.accessible? %>
+        <% if milestone.unlocked? %>
+          <td><div class="unlocked-status-icon">unlocked</div></td>
+          <% else %>
+          <td><div class="locked-status-icon" id="locked-button">locked</div></td>
+        <% end %>
+      <% else %>
+        <td><div class="rescinded-status-icon" >rescinded</div></td>
       <% end %>
       <td><%= milestone.days_left %> days</td>
       <td><%=  nice_money(milestone.amount) %></td>
       <td><%= milestone.task %></td>
       <td>
-      <%= link_to unlock_milestone_path(id: milestone.id, page: 'show'),:remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
-        <i class="fas fa-check"></i>
-      <% end %>
-      <td><%= link_to decline_milestone_path(id: milestone.id), { class: "decline-button-table button-appear-hover" }, :remote => true, method: :post do %>
-        <i class="fas fa-times"></i>
-      <% end %>
-      <td><%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "edit-button-table button-appear-hover" } do %>
-            <i class="fas fa-pencil-alt"></i><% end %></td>
+        <%= link_to unlock_milestone_path(id: milestone.id, page: 'show'),:remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
+          <i class="fas fa-check"></i>
+        <% end %>
+      <td>
+        <%= link_to decline_milestone_path(id: milestone.id, page: 'show'),:remote => true, :method => :post, :class => "decline-button-table button-appear-hover" do %>
+          <i class="fas fa-times"></i>
+        <% end %>
+      <td>
+        <%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "edit-button-table button-appear-hover" } do %>
+          <i class="fas fa-pencil-alt"></i>
+        <% end %>
+      </td>
     </tr>
       <% end %>
   </tbody>

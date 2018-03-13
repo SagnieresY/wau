@@ -61,10 +61,19 @@
 
 .locked-status-icon{
   color: white;
-  background-color: $red;
+  background-color: $orange;
   border-radius: 5px;
   height: 23px;
   width: 47px;
+  padding: 3px;
+}
+
+.rescinded-status-icon {
+  color: white;
+  background-color: $red;
+  border-radius: 5px;
+  height: 23px;
+  width: 67px;
   padding: 3px;
 }
 

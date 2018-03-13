@@ -1,0 +1,16 @@
+<% if @page == "show" %>
+  $("#forecasted-amount").html( "<%= j render partial: '/partials/forecasted_amount_invest_show', investment: @milestone.investment %>" );
+  $("#<%= @milestone.id %> > td:nth-child(2) > div").removeClass("locked-status-icon").addClass("rescinded-status-icon").text("rescinded")
+
+<% elsif @page == 'home' %>
+  // $("#unlocked-amount").html( "<%= j render '/partials/total_unlocked_home' %>" );
+  // lineChartOptions = {
+  //   investmentsByMonthLockedCummulative: <%= @investments_by_month_locked_cummulative.values %>,
+  //   investmentsByMonthUnlockedCummulative: <%= @investments_by_month_unlocked_cummulative.values %>,
+  // };
+
+  // drawLineChart(lineChartOptions);
+  // drawBarChart();
+
+  $("#<%= @milestone.id %>").remove();
+<% end %>

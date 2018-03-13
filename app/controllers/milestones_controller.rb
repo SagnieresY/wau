@@ -71,8 +71,25 @@ class MilestonesController < ApplicationController
     authorize @milestone
     @milestone.accessible = false
     @milestone.save!
+    @investment = @milestone.investment
 
-    render json: @milestone
+    @investment.completed?
+
+    @page = params[:page]
+    if @milestone.save
+      @investments_by_month_locked_cummulative = current_user.foundation.cummulative_locked_amount_investment_by_milestones_deadline_month
+      @investments_by_month_unlocked_cummulative = current_user.foundation.cummulative_unlocked_amount_investment_by_milestones_deadline_month
+
+      respond_to do |format|
+        format.html { decline_milestone_path }
+        format.js
+      end
+    else
+      respond_to do |format|
+        format.html { render 'investment/show'}
+        format.js
+      end
+    end
   end
 
   private
