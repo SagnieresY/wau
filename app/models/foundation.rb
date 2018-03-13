@@ -1,4 +1,5 @@
 class Foundation < ApplicationRecord
+  MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   has_many :users, dependent: :destroy
   has_many :investments, dependent: :destroy
   has_many :projects, through: :investments
@@ -30,14 +31,27 @@ class Foundation < ApplicationRecord
     output = milestones_by_month.map do |month, milestones|
       [month,sum_unlocked_milestones(milestones)]
     end
-    return output.to_h
+
+    output = output.to_h
+    MONTHS.each do |month|
+        unless output[month]
+          output[month] = 0
+        end
+      end
+    output
   end
 
   def locked_amount_investment_by_milestones_deadline_month
     output = milestones_by_month.map do |month, milestones|
       [month,sum_locked_milestones(milestones)]
     end
-    return output.to_h
+    output = output.to_h
+    MONTHS.each do |month|
+        unless output[month]
+          output[month] = 0
+        end
+    end
+    output
   end
 
   def cummulative_locked_amount_investment_by_milestones_deadline_month
@@ -47,12 +61,14 @@ class Foundation < ApplicationRecord
         sum += updated_hash[k]
         updated_hash[k] = sum
       end
+
+
       updated_hash
     end
 
     def cummulative_unlocked_amount_investment_by_milestones_deadline_month
       sum = 0
-      updated_hash = self.unlocked_amount_investment_by_milestones_deadline_month
+      updated_hash = unlocked_amount_investment_by_milestones_deadline_month
       updated_hash.each do |k, v|
         sum += updated_hash[k]
         updated_hash[k] = sum
