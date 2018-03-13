@@ -8,15 +8,14 @@
       <div class="big-number-green"> <%= nice_money(current_user.foundation.total_forecasted_amount) %></div>
       <div class="small-text-gray"> FY Forecasted </div>
     </div>
-    <div class="white-info-child-box">
-      <div class="big-number-green"><%= nice_money(current_user.foundation.total_unlocked_amount) %></div>
-      <div class="small-text-gray"> YTD Unlocked  </div>
+    <div id="unlocked-amount" class="white-info-child-box">
+      <%= render partial: "/partials/total_unlocked_home" %>
     </div>
   </div>
 </div>
 
 <div id="charts-home" class="chart-box">
-  <%= render partial: "/partials/charts", current_user: @current_user %>
+  <%= render partial: "/partials/charts" %>
 </div>
 
 <div class="mid-title-box">
