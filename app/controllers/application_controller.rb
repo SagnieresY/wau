@@ -23,9 +23,10 @@ class ApplicationController < ActionController::Base
   end
 
   def should_render_navbar_landing?
-    (params["controller"] == "devise/sessions" &&  params["action"] == "new") ||
+  (params["controller"] == "devise/sessions" &&  params["action"] == "new") ||
     (action_name == "home" && !user_signed_in?) ||
-    params["controller"] == "devise/passwords"
+    params["controller"] == "devise/passwords" ||
+    params["controller"] == "devise/registrations"
   end
 
   private
