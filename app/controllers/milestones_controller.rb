@@ -2,6 +2,7 @@ class MilestonesController < ApplicationController
 
   before_action :selected_milestone, only: [:edit, :update, :destroy, :unlock, :decline ]
   before_action :find_investment, only: [:create, :new, :edit, :update, :destroy]
+
   def new
     @milestone = Milestone.new
     authorize @investment
@@ -41,10 +42,26 @@ class MilestonesController < ApplicationController
     authorize @milestone
     @milestone.unlocked = true
     @milestone.save!
+    @investment = @milestone.investment
 
-    @milestone.investment.completed? #check if investment is completed
+    @investment.completed? #check if investment is completed
 
-    render json: @milestone
+    # render json: {
+    #   milestone: @milestone,
+    #   stats: @milestone.investment.unlocked_amount
+    # }
+    @page = params[:page]
+    if @milestone.save
+      respond_to do |format|
+        format.html { unlock_milestone_path}
+        format.js
+      end
+    else
+      respond_to do |format|
+        format.html { render 'investment/show'}
+        format.js
+      end
+    end
   end
 
   def decline
@@ -54,7 +71,6 @@ class MilestonesController < ApplicationController
 
     render json: @milestone
   end
-
 
   private
 

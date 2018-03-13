@@ -1,0 +1,10 @@
+
+<% if @page == "show" %>
+  $("#unlocked-amount").html( "<%= j render 'investments/total_unlocked', investment: @milestone.investment %>" );
+  $("#<%= @milestone.id %> > td:nth-child(2) > div").removeClass("locked-status-icon").addClass("unlocked-status-icon").text("unlocked")
+
+<% elsif @page == 'home' %>
+  $("#<%= @milestone.id %>").remove();
+<% end %>
+
+

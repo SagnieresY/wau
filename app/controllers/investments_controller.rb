@@ -62,6 +62,13 @@ class InvestmentsController < ApplicationController
     redirect_to investments_path
   end
 
+  def unlocked_amount
+    authorize selected_investment
+    selected_investment.unlocked_amount
+
+    render json: selected_investment.unlocked_amount
+  end
+
   private
 
   def id
