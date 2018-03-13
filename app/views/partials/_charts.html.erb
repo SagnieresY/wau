@@ -1,0 +1,150 @@
+<canvas class="home-chart" alt="chart" id="myChart"></canvas>
+<canvas class="home-chart" alt="chart" id="lineChart"></canvas>
+
+<%= content_for(:after_js) do %>
+<script type="text/javascript">
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+    responsive: false,
+
+    <% @projects_by_focus_area = current_user.foundation.projects_by_focus_area.map do |focus_area, projects| %>
+      <% [focus_area,projects.map(&:total_funding).reduce(0,:+)] %>
+    <% end %>
+    <% @projects_by_focus_area = @projects_by_focus_area.to_h %>
+    <% @chart_colors = []%>
+    <% @projects_by_focus_area.count.times do %>
+    <% @chart_colors.push("rgba(#{rand(1..255)}, #{rand(1..255)},#{rand(1..255)},0.6)") %>
+    <% end %>
+    // The data for our dataset
+    data: {
+        labels: <%= raw @projects_by_focus_area.keys %>,
+        datasets: [{
+            label: "My First dataset",
+            backgroundColor: <%= raw @chart_colors  %>,
+            borderColor: 'rgb(255, 99, 132)',
+            data: <%= raw @projects_by_focus_area.values %>,
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+      responsive: false,
+       legend: {
+            display: false
+         },
+         tooltips: {
+            enabled: false
+         },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        color: "rgba(0, 0, 0, 0)",
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        color: "rgba(0, 0, 0, 0)",
+                    },
+                    ticks: {
+                            // Return an empty string to draw the tick line but hide the tick label
+                            // Return `null` or `undefined` to hide the tick line entirely
+                            userCallback: function(value, index, values) {
+                                // Convert the number to a string and splite the string every 3 charaters from the end
+                                value = value.toString();
+                                value = value.split(/(?=(?:...)*$)/);
+
+                                // Convert the array to a string and format the output
+                                value = value.join(',');
+                                return '$' + value;
+                                }
+                            }
+                }]
+        }
+    }
+});
+
+
+
+var ctx2 = document.getElementById('lineChart').getContext('2d');
+var lineChart = new Chart(ctx2, {
+    // The type of chart we want to create
+    type: 'line',
+
+    <% @investments_by_month_locked_cummulative = current_user.foundation.cummulative_locked_amount_investment_by_milestones_deadline_month  %>
+    <% @investments_by_month_unlocked_cummulative = current_user.foundation.cummulative_unlocked_amount_investment_by_milestones_deadline_month  %>
+    <% @chart_colors = []%>
+    <% @projects_by_focus_area.count.times do %>
+    <% @chart_colors.push("rgba(#{rand(1..255)}, #{rand(1..255)},#{rand(1..255)},0.6)") %>
+    <% end %>
+
+    // The data for our dataset
+    data: {
+        labels: [
+'January',
+'February',
+'March',
+'April',
+'May',
+'June',
+'July',
+'August',
+'September',
+'October',
+'November',
+'December'
+],
+        datasets: [{
+          label: "Unlocked",
+            backgroundColor: 'rgb(145, 126, 216)',
+            borderColor: 'rgb(154, 102, 235)',
+            data: <%= raw @investments_by_month_unlocked_cummulative.values %>,
+        }, {
+            label: "Locked",
+            backgroundColor: 'rgb(185, 102, 185)',
+            borderColor: 'rgb(157, 102, 255)',
+            data: <%= raw @investments_by_month_locked_cummulative.values %>,
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+      responsive: false,
+       legend: {
+            display: true
+         },
+         tooltips: {
+            enabled: false
+         },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        color: "rgba(0, 0, 0, 0)",
+                    }
+                }],
+        yAxes: [{
+                    stacked: true,
+                    gridLines: {
+                        color: "rgba(0, 0, 0, 0)",
+                    },
+                    ticks: {
+                            // Return an empty string to draw the tick line but hide the tick label
+                            // Return `null` or `undefined` to hide the tick line entirely
+                            userCallback: function(value, index, values) {
+                                // Convert the number to a string and splite the string every 3 charaters from the end
+                                value = value.toString();
+                                value = value.split(/(?=(?:...)*$)/);
+
+                                // Convert the array to a string and format the output
+                                value = value.join(',');
+                                return '$' + value;
+                                }
+                            }
+                        }]
+        }
+    }
+});
+
+</script>
+<% end %>

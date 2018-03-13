@@ -4,6 +4,7 @@ class Investment < ApplicationRecord
   has_many :milestones
   validates :project, presence: true
   validates :foundation, presence: true
+
   def forecasted_amount
     #calculates projected amount minus the missed milestones
     valid_milestones = milestones.map do |m| #map passed deadline (if the milestone task was done or is b4 deadline)
