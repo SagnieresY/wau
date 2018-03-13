@@ -46,8 +46,10 @@
   <% @milestones.sort{|m|m.days_left}.each_with_index do |milestone, index| %>
     <tr id="<%= milestone.id %>" class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>">
       <td><%= milestone.investment.project.ngo %></td>
-      <td><%= link_to investment_path(milestone.investment) do %>
-            <%= milestone.investment.project.name %> <% end %>
+      <td>
+          <%= link_to investment_path(milestone.investment), {class: "green-link-text"} do %>
+            <%= milestone.investment.project.name %>
+          <% end %>
         </td>
       <td><%= milestone.days_left %> days</td>
       <td><%= nice_money(milestone.amount) %></td>

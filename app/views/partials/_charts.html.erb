@@ -11,22 +11,22 @@ function drawBarChart() {
     type: 'bar',
     responsive: false,
 
-    <% @projects_by_focus_area = current_user.foundation.projects_by_focus_area.map do |focus_area, projects| %>
-      <% [focus_area,projects.map(&:total_funding).reduce(0,:+)] %>
+    <% @investments_by_focus_area = current_user.foundation.investments_by_focus_area.map do |focus_area, investments| %>
+      <% [focus_area,investments.map(&:forecasted_amount).reduce(0,:+)] %>
     <% end %>
-    <% @projects_by_focus_area = @projects_by_focus_area.to_h %>
+    <% @investments_by_focus_area = @investments_by_focus_area.to_h %>
     <% @chart_colors = []%>
-    <% @projects_by_focus_area.count.times do %>
+    <% @investments_by_focus_area.count.times do %>
     <% @chart_colors.push("rgba(#{rand(1..255)}, #{rand(1..255)},#{rand(1..255)},0.6)") %>
     <% end %>
     // The data for our dataset
     data: {
-      labels: <%= raw @projects_by_focus_area.keys %>,
+      labels: <%= raw @investments_by_focus_area.keys %>,
       datasets: [{
         label: "My First dataset",
         backgroundColor: <%= raw @chart_colors  %>,
         borderColor: 'rgb(255, 99, 132)',
-        data: <%= raw @projects_by_focus_area.values %>,
+        data: <%= raw @investments_by_focus_area.values %>,
       }]
     },
 

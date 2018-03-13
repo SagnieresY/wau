@@ -43,7 +43,7 @@
   <thead>
     <tr class="white-background header-row-milestone">
       <th scope="col" width="10%"><div class="tablesorter-header-inner"><i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
-      <th scope="col" width="15%"><div class="tablesorter-header-inner"> Unlocked?<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+      <th scope="col" width="15%"><div class="tablesorter-header-inner"> Status <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
       <th scope="col" width="10%"><div class="tablesorter-header-inner"> Deadline<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
       <th scope="col" width="15%"><div class="tablesorter-header-inner"> Amount<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
       <th scope="col" width="35%"><div class="tablesorter-header-inner"> Task<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
@@ -88,73 +88,7 @@
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
 
-  // $("table").tablesorter();
-
-  // let unlockButtonsTable = document.getElementsByClassName('unlock-button-table');
-
-  // for(let index = 0; index < unlockButtonsTable.length; index++) {
-  //   let unlockButton = unlockButtonsTable[index];
-  //   unlockButton.addEventListener("click", function(element){
-  //     let milestoneId = element.target.closest(".table-row-milestone").getAttribute("data-milestone-id");
-  //     let investmentId = element.target.closest(".table-row-milestone").getAttribute("data-investment-id");
-
-  //     fetch("<%= unlock_milestone_path %>", {
-  //       method: 'post',
-  //       headers: {
-  //         'X-Requested-With': 'XMLHttpRequest',
-  //         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-  //         'Content-Type': 'application/json',
-  //       },
-  //       credentials: "same-origin",
-  //       body: JSON.stringify({
-  //         id: milestoneId
-  //       })
-  //     })
-  //     .then(function(response) {
-  //       return response.json();
-  //     })
-  //     .then(function(data) {
-  //       // if unlock didn't work -- don't delete it + show user message.
-  //       document.getElementById("unlocked-amount").innerHTML = numeral(data.stats).format('$0,0[.]00');
-  //       document.getElementById("unlocked-amount").innerHTML = numeral(data.stats).format('$0,0[.]00');
-  //       console.log(data.stats);
-  //     })
-  //     .catch(function(e) {
-  //       console.info("oops error", e)
-  //       // something went wrong
-  //     });
-  //   });
-  // };
-
-  // let rescindButtonsTable = document.getElementsByClassName('decline-button-table');
-  // for(let index = 0; index < declineButtonsTable.length; index++) {
-  //   let declineButton = declineButtonsTable[index];
-  //   declineButton.addEventListener("click", function(element){
-  //     let milestoneId = element.target.closest(".table-row-milestone").getAttribute("data-milestone-id");
-
-  //     fetch("<%= decline_milestone_path %>", {
-  //       method: 'post',
-  //       headers: {
-  //         'X-Requested-With': 'XMLHttpRequest',
-  //         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-  //         'Content-Type': 'application/json',
-  //       },
-  //       credentials: "same-origin",
-  //       body: JSON.stringify({
-  //         id: milestoneId
-  //       })
-  //     })
-  //     .then(function(response) {
-  //       return response.json();
-  //     })
-  //     .then(function(data) {
-  //     })
-  //     .catch(function(e) {
-  //       console.info("oops error", e)
-  //       // something went wrong
-  //     });
-  //   });
-  // };
+  $("table").tablesorter();
 
 </script>
 <% end %>

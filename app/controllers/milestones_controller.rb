@@ -1,6 +1,6 @@
 class MilestonesController < ApplicationController
 
-  before_action :selected_milestone, only: [:edit, :update, :destroy, :unlock, :decline ]
+  before_action :selected_milestone, only: [:edit, :update, :destroy, :unlock, :rescind ]
   before_action :find_investment, only: [:create, :new, :edit, :update, :destroy]
 
   def new
@@ -80,6 +80,7 @@ class MilestonesController < ApplicationController
     #only way to rescind milestone
     authorize @milestone
     @milestone.accessible = false
+    @milestone.unlocked = false #makes sure investment is not counted in unlocked
     @milestone.save!
     @investment = @milestone.investment
 
@@ -91,7 +92,7 @@ class MilestonesController < ApplicationController
       @investments_by_month_unlocked_cummulative = current_user.foundation.cummulative_unlocked_amount_investment_by_milestones_deadline_month
 
       respond_to do |format|
-        format.html { decline_milestone_path }
+        format.html { rescind_milestone_path }
         format.js
       end
     else

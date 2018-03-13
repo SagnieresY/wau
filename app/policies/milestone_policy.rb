@@ -29,7 +29,7 @@ class MilestonePolicy < ApplicationPolicy
     user_foundation_check
   end
 
-  def decline?
+  def rescind?
     user_foundation_check
   end
 

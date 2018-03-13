@@ -14,6 +14,11 @@ class Foundation < ApplicationRecord
     return milestones.compact.sort_by{|m| m.days_left}.reverse
   end
 
+  def investments_by_focus_area
+    focus_areas = projects.map(&:focus_area).uniq
+    investments.group_by{ |investment| investment.project.focus_area  }
+  end
+
   def total_forecasted_amount
   #calculates projected amount minus the missed milestones
     valid_milestones = milestones.map do |m| #map passed deadline (if the milestone task was done or is b4 deadline)
@@ -39,11 +44,7 @@ class Foundation < ApplicationRecord
         accessible_milestones << milestone
       end
     end
-    amount = accessible_milestones.map do |m| #map passed deadline (if the milestone task was done or is b4 deadline)
-      m.amount
-    end
-
-    amount.reduce(0, :+)
+    accessible_milestones.group_by{|m| Date::MONTHNAMES[m.deadline.month]}
   end
 
   def unlocked_amount_investment_by_milestones_deadline_month
