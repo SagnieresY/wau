@@ -1,10 +1,10 @@
 <% if @page == "show" %>
-  $("#unlocked-amount").html( "<%= j render 'investments/total_unlocked', investment: @milestone.investment %>" );
   $("#forecasted-amount").html( "<%= j render partial: '/partials/forecasted_amount_invest_show', investment: @milestone.investment %>" );
-  $("#<%= @milestone.id %> > td:nth-child(2) > div").removeClass().addClass("unlocked-status-icon").text("unlocked")
+  $("#unlocked-amount").html( "<%= j render 'investments/total_unlocked', investment: @milestone.investment %>" );
+  $("#<%= @milestone.id %> > td:nth-child(2) > div").removeClass().addClass("rescinded-status-icon").text("rescinded")
 
 <% elsif @page == 'home' %>
-  $("#unlocked-amount").html( "<%= j render '/partials/total_unlocked_home' %>" );
+  $("#forecasted-amount").html( "<%= j render '/partials/forecasted_amount_home' %>" );
   lineChartOptions = {
     investmentsByMonthLockedCummulative: <%= @investments_by_month_locked_cummulative.values %>,
     investmentsByMonthUnlockedCummulative: <%= @investments_by_month_unlocked_cummulative.values %>,
@@ -15,5 +15,3 @@
 
   $("#<%= @milestone.id %>").remove();
 <% end %>
-
-

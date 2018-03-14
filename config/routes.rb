@@ -15,6 +15,6 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'pages#dashboard', as: :dashboard
   get '/landing', to: 'pages#landing', as: :landing
   post '/unlock_milestone', to: 'milestones#unlock', as: :unlock_milestone
-  post '/decline_milestone', to: 'milestones#decline', as: :decline_milestone
+  post '/rescind_milestone', to: 'milestones#rescind', as: :rescind_milestone
   post '/investment_unlocked_amount', to: 'investments#unlocked_amount', as: :investment_unlocked_amount
 end

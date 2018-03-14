@@ -4,9 +4,8 @@
       <div class="big-number-green"> <%= current_user.foundation.investments.count %></div>
       <div class="small-text-gray"> YTD Investments  </div>
     </div>
-    <div class="white-info-child-box">
-      <div class="big-number-green"> <%= nice_money(current_user.foundation.total_forecasted_amount) %></div>
-      <div class="small-text-gray"> FY Forecasted </div>
+    <div id="forecasted-amount" class="white-info-child-box">
+      <%= render partial: "/partials/forecasted_amount_home" %>
     </div>
     <div id="unlocked-amount" class="white-info-child-box">
       <%= render partial: "/partials/total_unlocked_home" %>
@@ -47,20 +46,28 @@
   <% @milestones.sort{|m|m.days_left}.each_with_index do |milestone, index| %>
     <tr id="<%= milestone.id %>" class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>">
       <td><%= milestone.investment.project.ngo %></td>
-      <td><%= link_to investment_path(milestone.investment) do %>
-            <%= milestone.investment.project.name %> <% end %>
+      <td>
+          <%= link_to investment_path(milestone.investment), {class: "green-link-text"} do %>
+            <%= milestone.investment.project.name %>
+          <% end %>
         </td>
       <td><%= milestone.days_left %> days</td>
       <td><%= nice_money(milestone.amount) %></td>
       <td>
-      <%= link_to unlock_milestone_path(id: milestone.id, page: 'home'),:remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
-        <i class="fas fa-check"></i>
-      <% end %>
-      <td><%= link_to decline_milestone_path(id: milestone.id), { class: "decline-button-table button-appear-hover" }, :remote => true, method: :post do %>
-        <i class="fas fa-times"></i>
-      <% end %>
-      <td><%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "edit-button-table button-appear-hover" } do %>
-            <i class="fas fa-pencil-alt"></i><% end %></td>
+        <%= link_to unlock_milestone_path(id: milestone.id, page: 'home'), :remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
+          <i class="fas fa-check"></i>
+        <% end %>
+      </td>
+      <td>
+         <%= link_to rescind_milestone_path(id: milestone.id, page: 'home'), :remote => true, :method => :post, :class => "rescind-button-table button-appear-hover" do %>
+          <i class="fas fa-times"></i>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "edit-button-table button-appear-hover" } do %>
+            <i class="fas fa-pencil-alt"></i>
+        <% end %>
+      </td>
     </tr>
   <% end %>
   </tbody>
