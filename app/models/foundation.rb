@@ -116,7 +116,7 @@ class Foundation < ApplicationRecord
     investments.where(completed:false)
   end
 
-  def completed_investements
+  def completed_investments
     investments.where(completed:true)
   end
 
