@@ -59,7 +59,14 @@
     <tr class="white-background table-row-investment" data-investment-id="<%= investment.id %>">
       <td><%= investment.project.ngo.capitalize %></td>
       <td><%= investment.project.name %></td>
-      <td><%= investment.project.nearest_milestone.days_left %> days</td>
+     <% if milestone.days_left < 0 %>
+        <td class="late"><%= milestone.days_left %> days</td>
+      <% elsif milestone.days_left < 7 %>
+        <td class="almost-late"><%= milestone.days_left %> days</td>
+      <% else %>
+        <td><%= milestone.days_left %> days</td>
+      <% end %>
+
       <td><%= nice_money(investment.forecasted_amount) %></td>
       <td><div class="unlock-button-table button-appear-hover"><i class="fas fa-check"></i></div></td>
       <td><div class="decline-button-table button-appear-hover"><i class="fas fa-times"></i></div></td>
@@ -96,7 +103,14 @@
     <tr class="white-background table-row-investment" data-investment-id="<%= investment.id %>">
       <td><%= investment.project.ngo.capitalize %></td>
       <td><%= investment.project.name %></td>
-      <td><%= investment.project.nearest_milestone.days_left %> days</td>
+      <% if milestone.days_left < 0 %>
+        <td class="late"><%= milestone.days_left %> days</td>
+      <% elsif milestone.days_left < 7 %>
+        <td class="almost-late"><%= milestone.days_left %> days</td>
+      <% else %>
+        <td><%= milestone.days_left %> days</td>
+      <% end %>
+
       <td><%= nice_money(investment.forecasted_amount) %></td>
       <td><div class="unlock-button-table button-appear-hover"><i class="fas fa-check"></i></div></td>
       <td><div class="decline-button-table button-appear-hover"><i class="fas fa-times"></i></div></td>

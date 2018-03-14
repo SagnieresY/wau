@@ -51,9 +51,9 @@
             <%= milestone.investment.project.name %>
           <% end %>
         </td>
-      <% if milestone.days_left < 0 %>
+      <% if milestone.days_left < 0 %>
         <td class="late"><%= milestone.days_left %> days</td>
-      <% elsif milestone.days_left < 7 %>
+      <% elsif milestone.days_left < 7 %>
         <td class="almost-late"><%= milestone.days_left %> days</td>
       <% else %>
         <td><%= milestone.days_left %> days</td>
