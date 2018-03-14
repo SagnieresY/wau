@@ -2,8 +2,8 @@
 <div class="white-info-parent-flex">
   <div class="container-home-info-box">
     <div class="white-info-child-box">
-      <div class="big-number-green"> <%= current_user.foundation.investments.count %></div>
-      <div class="small-text-gray"> YTD Investments  </div>
+      <div class="big-number-green"> <%= current_user.foundation.completed_investments %> / <%= current_user.foundation.investments.count %></div>
+      <div class="small-text-gray"> YTD Completed Investments  </div>
     </div>
     <div class="white-info-child-box">
       <div class="big-number-green"> <%= nice_money(current_user.foundation.total_forecasted_amount) %></div>
@@ -46,10 +46,10 @@
   <thead>
     <tr class="white-background header-row-milestone">
       <th scope="col" width="20%"><div class="tablesorter-header-inner">NGO<i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
-      <th scope="col" width="35%"><div class="tablesorter-header-inner">Project Name<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+      <th scope="col" width="30%"><div class="tablesorter-header-inner">Project Name<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
       <th scope="col" width="15%"><div class="tablesorter-header-inner">Next Milestone<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
       <th scope="col" width="15%"><div class="tablesorter-header-inner">Full Investment Amount<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-      <th scope="col" colspan="3" width="15%"></th>
+      <th scope="col" colspan="2" width="20%" style="text-align:center;">Edit</th>
     </tr>
   </thead>
   <tbody>
@@ -95,21 +95,30 @@
 <% @completed_investments.each do |investment| %>
     <tr class="white-background table-row-investment" data-investment-id="<%= investment.id %>">
       <td><%= investment.project.ngo.capitalize %></td>
-      <td><%= investment.project.name %></td>
+      <td>
+        <%= link_to investment_path(investment), {class: "green-link-text"} do %>
+            <%= investment.project.name %>
+          <% end %>
+      </td>
       <td><%= investment.project.nearest_milestone.days_left %> days</td>
       <td><%= nice_money(investment.forecasted_amount) %></td>
-      <td><div class="unlock-button-table button-appear-hover"><i class="fas fa-check"></i></div></td>
-      <td><div class="decline-button-table button-appear-hover"><i class="fas fa-times"></i></div></td>
-      <td><%= link_to edit_investment_path(investment), { class: "edit-button-table button-appear-hover" } do %>
-            <i class="fas fa-pencil-alt"></i><% end %></td>
-    </tr>
+      <td>
+        <%= link_to edit_investment_milestone_path(investment, investment.project.nearest_milestone), { class: "edit-nearest-milestone-button-table button-appear-hover" } do %>
+            Milestone
+        <% end %>
+      </td>
+      <td>
+        <%= link_to investment_path(investment), { class: "edit-investment-button-table button-appear-hover" } do %>
+          Investment
+        <% end %>
+      </td>
+      </tr>
       <% end %>
   </tbody>
 </table>
 </div>
 </div>
 <% end %>
-
 </div>
 
 
@@ -118,7 +127,10 @@
 
 
 
-<script>
+<%= content_for(:after_js) do %>
+<script type="text/javascript">
+  
+  $("table").tablesorter();
   function openCity(evt, cityName) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -141,3 +153,4 @@
 }
   document.getElementById("ongoing-tab").click();
 </script>
+<% end %>
