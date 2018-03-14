@@ -30,6 +30,17 @@
 </div>
 
 
+
+
+<div class="tab">
+  <button id="ongoing-tab" class="tablinks" onclick="openCity(event, 'ongoing')">On going investments</button>
+  <button id="completed-tab" class="tablinks" onclick="openCity(event, 'completed')">Completed investments</button>
+</div>
+
+<!-- Tab content -->
+<div id="ongoing" class="tabcontent">
+<div class="ongoing-investments">
+      <h1>#temporary header: On going investments</h1>
 <div class="table-container">
 <table class="table table-hover margin-center dropshadow-around">
   <thead>
@@ -42,7 +53,9 @@
     </tr>
   </thead>
   <tbody>
-<% @investments.each do |investment| %>
+
+<% @ongoing_investments.each do |investment| %>
+
     <tr class="white-background table-row-investment" data-investment-id="<%= investment.id %>">
       <td><%= investment.project.ngo.capitalize %></td>
       <td><%= investment.project.name %></td>
@@ -57,3 +70,74 @@
   </tbody>
 </table>
 </div>
+</div>
+
+</div>
+
+<div id="completed" class="tabcontent">
+
+<% unless @completed_investments.blank? %>
+
+<div class="completed-investments">
+      <h1>#temporary header: Completed investments</h1>
+  <div class="table-container">
+<table class="table table-hover margin-center dropshadow-around">
+  <thead>
+    <tr class="white-background header-row-milestone">
+      <th scope="col" width="20%"><div class="tablesorter-header-inner">NGO<i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
+      <th scope="col" width="35%"><div class="tablesorter-header-inner">Project Name<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+      <th scope="col" width="15%"><div class="tablesorter-header-inner">Next Milestone<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
+      <th scope="col" width="15%"><div class="tablesorter-header-inner">Full Investment Amount<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+      <th scope="col" colspan="3" width="15%"></th>
+    </tr>
+  </thead>
+  <tbody>
+<% @completed_investments.each do |investment| %>
+    <tr class="white-background table-row-investment" data-investment-id="<%= investment.id %>">
+      <td><%= investment.project.ngo.capitalize %></td>
+      <td><%= investment.project.name %></td>
+      <td><%= investment.project.nearest_milestone.days_left %> days</td>
+      <td><%= nice_money(investment.forecasted_amount) %></td>
+      <td><div class="unlock-button-table button-appear-hover"><i class="fas fa-check"></i></div></td>
+      <td><div class="decline-button-table button-appear-hover"><i class="fas fa-times"></i></div></td>
+      <td><%= link_to edit_investment_path(investment), { class: "edit-button-table button-appear-hover" } do %>
+            <i class="fas fa-pencil-alt"></i><% end %></td>
+    </tr>
+      <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+<% end %>
+
+</div>
+
+
+
+
+
+
+
+<script>
+  function openCity(evt, cityName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+  document.getElementById("ongoing-tab").click();
+</script>
