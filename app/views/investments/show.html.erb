@@ -15,21 +15,14 @@
       </div>
     </div>
   </div>
+
   <div class="milestone-graphic">
-    <% @investment.milestones.each_with_index do |milestone,index| %>
-      <div class="milestone-graph-element">
-      <p>milestone <%= index + 1 %></p>
-      <% if milestone.unlocked %>
-      <div class="dot-purple">
-
-      </div>
-      <% else %>
-      <div class="dot-grey">
-
-      </div>
-      <% end %>
-       <p>$<%= milestone.amount %></p>
-       <p><%= milestone.deadline %></p>
+    <% @investment.milestones_by_nearest_deadline.each_with_index do |milestone,index| %>
+    <div id="<%= milestone.id %>" class="milestone-graph-element">
+      <div class="center-item"> Milestone <%= index + 1 %> </div>
+        <%= render partial: "/partials/milestone_dot", locals: { milestone: milestone } %>
+      <div class="center-item"> <%= nice_money(milestone.amount) %> </div>
+      <div class="center-item"> <%= milestone.deadline %> </div>
     </div>
     <% end %>
   </div>

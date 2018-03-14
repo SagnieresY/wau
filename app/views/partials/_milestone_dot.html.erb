@@ -1,0 +1,9 @@
+<% if milestone.accessible %>
+  <% if milestone.unlocked %>
+    <div class="dot-unlocked"></div>
+  <% else  %>
+    <div class="dot-locked"></div>
+  <% end  %>
+<% else %>
+  <div class="dot-rescinded"></div>
+<% end %>
