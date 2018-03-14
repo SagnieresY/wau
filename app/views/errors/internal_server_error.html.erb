@@ -1,15 +1,9 @@
-<div class="container">
+<div class="container-error-page-500">
   <div class="row">
-    <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-
-
-      <h1>Errors#internal_server_error</h1>
-      <p>Find me in app/views/errors/internal_server_error.html.erb</p>
-
       <%= link_to root_path, class: "error-500" do %>
-      <%= image_tag "https://res.cloudinary.com/itsgoinbealright/image/upload/c_scale,w_600/v1521035134/Unicorndab.png" %>
+      <%= image_tag "https://res.cloudinary.com/itsgoinbealright/image/upload/c_scale,w_500/v1521035134/Unicorndab.png" %>
       <% end %>
-
+      <p class= "error-text">500: THERE WAS AN ERROR. PLEASE TRY AGAIN LATER!</p>
+      <h4>Click the unicorn to go home!</h4>
     </div>
   </div>
-</div>
