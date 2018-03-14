@@ -37,16 +37,20 @@
           </ul>
         </div>
       </div>
-      <% else %>
-      <div>
-        <%= link_to  new_user_registration_path, { class: "button-landing" } do %>
-        Sign Up
-        <% end %>
-        <%= link_to  new_user_session_path, { class: "button-landing" } do %>
-        Login
-        <% end %>
-        <% end %>
-      </div>
+
+    <% else %>
+    <div>
+      <%= link_to  new_user_registration_path, { class: "button-signup-landing" } do %>
+      Sign Up
+      <% end %>
+
+      <%= link_to  new_user_session_path, { class: "button-login-landing" } do %>
+    Login
+    <% end %>
+    </div>
+    <% end %>
+  </div>
+
 
       <!-- Dropdown list appearing on mobile only -->
       <div class="navbar-wau-item hidden-md hidden-lg">
