@@ -9,9 +9,14 @@ class Milestone < ApplicationRecord
     (deadline - Date.today).to_i #pretty much straight forward
   end
 
-  def not_unlocked?
+  def unlocked?
     #returns true if milestone is not unlocked
-    !unlocked
+    if unlocked && accessible
+      update!(unlocked:true)
+    else
+      update!(unlocked:false)
+    end
+    return unlocked
   end
 
   def accessible?
