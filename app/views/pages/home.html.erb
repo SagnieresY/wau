@@ -36,10 +36,12 @@
   <thead>
     <tr class="white-background header-row-milestone">
       <th scope="col" width="20%"><div class="tablesorter-header-inner">NGO<i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
-      <th scope="col" width="35%"><div class="tablesorter-header-inner">Project Name<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+      <th scope="col" width="30%"><div class="tablesorter-header-inner">Project Name<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
       <th scope="col" width="15%"><div class="tablesorter-header-inner">New Milestone<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
       <th scope="col" width="15%"><div class="tablesorter-header-inner">Milestone Amount<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-      <th scope="col" colspan="3" width="15%"></th>
+      <th scope="col" width="8%"></th>
+      <th scope="col" width="8%"></th>
+      <th scope="col" width="8%"></th>
     </tr>
   </thead>
   <tbody>
@@ -62,7 +64,7 @@
       <td><%= nice_money(milestone.amount) %></td>
       <td>
         <%= link_to unlock_milestone_path(id: milestone.id, page: 'home'), :remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
-          <i class="fas fa-check"></i>
+          <i class="fas fa-lock-open"></i>
         <% end %>
       </td>
       <td>

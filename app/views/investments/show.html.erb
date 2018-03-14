@@ -53,30 +53,39 @@
     <div class="purple-child-box"></div>
   </div>
 
-  <div class="table-container">
-  <table class="table table-hover margin-center dropshadow-around">
-    <thead>
-      <tr class="white-background header-row-milestone">
-        <th scope="col" width="10%"><div class="tablesorter-header-inner"><i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
-        <th scope="col" width="15%"><div class="tablesorter-header-inner"> Status <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-        <th scope="col" width="10%"><div class="tablesorter-header-inner"> Deadline<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-        <th scope="col" width="15%"><div class="tablesorter-header-inner"> Amount<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
-        <th scope="col" width="35%"><div class="tablesorter-header-inner"> Task<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-        <th scope="col" colspan="3" width="15%"></th>
-      </tr>
-    </thead>
-    <tbody>
-  <% @investment.milestones_by_nearest_deadline.each_with_index do |milestone,index|  %>
-      <tr id="<%= milestone.id %>" class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>" data-investment-id="<%= milestone.investment.id %>">
-        <td>Milestone <%= index + 1 %> </td>
-        <% if milestone.accessible? %>
-          <% if milestone.unlocked? %>
-            <td><div class="unlocked-status-icon">unlocked</div></td>
-            <% else %>
-            <td><div class="locked-status-icon" id="locked-button">locked</div></td>
-          <% end %>
-        <% else %>
-          <td><div class="rescinded-status-icon" >rescinded</div></td>
+<div class="table-container">
+<table class="table table-hover margin-center dropshadow-around">
+  <thead>
+    <tr class="white-background header-row-milestone">
+      <th scope="col" width="10%"><div class="tablesorter-header-inner"><i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
+      <th scope="col" width="15%"><div class="tablesorter-header-inner"> Status <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+      <th scope="col" width="10%"><div class="tablesorter-header-inner"> Deadline<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+      <th scope="col" width="10%"><div class="tablesorter-header-inner"> Amount<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
+      <th scope="col" width="34%"><div class="tablesorter-header-inner"> Task<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+      <th scope="col" width="7%"></th>
+      <th scope="col" width="7%"></th>
+      <th scope="col" width="7%"></th>
+    </tr>
+  </thead>
+  <tbody>
+<% @investment.milestones_by_nearest_deadline.each_with_index do |milestone,index|  %>
+    <tr id="<%= milestone.id %>" class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>" data-investment-id="<%= milestone.investment.id %>">
+      <td>Milestone <%= index + 1 %> </td>
+      <% if milestone.accessible? %>
+        <% if milestone.unlocked? %>
+          <td><div class="unlocked-status-icon">unlocked</div></td>
+          <% else %>
+          <td><div class="locked-status-icon" id="locked-button">locked</div></td>
+        <% end %>
+      <% else %>
+        <td><div class="rescinded-status-icon" >rescinded</div></td>
+      <% end %>
+      <td><%= milestone.days_left %> days</td>
+      <td><%=  nice_money(milestone.amount) %></td>
+      <td><%= milestone.task %></td>
+      <td>
+        <%= link_to unlock_milestone_path(id: milestone.id, page: 'show'),:remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
+          <i class="fas fa-lock-open"></i>
         <% end %>
         <td><%= milestone.days_left %> days</td>
         <td><%=  nice_money(milestone.amount) %></td>
