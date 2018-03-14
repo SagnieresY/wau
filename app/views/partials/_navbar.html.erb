@@ -5,7 +5,6 @@
   <% end %>
 
   <% if user_signed_in?  %>
-  locals {milestone:milestone}
   <!-- HIDE SEARCH BAR FOR NOW -->
     <!-- <div class="navbar-search-bar">
         <button type="submit" class="searchButton fa-4x">
@@ -56,10 +55,6 @@
           <br>
           <%= link_to investments_path, { class: "navbar-wau-item navbar-wau-link" } do %>
             Investments
-          <% end %>
-          <br>
-          <%= link_to dashboard_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-            Dashboard
           <% end %>
           <br>
           <%= link_to 'New Investment',  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>
