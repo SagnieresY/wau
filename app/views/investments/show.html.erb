@@ -80,7 +80,14 @@
         <% else %>
           <td><div class="rescinded-status-icon" >rescinded</div></td>
         <% end %>
+        <% if milestone.days_left < 0 %>
+        <td class="late"><%= milestone.days_left %> days</td>
+      <% elsif milestone.days_left < 7 %>
+        <td class="almost-late"><%= milestone.days_left %> days</td>
+      <% else %>
         <td><%= milestone.days_left %> days</td>
+      <% end %>
+
         <td><%=  nice_money(milestone.amount) %></td>
         <td><%= milestone.task %></td>
         <td>
