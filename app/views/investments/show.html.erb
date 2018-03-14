@@ -43,9 +43,11 @@
       <th scope="col" width="10%"><div class="tablesorter-header-inner"><i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
       <th scope="col" width="15%"><div class="tablesorter-header-inner"> Status <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
       <th scope="col" width="10%"><div class="tablesorter-header-inner"> Deadline<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-      <th scope="col" width="15%"><div class="tablesorter-header-inner"> Amount<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
-      <th scope="col" width="35%"><div class="tablesorter-header-inner"> Task<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-      <th scope="col" colspan="3" width="15%"></th>
+      <th scope="col" width="10%"><div class="tablesorter-header-inner"> Amount<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
+      <th scope="col" width="34%"><div class="tablesorter-header-inner"> Task<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+      <th scope="col" width="7%"></th>
+      <th scope="col" width="7%"></th>
+      <th scope="col" width="7%"></th>
     </tr>
   </thead>
   <tbody>
@@ -66,7 +68,7 @@
       <td><%= milestone.task %></td>
       <td>
         <%= link_to unlock_milestone_path(id: milestone.id, page: 'show'),:remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
-          <i class="fas fa-check"></i>
+          <i class="fas fa-lock-open"></i>
         <% end %>
       <td>
         <%= link_to rescind_milestone_path(id: milestone.id, page: 'show'),:remote => true, :method => :post, :class => "rescind-button-table button-appear-hover" do %>

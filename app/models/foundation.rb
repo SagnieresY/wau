@@ -14,15 +14,6 @@ class Foundation < ApplicationRecord
     return milestones.compact.sort_by{|m| m.days_left}.reverse
   end
 
-  def completed_investments
-    #calculates projected amount minus the missed milestones
-    completed_investments = investments.map do |m| #map passed deadline (if the milestone task was done or is b4 deadline)
-      m.completed ? 1 : 0
-    end
-
-    completed_investments.reduce(0, :+) #sums the valid milestones and returns it
-  end
-
   def investments_by_focus_area
     focus_areas = projects.map(&:focus_area).uniq
     investments.group_by{ |investment| investment.project.focus_area  }
@@ -118,6 +109,11 @@ class Foundation < ApplicationRecord
 
   def completed_investments
     investments.where(completed:true)
+  end
+
+  def completed_investments_count
+    #calculates projected amount minus the missed milestones
+    completed_investments.count
   end
 
   def completed_investments_by_time_created
