@@ -1,6 +1,21 @@
+.container-error-page-500 {
+margin-top: calc(50vh - 200px);
+text-align: center;
+}
+
+.container-error-page-404 {
+margin-top: calc(50vh - 200px);
+text-align: center;
+}
+
+
 .error-text {
     font-size: 30px;
     font-family: $body-font;
     font-weight: 400;
     color: #282940
+}
+
+.unicorn-404 {
+  border-bottom: 30px;
 }
