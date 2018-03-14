@@ -28,7 +28,12 @@ class MilestonesController < ApplicationController
 
   def update
     authorize @milestone
-    @milestone.update(milestone_params)
+    edit_params = milestone_params
+    if edit_params[:unlocked]
+      edit_params[:accessible] = true
+    end
+    @milestone.update(edit_params)
+    @milestone.unlocked?
     redirect_to investment_path(@investment)
   end
 
@@ -106,7 +111,7 @@ class MilestonesController < ApplicationController
   private
 
   def milestone_params
-    params.require(:milestone).permit(:task,:amount,:deadline, :id)
+    params.require(:milestone).permit(:task,:amount,:deadline, :id, :unlocked, :accessible)
   end
 
   def find_investment
