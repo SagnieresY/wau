@@ -1,11 +1,9 @@
 <div class="navbar-landing" id="navbar">
 
   <%= link_to root_path, class: "landing-wau-logo" do %>
-    <%= image_tag "http://res.cloudinary.com/dqkzp8fae/image/upload/c_scale,f_auto,w_50/v1520957148/Unicorn-Landing-Logo.svg" %>
-    <%#cl_image_tag("Unicorn-Landing-Logo.svg", :fetch_format=>:auto)%>
+  <%= image_tag "http://res.cloudinary.com/dqkzp8fae/image/upload/c_scale,f_auto,w_50/v1520957148/Unicorn-Landing-Logo.svg" %>
+  <%#cl_image_tag("Unicorn-Landing-Logo.svg", :fetch_format=>:auto)%>
   <% end %>
-
-
 
   <% if user_signed_in?  %>
   <!-- HIDE SEARCH BAR FOR NOW -->
@@ -14,18 +12,19 @@
           <i class="fas fa-search" style="color: #BF00FF"></i>
        </button>
         <input type="text" class="searchTerm" placeholder="Search">
-     </div> -->
-  <% end %>
+      </div> -->
+      <% end %>
 
-  <!-- Right Navigation -->
-  <div class="navbar-wau-right hidden-xs hidden-sm">
-    <% if user_signed_in?  %>
-      <%= link_to investments_path, { class: "navbar-wau-item navbar-wau-link" } do %>
+      <!-- Right Navigation -->
+      <div class="navbar-wau-right hidden-xs hidden-sm">
+        <% if user_signed_in?  %>
+        <%= link_to investments_path, { class: "navbar-wau-item navbar-wau-link" } do %>
         Investments
-      <% end %>
-      <%= link_to dashboard_path, { class: "navbar-wau-item navbar-wau-link" } do %>
+        <% end %>
+        <%= link_to dashboard_path, { class: "navbar-wau-item navbar-wau-link" } do %>
         Dashboard
-      <% end %>
+        <% end %>
+      </div>
 
       <!-- Avatar with dropdown menu -->
       <div class="navbar-wau-item">
@@ -35,9 +34,10 @@
             <%= link_to 'New Investment',  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>
             <br>
             <%= link_to 'Sign Out', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
-            </ul>
+          </ul>
         </div>
       </div>
+
     <% else %>
     <div>
       <%= link_to  new_user_registration_path, { class: "button-signup-landing" } do %>
@@ -51,33 +51,36 @@
     <% end %>
   </div>
 
-  <!-- Dropdown list appearing on mobile only -->
-  <div class="navbar-wau-item hidden-md hidden-lg">
-    <div class="dropdown">
-      <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
-      <ul class="dropdown-menu dropdown-menu-right navbar-wau-dropdown-menu">
-        <% unless user_signed_in? %>
-          <%= link_to  new_user_session_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-            Login
-          <% end %>
-        <% end %>
 
-        <% if user_signed_in?  %>
-          <%= link_to 'Homepage', root_path, class: "navbar-wau-item navbar-wau-link" %>
-          <br>
-          <%= link_to investments_path, { class: "navbar-wau-item navbar-wau-link" } do %>
+      <!-- Dropdown list appearing on mobile only -->
+      <div class="navbar-wau-item hidden-md hidden-lg">
+        <div class="dropdown">
+          <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
+          <ul class="dropdown-menu dropdown-menu-right navbar-wau-dropdown-menu">
+            <% unless user_signed_in? %>
+            <%= link_to  new_user_session_path, { class: "navbar-wau-item navbar-wau-link" } do %>
+            Login
+            <% end %>
+            <% end %>
+
+            <% if user_signed_in?  %>
+            <%= link_to 'Homepage', root_path, class: "navbar-wau-item navbar-wau-link" %>
+            <br>
+            <%= link_to investments_path, { class: "navbar-wau-item navbar-wau-link" } do %>
             Investments
-          <% end %>
-          <br>
-          <%= link_to dashboard_path, { class: "navbar-wau-item navbar-wau-link" } do %>
+            <% end %>
+            <br>
+            <%= link_to dashboard_path, { class: "navbar-wau-item navbar-wau-link" } do %>
             Dashboard
-          <% end %>
-          <br>
-          <%= link_to 'New Investment',  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>
-          <br>
-          <%= link_to 'Sign Out', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
-        <% end %>
-      </ul>
+            <% end %>
+            <br>
+            <%= link_to 'New Investment',  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>
+            <br>
+            <%= link_to 'Sign Out', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   devise_for :users
   root to: 'pages#home'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -15,6 +14,9 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'pages#dashboard', as: :dashboard
   get '/landing', to: 'pages#landing', as: :landing
   post '/unlock_milestone', to: 'milestones#unlock', as: :unlock_milestone
-  post '/decline_milestone', to: 'milestones#decline', as: :decline_milestone
+  post '/rescind_milestone', to: 'milestones#rescind', as: :rescind_milestone
   post '/investment_unlocked_amount', to: 'investments#unlocked_amount', as: :investment_unlocked_amount
+
+  match "/404", :to => "errors#not_found", :via => :all
+  match "/500", :to => "errors#internal_server_error", :via => :all
 end

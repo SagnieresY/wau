@@ -1,6 +1,6 @@
 class MilestonesController < ApplicationController
 
-  before_action :selected_milestone, only: [:edit, :update, :destroy, :unlock, :decline ]
+  before_action :selected_milestone, only: [:edit, :update, :destroy, :unlock, :rescind ]
   before_action :find_investment, only: [:create, :new, :edit, :update, :destroy]
 
   def new
@@ -41,6 +41,7 @@ class MilestonesController < ApplicationController
   def unlock
     authorize @milestone
     @milestone.unlocked = true
+    @milestone.accessible = true #makes sure investment is accessible
     @milestone.save!
     @investment = @milestone.investment
 
@@ -67,12 +68,39 @@ class MilestonesController < ApplicationController
     end
   end
 
-  def decline
+  def lock
+    authorize @milestone
+    @milestone.unlocked = false
+    @milestone.accessible = true #makes sure investment is accessible
+    @milestone.save!
+    @investment = @milestone.investment
+  end
+
+  def rescind
+    #only way to rescind milestone
     authorize @milestone
     @milestone.accessible = false
+    @milestone.unlocked = false #makes sure investment is not counted in unlocked
     @milestone.save!
+    @investment = @milestone.investment
 
-    render json: @milestone
+    @investment.completed?
+
+    @page = params[:page]
+    if @milestone.save
+      @investments_by_month_locked_cummulative = current_user.foundation.cummulative_locked_amount_investment_by_milestones_deadline_month
+      @investments_by_month_unlocked_cummulative = current_user.foundation.cummulative_unlocked_amount_investment_by_milestones_deadline_month
+
+      respond_to do |format|
+        format.html { rescind_milestone_path }
+        format.js
+      end
+    else
+      respond_to do |format|
+        format.html { render 'investment/show'}
+        format.js
+      end
+    end
   end
 
   private

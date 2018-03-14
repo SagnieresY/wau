@@ -6,8 +6,6 @@
        <h2>Milestone</h2>
        <p><strong>Project Name:</strong> <%= @milestone.investment.project.name %></p>
        <p><strong>NGO Name:</strong> <%= @milestone.investment.project.ngo %></p>
-       <p>Status unlocked:<%= @milestone.unlocked? %></p>
-       <p>Status accessible: <%= @milestone.accessible? %></p>
        <%= simple_form_for([@investment,@milestone]) do |f| %>
        <% if @milestone.errors.any? %>
        <div class="error-container">
@@ -20,6 +18,8 @@
       <% end %>
       <%= f.input :amount, as: 'integer' %>
       <%= f.input :deadline, as: :date %>
+      <%= f.input :unlocked %>
+      <%= f.input :accessible %>
       <%= f.input :task %>
       <%= f.submit 'Save', class: "btn btn-success"%>
       <% end %>
