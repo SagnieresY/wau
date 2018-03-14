@@ -51,7 +51,14 @@
             <%= milestone.investment.project.name %>
           <% end %>
         </td>
-      <td><%= milestone.days_left %> days</td>
+      <% if milestone.days_left < 0 %>
+        <td class="late"><%= milestone.days_left %> days</td>
+      <% elsif milestone.days_left < 7 %>
+        <td class="almost-late"><%= milestone.days_left %> days</td>
+      <% else %>
+        <td><%= milestone.days_left %> days</td>
+      <% end %>
+
       <td><%= nice_money(milestone.amount) %></td>
       <td>
         <%= link_to unlock_milestone_path(id: milestone.id, page: 'home'), :remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
