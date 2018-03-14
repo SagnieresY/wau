@@ -1,37 +1,32 @@
-<canvas class="home-chart" alt="chart" id="myChart"></canvas>
-<canvas class="home-chart" alt="chart" id="lineChart"></canvas>
+<canvas class="home-chart" alt="chart" id="bar-chart"></canvas>
+<canvas class="home-chart" alt="chart" id="line-chart"></canvas>
 
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
 
-function drawBarChart() {
-  var ctx = document.getElementById('myChart').getContext('2d');
-  var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'bar',
-    responsive: false,
+let barChartOptions = {
+  investmentsByFocusAreaKeys: <%= raw @investments_by_focus_area.keys  %>,
+  investmentsByFocusAreaValues: <%= @investments_by_focus_area.values %>
+};
 
-    <% @investments_by_focus_area = current_user.foundation.investments_by_focus_area.map do |focus_area, investments| %>
-      <% [focus_area,investments.map(&:forecasted_amount).reduce(0,:+)] %>
-    <% end %>
-    <% @investments_by_focus_area = @investments_by_focus_area.to_h %>
-    <% @chart_colors = []%>
-    <% @investments_by_focus_area.count.times do %>
-    <% @chart_colors.push("rgba(#{rand(1..255)}, #{rand(1..255)},#{rand(1..255)},0.6)") %>
-    <% end %>
-    // The data for our dataset
-    data: {
-      labels: <%= raw @investments_by_focus_area.keys %>,
+
+let barChart;
+function drawBarChart(barChartOptions) {
+  var barData = {
+      <% @chart_colors = []%>
+      <% @investments_by_focus_area.count.times do %>
+        <% @chart_colors.push("rgba(#{rand(1..255)}, #{rand(1..255)},#{rand(1..255)},0.6)") %>
+      <% end %>
+      labels: barChartOptions.investmentsByFocusAreaKeys,
       datasets: [{
         label: "My First dataset",
         backgroundColor: <%= raw @chart_colors  %>,
         borderColor: 'rgb(255, 99, 132)',
-        data: <%= raw @investments_by_focus_area.values %>,
+        data: barChartOptions.investmentsByFocusAreaValues,
       }]
-    },
+  }
 
-    // Configuration options go here
-    options: {
+  var barOptions = {
       responsive: false,
         legend: {
           display: false
@@ -65,58 +60,64 @@ function drawBarChart() {
         }]
       }
     }
+
+  var ctx = document.getElementById('bar-chart').getContext('2d');
+  var barChart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+    responsive: false,
+    // The data for our dataset
+    data: barData,
+    // Configuration options go here
+    options: barOptions
   });
 }
 
 let lineChartOptions = {
   investmentsByMonthLockedCummulative: <%= @investments_by_month_locked_cummulative.values %>,
-  investmentsByMonthUnlockedCummulative: <%= @investments_by_month_unlocked_cummulative.values %>,
+  investmentsByMonthUnlockedCummulative: <%= @investments_by_month_unlocked_cummulative.values %>
 };
 
+let lineChart;
 function drawLineChart(lineChartOptions) {
-    var ctx2 = document.getElementById('lineChart').getContext('2d');
-    var lineChart = new Chart(ctx2, {
-        // The type of chart we want to create
-      type: 'line',
+    var ctx2 = document.getElementById('line-chart').getContext('2d');
 
-      // The data for our dataset
-      data: {
-        labels: [
-          'January',
-          'February',
-          'March',
-          'April',
-          'May',
-          'June',
-          'July',
-          'August',
-          'September',
-          'October',
-          'November',
-          'December'
-          ],
-        datasets: [{
-          label: "Unlocked",
-            backgroundColor: 'rgb(145, 126, 216)',
-            borderColor: 'rgb(154, 102, 235)',
-            data: lineChartOptions.investmentsByMonthUnlockedCummulative,
-        }, {
-          label: "Locked",
-          backgroundColor: 'rgb(185, 102, 185)',
-          borderColor: 'rgb(157, 102, 255)',
-          data: lineChartOptions.investmentsByMonthLockedCummulative,
-        }]
-      },
+    var lineData = {
+      labels: [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+        ],
+      datasets: [{
+        label: "Unlocked",
+          backgroundColor: 'rgb(145, 126, 216)',
+          borderColor: 'rgb(154, 102, 235)',
+          data: lineChartOptions.investmentsByMonthUnlockedCummulative,
+      }, {
+        label: "Locked",
+        backgroundColor: 'rgb(185, 102, 185)',
+        borderColor: 'rgb(157, 102, 255)',
+        data: lineChartOptions.investmentsByMonthLockedCummulative,
+      }]
+    }
 
-    // Configuration options go here
-    options: {
+    var lineOptions = {
       responsive: false,
-       legend: {
-          display: true
-        },
-        tooltips: {
-          enabled: false
-        },
+      legend: {
+        display: true
+      },
+      tooltips: {
+        enabled: false
+      },
       scales: {
         xAxes: [{
           gridLines: {
@@ -144,10 +145,21 @@ function drawLineChart(lineChartOptions) {
         }]
       }
     }
-  });
+
+    var lineChart = new Chart(ctx2, {
+      // The type of chart we want to create
+      type: 'line',
+
+      // The data for our dataset
+      data: lineData,
+
+      // Configuration options go here
+      options: lineOptions
+    });
 }
 
-drawBarChart();
+
+drawBarChart(barChartOptions);
 drawLineChart(lineChartOptions);
 </script>
 <% end %>

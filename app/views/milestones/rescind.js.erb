@@ -4,14 +4,21 @@
   $("#<%= @milestone.id %> > td:nth-child(2) > div").removeClass().addClass("rescinded-status-icon").text("rescinded")
 
 <% elsif @page == 'home' %>
+  $("#charts-home").empty();
+  $("#charts-home").html( "<%= j render '/partials/charts' %>" );
   $("#forecasted-amount").html( "<%= j render '/partials/forecasted_amount_home' %>" );
   lineChartOptions = {
     investmentsByMonthLockedCummulative: <%= @investments_by_month_locked_cummulative.values %>,
-    investmentsByMonthUnlockedCummulative: <%= @investments_by_month_unlocked_cummulative.values %>,
+    investmentsByMonthUnlockedCummulative: <%= @investments_by_month_unlocked_cummulative.values %>
+  };
+
+  barChartOptions = {
+    investmentsByFocusAreaKeys: <%= raw @investments_by_focus_area.keys  %>,
+    investmentsByFocusAreaValues: <%= @investments_by_focus_area.values %>
   };
 
   drawLineChart(lineChartOptions);
-  drawBarChart();
+  drawBarChart(barChartOptions);
 
   $("#<%= @milestone.id %>").remove();
 <% end %>
