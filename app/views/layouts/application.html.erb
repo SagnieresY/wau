@@ -8,14 +8,15 @@
     <%= action_cable_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
+
   </head>
   <body>
     <%=  %>
     <%= render 'partials/navbar' if should_render_navbar? %>
     <%= render 'partials/navbar_landing' if should_render_navbar_landing? %>
-    <%= render 'partials/flashes' unless action_name == "home" %>
+    <%# render 'partials/flashes' unless action_name == "home" %>
     <%= yield %>
-    <%= render 'partials/footer' if !action_name == "home" || user_signed_in? %>
+    <%= render 'partials/footer' if should_render_footer? %>
 
     <%= javascript_include_tag 'application' %>
     <%= javascript_pack_tag 'application' %>
