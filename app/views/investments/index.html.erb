@@ -37,7 +37,7 @@
 
 <!-- Tab content -->
 <div id="ongoing" class="tabcontent">
-  <div class="ongoing-investments">
+<div class="ongoing-investments">
     <div class="table-container">
       <table class="table table-hover margin-center dropshadow-around">
         <thead>
@@ -49,29 +49,35 @@
             <th scope="col" colspan="2" width="30%" style="text-align: center;">Edit</th>
           </tr>
         </thead>
-
-        <tbody>
-          <% @ongoing_investments.each do |investment| %>
+      <tbody>
+        <% @ongoing_investments.each do |investment| %>
           <tr class="white-background table-row-investment" data-investment-id="<%= investment.id %>">
             <td><%= investment.project.ngo.capitalize %></td>
             <td><%= investment.project.name %></td>
-            <td><%= investment.project.nearest_milestone.days_left %> days</td>
-            <td><%= nice_money(investment.forecasted_amount) %></td>
-            <td>
-              <%= link_to investment_path(investment), { class: "edit-investment-button-table button-appear-hover" } do %>
-              Milestone
-              <% end %>
-            </td>
-            <td>
-              <%= link_to investment_path(investment), { class: "edit-investment-button-table button-appear-hover" } do %>
-              Investment
-              <% end %>
-            </td>
+          <% if investment.next_milestone.days_left < 0 %>
+            <td class="late"><%= investment.next_milestone.days_left %> days</td>
+          <% elsif investment.next_milestone.days_left < 7 %>
+            <td class="almost-late"><%= investment.next_milestone.days_left %> days</td>
+          <% else %>
+            <td><%= investment.next_milestone.days_left %> days</td>
+          <% end %>
+          <td><%= nice_money(investment.forecasted_amount) %></td>
+          <td>
+            <%= link_to investment_path(investment), { class: "edit-investment-button-table button-appear-hover" } do %>
+            Milestone
             <% end %>
-          </tbody>
-        </table>
-      </div>
+          </td>
+          <td>
+            <%= link_to investment_path(investment), { class: "edit-investment-button-table button-appear-hover" } do %>
+            Investment
+            <% end %>
+          </td>
+          <% end %>
+        </tbody>
+      </table>
     </div>
+  </div>
+
 
   </div>
 
@@ -121,36 +127,31 @@
     <% end %>
   </div>
 
+<%= content_for(:after_js) do %>
+<script type="text/javascript">
+  
+  $("table").tablesorter();
+  function openCity(evt, cityName)
+  // Declare all variables
+  var i, tabcontent, tablinks;
 
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
 
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
 
-
-
-
-  <%= content_for(:after_js) do %>
-  <script type="text/javascript">
-
-    $("table").tablesorter();
-    function openCity(evt, cityName) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
-
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-
-    // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
   }
   document.getElementById("ongoing-tab").click();
+  
 </script>
 <% end %>
