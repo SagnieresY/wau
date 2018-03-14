@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     authorize @project
 
-    if @project.save!
+    if @project.save
       redirect_to investments_path
     else
       render :new
