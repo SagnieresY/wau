@@ -4,6 +4,8 @@
   $("#<%= @milestone.id %> > td:nth-child(2) > div").removeClass().addClass("unlocked-status-icon").text("unlocked")
 
 <% elsif @page == 'home' %>
+  $("#charts-home").empty();
+  $("#charts-home").html( "<%= j render '/partials/charts' %>" );
   $("#unlocked-amount").html( "<%= j render '/partials/total_unlocked_home' %>" );
   lineChartOptions = {
     investmentsByMonthLockedCummulative: <%= @investments_by_month_locked_cummulative.values %>,
@@ -11,7 +13,7 @@
   };
 
   drawLineChart(lineChartOptions);
-  drawBarChart();
+  drawBarChart(barChartOptions);
 
   $("#<%= @milestone.id %>").remove();
 <% end %>
