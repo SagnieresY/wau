@@ -59,12 +59,12 @@
     <tr class="white-background table-row-investment" data-investment-id="<%= investment.id %>">
       <td><%= investment.project.ngo.capitalize %></td>
       <td><%= investment.project.name %></td>
-     <% if milestone.days_left < 0 %>
-        <td class="late"><%= milestone.days_left %> days</td>
-      <% elsif milestone.days_left < 7 %>
-        <td class="almost-late"><%= milestone.days_left %> days</td>
+     <% if investment.next_milestone.days_left < 0 %>
+        <td class="late"><%= investment.next_milestone.days_left %> days</td>
+      <% elsif investment.next_milestone.days_left < 7 %>
+        <td class="almost-late"><%= investment.next_milestone.days_left %> days</td>
       <% else %>
-        <td><%= milestone.days_left %> days</td>
+        <td><%= investment.next_milestone.days_left %> days</td>
       <% end %>
 
       <td><%= nice_money(investment.forecasted_amount) %></td>
@@ -103,12 +103,12 @@
     <tr class="white-background table-row-investment" data-investment-id="<%= investment.id %>">
       <td><%= investment.project.ngo.capitalize %></td>
       <td><%= investment.project.name %></td>
-      <% if milestone.days_left < 0 %>
-        <td class="late"><%= milestone.days_left %> days</td>
-      <% elsif milestone.days_left < 7 %>
-        <td class="almost-late"><%= milestone.days_left %> days</td>
+      <% if investment.milestones_by_nearest_deadline.last.days_left < 0 %>
+        <td class="late"><%= investment.milestones_by_nearest_deadline.last.days_left %> days</td>
+      <% elsif investment.milestones_by_nearest_deadline.last.days_left < 7 %>
+        <td class="almost-late"><%= investment.milestones_by_nearest_deadline.last.days_left %> days</td>
       <% else %>
-        <td><%= milestone.days_left %> days</td>
+        <td><%= investment.milestones_by_nearest_deadline.last.days_left %> days</td>
       <% end %>
 
       <td>
@@ -144,7 +144,7 @@
 
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
-  
+
   $("table").tablesorter();
   function openCity(evt, cityName) {
     // Declare all variables
