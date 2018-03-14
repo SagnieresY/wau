@@ -1,15 +1,14 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-
-
-      <h1>Errors#internal_server_error</h1>
-      <p>Find me in app/views/errors/internal_server_error.html.erb</p>
 
       <%= link_to root_path, class: "error-500" do %>
       <%= image_tag "https://res.cloudinary.com/itsgoinbealright/image/upload/c_scale,w_600/v1521035134/Unicorndab.png" %>
       <% end %>
+      <p class= "error-text">THERE WAS AN ERROR. PLEASE TRY AGAIN LATER!</p>
+      <div class="button-home-page">
+        <%= link_to root_path, { class: "btn btn-success" } do %>
+        Home Page
+        <% end %>
 
     </div>
   </div>
-</div>

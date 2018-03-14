@@ -1,10 +1,14 @@
-<div class="container" style="margin-top: calc(50vh - 180px);">
+<div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-4 col-sm-offset-4">
 
       <%= link_to root_path, class: "error-404" do %>
       <%= image_tag "https://res.cloudinary.com/itsgoinbealright/image/upload/v1521037102/unlock_twonicorn.png" %>
       <% end %>
+      <p class= "error-text">OOPS, SORRY WE CAN'T FIND THAT PAGE!</p>
+      <div class="button-home-page">
+        <%= link_to root_path, { class: "btn btn-success" } do %>
+        Home Page
+        <% end %>
+
     </div>
   </div>
-</div>

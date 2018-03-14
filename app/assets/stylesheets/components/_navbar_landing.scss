@@ -35,26 +35,8 @@
     padding-right: 20px;
 }
 
-.button-login-landing {
-    border-radius: 4px;
-    opacity: 1;
-    background: #B5E9E9;
-    color: #5a5a5a;
-    font-size: 18px;
-    text-align: center;
-    padding: 8px;
-    margin: 10px;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease-in-out;
-    text-decoration: none;
-    &:hover {
-    opacity: 0.9;
-    box-shadow: 1.5px 1.5px 10px rgba(0,0,0,0.15);
-    text-decoration: none;
-    }
-}
 
-.button-signup-landing {
+.button-landing {
   border-radius:4px;
   opacity: 1;
   border: 2px solid white;
