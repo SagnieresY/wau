@@ -37,8 +37,7 @@ class Investment < ApplicationRecord
 
   def completed?
     update!(completed:true) if milestones.reject{ |m|  m.unlocked || !m.accessible}.blank?
+    update!(completed:false) unless milestones.reject{ |m|  m.unlocked || !m.accessible}.blank?
+    return completed
   end
-
-
-
 end
