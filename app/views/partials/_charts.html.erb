@@ -1,5 +1,6 @@
 <canvas class="home-chart" alt="chart" id="bar-chart"></canvas>
 <canvas class="home-chart" alt="chart" id="line-chart"></canvas>
+<canvas class="home-chart" alt="chart" id="ngo-chart"></canvas>
 
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
@@ -157,80 +158,7 @@ function drawLineChart(lineChartOptions) {
       options: lineOptions
     });
 }
-
-  let ngoChartOptions = {
-    forcasted_amount: <%= current_user.foundation.forcasted_funding_by_ngo %>
-    unlocked_amount: <%= current_user.foundation.unlocked_funding_by_ngo %>
-  }
-
-  function drawNgoChart(ngoChartOptions) {
-    var ctx2 = document.getElementById('line-chart').getContext('2d');
-
-    var lineData = {
-      labels: <%= current_user.foundation.unlocked_funding_by_ngo.keys %>,
-      datasets: [{
-        label: "Unlocked",
-          backgroundColor: 'rgb(145, 126, 216)',
-          borderColor: 'rgb(154, 102, 235)',
-          data: ngoChartOptions.forcasted_amount,
-      }, {
-        label: "Locked",
-        backgroundColor: 'rgb(185, 102, 185)',
-        borderColor: 'rgb(157, 102, 255)',
-        data: ngoChartOptions.unlocked_amount,
-      }]
-    }
-
-    var ngoOptions = {
-      responsive: false,
-      legend: {
-        display: true
-      },
-      tooltips: {
-        enabled: false
-      },
-      scales: {
-        xAxes: [{
-          gridLines: {
-            color: "rgba(0, 0, 0, 0)",
-          }
-        }],
-        yAxes: [{
-          stacked: true,
-          gridLines: {
-            color: "rgba(0, 0, 0, 0)",
-          },
-          ticks: {
-            // Return an empty string to draw the tick line but hide the tick label
-            // Return `null` or `undefined` to hide the tick line entirely
-            userCallback: function(value, index, values) {
-              // Convert the number to a string and splite the string every 3 charaters from the end
-              value = value.toString();
-              value = value.split(/(?=(?:...)*$)/);
-
-              // Convert the array to a string and format the output
-              value = value.join(',');
-              return '$' + value;
-            }
-          }
-        }]
-      }
-    }
-
-    var ngoChart = new Chart(ctx2, {
-      // The type of chart we want to create
-      type: 'bar',
-
-      // The data for our dataset
-      data: lineData,
-
-      // Configuration options go here
-      options: lineOptions
-    });
-}
-
 drawBarChart(barChartByFocusAreaOptions);
 drawLineChart(lineChartOptions);
-
 </script>
 <% end %>
