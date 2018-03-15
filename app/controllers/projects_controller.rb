@@ -21,7 +21,6 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    authorize @project
     project = selected_project
     authorize project
     project.update(project_params)
