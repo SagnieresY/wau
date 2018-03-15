@@ -54,7 +54,7 @@
         </td>
       <% if milestone.days_left < 0 %>
         <td>
-          <div class="late"> 
+          <div class="late">
             <%= milestone.days_left %> days
           </div>
         </td>
@@ -70,7 +70,7 @@
 
       <td><%= nice_money(milestone.amount) %></td>
       <td>
-        <div class="table-button-flex">
+        <div class="table-button-flex" onclick="alert('milestone\'s project: <%= milestone.investment.project.name %>')">
           <%= link_to unlock_milestone_path(id: milestone.id, page: 'home'), :remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
             <i class="fas fa-lock-open"></i>
           <% end %>
