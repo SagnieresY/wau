@@ -1,6 +1,6 @@
 
-  <canvas  class="home-chart" alt="chart" id="bar-chart"></canvas>
-  <canvas class="home-chart" alt="chart" id="line-chart"></canvas>
+<canvas  class="home-chart" alt="chart" id="bar-chart"></canvas>
+<canvas class="home-chart" alt="chart" id="line-chart"></canvas>
 
 
 <%= content_for(:after_js) do %>
@@ -21,7 +21,7 @@ function drawBarChart(barChartByFocusAreaOptions) {
       <% end %>
       labels: barChartByFocusAreaOptions.investmentsByFocusAreaKeys,
       datasets: [{
-        label: "My First dataset",
+        label: "By Focus Area",
         backgroundColor: <%= raw @chart_colors  %>,
         borderColor: 'rgb(255, 99, 132)',
         data: barChartByFocusAreaOptions.investmentsByFocusAreaValues,
@@ -34,15 +34,21 @@ function drawBarChart(barChartByFocusAreaOptions) {
           display: false
         },
         tooltips: {
-          enabled: false
-        },
+        enabled: true,
+        mode: 'index',
+        intersect: false,
+        callbacks: {
+          label: function(tooltipItem, data) {
+              return tooltipItem.xLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          },
+        }
+      },
+      title: {
+        display: true,
+        text: 'FY Forecasted Investments by Focus Area'
+      },
       scales: {
         xAxes: [{
-          gridLines: {
-            color: "rgba(0, 0, 0, 0)",
-          }
-        }],
-        yAxes: [{
           gridLines: {
             color: "rgba(0, 0, 0, 0)",
           },
@@ -59,6 +65,11 @@ function drawBarChart(barChartByFocusAreaOptions) {
               return '$' + value;
             }
           }
+        }],
+        yAxes: [{
+          gridLines: {
+            color: "rgba(0, 0, 0, 0)",
+          }
         }]
       }
     }
@@ -66,7 +77,7 @@ function drawBarChart(barChartByFocusAreaOptions) {
   var ctx = document.getElementById('bar-chart').getContext('2d');
   var barChart = new Chart(ctx, {
     // The type of chart we want to create
-    type: 'bar',
+    type: 'horizontalBar',
     responsive: false,
     // The data for our dataset
     data: barData,
@@ -118,7 +129,18 @@ function drawLineChart(lineChartOptions) {
         display: true
       },
       tooltips: {
-        enabled: false
+        enabled: true,
+        mode: 'index',
+        intersect: false,
+        callbacks: {
+          label: function(tooltipItem, data) {
+              return tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          },
+        }
+      },
+      title: {
+        display: true,
+        text: 'FY Forecasted Investments'
       },
       scales: {
         xAxes: [{
