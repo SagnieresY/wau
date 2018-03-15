@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Unicornz</title>
-    <%= csrf_meta_tags %>
-    <%= action_cable_meta_tag %>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>We are Unicorns</title>
+  <meta name="description" content="Do you want to know your real social impact ?
+  Sign up to manage your charitable investments through a streamlined dashboard.">
+  <link rel="icon"
+  type="image/png"
+  href="http://res.cloudinary.com/dqkzp8fae/image/upload/v1521057638/Fav-Icon.png">
+  <meta property="og:image" content="https://res.cloudinary.com/itsgoinbealright/image/upload/c_scale,w_500/v1521035134/Unicorndab.png" />
 
-  </head>
-  <body>
-    <%=  %>
-    <%= render 'partials/navbar' if should_render_navbar? %>
-    <%= render 'partials/navbar_landing' if should_render_navbar_landing? %>
-    <%# render 'partials/flashes' unless action_name == "home" %>
-    <%= yield %>
-    <%= render 'partials/footer' if should_render_footer? %>
+  <%= csrf_meta_tags %>
+  <%= action_cable_meta_tag %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
 
-    <%= javascript_include_tag 'application' %>
-    <%= javascript_pack_tag 'application' %>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"> </script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
-    <%= yield :after_js %>
-  </body>
+</head>
+<body>
+  <%=  %>
+  <%= render 'partials/navbar' if should_render_navbar? %>
+  <%= render 'partials/navbar_landing' if should_render_navbar_landing? %>
+  <%# render 'partials/flashes' unless action_name == "home" %>
+  <%= yield %>
+  <%= render 'partials/footer' if should_render_footer? %>
+
+  <%= javascript_include_tag 'application' %>
+  <%= javascript_pack_tag 'application' %>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"> </script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+  <%= yield :after_js %>
+</body>
 </html>
