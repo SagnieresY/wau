@@ -24,13 +24,13 @@
     investmentsByMonthUnlockedCummulative: <%= @investments_by_month_unlocked_cummulative.values %>
   };
 
-  barChartOptions = {
+  barChartByFocusAreaOptions = {
     investmentsByFocusAreaKeys: <%= raw @investments_by_focus_area.keys  %>,
     investmentsByFocusAreaValues: <%= @investments_by_focus_area.values %>
   };
 
   drawLineChart(lineChartOptions);
-  drawBarChart(barChartOptions);
+  drawBarChart(barChartByFocusAreaOptions);
 
   $("#<%= @milestone.id %>").remove();
 <% end %>
