@@ -22,16 +22,12 @@
 }
 
 .milestone-view-button-table {
-  color: white;
-  text-align: center;
-  width: 50%;
-  margin-left: 5px;
-}
-
-.milestone-view-button-table:hover {
-  color: white;
-  background-color: $yellow;
-  border-radius: 4px;
+  // color: white;
+  // text-align: center;
+  // width: 50%;
+  // margin-left: 5px;
+  // background-color: $yellow;
+  // border-radius: 4px;
 }
 
 .completed-icon {
@@ -45,7 +41,6 @@
 
 .flex-tab {
   display: flex;
-  margin-left: 20px;
   margin-bottom: 5px;
 }
 
@@ -61,6 +56,7 @@
 
 .tablinks:hover {
   opacity: 0.8;
+  cursor: pointer;
 }
 
 .flex-tab .tablinks:first-child {

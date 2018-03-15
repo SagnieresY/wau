@@ -30,6 +30,27 @@ table tr:last-child td:last-child {
   border-radius: 10px;
 }
 
+// #milestone-table-crud-width{
+//   text-align: center;
+// }
+
+.header-table-button {
+  text-align: center;
+  width: 30%;
+}
+
+.color-green {
+  color: $green;
+}
+
+.color-red {
+  color: $red;
+}
+
+.color-yellow {
+  color: $yellow;
+}
+
 
 .unlock-button-table {
   color: $green;
@@ -69,7 +90,7 @@ table tr:last-child td:last-child {
 
 .tablesorter-header-inner{
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 tr.header-row-milestone {
@@ -91,12 +112,35 @@ tr.table-row-milestone {
 }
 
 tr.table-row-investment {
+  .milestone-view-button-table {
+    background: transparent;
+    color: transparent;
+    text-align: center;
+    width: 50%;
+    margin-left: 5px;
+    border-radius: 4px;
+  }
+  .edit-investment-button-table {
+    background: transparent;
+    color: transparent;
+    border-radius: 4px;
+    padding: 0px 5px;
+  }
+ 
   .button-appear-hover {
     display: none;
   }
   &:hover {
+    .milestone-view-button-table {
+      background-color: $yellow;
+      color: white;
+    }
     .button-appear-hover {
       display: block;
+    }
+    .edit-investment-button-table {
+    color: white;
+    background-color: $yellow;
     }
   }
 }

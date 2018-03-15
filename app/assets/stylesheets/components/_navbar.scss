@@ -35,14 +35,18 @@
 .navbar-wau-item {
   cursor: pointer;
   padding: 0 20px;
+  color: $green;
+  font-size: 16px;
+  text-transform: uppercase;
 }
 
 .navbar-wau-link {
   font-size: 12px;
   text-decoration: none;
-  color: black;
+  color: $green;
   &:hover {
-    color: $purple;
+    color: $green;
+    opacity: 0.7;
   }
 }
 

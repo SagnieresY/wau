@@ -21,8 +21,8 @@
     <div class="title-mid-home-page-text">
       <h3>Your Investments</h3>
     </div>
-    <div class="button-right">
-      <%= link_to new_investment_path, { class: "button-body" } do %>
+    <div class="mid-title-button-right grow">
+      <%= link_to new_investment_path, { class: "mid-title-button-body" } do %>
       Create Investment
       <% end %>
     </div>
@@ -31,8 +31,8 @@
 
 
 <div class="flex-tab">
-  <div id="ongoing-tab" class="tablinks" onclick="openCity(event, 'ongoing')">Active investments</div>
-  <div id="completed-tab" class="tablinks" onclick="openCity(event, 'completed')">Completed investments</div>
+  <div id="ongoing-tab" class="tablinks" onclick="openCity(event, 'ongoing')">Active Investments</div>
+  <div id="completed-tab" class="tablinks" onclick="openCity(event, 'completed')">Completed Investments</div>
 </div>
 
 <!-- Tab content -->
@@ -75,7 +75,7 @@
             </td>
           <td>
             <div class="table-button-flex">
-              <%= link_to edit_project_path(investment.project), { class: "edit-investment-button-table button-appear-hover" } do %>
+              <%= link_to edit_project_path(investment.project), { class: "edit-investment-button-table" } do %>
               Project
               <% end %>
             </div>

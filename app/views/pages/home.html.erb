@@ -22,10 +22,10 @@
 <div class="mid-title-box">
   <div class="mid-title-flex">
     <div class="title-mid-home-page-text">
-      <h3>Upcoming Milestones</h3>
+      <h3>Upcoming milestone</h3>
     </div>
-    <div class="button-right">
-    <%= link_to new_investment_path, { class: "button-body" } do %>
+    <div class="mid-title-button-right grow">
+    <%= link_to new_investment_path, { class: "mid-title-button-body" } do %>
     Create Investment
     <% end %>
     </div>
@@ -40,7 +40,11 @@
       <th scope="col" width="30%"><div class="tablesorter-header-inner">Project Name<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
       <th scope="col" width="15%"><div class="tablesorter-header-inner">Next Milestone<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
       <th scope="col" width="15%"><div class="tablesorter-header-inner">Milestone Amount<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-      <th scope="col" width="30%"></th>
+      <th scope="col" id="milestone-table-crud-width" width="30%">
+          <div class="header-table-button color-green"><i class="fas fa-lock-open"></i></div>
+          <div class="header-table-button color-red"><i class="fas fa-times"></i></div>
+          <div class="header-table-button color-yellow"><i class="fas fa-pencil-alt color-yellow"></i></div>
+      </th>
     </tr>
   </thead>
   <tbody>

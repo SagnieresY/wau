@@ -18,7 +18,7 @@
   <div class="navbar-wau-right hidden-xs hidden-sm">
     <% if user_signed_in?  %>
       <%= link_to investments_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-        Investments
+        INVESTMENTS
       <% end %>
 
       <!-- Avatar with dropdown menu -->
@@ -28,7 +28,7 @@
           <ul class="dropdown-menu dropdown-menu-right navbar-wau-dropdown-menu">
             <%= link_to 'New Investment',  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>
             <br>
-            <%= link_to 'Sign Out', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
+            <%= link_to 'Sign out', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
             </ul>
         </div>
       </div>
@@ -57,9 +57,9 @@
             Investments
           <% end %>
           <br>
-          <%= link_to 'New Investment',  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>
+          <%= link_to 'New Investments',  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>
           <br>
-          <%= link_to 'Sign Out', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
+          <%= link_to 'SIGN OUT', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
         <% end %>
       </ul>
     </div>

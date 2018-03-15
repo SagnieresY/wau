@@ -8,22 +8,6 @@
 }
 
 
-/* Basic navbar item */
-.navbar-wau-item {
-  cursor: pointer;
-  padding: 0 20px;
-}
-
-.navbar-wau-link {
-  font-size: 12px;
-  text-decoration: none;
-  color: black;
-  &:hover {
-    color: $purple;
-  }
-}
-
-
 /* Right section */
 .navbar-wau-right {
   display: flex;
