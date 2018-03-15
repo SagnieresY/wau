@@ -111,7 +111,9 @@
               <% end %>
             </td>
             <td><%= nice_money(investment.forecasted_amount) %></td>
-            <td class="completed-icon">Completed</td>
+            <td >
+              <div class="completed-icon">Completed</div>
+            </td>
             <td>
               <div class="table-button-flex">
                 <%= link_to investment_path(investment), { class: "edit-investment-button-table button-appear-hover" } do %>

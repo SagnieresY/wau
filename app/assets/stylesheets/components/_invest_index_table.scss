@@ -27,8 +27,12 @@
 }
 
 .completed-icon {
+  border-radius: 4px;
   background: $green;
-  width: 50px;
+  width: 70px;
+  text-align: center;
+  color: white;
+  padding: 2px;
 }
 
 .flex-tab {
