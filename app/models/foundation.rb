@@ -120,6 +120,26 @@ class Foundation < ApplicationRecord
     investments.order('created_at ASC').select{|i| i.completed?}
   end
 
+  def investments_by_ngo
+    investments.group_by{|i| i.project.ngo}
+  end
+
+  def forcasted_funding_by_ngo
+    investments_by_ngo.map{|ngo,investments| [ngo,sum_investments_forcasted(investments)]}.to_h
+  end
+
+  def unlocked_funding_by_ngo
+    investments_by_ngo.map{|ngo,investments| [ngo,sum_investments_given(investments)] }.to_h
+  end
+
+  def sum_investments_forcasted(investments)
+    investments.map(&:forecasted_amount).reduce(0,:+)
+  end
+
+  def sum_investments_given(investments)
+    investments.map(&:unlocked_amount).reduce(0,:+)
+  end
+
   private
   def sum_locked_milestones(milestones)
     milestones.select{|m| !m.unlocked}.map(&:amount).reduce(0,:+)
@@ -127,4 +147,5 @@ class Foundation < ApplicationRecord
   def sum_unlocked_milestones(milestones)
     milestones.select{|m| m.unlocked}.map(&:amount).reduce(0,:+)
   end
+
 end
