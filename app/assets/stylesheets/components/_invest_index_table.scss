@@ -14,10 +14,18 @@
   text-align: center;
 }
 
+.edit-investment-button-table:hover {
+  color: white;
+  background-color: $yellow;
+  border-radius: 4px;
+  padding: 0px 5px;
+}
+
 .milestone-view-button-table {
   color: white;
   text-align: center;
   width: 50%;
+  margin-left: 5px;
 }
 
 .milestone-view-button-table:hover {

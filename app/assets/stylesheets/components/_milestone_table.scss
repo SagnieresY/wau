@@ -56,14 +56,14 @@ table tr:last-child td:last-child {
 }
 
 .edit-button-table {
-  color: gold;
+  color: $yellow;
   text-align: center;
   width: 30%;
 }
 
 .edit-button-table:hover {
   color: white;
-  background-color: gold;
+  background-color: $yellow;
   border-radius: 4px;
 }
 
