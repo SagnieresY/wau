@@ -16,7 +16,6 @@ neighbourhood_montreal = ['Ahuntsic-Cartierville', 'Anjou', 'Côte-des-Neiges–
 neighbourhood_montreal.each do |neighbourhood|
   Geo.create(name:neighbourhood)
 end
-
 humanrights_ngo = ['Amnesty International', 'UNICEF', 'Human Rights Watch']
 humanrights_project_name = ['Welcome Refugees to Montreal', 'Open a New Shelter', 'Fund Awareness Campaign']
 childcare_ngo = ['Save The Children Canada', 'Children\'s Wish', 'Montreal Children\'s Hospital']
@@ -42,16 +41,17 @@ humanrights_ngo.each_with_index do |ngo, index|
 end
 
 childcare_ngo.each_with_index do |ngo, index|
-  p = Project.new(name:childcare_project_name[index],
+  new_project = Project.new(name:childcare_project_name[index],
                   description:Faker::Commerce.product_name,
                   focus_area:FOCUS_AREAS.first,
                   main_contact:Faker::Internet.email,
                   ngo:ngo)
     puts '        adding geos to project...'
     rand(1..3) do
-      p.geos.push(Geo.all.sample)
+      new_project.geos.push(Geo.all.sample)
+      p new_project.geos
     end
-    p.save!
+    new_project.save!
 end
 
 community_ngo.each_with_index do |ngo, index|
@@ -103,4 +103,11 @@ puts 'generating investments and their milestones...'
       Milestone.create!(task:MILESTONES_TASK.sample,investment:i,amount:(MILESTONES_AMOUNT.sample*[10,100,1000].sample),deadline:Faker::Date.forward(365))
     end
   end
+end
+
+Project.all.each do |project|
+  rand(1..2).times do
+    project.geos.push(Geo.all.sample)
+  end
+  puts "added geos to project #{project.name}"
 end
