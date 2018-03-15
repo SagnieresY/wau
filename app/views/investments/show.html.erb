@@ -19,6 +19,7 @@
     </div>
   </div>
 
+
  
 
   <div class="mid-title-box">
@@ -26,18 +27,16 @@
       <div class="title-mid-invest-show-page-text">
         Investment Milestones
       </div>
+      <div class="completed-icon-invest-show"> <% if @investment.completed %>
+        <%= 'Completed' %>
+        <% end %> 
+      </div>
       <div class="button-right">
-      <%= link_to new_investment_milestone_path(@investment.id), { class: "btn btn-success" } do %>
-      New Milestone
-      <% end %>
+        <%= link_to new_investment_milestone_path(@investment.id), { class: "btn btn-success" } do %>
+        New Milestone
+        <% end %>
       </div>
     </div>
-  </div>
-
-  <div class="invest-page-parent-flex">
-    <div class="purple-child-box"></div>
-    <div class="purple-child-box"></div>
-    <div class="purple-child-box"></div>
   </div>
 
 <div class="table-container">

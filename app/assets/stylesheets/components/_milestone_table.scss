@@ -103,11 +103,19 @@ tr.table-row-investment {
 }
 
 .late {
-  color:red;
+  background: $red;
+  color: white;
+  border-radius: 4px;
+  width: 50%;
+  text-align: center;
 }
 
 .almost-late{
-  color:orange;
+  background: $orange;
+  color: white;
+  border-radius: 4px;
+  width: 50%;
+  text-align: center;
 }
 
 .table-button-flex {

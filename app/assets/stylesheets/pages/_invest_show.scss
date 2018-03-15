@@ -105,7 +105,7 @@ background-color: $red;
 
 .title-mid-invest-show-page-text {
   font-size: 18px;
-  margin-right: auto;
+  margin-right: 15px;;
   padding-left: 5px;
 }
 
@@ -140,3 +140,9 @@ background-color: $red;
   padding: 3px;
 }
 
+.completed-icon-invest-show {
+  background-color: $green;
+  color: white;
+  border-radius: 4px;
+  padding: 4px;
+}
