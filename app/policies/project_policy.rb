@@ -12,4 +12,12 @@ class ProjectPolicy < ApplicationPolicy
   def create?
     user.foundation
   end
+
+  def edit?
+    user.foundation
+  end
+
+  def update?
+    user.foundation
+  end
 end

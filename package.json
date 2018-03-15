@@ -5,7 +5,8 @@
     "@fortawesome/fontawesome": "^1.1.4",
     "@rails/webpacker": "^3.3.0",
     "bootstrap": "3",
-    "jquery": "^3.3.1"
+    "jquery": "^3.3.1",
+    "sweetalert": "^2.1.0"
   },
   "devDependencies": {
     "webpack-dev-server": "^3.1.0"

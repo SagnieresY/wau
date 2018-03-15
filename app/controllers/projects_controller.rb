@@ -16,10 +16,16 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    @project = selected_project
     authorize @project
   end
 
   def update
+    authorize @project
+    project = selected_project
+    authorize project
+    project.update(project_params)
+    redirect_to investments_path
     authorize @project
   end
 
@@ -30,5 +36,9 @@ class ProjectsController < ApplicationController
   private
   def project_params
     params.require(:project).permit(:name,:description,:ngo,:focus_area,:main_contact,:geos)
+  end
+
+  def selected_project
+    @project = Project.find(params[:id])
   end
 end

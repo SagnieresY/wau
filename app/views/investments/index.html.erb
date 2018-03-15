@@ -75,8 +75,8 @@
             </td>
           <td>
             <div class="table-button-flex">
-              <%= link_to investment_path(investment), { class: "edit-investment-button-table button-appear-hover" } do %>
-              Investment
+              <%= link_to edit_project_path(investment.project), { class: "edit-investment-button-table button-appear-hover" } do %>
+              Project
               <% end %>
             </div>
           </td>
@@ -117,10 +117,10 @@
             <td>
               <div class="table-button-flex">
                 <%= link_to investment_path(investment), { class: "edit-investment-button-table button-appear-hover" } do %>
-                Milestone
+                Milestones
                 <% end %>
-                <%= link_to investment_path(investment), { class: "edit-investment-button-table button-appear-hover" } do %>
-                Investment
+                <%= link_to edit_project_path(investment.project), { class: "edit-investment-button-table button-appear-hover" } do %>
+                  Project
                 <% end %>
               </div>
             </td>
