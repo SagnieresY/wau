@@ -1,0 +1,6 @@
+# config/meta.yml
+
+meta_product_name: "We are Unicorns"
+meta_title: "We are Unicorns - Manage your charitable investments"
+meta_description: "Get to know the real impact of your donation through a streamlined dashboard"
+meta_image: "logo-navbar.png"                       # should exist in `app/assets/images/`
