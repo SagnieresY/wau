@@ -24,6 +24,7 @@ class MilestonesController < ApplicationController
   def edit
     authorize @milestone
     authorize @investment
+    @investment.completed?
   end
 
   def update
