@@ -88,30 +88,8 @@
 </table>
 </div>
 
-
-
-
-
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
   $("table").tablesorter();
-
-  document.querySelectorAll(".button-appear-hover").forEach((tableButton) => {
-    tableButton.addEventListener("click", (event) => {
-      if (!alertConfirmation()) {
-        event.stopPropagation();
-        event.preventDefault();
-      }
-    });
-  });
-
-  function alertConfirmation(){
-    return window.confirm('Are you sure you want to do this?');
-    // if (window.confirm('Are you sure you want to do this?')) {
-    //   console.log('clicked ok')
-    // }else{
-    //   console.log('clicked cancel')
-    // }
-  }
 </script>
 <% end %>
