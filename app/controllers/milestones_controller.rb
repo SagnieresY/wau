@@ -35,6 +35,7 @@ class MilestonesController < ApplicationController
     end
     @milestone.update(edit_params)
     @milestone.unlocked?
+    @milestone.investment.completed?
     redirect_to investment_path(@investment)
   end
 
