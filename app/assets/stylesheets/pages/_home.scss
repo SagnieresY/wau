@@ -51,3 +51,33 @@
 .green-link-text {
   color: $green;
 }
+
+.button-body {
+  border-radius:4px;
+  opacity: 1;
+  border: 2.4px solid white;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  padding: 8px;
+  margin: 10px;
+  height: 30px;
+  width: 60px;
+  text-transform: uppercase;
+  transition: transform 0.3s;
+  text-decoration: none;
+  box-shadow: 1px 1px 1px #9ae4e394;
+  &:hover {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: white;
+  }
+}
+
+.button-right {
+  transition: all 0.3s;
+  &:hover {
+    // box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    transform: scale(1.05);
+  }
+}
