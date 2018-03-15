@@ -33,8 +33,8 @@ class MilestonesController < ApplicationController
     if edit_params[:unlocked]
       edit_params[:accessible] = true
     end
+
     @milestone.update(edit_params)
-    @milestone.unlocked?
     @milestone.investment.completed?
     redirect_to investment_path(@investment)
   end
@@ -83,7 +83,6 @@ class MilestonesController < ApplicationController
   def lock
     authorize @milestone
     @milestone.unlocked = false
-    @milestone.accessible = true #makes sure investment is accessible
     @milestone.save!
     @investment = @milestone.investment
   end

@@ -23,7 +23,7 @@
       <div class="not-completed-icon-invest-show" id="investment-completed-show">
         <%= 'Not Completed' %>
       </div>
-      <% end %> 
+      <% end %>
       <div class="button-right">
       <%= link_to new_investment_milestone_path(@investment.id), { class: "button-body" } do %>
       New Milestone
@@ -49,17 +49,18 @@
         <tr id="invest-show-table-<%= milestone.id %>" class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>" data-investment-id="<%= milestone.investment.id %>">
           <td>Milestone <%= index + 1 %> </td>
           <% if milestone.accessible? %>
-          <% if milestone.unlocked? %>
-          <td><div class="unlocked-status-icon">unlocked</div></td>
+            <% if milestone.unlocked? %>
+              <td><div class="unlocked-status-icon">unlocked</div></td>
+            <% else %>
+              <td><div class="locked-status-icon" id="locked-button">locked</div></td>
+            <% end %>
           <% else %>
-          <td><div class="locked-status-icon" id="locked-button">locked</div></td>
+            <td><div class="rescinded-status-icon" >rescinded</div></td>
           <% end %>
-          <% else %>
-          <td><div class="rescinded-status-icon" >rescinded</div></td>
-          <% end %>
+
           <% if milestone.days_left < 0 %>
           <td>
-            <div class="late"> 
+            <div class="late">
               <%= milestone.days_left %> days
             </div>
           </td>
