@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
   #   redirect_to(root_path)
   # end
 
+  def default_url_options
+    { host: ENV["HOST"] || "localhost:3000" }
+  end
+
   def should_render_navbar?
     !on_error_page? && !on_devise_page? && (action_name != "home" || user_signed_in?)
   end

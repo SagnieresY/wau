@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>We are Unicorns</title>
-  <meta name="description" content="Do you want to know your real social impact ?
+<!--   <meta name="description" content="Do you want to know your real social impact ?
   Sign up to manage your charitable investments through a streamlined dashboard.">
-  <link rel="icon"
+  <link rel="fav-icon"
   type="image/png"
-  href="http://res.cloudinary.com/dqkzp8fae/image/upload/v1521057638/Fav-Icon.png">
-  <meta property="og:image" content="https://res.cloudinary.com/itsgoinbealright/image/upload/c_scale,w_500/v1521035134/Unicorndab.png" />
+  href="http://res.cloudinary.com/dqkzp8fae/image/upload/v1521057638/Fav-Icon.png"> -->
+
+
+  <title><%= meta_title %></title>
+  <meta name="description" content="<%= meta_description %>">
+
+  <!-- Facebook Open Graph data -->
+  <meta property="og:title" content="We are Unicorns" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://res.cloudinary.com/dqkzp8fae/image/upload/c_scale,h_630,w_1200/v1521140744/Unicorndab.png" />
+  <meta property="og:image", content="<%= meta_image %>" />
+  <meta property="og:description" content="<%= meta_description %>" />
+  <meta property="og:site_name" content="<%= meta_title %>" />
+
+  <%= favicon_link_tag %>
   <%= csrf_meta_tags %>
   <%= action_cable_meta_tag %>
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
 </head>
-  
+
 <body>
   <%=  %>
   <%= render 'partials/navbar' if should_render_navbar? %>
