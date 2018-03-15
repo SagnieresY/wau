@@ -70,7 +70,7 @@
 
       <td><%= nice_money(milestone.amount) %></td>
       <td>
-        <div class="table-button-flex" onclick="alert('milestone\'s project: <%= milestone.investment.project.name %>')">
+        <div class="table-button-flex">
           <%= link_to unlock_milestone_path(id: milestone.id, page: 'home'), :remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
             <i class="fas fa-lock-open"></i>
           <% end %>
@@ -87,8 +87,31 @@
   </tbody>
 </table>
 </div>
+
+
+
+
+
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
   $("table").tablesorter();
+
+  document.querySelectorAll(".button-appear-hover").forEach((tableButton) => {
+    tableButton.addEventListener("click", (event) => {
+      if (!alertConfirmation()) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+    });
+  });
+
+  function alertConfirmation(){
+    return window.confirm('Are you sure you want to do this?');
+    // if (window.confirm('Are you sure you want to do this?')) {
+    //   console.log('clicked ok')
+    // }else{
+    //   console.log('clicked cancel')
+    // }
+  }
 </script>
 <% end %>
