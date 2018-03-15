@@ -1,6 +1,6 @@
 body.pages_home {
    background: white; /* For browsers that do not support gradients */
-   background: linear-gradient(#A8EDEA, #FED6E3); /* Standard syntax (must be last) */
+   background: linear-gradient(#95e9e5, #fda5c1); /* Standard syntax (must be last) */
 }
 
 .landing {
@@ -21,7 +21,7 @@ body.pages_home {
   p {
     font-size: 30px;
     font-family: $body-font;
-    font-weight: 400;
+    font-weight: 300;
     color: #282940
   }
 }

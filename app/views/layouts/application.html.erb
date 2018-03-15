@@ -10,19 +10,20 @@
   type="image/png"
   href="http://res.cloudinary.com/dqkzp8fae/image/upload/v1521057638/Fav-Icon.png">
   <meta property="og:image" content="https://res.cloudinary.com/itsgoinbealright/image/upload/c_scale,w_500/v1521035134/Unicorndab.png" />
-
   <%= csrf_meta_tags %>
   <%= action_cable_meta_tag %>
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
-
 </head>
+  
 <body>
   <%=  %>
   <%= render 'partials/navbar' if should_render_navbar? %>
   <%= render 'partials/navbar_landing' if should_render_navbar_landing? %>
   <%# render 'partials/flashes' unless action_name == "home" %>
-  <%= yield %>
+  <div class="main-content container">
+    <%= yield %>
+  </div>
   <%= render 'partials/footer' if should_render_footer? %>
 
   <%= javascript_include_tag 'application' %>
