@@ -6,104 +6,97 @@
           <%= @investment.project.ngo %>
         </div>
       </div>
-      <div class="invest-show-white-info-child-box">
-        <div class="invest-show-number-green" > <%= @investment.project.focus_area %></div>
-        <div class="invest-show-small-text-gray">   </div>
-      </div>
-      <div id="forecasted-amount" class="invest-show-white-info-child-box">
-        <%= render partial: "/partials/forecasted_amount_invest_show", investment: @investment %>
-      </div>
-      <div id="unlocked-amount" class="invest-show-white-info-child-box">
-        <%= render "total_unlocked", investment: @investment %>
-      </div>
+      <%= render partial: "/partials/invest_show_info", investment: @investment %>
     </div>
   </div>
-
-
- 
 
   <div class="mid-title-box">
     <div class="mid-title-flex">
       <div class="title-mid-invest-show-page-text">
         Investment Milestones
       </div>
-      <div class="completed-icon-invest-show"> <% if @investment.completed %>
-        <%= 'Completed' %>
-        <% end %> 
+      <% if @investment.completed %>
+      <div class="completed-icon-invest-show" id="investment-completed-show">
+        <%= 'Completed!' %>
       </div>
+      <% else %>
+      <div class="not-completed-icon-invest-show" id="investment-completed-show">
+        <%= 'Not Completed' %>
+      </div>
+      <% end %> 
       <div class="button-right">
         <%= link_to new_investment_milestone_path(@investment.id), { class: "btn btn-success" } do %>
         New Milestone
-        <% end %>
+        <% end %> 
       </div>
     </div>
   </div>
 
-<div class="table-container">
-<table class="table table-hover margin-center dropshadow-around">
-  <thead>
-    <tr class="white-background header-row-milestone">
-      <th scope="col" width="10%"><div class="tablesorter-header-inner"><i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
-      <th scope="col" width="15%"><div class="tablesorter-header-inner"> Status <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-      <th scope="col" width="15%"><div class="tablesorter-header-inner"> Deadline<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-      <th scope="col" width="10%"><div class="tablesorter-header-inner"> Amount<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
-      <th scope="col" width="35%"><div class="tablesorter-header-inner"> Task<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-      <th scope="col" width="15%"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @investment.milestones_by_nearest_deadline.each_with_index do |milestone,index|  %>
-      <tr id="invest-show-table-<%= milestone.id %>" class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>" data-investment-id="<%= milestone.investment.id %>">
-        <td>Milestone <%= index + 1 %> </td>
-        <% if milestone.accessible? %>
+  <div class="table-container">
+    <table class="table table-hover margin-center dropshadow-around">
+      <thead>
+        <tr class="white-background header-row-milestone">
+          <th scope="col" width="10%"><div class="tablesorter-header-inner"><i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
+          <th scope="col" width="15%"><div class="tablesorter-header-inner"> Status <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+          <th scope="col" width="15%"><div class="tablesorter-header-inner"> Deadline<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+          <th scope="col" width="10%"><div class="tablesorter-header-inner"> Amount<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
+          <th scope="col" width="35%"><div class="tablesorter-header-inner"> Task<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+          <th scope="col" width="15%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @investment.milestones_by_nearest_deadline.each_with_index do |milestone,index|  %>
+        <tr id="invest-show-table-<%= milestone.id %>" class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>" data-investment-id="<%= milestone.investment.id %>">
+          <td>Milestone <%= index + 1 %> </td>
+          <% if milestone.accessible? %>
           <% if milestone.unlocked? %>
-              <td><div class="unlocked-status-icon">unlocked</div></td>
-              <% else %>
-              <td><div class="locked-status-icon" id="locked-button">locked</div></td>
-            <% end %>
+          <td><div class="unlocked-status-icon">unlocked</div></td>
           <% else %>
-            <td><div class="rescinded-status-icon" >rescinded</div></td>
+          <td><div class="locked-status-icon" id="locked-button">locked</div></td>
           <% end %>
-        <% if milestone.days_left < 0 %>
+          <% else %>
+          <td><div class="rescinded-status-icon" >rescinded</div></td>
+          <% end %>
+          <% if milestone.days_left < 0 %>
           <td>
             <div class="late"> 
               <%= milestone.days_left %> days
             </div>
           </td>
-        <% elsif milestone.days_left < 7 %>
+          <% elsif milestone.days_left < 7 %>
           <td>
             <div class="almost-late">
               <%= milestone.days_left %> days
             </div>
           </td>
-        <% else %>
+          <% else %>
           <td><%= milestone.days_left %> days</td>
-        <% end %>
-        <td><%=  nice_money(milestone.amount) %></td>
-        <td><%= milestone.task %></td>
-        <td>
-          <div class="table-button-flex">
-            <%= link_to unlock_milestone_path(id: milestone.id, page: 'show'),:remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
+          <% end %>
+          <td><%=  nice_money(milestone.amount) %></td>
+          <td><%= milestone.task %></td>
+          <td>
+            <div class="table-button-flex">
+              <%= link_to unlock_milestone_path(id: milestone.id, page: 'show'),:remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
               <i class="fas fa-lock-open"></i>
-            <% end %>
-            <%= link_to rescind_milestone_path(id: milestone.id, page: 'show'),:remote => true, :method => :post, :class => "rescind-button-table button-appear-hover" do %>
+              <% end %>
+              <%= link_to rescind_milestone_path(id: milestone.id, page: 'show'),:remote => true, :method => :post, :class => "rescind-button-table button-appear-hover" do %>
               <i class="fas fa-times"></i>
-            <% end %>
-            <%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "edit-button-table button-appear-hover" } do %>
+              <% end %>
+              <%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "edit-button-table button-appear-hover" } do %>
               <i class="fas fa-pencil-alt"></i>
-            <% end %>
-          </div>
-        </td>
+              <% end %>
+            </div>
+          </td>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
-<%= content_for(:after_js) do %>
-<script type="text/javascript">
+  <%= content_for(:after_js) do %>
+  <script type="text/javascript">
 
-  $("table").tablesorter();
+    $("table").tablesorter();
 
-</script>
-<% end %>
+  </script>
+  <% end %>

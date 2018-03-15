@@ -25,11 +25,20 @@
   flex-direction: column;
   flex: 1;
   height: 80px;
-  background-color: white;
   margin: 0px 5px;
   border-radius: 4px;
   text-align: center;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.102751);
+}
+
+.completed-background {
+  background-color: $green;
+  color: white;
+}
+
+.not-completed-background {
+  background-color: white;
+  color: $green;
 }
 
 .invest-show-medium-text-gray {
@@ -41,8 +50,12 @@
   color: $green;
 }
 
-.invest-show-small-text-gray {
-  font-size: 10px;
+.invest-show-number-white {
+  color: white;
+}
+
+.invest-show-small-text {
+  font-size: 12px;
 }
 
 .milestone-graphic{
@@ -146,3 +159,11 @@ background-color: $red;
   border-radius: 4px;
   padding: 4px;
 }
+
+.not-completed-icon-invest-show {
+  background-color: $orange;
+  color: white;
+  border-radius: 4px;
+  padding: 4px;
+}
+
