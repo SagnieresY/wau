@@ -1,0 +1,22 @@
+<div class="flex-container">
+  <% if milestone.accessible %>
+    <% if milestone.unlocked %>
+      <div class="dot dot-unlocked"></div>
+    <% else  %>
+      <div class="dot dot-locked"></div>
+    <% end  %>
+  <% else %>
+    <div class="dot dot-rescinded"></div>
+  <% end %>
+</div>
+
+<!--  <div class="milestone-graphic">
+    # <% @investment.milestones_by_nearest_deadline.each_with_index #do |milestone,index| %>
+    <div id="milestone-dot-<%= milestone.id %>" class="milestone-graph-element">
+      <div class="center-item"> Milestone <%= #index + 1 %> </div>
+        <%= #render partial: "/partials/milestone_dot", locals: { milestone: milestone } %>
+      <div class="center-item"> <%= nice_money(milestone.amount) %> </div>
+      <div class="center-item"> <%= milestone.deadline %> </div>
+    </div>
+    <% #end %>
+  </div> -->

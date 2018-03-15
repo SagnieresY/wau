@@ -4,11 +4,11 @@
       <div class="big-number-green"> <%= current_user.foundation.investments.count %></div>
       <div class="small-text-gray"> YTD Investments  </div>
     </div>
-    <div id="forecasted-amount" class="white-info-child-box">
-      <%= render partial: "/partials/forecasted_amount_home" %>
-    </div>
     <div id="unlocked-amount" class="white-info-child-box">
       <%= render partial: "/partials/total_unlocked_home" %>
+    </div>
+    <div id="forecasted-amount" class="white-info-child-box">
+      <%= render partial: "/partials/forecasted_amount_home" %>
     </div>
   </div>
 </div>
@@ -39,9 +39,7 @@
       <th scope="col" width="30%"><div class="tablesorter-header-inner">Project Name<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
       <th scope="col" width="15%"><div class="tablesorter-header-inner">New Milestone<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
       <th scope="col" width="15%"><div class="tablesorter-header-inner">Milestone Amount<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-      <th scope="col" width="8%"></th>
-      <th scope="col" width="8%"></th>
-      <th scope="col" width="8%"></th>
+      <th scope="col" width="30%"></th>
     </tr>
   </thead>
   <tbody>
@@ -54,28 +52,34 @@
           <% end %>
         </td>
       <% if milestone.days_left < 0 %>
-        <td class="late"><%= milestone.days_left %> days</td>
+        <td>
+          <div class="late"> 
+            <%= milestone.days_left %> days
+          </div>
+        </td>
       <% elsif milestone.days_left < 7 %>
-        <td class="almost-late"><%= milestone.days_left %> days</td>
+        <td>
+          <div class="almost-late">
+            <%= milestone.days_left %> days
+          </div>
+        </td>
       <% else %>
         <td><%= milestone.days_left %> days</td>
       <% end %>
 
       <td><%= nice_money(milestone.amount) %></td>
       <td>
-        <%= link_to unlock_milestone_path(id: milestone.id, page: 'home'), :remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
-          <i class="fas fa-lock-open"></i>
-        <% end %>
-      </td>
-      <td>
-         <%= link_to rescind_milestone_path(id: milestone.id, page: 'home'), :remote => true, :method => :post, :class => "rescind-button-table button-appear-hover" do %>
-          <i class="fas fa-times"></i>
-        <% end %>
-      </td>
-      <td>
-        <%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "edit-button-table button-appear-hover" } do %>
-            <i class="fas fa-pencil-alt"></i>
-        <% end %>
+        <div class="table-button-flex">
+          <%= link_to unlock_milestone_path(id: milestone.id, page: 'home'), :remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
+            <i class="fas fa-lock-open"></i>
+          <% end %>
+           <%= link_to rescind_milestone_path(id: milestone.id, page: 'home'), :remote => true, :method => :post, :class => "rescind-button-table button-appear-hover" do %>
+            <i class="fas fa-times"></i>
+          <% end %>
+          <%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "edit-button-table button-appear-hover" } do %>
+              <i class="fas fa-pencil-alt"></i>
+          <% end %>
+        </div>
       </td>
     </tr>
   <% end %>
