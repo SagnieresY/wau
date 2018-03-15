@@ -103,7 +103,7 @@ class Foundation < ApplicationRecord
     investments.map(&:locked_amount).reduce(0,:+)
   end
 
-  def ongoing_investments
+  def active_investments
     investments.where(completed:false)
   end
 

@@ -1,7 +1,8 @@
 <% if @page == "show" %>
   $("#unlocked-amount").html( "<%= j render 'investments/total_unlocked', investment: @milestone.investment %>" );
   $("#forecasted-amount").html( "<%= j render partial: '/partials/forecasted_amount_invest_show', investment: @milestone.investment %>" );
-  $("#<%= @milestone.id %> > td:nth-child(2) > div").removeClass().addClass("unlocked-status-icon").text("unlocked")
+  $("#invest-show-table-<%= @milestone.id %> > td:nth-child(2) > div").removeClass().addClass("unlocked-status-icon").text("unlocked");
+  $("#milestone-dot-<%= @milestone.id %> .flex-container > .dot").removeClass().addClass("dot dot-unlocked")
 
 <% elsif @page == 'home' %>
   $("#charts-home").empty();

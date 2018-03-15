@@ -35,6 +35,7 @@ table tr:last-child td:last-child {
 .unlock-button-table {
   color: $green;
   text-align: center;
+  width: 30%;
 }
 
 .unlock-button-table:hover {
@@ -46,6 +47,7 @@ table tr:last-child td:last-child {
 .rescind-button-table {
   color: $red;
   text-align: center;
+  width: 30%;
 }
 
 .rescind-button-table:hover {
@@ -57,6 +59,7 @@ table tr:last-child td:last-child {
 .edit-button-table {
   color: gold;
   text-align: center;
+  width: 30%;
 }
 
 .edit-button-table:hover {
@@ -105,4 +108,9 @@ tr.table-row-investment {
 
 .almost-late{
   color:orange;
+}
+
+.table-button-flex {
+  display: flex;
+  justify-content: space-around;
 }
