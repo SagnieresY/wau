@@ -15,7 +15,7 @@
     <%= render 'partials/navbar' if should_render_navbar? %>
     <%= render 'partials/navbar_landing' if should_render_navbar_landing? %>
     <%# render 'partials/flashes' unless action_name == "home" %>
-    <div class="main-content">
+    <div class="main-content container">
       <%= yield %>
     </div>
     <%= render 'partials/footer' if should_render_footer? %>
