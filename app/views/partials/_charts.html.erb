@@ -1,28 +1,29 @@
 <canvas class="home-chart" alt="chart" id="bar-chart"></canvas>
 <canvas class="home-chart" alt="chart" id="line-chart"></canvas>
+<canvas class="home-chart" alt="chart" id="ngo-chart"></canvas>
 
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
 
-let barChartOptions = {
+let barChartByFocusAreaOptions = {
   investmentsByFocusAreaKeys: <%= raw @investments_by_focus_area.keys  %>,
   investmentsByFocusAreaValues: <%= @investments_by_focus_area.values %>
 };
 
 
 let barChart;
-function drawBarChart(barChartOptions) {
+function drawBarChart(barChartByFocusAreaOptions) {
   var barData = {
       <% @chart_colors = []%>
       <% @investments_by_focus_area.count.times do %>
         <% @chart_colors.push("rgba(#{rand(1..255)}, #{rand(1..255)},#{rand(1..255)},0.6)") %>
       <% end %>
-      labels: barChartOptions.investmentsByFocusAreaKeys,
+      labels: barChartByFocusAreaOptions.investmentsByFocusAreaKeys,
       datasets: [{
         label: "My First dataset",
         backgroundColor: <%= raw @chart_colors  %>,
         borderColor: 'rgb(255, 99, 132)',
-        data: barChartOptions.investmentsByFocusAreaValues,
+        data: barChartByFocusAreaOptions.investmentsByFocusAreaValues,
       }]
   }
 
@@ -157,9 +158,7 @@ function drawLineChart(lineChartOptions) {
       options: lineOptions
     });
 }
-
-
-drawBarChart(barChartOptions);
+drawBarChart(barChartByFocusAreaOptions);
 drawLineChart(lineChartOptions);
 </script>
 <% end %>
