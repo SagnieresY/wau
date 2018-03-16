@@ -14,11 +14,21 @@
     margin-bottom: 30px;
     text-align: center;
   }
+  a {
+    color: $green;
+  }
   .btn-success {
     width: 100%;
+  }
+  .ngo-name-milestone-form {
+    margin-bottom: 15px;
   }
 }
 
 .bottom-section-investment-form {
   margin-top: 40px;
+  a {
+    color: $green;
+  }
 }
+

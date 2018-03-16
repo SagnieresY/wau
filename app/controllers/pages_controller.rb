@@ -10,6 +10,7 @@ class PagesController < ApplicationController
         #time leftr
 
       if current_user.nil?
+        @bg = "bg-landing"
         render :landing
       elsif current_user.foundation
         @milestones = current_user.foundation.next_milestones.sort_by{|m| !m.days_left}
