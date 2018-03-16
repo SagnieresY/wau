@@ -96,9 +96,9 @@ Foundation.all.each do |f|
 end
 
 puts 'generating investments and their milestones...'
-4.times do
-  Project.all.each do |p|
-    i = Investment.create(project:p,foundation:Foundation.all.sample)
+Project.all.each do |p|
+  Foundation.all.each do |f|
+    i = Investment.create(project:p,foundation:f)
     rand(1..4).times do
       Milestone.create!(task:MILESTONES_TASK.sample,investment:i,amount:(MILESTONES_AMOUNT.sample*[10,100,1000,10000].sample),deadline:Faker::Date.forward(180))
     end
@@ -141,3 +141,6 @@ def create_richard
 
   equiterre = Project.create!(ngo:'Equiterre',name:'Energy-Efficient Lighting')
 end
+richard = User.create(email: 'richie@foundation.org', password:'123456')
+richard.foundation = Foundation.second
+richard.save!

@@ -1,11 +1,12 @@
 
-<canvas  class="home-chart" alt="chart" id="bar-chart"></canvas>
+<canvas class="home-chart" alt="chart" id="bar-chart"></canvas>
 <canvas class="home-chart" alt="chart" id="line-chart"></canvas>
 
 
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
 
+Chart.defaults.global.defaultFontFamily = 'Raleway';
 let barChartByFocusAreaOptions = {
   investmentsByFocusAreaKeys: <%= raw @investments_by_focus_area.keys  %>,
   investmentsByFocusAreaValues: <%= @investments_by_focus_area.values %>

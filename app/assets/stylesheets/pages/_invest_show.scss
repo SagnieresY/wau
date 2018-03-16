@@ -31,6 +31,10 @@
   box-shadow: 1px 1px 1px rgb(154, 228, 227);
 }
 
+.invest-show-amount {
+  font-size: 24px;
+}
+
 .completed-background {
   background-color: $green;
   color: white;
@@ -56,6 +60,7 @@
 
 .invest-show-small-text {
   font-size: 12px;
+  color: gray;
 }
 
 .milestone-graphic{
