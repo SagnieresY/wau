@@ -18,12 +18,12 @@ neighbourhood_montreal.each do |neighbourhood|
 end
 humanrights_ngo = ['Amnesty International', 'UNICEF', 'Human Rights Watch']
 humanrights_project_name = ['Welcome Refugees to Montreal', 'Open a New Shelter', 'Fund Awareness Campaign']
-childcare_ngo = ['Save The Children Canada', 'Children\'s Wish', 'Montreal Children\'s Hospital']
+childcare_ngo = ['Save The Children Canada', 'Montreal Children\'s Hospital']
 childcare_project_name = ['Give Coding lessons in School', 'Cancer Research']
 community_ngo = ['Santropole Roulant', 'YMCA', 'Women Aware Femme Averties', 'Kids Code Jeunesse']
 community_project_name = ['Open New Farms', 'Renovate basketball court', 'Legal Defense', 'Create Afterschool Programs']
-environmental_ngo = ['Equiterre', 'Avaaz.org', 'Canadian Wind Energy Association', 'Greenpeace Canada']
-environmental_project_name = ['Energy-Efficient Lighting', 'Save the bees', 'R&D for Electric Turbines', 'Global Climate March']
+environmental_ngo = ['Equiterre', 'Canadian Wind Energy Association', 'Greenpeace Canada']
+environmental_project_name = ['Energy-Efficient Lighting', 'R&D for Electric Turbines', 'Global Climate March']
 
 puts 'generating projects...'
 
@@ -40,6 +40,7 @@ humanrights_ngo.each_with_index do |ngo, index|
     p.save!
 end
 
+
 childcare_ngo.each_with_index do |ngo, index|
   new_project = Project.new(name:childcare_project_name[index],
                   description:Faker::Commerce.product_name,
@@ -47,6 +48,7 @@ childcare_ngo.each_with_index do |ngo, index|
                   main_contact:Faker::Internet.email,
                   ngo:ngo)
     puts '        adding geos to project...'
+    puts(childcare_project_name[index])
     rand(1..3) do
       new_project.geos.push(Geo.all.sample)
       p new_project.geos
@@ -100,7 +102,7 @@ Project.all.each do |p|
   Foundation.all.each do |f|
     i = Investment.create(project:p,foundation:f)
     rand(1..4).times do
-      Milestone.create!(task:MILESTONES_TASK.sample,investment:i,amount:(MILESTONES_AMOUNT.sample*[10,100,1000,10000].sample),deadline:Faker::Date.forward(180))
+      Milestone.create!(task:MILESTONES_TASK.sample,investment:i,amount:(MILESTONES_AMOUNT.sample*[100,1000].sample),deadline:Faker::Date.forward(180))
     end
   end
 end
@@ -130,17 +132,25 @@ puts "generating demo infos"
     new_investment = Investment.create!(foundation:richard.foundation,project:new_project)
     new_investment.milestones.destroy_all
     rand(2..4).times do
-      new_milestone = Milestone.create!(investment: new_investment,amount:MILESTONES_AMOUNT.sample*[100,1000,400].sample,task:MILESTONES_TASK.sample,deadline:Faker::Date.forward(60))
+      new_milestone = Milestone.create!(investment: new_investment,amount:MILESTONES_AMOUNT.sample*[100,400].sample,task:MILESTONES_TASK.sample,deadline:Faker::Date.forward(60))
     end
 
   end
-def create_richard
-  richard = User.create!(email:"richardtherich@richard.com",password:'123456')
-  richard.foundation = Foundation.create!(name:"The best foundation there is",logo:"a stack of 100s")
+
+  richard = User.create(email: 'richie@foundation.org', password:'123456')
+  richard.foundation = Foundation.second
   richard.save!
 
-  equiterre = Project.create!(ngo:'Equiterre',name:'Energy-Efficient Lighting')
-end
-richard = User.create(email: 'richie@foundation.org', password:'123456')
-richard.foundation = Foundation.second
-richard.save!
+  equiterre = Project.create!(ngo:'Equiterre',name:'Energy-Efficient Lighting',description:'Green lightbulbs development',focus_area:'Environmental',main_contact:'thomasnoidion@gmail.com')#hmu
+  investment_late = Investment.create!(project:equiterre,foundation:Foundation.second)
+  milestone_late = Milestone.create(investment:investment_late, amount: 350000, task: 'Q4 report',deadline:(Date.today - 14))
+
+  3.times do |i|
+    completed_project = Project.create(ngo:community_ngo[i],name:'community_project_name',description:"Dabbing(); == Meaning_of_life();")
+    completed_investments = Investment.new(foundation:Foundation.second,project:completed_project,completed:true)
+    Milestone.new(investment:completed_investments,amount:rand(100..600)*1000,task:['send monthly report', 'impact report','Meeting to do'][i])
+  end
+
+  avaaz = Project.create!(ngo:'Avaaz.org',name:'Save the bees',description:'don\'t actually please',focus_area:'Environmental',main_contact:'thomasnoidion@gmail.com')
+  avaaz_investment = Investment.create(project:avaaz,foundation:Foundation.second)
+  Milestone.create(deadline:(Date.today+3),amount:500000,task:'Save some of the bees',investment:avaaz_investment)
