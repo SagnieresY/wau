@@ -13,7 +13,7 @@
   <div class="mid-title-box">
     <div class="mid-title-flex">
       <div class="title-mid-invest-show-page-text">
-        Investment Milestones
+        Installments
       </div>
       <% if @investment.completed %>
       <div class="completed-icon-invest-show" id="investment-completed-show">
@@ -47,7 +47,7 @@
       <tbody>
         <% @investment.milestones_by_nearest_deadline.each_with_index do |milestone,index|  %>
         <tr id="invest-show-table-<%= milestone.id %>" class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>" data-investment-id="<%= milestone.investment.id %>">
-          <td>Milestone <%= index + 1 %> </td>
+          <td>Installment <%= index + 1 %> </td>
           <% if milestone.accessible? %>
             <% if milestone.unlocked? %>
               <td><div class="unlocked-status-icon">unlocked</div></td>
