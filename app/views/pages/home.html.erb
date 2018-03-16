@@ -68,7 +68,7 @@
             <div><%= milestone.days_left %> days </div>
           <% end %>
         </td>
-        <td> <div class="text-align-right"><%= nice_money(milestone.amount) %></div></td>
+        <td> <div><%= nice_money(milestone.amount) %></div></td>
         <td>
           <div class="table-button-flex">
             <%= link_to unlock_milestone_path(id: milestone.id, page: 'home'), :remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
