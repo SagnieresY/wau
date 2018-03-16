@@ -1,9 +1,8 @@
 <div class=home-wrapper>
   <div class="white-info-parent-flex">
     <div class="container-home-info-box">
-      <div class="white-info-child-box">
-        <div class="big-number-green"> <%= current_user.foundation.investments.count %></div>
-        <div class="small-text-gray"> YTD Investments  </div>
+      <div id="investment_count_home" class="white-info-child-box">
+        <%= render partial: "/partials/investment_count_home" %>
       </div>
       <div id="unlocked-amount" class="white-info-child-box">
         <%= render partial: "/partials/total_unlocked_home" %>

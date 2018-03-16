@@ -19,6 +19,8 @@
   $("#charts-home").empty();
   $("#charts-home").html( "<%= j render '/partials/charts' %>" );
   $("#forecasted-amount").html( "<%= j render '/partials/forecasted_amount_home' %>" );
+  $("#investment_count_home").html( "<%= j render '/partials/investment_count_home' %>" );
+  
   lineChartOptions = {
     investmentsByMonthLockedCummulative: <%= @investments_by_month_locked_cummulative.values %>,
     investmentsByMonthUnlockedCummulative: <%= @investments_by_month_unlocked_cummulative.values %>
