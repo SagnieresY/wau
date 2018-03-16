@@ -19,7 +19,7 @@ end
 humanrights_ngo = ['Amnesty International', 'UNICEF', 'Human Rights Watch']
 humanrights_project_name = ['Welcome Refugees to Montreal', 'Open a New Shelter', 'Fund Awareness Campaign']
 childcare_ngo = ['Save The Children Canada', 'Children\'s Wish', 'Montreal Children\'s Hospital']
-childcare_project_name = ['Give Coding lessons in School', 'Meet Chuck Norris', 'Cancer Research']
+childcare_project_name = ['Give Coding lessons in School', 'Cancer Research']
 community_ngo = ['Santropole Roulant', 'YMCA', 'Women Aware Femme Averties', 'Kids Code Jeunesse']
 community_project_name = ['Open New Farms', 'Renovate basketball court', 'Legal Defense', 'Create Afterschool Programs']
 environmental_ngo = ['Equiterre', 'Avaaz.org', 'Canadian Wind Energy Association', 'Greenpeace Canada']
@@ -134,4 +134,10 @@ puts "generating demo infos"
     end
 
   end
+def create_richard
+  richard = User.create!(email:"richardtherich@richard.com",password:'123456')
+  richard.foundation = Foundation.create!(name:"The best foundation there is",logo:"a stack of 100s")
+  richard.save!
 
+  equiterre = Project.create!(ngo:'Equiterre',name:'Energy-Efficient Lighting')
+end

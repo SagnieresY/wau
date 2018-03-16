@@ -22,7 +22,7 @@ class InvestmentsController < ApplicationController
 
   def create
     @investment = Investment.new(investment_params)
-    @investment.foundation = current_user.foundation
+    @investment.foundation = current_user.foundationd10n
     @investment.milestones << Milestone.create!(task:'first installment for investment', deadline: Date.today, investment: @investment, amount: 0)
     authorize @investment
 
