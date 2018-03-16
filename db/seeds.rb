@@ -151,6 +151,7 @@ puts "generating demo infos"
     Milestone.new(investment:completed_investments,amount:rand(100..600)*1000,task:['send monthly report', 'impact report','Meeting to do'][i])
   end
 
+  norris = avaaz = Project.create!(ngo:'Save the Children',name:'Meet Chuck Norris',description:'don\'t actually please',focus_area:'Child Care',main_contact:'thomasnoidion@gmail.com')
   avaaz = Project.create!(ngo:'Avaaz.org',name:'Save the bees',description:'don\'t actually please',focus_area:'Environmental',main_contact:'thomasnoidion@gmail.com')
   avaaz_investment = Investment.create(project:avaaz,foundation:Foundation.second)
   Milestone.create(deadline:(Date.today+3),amount:500000,task:'Save some of the bees',investment:avaaz_investment)
