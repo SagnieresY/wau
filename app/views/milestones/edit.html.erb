@@ -5,7 +5,7 @@
       <div class="form-login">
        <h2>Milestone</h2>
        <p><strong>Project Name:</strong> <%= @milestone.investment.project.name %></p>
-       <p><strong>NGO Name:</strong> <%= @milestone.investment.project.ngo %></p>
+       <p class="ngo-name-milestone-form"><strong>NGO Name:</strong> <%= @milestone.investment.project.ngo %></p>
        <%= simple_form_for([@investment,@milestone]) do |f| %>
        <% if @milestone.errors.any? %>
        <div class="error-container">

@@ -1,0 +1,20 @@
+.button-landing {
+  border-radius:4px;
+  opacity: 1;
+  border: 2px solid white;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  padding: 8px;
+  margin: 10px;
+  text-transform: uppercase;
+  transition: box-shadow 0.2s ease-in-out;
+  text-decoration: none;
+  &:hover {
+    box-shadow: 1px 1px 1px #9ae4e394;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+  }
+}
+
