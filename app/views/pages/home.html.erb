@@ -38,8 +38,9 @@
       <tr class="white-background header-row-milestone">
         <th scope="col" width="25%"><div class="tablesorter-header-inner">NGO<i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
         <th scope="col" width="30%"><div class="tablesorter-header-inner">Project Name<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-        <th scope="col" width="15%"><div class="tablesorter-header-inner">Next Milestone<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
-        <th scope="col" width="10%"><div class="tablesorter-header-inner">Milestone Amount<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+        <th scope="col" width="7%"><div class="tablesorter-header-inner">Milestone<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
+        <th scope="col" width="8%"><div class="tablesorter-header-inner">Deadline<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
+        <th scope="col" width="10%"><div class="tablesorter-header-inner">Amount<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
         <th scope="col" id="milestone-table-crud-width" width="30%">
           <div class="header-table-button color-green"><i class="fas fa-lock-open"></i></div>
           <div class="header-table-button color-red"><i class="fas fa-times"></i></div>
@@ -57,16 +58,16 @@
           <% end %>
         </td>
         <td>
-          <div class="table-button-flex">
-            <div># <%= milestone.investment_index + 1 %></div>
-            <% if milestone.days_left < 0 %>
-                <div class="late"><%= milestone.days_left %> days</div>
-              <% elsif milestone.days_left < 7 %>
-                <div class="almost-late"><%= milestone.days_left %> days</div>
-              <% else %>
-                <div><%= milestone.days_left %> days </div>
-              <% end %>
-          </div>
+          <div><%= milestone.investment_index + 1 %> of <%= milestone.investment.milestones.count %></div>
+        </td>
+        <td>
+          <% if milestone.days_left < 0 %>
+            <div class="late"><%= milestone.days_left %> days</div>
+          <% elsif milestone.days_left < 7 %>
+            <div class="almost-late"><%= milestone.days_left %> days</div>
+          <% else %>
+            <div><%= milestone.days_left %> days </div>
+          <% end %>
         </td>
         <td> <div class="text-align-right"><%= nice_money(milestone.amount) %></div></td>
         <td>
