@@ -2,11 +2,11 @@
   <div id="invest-show-focus-area-show" class="invest-show-white-info-child-box completed-background">
     <div id="invest-show-focus-area" class="invest-show-number-white" > <%= @investment.project.focus_area %></div>
   </div>
-  <div id="invest-show-forecasted-amount" class="invest-show-white-info-child-box completed-background">
-    <%= render partial: "/partials/forecasted_amount_invest_show", investment: @investment %>
-  </div>
   <div id="invest-show-unlocked-amount" class="invest-show-white-info-child-box completed-background">
     <%= render "total_unlocked", investment: @investment %>
+  </div>
+  <div id="invest-show-forecasted-amount" class="invest-show-white-info-child-box completed-background">
+    <%= render partial: "/partials/forecasted_amount_invest_show", investment: @investment %>
   </div>
 
 <% else %>
@@ -14,10 +14,10 @@
   <div id="invest-show-focus-area-show" class="invest-show-white-info-child-box not-completed-background">
     <div id="invest-show-focus-area" class="invest-show-number-green" > <%= @investment.project.focus_area %></div>
   </div>
-  <div id="invest-show-forecasted-amount" class="invest-show-white-info-child-box not-completed-background">
-    <%= render partial: "/partials/forecasted_amount_invest_show", investment: @investment %>
-  </div>
   <div id="invest-show-unlocked-amount" class="invest-show-white-info-child-box not-completed-background">
     <%= render "total_unlocked", investment: @investment %>
+  </div>
+  <div id="invest-show-forecasted-amount" class="invest-show-white-info-child-box not-completed-background">
+    <%= render partial: "/partials/forecasted_amount_invest_show", investment: @investment %>
   </div>
 <% end %>
