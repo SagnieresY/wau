@@ -24,7 +24,7 @@ class Milestone < ApplicationRecord
   end
 
   def investment_index
-    investment.milestones.index(self)
+    investment.milestones_by_nearest_deadline.index(self)
   end
 
 end

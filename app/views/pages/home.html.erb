@@ -39,6 +39,7 @@
       <th scope="col" width="20%"><div class="tablesorter-header-inner">NGO<i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
       <th scope="col" width="30%"><div class="tablesorter-header-inner">Project Name<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
       <th scope="col" width="15%"><div class="tablesorter-header-inner">Next Milestone<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
+      <th scope="col" width="20%"><div class="tablesorter-header-inner">Milestone index<i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
       <th scope="col" width="15%"><div class="tablesorter-header-inner">Milestone Amount<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
       <th scope="col" id="milestone-table-crud-width" width="30%">
           <div class="header-table-button color-green"><i class="fas fa-lock-open"></i></div>
@@ -71,6 +72,7 @@
       <% else %>
         <td><%= milestone.days_left %> days</td>
       <% end %>
+        <td><%= milestone.investment_index + 1 %></td>
 
       <td><%= nice_money(milestone.amount) %></td>
       <td>
