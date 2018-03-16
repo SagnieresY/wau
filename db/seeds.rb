@@ -96,9 +96,9 @@ Foundation.all.each do |f|
 end
 
 puts 'generating investments and their milestones...'
-4.times do
-  Project.all.each do |p|
-    i = Investment.create(project:p,foundation:Foundation.all.sample)
+Project.all.each do |p|
+  Foundation.all.each do |f|
+    i = Investment.create(project:p,foundation:f)
     rand(1..4).times do
       Milestone.create!(task:MILESTONES_TASK.sample,investment:i,amount:(MILESTONES_AMOUNT.sample*[10,100,1000,10000].sample),deadline:Faker::Date.forward(180))
     end
@@ -113,25 +113,6 @@ Project.all.each do |project|
 end
 
 
-puts "generating demo infos"
-  richard = User.create!(email:"richardtherich@richard.com",password:'123456')
-  richard.foundation = Foundation.create!(name:"The best foundation there is",logo:"a stack of 100s")
-  richard.save!
-
-  environmental_project_name.each do |project_name|
-    new_focus = FOCUS_AREAS.sample
-    FOCUS_AREAS.delete_at(FOCUS_AREAS.index(new_focus))
-    new_project = Project.create!(description:"helping the world anyway we can",name:project_name,focus_area:new_focus,main_contact:"thomas@gmail.com",ngo:environmental_ngo.sample)
-
-    rand(1..3).times do
-      new_project.geos.push(Geo.all.sample)
-    end
-
-    new_investment = Investment.create!(foundation:richard.foundation,project:new_project)
-    new_investment.milestones.destroy_all
-    rand(2..4).times do
-      new_milestone = Milestone.create!(investment: new_investment,amount:MILESTONES_AMOUNT.sample*[100,1000,400].sample,task:MILESTONES_TASK.sample,deadline:Faker::Date.forward(60))
-    end
-
-  end
-
+richard = User.create(email: 'richie@foundation.org', password:'123456')
+richard.foundation = Foundation.second
+richard.save!
