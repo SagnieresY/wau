@@ -8,8 +8,14 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     authorize @project
 
+    @investment = Investment.new(project:@project)
+    @investment.milestones << Milestone.create!(task:'first installment for investment', deadline: Date.today, investment: @investment, amount: 0)
+    @investment.foundation = current_user.foundation
+    @investment.save!
+    authorize @investment
+
     if @project.save
-      redirect_to investments_path
+      redirect_to investment_path(@investment)
     else
       render :new
     end
