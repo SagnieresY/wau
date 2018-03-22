@@ -3,7 +3,7 @@
       <%= link_to root_path, class: "error-500" do %>
       <%= image_tag "https://res.cloudinary.com/itsgoinbealright/image/upload/c_scale,w_500/v1521035134/Unicorndab.png" %>
       <% end %>
-      <p class= "error-text">500: THERE WAS AN ERROR. PLEASE TRY AGAIN LATER!</p>
-      <h4>Click the unicorn to go home!</h4>
+      <p class= "error-text"> <%= t("error.internal.title")%></p>
+      <h4><%= t("error.internal.sub_title")%></h4>
     </div>
   </div>

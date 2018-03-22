@@ -29,31 +29,31 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
+fr:
   home:
     investment_count_home:
-      title:  "YTD Completed Investments"
+      title:  "Placements réalisés depuis le début de l'année"
     total_unlocked_home:
-      title: "YTD Unlocked"
+      title: "YTD déverrouillé"
     forecased_amount_home:
-      title: "FY Forecasted"
+      title: "FY prévu"
     charts: 
-      bar_title: "FY Forecasted Investments by Focus Area"
-      line_title: "FY Forecasted Investments"
-    mid_section_title: "Upcoming Installments"
-    mid_section_button: "New Investment"
+      bar_title: "Investissements prévus pour l'exercice financier par domaine d'intervention"
+      line_title: "Investissements prévus pour l'exercice"
+    mid_section_title: "Versements à venir"
+    mid_section_button: "Créer un investissement"
     table_first_column: 
-      title: "NGO"
+      title: "ONG"
     table_second_column: 
-      title: "Project Name"
+      title: "Nom du Projet"
     table_third_column: 
-      title: "Installment"
-      content: " %{milestone_index} of %{milestone_count}"
+      title: "Versement"
+      content: " %{milestone_index} de %{milestone_count}"
     table_fourth_column: 
-      title: "Deadline"
-      content: "%{days} days"
+      title: "Délai"
+      content: "%{days} jours"
     table_fifth_column: 
-      title: "Amount"
+      title: "Montant"
   investments:
     index:
       info_bar:
@@ -81,8 +81,8 @@ en:
           content: "%{days} days"
         sixth_column:
           title: "Edit"
-          content_one: "Installment"
-          content_two: "Project"
+          content_one: "Project"
+          content_two: "Installment"
         completed:
           third_column:
             title: "Invested"
@@ -145,8 +145,6 @@ en:
   landing:
     title: "Manage your charitable investments"
     sub_title: "Get to know the real impact of your donation through a streamlined dashboard"
-    navbar:
-      button: "Login"
   navbar:
     first_tab: "INVESTMENTS"
     menu:
@@ -157,3 +155,13 @@ en:
       second_dropdown: "Investments"
       third_dropdown: "New Investments"
       fourth_dropdown: "Sign Out"
+  activerecord:
+    models:
+      investment: "Investissement"
+      milestone: "Versement"
+    attributes:
+      milestone:
+        amount: "Montant"
+        deadline: "Délai"
+        task: "Tache"
+        unlocked: "Déverrouillé"

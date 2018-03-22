@@ -1,9 +1,9 @@
 
-<h2>New Installment</h2>
+<h2><%= t("form.installment_title") %></h2>
   <%= simple_form_for([@investment,@milestone]) do |f| %>
   <%= f.input :amount, as: 'integer' %>
   <%= f.input :deadline, as: :date %>
   <%= f.input :task %>
-  <%= f.submit 'Save', class: "btn btn-success"%>
+  <%= f.submit t("form.save"), class: "btn btn-success"%>
 <% end %>
 

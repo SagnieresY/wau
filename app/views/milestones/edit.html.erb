@@ -3,9 +3,9 @@
     <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
       <!-- Insert form here -->
       <div class="form-login">
-       <h2>Installment</h2>
-       <p><strong>Project Name:</strong> <%= @milestone.investment.project.name %></p>
-       <p class="ngo-name-milestone-form"><strong>NGO Name:</strong> <%= @milestone.investment.project.ngo %></p>
+       <h2><%= t("form.installment_edit.title") %></h2>
+       <p><strong><%= t("form.installment_edit.project_name", name: @milestone.investment.project.name) %></strong></p>
+       <p class="ngo-name-milestone-form"><strong><%= t("form.installment_edit.ngo_name", name: @milestone.investment.project.ngo) %></strong></p>
        <%= simple_form_for([@investment,@milestone]) do |f| %>
        <% if @milestone.errors.any? %>
        <div class="error-container">
@@ -20,7 +20,7 @@
       <%= f.input :deadline, as: :date %>
       <%= f.input :unlocked %>
       <%= f.input :task %>
-      <%= f.submit 'Save', class: "btn btn-success"%>
+      <%= f.submit t("form.save"), class: "btn btn-success"%>
       <% end %>
     </div>
   </div>

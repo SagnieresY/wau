@@ -3,15 +3,15 @@
   <div class="container-home-info-box">
     <div class="white-info-child-box">
       <div class="big-number-green"> <%= current_user.foundation.completed_investments_count %> / <%= current_user.foundation.investments.count %></div>
-      <div class="small-text-gray"> YTD Completed Investments  </div>
+      <div class="small-text-gray">  <%= t(".info_bar.title_left") %> </div>
     </div>
     <div class="white-info-child-box">
       <div class="big-number-green"><%= nice_money(current_user.foundation.total_unlocked_amount) %></div>
-      <div class="small-text-gray"> YTD Unlocked  </div>
+      <div class="small-text-gray"> <%= t(".info_bar.title_mid") %>  </div>
     </div>
     <div class="white-info-child-box">
       <div class="big-number-green"> <%= nice_money(current_user.foundation.total_forecasted_amount) %></div>
-      <div class="small-text-gray"> FY Forecasted </div>
+      <div class="small-text-gray"> <%= t(".info_bar.title_right") %> </div>
     </div>
   </div>
 </div>
@@ -19,11 +19,11 @@
 <div class="mid-title-box">
   <div class="mid-title-flex">
     <div class="title-mid-home-page-text">
-      <h3>Your Investments</h3>
+      <h3><%= t(".mid_section.title") %></h3>
     </div>
     <div class="mid-title-button-right grow">
       <%= link_to new_investment_path, { class: "mid-title-button-body" } do %>
-      Create Investment
+      <%= t(".mid_section.button") %>
       <% end %>
     </div>
   </div>
@@ -31,8 +31,8 @@
 
 
 <div class="flex-tab">
-  <div id="ongoing-tab" class="tablinks" onclick="openCity(event, 'ongoing')">Active Investments</div>
-  <div id="completed-tab" class="tablinks" onclick="openCity(event, 'completed')">Completed Investments</div>
+  <div id="ongoing-tab" class="tablinks" onclick="openCity(event, 'ongoing')"> <%= t(".table.tab.title_one") %></div>
+  <div id="completed-tab" class="tablinks" onclick="openCity(event, 'completed')"><%= t(".table.tab.title_two") %></div>
 </div>
 
 <!-- Tab content -->
@@ -42,12 +42,12 @@
       <table class="table table-hover margin-center dropshadow-around">
         <thead>
           <tr class="white-background header-row-milestone">
-            <th scope="col" width="25%"><div class="tablesorter-header-inner">NGO<i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
-            <th scope="col" width="30%"><div class="tablesorter-header-inner">Project Name<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-            <th scope="col" width="10%"><div class="tablesorter-header-inner">Forecasted<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-            <th scope="col" width="10%"><div class="tablesorter-header-inner">Next Installment<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
-            <th scope="col" width="15%"><div class="tablesorter-header-inner">Deadline<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
-            <th scope="col" width="10%" style="text-align: center;">Edit</th>
+            <th scope="col" width="25%"><div class="tablesorter-header-inner"> <%= t(".table.first_column.title") %><i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
+            <th scope="col" width="30%"><div class="tablesorter-header-inner"><%= t(".table.second_column.title") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+            <th scope="col" width="10%"><div class="tablesorter-header-inner"><%= t(".table.third_column.title") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+            <th scope="col" width="10%"><div class="tablesorter-header-inner"><%= t(".table.fourth_column.title") %><i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
+            <th scope="col" width="15%"><div class="tablesorter-header-inner"><%= t(".table.fifth_column.title") %><i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
+            <th scope="col" width="10%" style="text-align: center;"><%= t(".table.sixth_column.title") %></th>
           </tr>
         </thead>
       <tbody>
@@ -61,16 +61,16 @@
             </td>
             <td><%= nice_money(investment.forecasted_amount) %></td>
             <td>
-              <div><%= investment.next_milestone.investment_index + 1 %> of <%= investment.milestones.count %></div>
+              <div> <%= t(".table.fourth_column.content", milestone_index: investment.next_milestone.investment_index + 1, milestone_count: investment.milestones.count) %> </div>
             </td>
             <td>
               <div class="table-button-flex">
                 <% if investment.next_milestone.days_left < 0 %>
-                   <div class="late"><%= investment.next_milestone.days_left %> days</div>
+                   <div class="late"><%= t(".table.fifth_column.content", days: investment.next_milestone.days_left) %></div>
                 <% elsif investment.next_milestone.days_left < 7 %>
-                  <div class="almost-late"><%= investment.next_milestone.days_left %> days</div>
+                  <div class="almost-late"><%= t(".table.fifth_column.content", days: investment.next_milestone.days_left) %></div>
                 <% else %>
-                  <div><%= investment.next_milestone.days_left %> days </div>
+                  <div><%= t(".table.fifth_column.content", days: investment.next_milestone.days_left) %></div>
                 <% end %>
                 <%= link_to investment_path(investment), { class: "milestone-view-button-table" } do %>
                   <i class="fas fa-plus"></i>
@@ -80,7 +80,7 @@
           <td>
             <div class="table-button-flex">
               <%= link_to edit_project_path(investment.project), { class: "edit-investment-button-table" } do %>
-              Project
+              <%= t(".table.sixth_column.content_one") %>
               <% end %>
             </div>
           </td>
@@ -98,11 +98,11 @@
       <table class="table table-hover margin-center dropshadow-around">
         <thead>
          <tr class="white-background header-row-milestone">
-            <th scope="col" width="20%"><div class="tablesorter-header-inner">NGO<i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
-            <th scope="col" width="30%"><div class="tablesorter-header-inner">Project Name<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-            <th scope="col" width="15%"><div class="tablesorter-header-inner">Invested<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-            <th scope="col" width="15%"><div class="tablesorter-header-inner">Next Installment<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
-            <th scope="col" width="20%" style="text-align: center;">Edit</th>
+            <th scope="col" width="20%"><div class="tablesorter-header-inner"><%= t(".table.first_column.title") %><i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
+            <th scope="col" width="30%"><div class="tablesorter-header-inner"><%= t(".table.second_column.title") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+            <th scope="col" width="15%"><div class="tablesorter-header-inner"><%= t(".table.completed.third_column.title") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+            <th scope="col" width="15%"><div class="tablesorter-header-inner"><%= t(".table.completed.fourth_column.title") %><i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
+            <th scope="col" width="20%" style="text-align: center;"><%= t(".table.completed.fifth_column.title") %></th>
           </tr>
         </thead>
         <tbody>
@@ -116,15 +116,15 @@
             </td>
             <td><%= nice_money(investment.forecasted_amount) %></td>
             <td >
-              <div class="completed-icon">Completed</div>
+              <div class="completed-icon"><%= t(".table.completed.fourth_column.content") %></div>
             </td>
             <td>
               <div class="table-button-flex">
                 <%= link_to investment_path(investment), { class: "edit-investment-button-table button-appear-hover" } do %>
-                Milestones
+                <%= t(".table.completed.fifth_column.content_one") %>
                 <% end %>
                 <%= link_to edit_project_path(investment.project), { class: "edit-investment-button-table button-appear-hover" } do %>
-                  Project
+                  <%= t(".table.completed.fifth_column.content_two") %>
                 <% end %>
               </div>
             </td>

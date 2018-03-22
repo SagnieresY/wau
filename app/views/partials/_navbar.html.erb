@@ -18,7 +18,7 @@
   <div class="navbar-wau-right hidden-xs hidden-sm">
     <% if user_signed_in?  %>
       <%= link_to investments_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-        INVESTMENTS
+        <%= t("navbar.first_tab") %>
       <% end %>
 
       <!-- Avatar with dropdown menu -->
@@ -26,9 +26,9 @@
         <div class="dropdown">
           <i class="fas fa-cog fa-lg dropdown-toggle" id="navbar-wau-menu" data-toggle="dropdown"></i>
           <ul class="dropdown-menu dropdown-menu-right navbar-wau-dropdown-menu">
-            <%= link_to 'New Investment',  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>
+            <%= link_to t("navbar.menu.first_dropdown"),  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>
             <br>
-            <%= link_to 'Sign out', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
+            <%= link_to t("navbar.menu.second_dropdown"), destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
             </ul>
         </div>
       </div>
@@ -44,23 +44,15 @@
     <div class="dropdown">
       <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
       <ul class="dropdown-menu dropdown-menu-right navbar-wau-dropdown-menu">
-        <% unless user_signed_in? %>
-          <%= link_to  new_user_session_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-            Login
-          <% end %>
-        <% end %>
-
-        <% if user_signed_in?  %>
-          <%= link_to 'Homepage', root_path, class: "navbar-wau-item navbar-wau-link" %>
+          <%= link_to t("navbar.mobile.first_dropdown"), root_path, class: "navbar-wau-item navbar-wau-link" %>
           <br>
           <%= link_to investments_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-            Investments
+            <%= t("navbar.mobile.second_dropdown") %>
           <% end %>
           <br>
-          <%= link_to 'New Investments',  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>
+          <%= link_to t("navbar.mobile.third_dropdown"),  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>
           <br>
-          <%= link_to 'SIGN OUT', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
-        <% end %>
+          <%= link_to t("navbar.mobile.fourth_dropdown"), destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
       </ul>
     </div>
   </div>
