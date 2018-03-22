@@ -1,6 +1,6 @@
 <div class="invest-show-amount"><%= nice_money(@investment.unlocked_amount) %></div>
 <% if @investment.completed %>
-	<div class="invest-show-small-text"> Unlocked  </div>
+	<div class="invest-show-small-text-completed"> <%= t("investments.show.info_bar.mid_box.status_one") %></div>
 <% else %>
-	<div class="invest-show-small-text"> YTD Unlocked  </div>
+	<div class="invest-show-small-text"> <%= t("investments.show.info_bar.mid_box.status_one") %></div>
 <% end  %>

@@ -13,20 +13,20 @@
   <div class="mid-title-box">
     <div class="mid-title-flex">
       <div class="title-mid-invest-show-page-text">
-        Installments
+        <%= t(".mid_section.title") %>
       </div>
       <% if @investment.completed %>
       <div class="completed-icon-invest-show" id="investment-completed-show">
-        <%= 'Completed!' %>
+        <%= t(".mid_section.status_one") %>
       </div>
       <% else %>
       <div class="not-completed-icon-invest-show" id="investment-completed-show">
-        <%= 'Not Completed' %>
+        <%= t(".mid_section.status_two") %>
       </div>
       <% end %>
       <div class="mid-title-button-right grow">
       <%= link_to new_investment_milestone_path(@investment.id), { class: "mid-title-button-body" } do %>
-      New Installment
+        <%= t(".mid_section.button") %>
       <% end %>
       </div>
     </div>
@@ -37,41 +37,41 @@
       <thead>
         <tr class="white-background header-row-milestone">
           <th scope="col" width="10%"><div class="tablesorter-header-inner"><i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
-          <th scope="col" width="15%"><div class="tablesorter-header-inner"> Status <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-          <th scope="col" width="15%"><div class="tablesorter-header-inner"> Deadline<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-          <th scope="col" width="10%"><div class="tablesorter-header-inner"> Amount<i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
-          <th scope="col" width="35%"><div class="tablesorter-header-inner"> Task<i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+          <th scope="col" width="15%"><div class="tablesorter-header-inner"><%= t(".table.second_column.title") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+          <th scope="col" width="15%"><div class="tablesorter-header-inner"><%= t(".table.third_column.title") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+          <th scope="col" width="10%"><div class="tablesorter-header-inner"><%= t(".table.fourth_column.title") %><i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
+          <th scope="col" width="35%"><div class="tablesorter-header-inner"> <%= t(".table.fifth_column.title") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
           <th scope="col" width="15%"></th>
         </tr>
       </thead>
       <tbody>
         <% @investment.milestones_by_nearest_deadline.each_with_index do |milestone,index|  %>
         <tr id="invest-show-table-<%= milestone.id %>" class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>" data-investment-id="<%= milestone.investment.id %>">
-          <td>Installment <%= index + 1 %> </td>
+          <td><%= t(".table.first_column.content", index: index + 1) %> </td>
           <% if milestone.accessible? %>
             <% if milestone.unlocked? %>
-              <td><div class="unlocked-status-icon">unlocked</div></td>
+              <td><div class="unlocked-status-icon"><%= t(".table.second_column.content.status_one") %></div></td>
             <% else %>
-              <td><div class="locked-status-icon" id="locked-button">locked</div></td>
+              <td><div class="locked-status-icon" id="locked-button"><%= t(".table.second_column.content.status_two") %></div></td>
             <% end %>
           <% else %>
-            <td><div class="rescinded-status-icon" >rescinded</div></td>
+            <td><div class="rescinded-status-icon" ><%= t(".table.second_column.content.status_three") %>/div></td>
           <% end %>
 
             <% if milestone.days_left < 0 %>
               <td>
                 <div class="late">
-                  <%= milestone.days_left %> days
+                  <%= t(".table.third_column.content", days: milestone.days_left) %>
                 </div>
               </td>
               <% elsif milestone.days_left < 7 %>
               <td>
                 <div class="almost-late">
-                  <%= milestone.days_left %> days
+                  <%= t(".table.third_column.content", days: milestone.days_left) %>
                 </div>
               </td>
             <% else %>
-              <td><%= milestone.days_left %> days</td>
+              <td><%= t(".table.third_column.content", days: milestone.days_left) %></td>
             <% end %>
           <td><%=  nice_money(milestone.amount) %></td>
           <td><%= milestone.task %></td>

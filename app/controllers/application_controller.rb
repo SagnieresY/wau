@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  before_action :set_locale
   before_action :authenticate_user!
   include Pundit
 
@@ -20,7 +21,7 @@ class ApplicationController < ActionController::Base
   # end
 
   def default_url_options
-    { host: ENV["HOST"] || "localhost:3000" }
+    { locale: I18n.locale == I18n.default_locale ? nil : I18n.locale }
   end
 
   def should_render_navbar?
@@ -49,6 +50,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def set_locale
+    I18n.locale = params.fetch(:locale, I18n.default_locale).to_sym
+  end
 
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
