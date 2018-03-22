@@ -54,3 +54,67 @@ fr:
       content: "%{days} jours"
     table_fifth_column: 
       title: "Montant"
+  investments:
+    index:
+      info_bar:
+        title_left: "YTD Completed Investments"
+        title_mid: "YTD Unlocked"
+        title_right: "FY Forecasted"
+      mid_section:
+        title: "Your Investments"
+        button: "New Investment"
+      table:
+        tab:
+          title_one: "Active Investments"
+          title_two: "Completed Investments"
+        first_column:
+          title: "NGO"
+        second_column:
+          title: "Project Name"
+        third_column:
+          title: "Forecasted"
+        fourth_column:
+          title: "Next Installment"
+          content: " %{milestone_index} of %{milestone_count}"
+        fifth_column:
+          title: "Deadline"
+          content: "%{days} days"
+        sixth_column:
+          title: "Edit"
+          content_one: "Project"
+          content_two: "Installment"
+        completed:
+          third_column:
+            title: "Invested"
+          fourth_column:
+            title: "Next Installment"
+            content: "Completed"
+    show:
+      info_bar:
+        mid_box:
+          status_one: "Total Unlocked"
+          status_two: "YTD Unlocked"
+        right_box:
+          status_one: "Invested"
+          status_two: "FY Forecasted"
+      mid_section:
+        title: "Installments"
+        status_one: "Completed!"
+        status_two: "Not Completed"
+        button: "New Installment"
+      table:
+        first_column:
+          content: "Installment %{index}"
+        second_column:
+          title: "Status"
+          content:
+            status_one: "unlocked"
+            status_two: "locked"
+            status_three: "rescinded"
+        third_column:
+          title: "Deadline"
+          content: "%{days} days"
+        fourth_column:
+          title: "Amount"
+        fifth_column:
+          title: "Task"
