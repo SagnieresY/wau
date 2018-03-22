@@ -1,8 +1,8 @@
 <div class="devise-container">
-  <h2>Investment</h2>
+  <h2><%= t("form.investment.title") %></h2>
   <%= simple_form_for([@investment]) do |f| %>
-    <%= f.association :project, label: 'Create another investment for an existing project'%>
-  <%= f.submit 'Create', class: "btn btn-success"%>
+    <%= f.association :project, label: t("form.investment.duplicate_project")%>
+  <%= f.submit t("form.save"), class: "btn btn-success"%>
 <% end %>
 <br>
 </div>

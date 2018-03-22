@@ -4,12 +4,13 @@ body.pages_home {
 }
 
 .landing {
-  // height: calc(100vh - 70px);
-  top: calc(50% - 70px);
-  position: absolute;
-  width: 100%;
+  // // height: calc(100vh - 70px);
+  align-items: center;
+  flex-direction: column;
+  display: flex;
   text-align: center;
-  h1 {
+  margin-top: 33vh;
+  .title {
     font-size: 38px;
     color: white;
     font-family: $title-font;
@@ -18,11 +19,17 @@ body.pages_home {
     text-transform: uppercase;
     margin-bottom: 40px;
   }
-  p {
+  .sub-title {
     font-size: 30px;
     font-family: $body-font;
     font-weight: 300;
     color: #282940
+  }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+  .landing {
+    margin-top: 15vh;
   }
 }
 

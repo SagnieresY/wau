@@ -102,7 +102,7 @@
             <th scope="col" width="30%"><div class="tablesorter-header-inner"><%= t(".table.second_column.title") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
             <th scope="col" width="15%"><div class="tablesorter-header-inner"><%= t(".table.completed.third_column.title") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
             <th scope="col" width="15%"><div class="tablesorter-header-inner"><%= t(".table.completed.fourth_column.title") %><i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
-            <th scope="col" width="20%" style="text-align: center;"><%= t(".table.fifth_column.content_1") %></th>
+            <th scope="col" width="20%" style="text-align: center;"><%= t(".table.completed.fifth_column.title") %></th>
           </tr>
         </thead>
         <tbody>
@@ -116,15 +116,15 @@
             </td>
             <td><%= nice_money(investment.forecasted_amount) %></td>
             <td >
-              <div class="completed-icon"><%= t(".table.completed.fourth_column.content") %>Completed</div>
+              <div class="completed-icon"><%= t(".table.completed.fourth_column.content") %></div>
             </td>
             <td>
               <div class="table-button-flex">
                 <%= link_to investment_path(investment), { class: "edit-investment-button-table button-appear-hover" } do %>
-                <%= t(".table.fifth_column.content_two") %>
+                <%= t(".table.completed.fifth_column.content_one") %>
                 <% end %>
                 <%= link_to edit_project_path(investment.project), { class: "edit-investment-button-table button-appear-hover" } do %>
-                  <%= t(".table.fifth_column.content_one") %>
+                  <%= t(".table.completed.fifth_column.content_two") %>
                 <% end %>
               </div>
             </td>

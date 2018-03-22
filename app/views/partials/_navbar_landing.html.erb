@@ -6,79 +6,26 @@
   <%#cl_image_tag("Unicorn-Landing-Logo.svg", :fetch_format=>:auto)%>
   <% end %>
 
-  <% if user_signed_in?  %>
-  <!-- HIDE SEARCH BAR FOR NOW -->
-    <!-- <div class="navbar-search-bar">
-        <button type="submit" class="searchButton fa-4x">
-          <i class="fas fa-search" style="color: #BF00FF"></i>
-       </button>
-        <input type="text" class="searchTerm" placeholder="Search">
-      </div> -->
-      <% end %>
-
-      <!-- Right Navigation -->
-      <div class="navbar-wau-right hidden-xs hidden-sm">
-        <% if user_signed_in?  %>
-        <%= link_to investments_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-        Investments
-        <% end %>
-        <%= link_to dashboard_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-        Dashboard
-        <% end %>
-      </div>
-
-      <!-- Avatar with dropdown menu -->
-      <div class="navbar-wau-item">
-        <div class="dropdown">
-          <i class="fas fa-cog fa-lg dropdown-toggle" id="navbar-wau-menu" data-toggle="dropdown"></i>
-          <ul class="dropdown-menu dropdown-menu-right navbar-wau-dropdown-menu">
-            <%= link_to 'New Investment',  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>
-            <br>
-            <%= link_to 'Sign Out', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
-          </ul>
-        </div>
-      </div>
-
-    <% else %>
+  <!-- Right Navigation -->
+  <div class="navbar-wau-right hidden-xs hidden-sm">
     <div>
-
       <%= link_to  new_user_session_path, { class: "button-landing" } do %>
-    Login
-    <% end %>
-    </div>
-    <% end %>
-  </div>
-
-
-      <!-- Dropdown list appearing on mobile only -->
-      <div class="navbar-wau-item hidden-md hidden-lg">
-        <div class="dropdown">
-          <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
-          <ul class="dropdown-menu dropdown-menu-right navbar-wau-dropdown-menu">
-            <% unless user_signed_in? %>
-            <%= link_to  new_user_session_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-            Login
-            <% end %>
-            <% end %>
-
-            <% if user_signed_in?  %>
-            <%= link_to 'Homepage', root_path, class: "navbar-wau-item navbar-wau-link" %>
-            <br>
-            <%= link_to investments_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-            Investments
-            <% end %>
-            <br>
-            <%= link_to dashboard_path, { class: "navbar-wau-item navbar-wau-link" } do %>
-            Dashboard
-            <% end %>
-            <br>
-            <%= link_to 'New Investment',  new_investment_path, class: "navbar-wau-item navbar-wau-link" %>
-            <br>
-            <%= link_to 'Sign Out', destroy_user_session_path, class: "navbar-wau-item navbar-wau-link", method: :delete %>
-            <% end %>
-          </ul>
-        </div>
-      </div>
+      <%= t("landing.navbar.button") %>
+      <% end %>
     </div>
   </div>
+
+
+  <!-- Dropdown list appearing on mobile only -->
+  <div class="navbar-wau-item hidden-md hidden-lg">
+    <div class="dropdown">
+      <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
+      <ul class="dropdown-menu dropdown-menu-right navbar-wau-dropdown-menu">
+        <%= link_to  new_user_session_path, { class: "navbar-wau-item navbar-wau-link" } do %>
+        <%= t("landing.navbar.button") %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
 

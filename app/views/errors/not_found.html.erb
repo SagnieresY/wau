@@ -5,7 +5,7 @@
       <%= image_tag "https://res.cloudinary.com/itsgoinbealright/image/upload/v1521037102/unlock_twonicorn.png" %>
       <% end %>
     </div>
-      <p class= "error-text">404: OOPS, SORRY WE CAN'T FIND THAT PAGE!</p>
-      <h4>Click the unicorn to go home!</h4>
+      <p class= "error-text"><%= t("error.not_found.title")%></p>
+      <h4><%= t("error.not_found.sub_title")%></h4>
     </div>
   </div>

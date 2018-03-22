@@ -89,6 +89,10 @@ fr:
           fourth_column:
             title: "Next Installment"
             content: "Completed"
+          fifth_column:
+            title: "Edit"
+            content_one: "Installment"
+            content_two: "Project"
     show:
       info_bar:
         mid_box:
@@ -118,3 +122,46 @@ fr:
           title: "Amount"
         fifth_column:
           title: "Task"
+  error:
+    internal:
+      title: "500: THERE WAS AN ERROR. PLEASE TRY AGAIN LATER!"
+      sub_title: "Click the unicorn to go home!"
+    not_found:
+      title: "404: OOPS, SORRY WE CAN'T FIND THAT PAGE!"
+      sub_title: "Click the unicorn to go home!"
+  form:
+    installment_title: "New Installment"
+    installment_edit:
+      title: "Edit Installment"
+      project_name: "Project Name: %{name}"
+      ngo_name: "NGO Name: %{name}"
+    investment:
+      title: "New Investment"
+      duplicate_project: "Create another investment for an existing project"
+      create_project: "If you can't find your project you can:"
+      create_project_button: "Create a new project!"
+    project_title: "New Project"
+    save: "Save"
+  landing:
+    title: "Manage your charitable investments"
+    sub_title: "Get to know the real impact of your donation through a streamlined dashboard"
+  navbar:
+    first_tab: "INVESTMENTS"
+    menu:
+      first_dropdown: "New Investment"
+      second_dropdown: "Sign out"
+    mobile:
+      first_dropdown: "Homepage"
+      second_dropdown: "Investments"
+      third_dropdown: "New Investments"
+      fourth_dropdown: "Sign Out"
+  activerecord:
+    models:
+      investment: "Investissement"
+      milestone: "Versement"
+    attributes:
+      milestone:
+        amount: "Montant"
+        deadline: "Délai"
+        task: "Tache"
+        unlocked: "Déverrouillé"

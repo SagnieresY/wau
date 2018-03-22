@@ -5,14 +5,14 @@
       <div class="form-login">
         <%= render 'form' %>
         <div class="bottom-section-investment-form">
-         <p>If you can't find your project you can:</p>
-         <%= link_to  new_project_path do %>
-         Create a new project!
-         <% end %>
-       </div>
-     </div>
-   </div>
- </div>
+          <p><%= t("form.investment.create_project") %></p>
+          <%= link_to  new_project_path do %>
+            <%= t("form.investment.create_project_button") %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 
