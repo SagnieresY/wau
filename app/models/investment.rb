@@ -1,4 +1,5 @@
 class Investment < ApplicationRecord
+
   belongs_to :foundation
   belongs_to :project
   has_many :installments
@@ -8,7 +9,7 @@ class Investment < ApplicationRecord
   def forecasted_amount
     #calculates projected amount minus the missed installments
     valid_installments = installments.map do |m| #map passed deadline (if the installment task was done or is b4 deadline)
-      m.accessible ? m.amount : 0
+      m.rescinded? ? m.amount : 0
     end
 
     valid_installments.reduce(0, :+) #sums the valid installments and returns it
@@ -36,8 +37,8 @@ class Investment < ApplicationRecord
   end
 
   def completed?
-    update!(completed:true) if installments.reject{ |m|  m.unlocked || !m.accessible}.blank?
-    update!(completed:false) unless installments.reject{ |m|  m.unlocked || !m.accessible}.blank?
+    update!(completed:true) if installments.reject{ |m|  m.unlocked?}.blank?
+    update!(completed:false) unless installments.reject{ |m|  m.unlocked?}.blank?
     return completed
   end
 end

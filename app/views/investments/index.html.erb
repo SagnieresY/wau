@@ -61,7 +61,7 @@
             </td>
             <td><%= nice_money(investment.forecasted_amount) %></td>
             <td>
-              <div> <%= t(".table.fourth_column.content", installment_index: investment.next_installment.investment_index + 1, installment_count: investment.milestones.count) %> </div>
+              <div> <%= t(".table.fourth_column.content", installment_index: investment.next_installment.investment_index + 1, installment_count: investment.installments.count) %> </div>
             </td>
             <td>
               <div class="table-button-flex">

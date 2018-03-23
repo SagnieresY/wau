@@ -1,16 +1,18 @@
 class InvestmentsController < ApplicationController
   def index
+    #milestn
     @fuck_off_pundit = policy_scope(current_user.foundation.investments.first)
-    @active_investments = current_user.foundation.active_investments.sort_by{|i| i.next_milestone&.days_left}
+    @active_investments = current_user.foundation.active_investments.sort_by{|i| i.next_installment&.days_left}
 
     @completed_investments = current_user.foundation.completed_investments
 
-
+    #installment
     #foundation projects where they have investments
         #total funding with projects
         #project name
-        #next milestone time left
+        #next installment time left
         #project description
+ #Installment
         #edit button => edit form
   end
 
@@ -23,7 +25,7 @@ class InvestmentsController < ApplicationController
   def create
     @investment = Investment.new(investment_params)
     @investment.foundation = current_user.foundation
-    @investment.milestones << Milestone.create!(task:'first installment for investment', deadline: Date.today, investment: @investment, amount: 0)
+    @investment.installments << Installment.create!(task:'first installment for investment', deadline: Date.today, investment: @investment, amount: 0)
     authorize @investment
 
     if @investment.save
@@ -49,8 +51,8 @@ class InvestmentsController < ApplicationController
   def show
     @investment = Investment.find(id)
     authorize @investment
-    #milestones for project
-        #amount for milestone
+    #installments for project
+        #amount for installment
         #task
         #time due
         #time left

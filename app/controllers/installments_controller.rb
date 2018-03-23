@@ -47,9 +47,6 @@ class InstallmentsController < ApplicationController
 
   def unlock
     authorize @installment
-    @installment.unlocked = true
-    @installment.accessible = true #makes sure investment is accessible
-    @installment.save!
     @investment = @installment.investment
 
     @investment.completed? #check if investment is completed
@@ -59,7 +56,7 @@ class InstallmentsController < ApplicationController
     #   stats: @installment.investment.unlocked_amount
     # }
     @page = params[:page]
-    if @installment.save
+    if @installment.lock!
       @investments_by_month_locked_cummulative = current_user.foundation.cummulative_locked_amount_investment_by_installments_deadline_month
       @investments_by_month_unlocked_cummulative = current_user.foundation.cummulative_unlocked_amount_investment_by_installments_deadline_month
 
@@ -82,23 +79,19 @@ class InstallmentsController < ApplicationController
 
   def lock
     authorize @installment
-    @installment.unlocked = false
-    @installment.save!
+    @installment.lock!
     @investment = @installment.investment
   end
 
   def rescind
     #only way to rescind installment
     authorize @installment
-    @installment.accessible = false
-    @installment.unlocked = false #makes sure investment is not counted in unlocked
-    @installment.save!
     @investment = @installment.investment
 
     @investment.completed? #check if investment is completed
 
     @page = params[:page]
-    if @installment.save
+    if @installment.rescind!
       @investments_by_month_locked_cummulative = current_user.foundation.cummulative_locked_amount_investment_by_installments_deadline_month
       @investments_by_month_unlocked_cummulative = current_user.foundation.cummulative_unlocked_amount_investment_by_installments_deadline_month
 

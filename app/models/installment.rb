@@ -1,5 +1,6 @@
 class Installment < ApplicationRecord
   belongs_to :investment
+
   validates :task, presence: true
   validates :amount, presence: true
   validates :deadline, presence: true
@@ -10,7 +11,7 @@ class Installment < ApplicationRecord
   end
 
   def unlocked?
-    #returns true if milestone is not unlocked
+    #returns true if installment is not unlocked
     return status == "unlocked"
   end
 
@@ -34,12 +35,9 @@ class Installment < ApplicationRecord
     return update(status:"rescinded")
   end
 
-  def accessible?
-    accessible
-  end
 
   def investment_index
-    investment.milestones_by_nearest_deadline.index(self)
+    investment.installments_by_nearest_deadline.index(self)
   end
 
 end

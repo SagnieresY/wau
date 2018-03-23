@@ -1,4 +1,5 @@
   <div class="white-info-parent-flex">
+
     <div class="container-invest-show-info-box">
       <div class="invest-show-white-info-name">
         <div class="flex-name-center"><%= @investment.project.name %> </div>
@@ -25,7 +26,7 @@
       </div>
       <% end %>
       <div class="mid-title-button-right grow">
-      <%= link_to new_investment_milestone_path(@investment.id), { class: "mid-title-button-body" } do %>
+      <%= link_to new_investment_installment_path(@investment.id), { class: "mid-title-button-body" } do %>
         <%= t(".mid_section.button") %>
       <% end %>
       </div>
@@ -46,9 +47,9 @@
       </thead>
       <tbody>
         <% @investment.installments_by_nearest_deadline.each_with_index do |installment,index|  %>
-        <tr id="invest-show-table-<%= milestone.id %>" class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>" data-investment-id="<%= milestone.investment.id %>">
+        <tr id="invest-show-table-<%= installment.id %>" class="white-background table-row-milestone" data-milestone-id="<%= installment.id %>" data-investment-id="<%= installment.investment.id %>">
           <td><%= t(".table.first_column.content", index: index + 1) %> </td>
-          <% if installment.accessible? %>
+          <% unless installment.rescinded? %>
             <% if installment.unlocked? %>
               <td><div class="unlocked-status-icon"><%= t(".table.second_column.content.status_one") %></div></td>
             <% else %>

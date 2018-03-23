@@ -48,7 +48,7 @@
     </thead>
     <tbody>
       <% @installments.sort{|m|m.days_left}.each_with_index do |installment, index| %>
-      <tr id="<%= milestone.id %>" class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>">
+      <tr id="<%= installment.id %>" class="white-background table-row-milestone" data-milestone-id="<%= installment.id %>">
         <td><%= installment.investment.project.ngo %></td>
         <td>
           <%= link_to investment_path(installment.investment), {class: "green-link-text"} do %>
