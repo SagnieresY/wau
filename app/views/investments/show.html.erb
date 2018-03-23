@@ -47,7 +47,7 @@
       </thead>
       <tbody>
         <% @investment.installments_by_nearest_deadline.each_with_index do |installment,index|  %>
-        <tr id="invest-show-table-<%= installment.id %>" class="white-background table-row-milestone" data-milestone-id="<%= installment.id %>" data-investment-id="<%= installment.investment.id %>">
+        <tr id="invest-show-table-<%= installment.id %>" class="white-background table-row-milestone" data-installment-id="<%= installment.id %>" data-investment-id="<%= installment.investment.id %>">
           <td><%= t(".table.first_column.content", index: index + 1) %> </td>
           <% unless installment.rescinded? %>
             <% if installment.unlocked? %>

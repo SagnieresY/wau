@@ -22,7 +22,7 @@ class Foundation < ApplicationRecord
   def total_forecasted_amount
   #calculates projected amount minus the missed installments
     valid_installments = installments.map do |m| #map passed deadline (if the installment task was done or is b4 deadline)
-      m.rescinded? ? m.amount : 0
+      !m.rescinded? ? m.amount : 0
     end
 
     valid_installments.reduce(0, :+) #sums the valid installments and returns it
@@ -142,7 +142,7 @@ class Foundation < ApplicationRecord
 
   private
   def sum_locked_installments(installments)
-    installments.select{|m| !m.unlocked?}.map(&:amount).reduce(0,:+)
+    installments.select{|m| m.locked?}.map(&:amount).reduce(0,:+)
   end
   def sum_unlocked_installments(installments)
     installments.select{|m| m.unlocked?}.map(&:amount).reduce(0,:+)

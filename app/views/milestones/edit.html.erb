@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
+      <!-- Insert form here -->
+      <div class="form-login">
+       <h2><%= t("form.installment_edit.title") %></h2>
+       <p><strong><%= t("form.installment_edit.project_name", name: @milestone.investment.project.name) %></strong></p>
+       <p class="ngo-name-milestone-form"><strong><%= t("form.installment_edit.ngo_name", name: @milestone.investment.project.ngo) %></strong></p>
+       <%= simple_form_for([@investment,@milestone]) do |f| %>
+       <% if @milestone.errors.any? %>
+       <div class="error-container">
+        <ul>
+          <% @milestone.errors.full_message each do |message|  %>
+          <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+      <% end %>
+      <%= f.input :amount, as: 'integer' %>
+      <%= f.input :deadline, as: :date %>
+      <%= f.input :unlocked %>
+      <%= f.input :task %>
+      <%= f.submit t("form.save"), class: "btn btn-success"%>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
