@@ -3,15 +3,15 @@ class Foundation < ApplicationRecord
   has_many :users, dependent: :destroy
   has_many :investments, dependent: :destroy
   has_many :projects, through: :investments
-  has_many :milestones, through: :investments
+  has_many :installments, through: :investments
   validates :name, presence: true, uniqueness: true
-  def next_milestones
+  def next_installments
     #get projects
-    #filter out the investments w/out milestonesg
-    #get their first milestones
+    #filter out the investments w/out installmentsg
+    #get their first installments
     #order these
-    milestones = investments.map(&:next_milestone) #compact gets rid of nil values
-    return milestones.compact.sort_by{|m| m.days_left}.reverse
+    installments = investments.map(&:next_installment) #compact gets rid of nil values
+    return installments.compact.sort_by{|m| m.days_left}.reverse
   end
 
   def investments_by_focus_area
@@ -20,12 +20,12 @@ class Foundation < ApplicationRecord
   end
 
   def total_forecasted_amount
-  #calculates projected amount minus the missed milestones
-    valid_milestones = milestones.map do |m| #map passed deadline (if the milestone task was done or is b4 deadline)
+  #calculates projected amount minus the missed installments
+    valid_installments = installments.map do |m| #map passed deadline (if the installment task was done or is b4 deadline)
       m.accessible ? m.amount : 0
     end
 
-    valid_milestones.reduce(0, :+) #sums the valid milestones and returns it
+    valid_installments.reduce(0, :+) #sums the valid installments and returns it
   end
 
   def projects_by_focus_area
@@ -33,23 +33,23 @@ class Foundation < ApplicationRecord
     projects.group_by{ |project| project.focus_area  }
   end
 
-  def milestones_by_month
-    milestones.group_by{|m| Date::MONTHNAMES[m.deadline.month]}
+  def installments_by_month
+    installments.group_by{|m| Date::MONTHNAMES[m.deadline.month]}
   end
 
-  def accessible_milestones_by_month
-    accessible_milestones = []
-    milestones.map do |milestone|
-      if milestone.accessible
-        accessible_milestones << milestone
+  def accessible_installments_by_month
+    accessible_installments = []
+    installments.map do |installment|
+      if installment.accessible
+        accessible_installments << installment
       end
     end
-    accessible_milestones.group_by{|m| Date::MONTHNAMES[m.deadline.month]}
+    accessible_installments.group_by{|m| Date::MONTHNAMES[m.deadline.month]}
   end
 
-  def unlocked_amount_investment_by_milestones_deadline_month
-    output = accessible_milestones_by_month.map do |month, milestones|
-      [month,sum_unlocked_milestones(milestones)]
+  def unlocked_amount_investment_by_installments_deadline_month
+    output = accessible_installments_by_month.map do |month, installments|
+      [month,sum_unlocked_installments(installments)]
     end
 
     output = output.to_h
@@ -61,9 +61,9 @@ class Foundation < ApplicationRecord
     output
   end
 
-  def locked_amount_investment_by_milestones_deadline_month
-    output = accessible_milestones_by_month.map do |month, milestones|
-      [month,sum_locked_milestones(milestones)]
+  def locked_amount_investment_by_installments_deadline_month
+    output = accessible_installments_by_month.map do |month, installments|
+      [month,sum_locked_installments(installments)]
     end
     output = output.to_h
     MONTHS.each do |month|
@@ -74,9 +74,9 @@ class Foundation < ApplicationRecord
     output
   end
 
-  def cummulative_locked_amount_investment_by_milestones_deadline_month
+  def cummulative_locked_amount_investment_by_installments_deadline_month
       sum = 0
-      updated_hash = self.locked_amount_investment_by_milestones_deadline_month
+      updated_hash = self.locked_amount_investment_by_installments_deadline_month
       updated_hash.each do |k, v|
         sum += updated_hash[k]
         updated_hash[k] = sum
@@ -86,9 +86,9 @@ class Foundation < ApplicationRecord
       updated_hash
     end
 
-    def cummulative_unlocked_amount_investment_by_milestones_deadline_month
+    def cummulative_unlocked_amount_investment_by_installments_deadline_month
       sum = 0
-      updated_hash = unlocked_amount_investment_by_milestones_deadline_month
+      updated_hash = unlocked_amount_investment_by_installments_deadline_month
       updated_hash.each do |k, v|
         sum += updated_hash[k]
         updated_hash[k] = sum
@@ -112,7 +112,7 @@ class Foundation < ApplicationRecord
   end
 
   def completed_investments_count
-    #calculates projected amount minus the missed milestones
+    #calculates projected amount minus the missed installments
     completed_investments.count
   end
 
@@ -141,11 +141,11 @@ class Foundation < ApplicationRecord
   end
 
   private
-  def sum_locked_milestones(milestones)
-    milestones.select{|m| !m.unlocked}.map(&:amount).reduce(0,:+)
+  def sum_locked_installments(installments)
+    installments.select{|m| !m.unlocked}.map(&:amount).reduce(0,:+)
   end
-  def sum_unlocked_milestones(milestones)
-    milestones.select{|m| m.unlocked}.map(&:amount).reduce(0,:+)
+  def sum_unlocked_installments(installments)
+    installments.select{|m| m.unlocked}.map(&:amount).reduce(0,:+)
   end
 
 end

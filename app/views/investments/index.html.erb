@@ -61,16 +61,16 @@
             </td>
             <td><%= nice_money(investment.forecasted_amount) %></td>
             <td>
-              <div> <%= t(".table.fourth_column.content", milestone_index: investment.next_milestone.investment_index + 1, milestone_count: investment.milestones.count) %> </div>
+              <div> <%= t(".table.fourth_column.content", installment_index: investment.next_installment.investment_index + 1, installment_count: investment.milestones.count) %> </div>
             </td>
             <td>
               <div class="table-button-flex">
-                <% if investment.next_milestone.days_left < 0 %>
-                   <div class="late"><%= t(".table.fifth_column.content", days: investment.next_milestone.days_left) %></div>
-                <% elsif investment.next_milestone.days_left < 7 %>
-                  <div class="almost-late"><%= t(".table.fifth_column.content", days: investment.next_milestone.days_left) %></div>
+                <% if investment.next_installment.days_left < 0 %>
+                   <div class="late"><%= t(".table.fifth_column.content", days: investment.next_installment.days_left) %></div>
+                <% elsif investment.next_installment.days_left < 7 %>
+                  <div class="almost-late"><%= t(".table.fifth_column.content", days: investment.next_installment.days_left) %></div>
                 <% else %>
-                  <div><%= t(".table.fifth_column.content", days: investment.next_milestone.days_left) %></div>
+                  <div><%= t(".table.fifth_column.content", days: investment.next_installment.days_left) %></div>
                 <% end %>
                 <%= link_to investment_path(investment), { class: "milestone-view-button-table" } do %>
                   <i class="fas fa-plus"></i>

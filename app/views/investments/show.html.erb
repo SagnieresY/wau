@@ -45,11 +45,11 @@
         </tr>
       </thead>
       <tbody>
-        <% @investment.milestones_by_nearest_deadline.each_with_index do |milestone,index|  %>
+        <% @investment.installments_by_nearest_deadline.each_with_index do |installment,index|  %>
         <tr id="invest-show-table-<%= milestone.id %>" class="white-background table-row-milestone" data-milestone-id="<%= milestone.id %>" data-investment-id="<%= milestone.investment.id %>">
           <td><%= t(".table.first_column.content", index: index + 1) %> </td>
-          <% if milestone.accessible? %>
-            <% if milestone.unlocked? %>
+          <% if installment.accessible? %>
+            <% if installment.unlocked? %>
               <td><div class="unlocked-status-icon"><%= t(".table.second_column.content.status_one") %></div></td>
             <% else %>
               <td><div class="locked-status-icon" id="locked-button"><%= t(".table.second_column.content.status_two") %></div></td>
@@ -58,32 +58,32 @@
             <td><div class="rescinded-status-icon" ><%= t(".table.second_column.content.status_three") %>/div></td>
           <% end %>
 
-            <% if milestone.days_left < 0 %>
+            <% if installment.days_left < 0 %>
               <td>
                 <div class="late">
-                  <%= t(".table.third_column.content", days: milestone.days_left) %>
+                  <%= t(".table.third_column.content", days: installment.days_left) %>
                 </div>
               </td>
-              <% elsif milestone.days_left < 7 %>
+              <% elsif installment.days_left < 7 %>
               <td>
                 <div class="almost-late">
-                  <%= t(".table.third_column.content", days: milestone.days_left) %>
+                  <%= t(".table.third_column.content", days: installment.days_left) %>
                 </div>
               </td>
             <% else %>
-              <td><%= t(".table.third_column.content", days: milestone.days_left) %></td>
+              <td><%= t(".table.third_column.content", days: installment.days_left) %></td>
             <% end %>
-          <td><%=  nice_money(milestone.amount) %></td>
-          <td><%= milestone.task %></td>
+          <td><%=  nice_money(installment.amount) %></td>
+          <td><%= installment.task %></td>
           <td>
             <div class="table-button-flex">
-              <%= link_to unlock_milestone_path(id: milestone.id, page: 'show'),:remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
+              <%= link_to unlock_installment_path(id: installment.id, page: 'show'),:remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
               <i class="fas fa-lock-open"></i>
               <% end %>
-              <%= link_to rescind_milestone_path(id: milestone.id, page: 'show'),:remote => true, :method => :post, :class => "rescind-button-table button-appear-hover" do %>
+              <%= link_to rescind_installment_path(id: installment.id, page: 'show'),:remote => true, :method => :post, :class => "rescind-button-table button-appear-hover" do %>
               <i class="fas fa-times"></i>
               <% end %>
-              <%= link_to edit_investment_milestone_path(milestone.investment, milestone), { class: "edit-button-table button-appear-hover" } do %>
+              <%= link_to edit_investment_installment_path(installment.investment, installment), { class: "edit-button-table button-appear-hover" } do %>
               <i class="fas fa-pencil-alt"></i>
               <% end %>
             </div>

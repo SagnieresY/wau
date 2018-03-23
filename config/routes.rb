@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
 
     resources :investments do
-      resources :milestones, only: [:new, :create, :edit, :update, :destroy]
+      resources :installments, only: [:new, :create, :edit, :update, :destroy]
     end
 
     resources :projects, only: [:show, :new, :create, :edit, :update]
@@ -15,8 +15,8 @@ Rails.application.routes.draw do
     get '/archive', to: 'pages#archive', as: :archive
     get '/dashboard', to: 'pages#dashboard', as: :dashboard
     get '/landing', to: 'pages#landing', as: :landing
-    post '/unlock_milestone', to: 'milestones#unlock', as: :unlock_milestone
-    post '/rescind_milestone', to: 'milestones#rescind', as: :rescind_milestone
+    post '/unlock_installment', to: 'installments#unlock', as: :unlock_installment
+    post '/rescind_installment', to: 'installments#rescind', as: :rescind_installment
     post '/investment_unlocked_amount', to: 'investments#unlocked_amount', as: :investment_unlocked_amount
 
     match "/404", :to => "errors#not_found", :via => :all
