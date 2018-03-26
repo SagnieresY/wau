@@ -26,6 +26,7 @@
 # en:
 #   'true': 'foo'
 #
+#installment
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
@@ -37,22 +38,22 @@ en:
       title: "YTD Unlocked"
     forecased_amount_home:
       title: "FY Forecasted"
-    charts: 
+    charts:
       bar_title: "FY Forecasted Investments by Focus Area"
       line_title: "FY Forecasted Investments"
     mid_section_title: "Upcoming Installments"
     mid_section_button: "New Investment"
-    table_first_column: 
+    table_first_column:
       title: "NGO"
-    table_second_column: 
+    table_second_column:
       title: "Project Name"
-    table_third_column: 
+    table_third_column:
       title: "Installment"
-      content: " %{milestone_index} of %{milestone_count}"
-    table_fourth_column: 
+      content: " %{installment_index} of %{installment_count}"
+    table_fourth_column:
       title: "Deadline"
       content: "%{days} days"
-    table_fifth_column: 
+    table_fifth_column:
       title: "Amount"
   investments:
     index:
@@ -75,7 +76,7 @@ en:
           title: "Forecasted"
         fourth_column:
           title: "Next Installment"
-          content: " %{milestone_index} of %{milestone_count}"
+          content: " %{installment_index} of %{installment_count}"
         fifth_column:
           title: "Deadline"
           content: "%{days} days"

@@ -1,8 +1,10 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, :only => [:home,:landing]
   def home
+    #installment
+    #Milestone
     #todo read chart maker doc
-    #upcoming milestones for each project
+    #upcoming installments for each project
         #project name
         #projectect amount
         #given amount
@@ -13,9 +15,9 @@ class PagesController < ApplicationController
         @bg = "bg-landing"
         render :landing
       elsif current_user.foundation
-        @milestones = current_user.foundation.next_milestones.sort_by{|m| !m.days_left}
-        @investments_by_month_locked_cummulative = current_user.foundation.cummulative_locked_amount_investment_by_milestones_deadline_month
-        @investments_by_month_unlocked_cummulative = current_user.foundation.cummulative_unlocked_amount_investment_by_milestones_deadline_month
+        @installments = current_user.foundation.next_installments.sort_by{|m| !m.days_left}
+        @investments_by_month_locked_cummulative = current_user.foundation.cummulative_locked_amount_investment_by_installments_deadline_month
+        @investments_by_month_unlocked_cummulative = current_user.foundation.cummulative_unlocked_amount_investment_by_installments_deadline_month
 
         investments_by_focus_area = current_user.foundation.investments_by_focus_area.map do |focus_area, investments|
           [focus_area,investments.map(&:forecasted_amount).reduce(0,:+)]
@@ -34,8 +36,9 @@ class PagesController < ApplicationController
       #project type
       #completed
       #total given
-      #last milestone unlocked
-      #trust worthy level (dependent on milestones unlocked?)
+      #last installment
+      #Milestone unlocked
+      #trust worthy level (dependent on installments unlocked?)
   end
 
   def landing
