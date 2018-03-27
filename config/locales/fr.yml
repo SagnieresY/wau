@@ -29,139 +29,142 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
+
 fr:
   home:
     investment_count_home:
-      title:  "Placements réalisés depuis le début de l'année"
+      title:  "Dons effectués depuis le début de l'année"
     total_unlocked_home:
-      title: "YTD déverrouillé"
+      title: "Disponible (cumul annuel)"
     forecased_amount_home:
-      title: "FY prévu"
-    charts:
-      bar_title: "Investissements prévus pour l'exercice financier par domaine d'intervention"
-      line_title: "Investissements prévus pour l'exercice"
-    mid_section_title: "Versements à venir"
-    mid_section_button: "Créer un investissement"
-    table_first_column:
-      title: "ONG"
-    table_second_column:
-      title: "Nom du Projet"
-    table_third_column:
+      title: "Prévus pour l'année financière"
+    charts: 
+      bar_title: "Dons prévus pour l'année financière par champ d'intervention"
+      line_title: "Dons prévus pour le terme"
+    mid_section_title: "Versement à venir"
+    mid_section_button: "Créer un don"
+    table_first_column: 
+      title: "Organisme"
+    table_second_column: 
+      title: "Nom du projet"
+    table_third_column: 
       title: "Versement"
       content: " %{installment_index} de %{installment_count}"
-    table_fourth_column:
-      title: "Délai"
+    table_fourth_column: 
+      title: "Échéance"
       content: "%{days} jours"
-    table_fifth_column:
+    table_fifth_column: 
       title: "Montant"
   investments:
     index:
       info_bar:
-        title_left: "YTD Completed Investments"
-        title_mid: "YTD Unlocked"
-        title_right: "FY Forecasted"
+        title_left: "Dons complétés (cumul annuel)"
+        title_mid: "Disponible (cumul annuel)"
+        title_right: "Prévus pour l'année financière"
       mid_section:
-        title: "Your Investments"
-        button: "New Investment"
+        title: "Vos dons"
+        button: "Nouveau don"
       table:
         tab:
-          title_one: "Active Investments"
-          title_two: "Completed Investments"
+          title_one: "Dons actifs"
+          title_two: "Dons complétés"
         first_column:
-          title: "NGO"
+          title: "Organisme"
         second_column:
-          title: "Project Name"
+          title: "Nom du projet"
         third_column:
-          title: "Forecasted"
+          title: "Prévu"
         fourth_column:
-          title: "Next Installment"
+          title: "Prochain versement"
           content: " %{installment_index} of %{installment_count}"
         fifth_column:
-          title: "Deadline"
-          content: "%{days} days"
+          title: "Échéance"
+          content: "%{days} jours"
         sixth_column:
-          title: "Edit"
-          content_one: "Project"
-          content_two: "Installment"
+          title: "Modifier"
+          content_one: "Projet"
+          content_two: "Versement"
         completed:
           third_column:
-            title: "Invested"
+            title: "Versé"
           fourth_column:
-            title: "Next Installment"
-            content: "Completed"
+            title: "Procahin versement"
+            content: "Complété"
           fifth_column:
-            title: "Edit"
-            content_one: "Installment"
-            content_two: "Project"
+            title: "Modifier"
+            content_one: "Versement"
+            content_two: "Projet"
     show:
       info_bar:
         mid_box:
-          status_one: "Total Unlocked"
-          status_two: "YTD Unlocked"
+          status_one: "Total disponible"
+          status_two: "Disponible (cumul annuel)"
         right_box:
-          status_one: "Invested"
-          status_two: "FY Forecasted"
+          status_one: "Versé"
+          status_two: "Prévu pour l'année financière"
       mid_section:
-        title: "Installments"
-        status_one: "Completed!"
-        status_two: "Not Completed"
-        button: "New Installment"
+        title: "Versements"
+        status_one: "Complété!"
+        status_two: "Non complété"
+        button: "Nouveau versement"
       table:
         first_column:
-          content: "Installment %{index}"
+          content: "Versement %{index}"
         second_column:
-          title: "Status"
+          title: "Statut"
           content:
-            status_one: "unlocked"
-            status_two: "locked"
-            status_three: "rescinded"
+            status_one: "disponible"
+            status_two: "verrouillé"
+            status_three: "annulé"
         third_column:
-          title: "Deadline"
-          content: "%{days} days"
+          title: "Échéancier"
+          content: "%{days} jours"
         fourth_column:
-          title: "Amount"
+          title: "Montant"
         fifth_column:
-          title: "Task"
+          title: "Tâche"
   error:
     internal:
-      title: "500: THERE WAS AN ERROR. PLEASE TRY AGAIN LATER!"
-      sub_title: "Click the unicorn to go home!"
+      title: "500: UNE ERREUR C'EST PRODUITE. VEUILLEZ REESSAYER PLUS TARD!"
+      sub_title: "Cliquez sur la licorne pour aller à la page d'accueil!"
     not_found:
-      title: "404: OOPS, SORRY WE CAN'T FIND THAT PAGE!"
-      sub_title: "Click the unicorn to go home!"
+      title: "404: OOPS, NOUS SOMMES DESOLES, CETTE PAGE EST INTROUVABLE!"
+      sub_title: "Cliquez sur la licorne pour aller à la page d'accueil!"
   form:
-    installment_title: "New Installment"
+    installment_title: "Nouveau versement"
     installment_edit:
-      title: "Edit Installment"
-      project_name: "Project Name: %{name}"
-      ngo_name: "NGO Name: %{name}"
+      title: "Modifier versement"
+      project_name: "Nom du projet: %{name}"
+      ngo_name: "Nom de l'organisme: %{name}"
     investment:
-      title: "New Investment"
-      duplicate_project: "Create another investment for an existing project"
-      create_project: "If you can't find your project you can:"
-      create_project_button: "Create a new project!"
-    project_title: "New Project"
-    save: "Save"
+      title: "Nouveau don"
+      duplicate_project: "Créér un autre don pour un projet existant"
+      create_project: "Si vous ne trouvez pas un projet vous pouvez:"
+      create_project_button: "Créer un nouveau projet!"
+    project_title: "Nouveau projet"
+    save: "Sauvegarder"
   landing:
-    title: "Manage your charitable investments"
-    sub_title: "Get to know the real impact of your donation through a streamlined dashboard"
+    title: "Gérer vos dons"
+    sub_title: "Découvrez l'impact réél de vos dons grâce à un tableau de bord compréhensif"
   navbar:
-    first_tab: "INVESTMENTS"
+    first_tab: "DONS"
     menu:
-      first_dropdown: "New Investment"
-      second_dropdown: "Sign out"
+      first_dropdown: "Nouveau don"
+      second_dropdown: "Déconnexion"
     mobile:
-      first_dropdown: "Homepage"
-      second_dropdown: "Investments"
-      third_dropdown: "New Investments"
-      fourth_dropdown: "Sign Out"
+      first_dropdown: "Page d'accueil"
+      second_dropdown: "Dons"
+      third_dropdown: "Nouveaux dons"
+      fourth_dropdown: "Déconnexion"
   activerecord:
     models:
-      investment: "Investissement"
-      installment: "Versement"
+      investment: "Don"
+      installment: "Livrable"
     attributes:
       installment:
         amount: "Montant"
-        deadline: "Délai"
-        task: "Tache"
-        unlocked: "Déverrouillé"
+        deadline: "Échéance"
+        task: "Tâche"
+        unlocked: "Disponible"
+
+
