@@ -3,7 +3,7 @@ class InvestmentsController < ApplicationController
     #milestn
 
     @fuck_off_pundit = policy_scope(current_user.foundation.investments.first)
-    @active_investments = current_user.foundation.active_investments.sort_by{|i| i.next_installment&.days_left}
+    @active_investments = current_user.foundation.uncompleted_investments.sort_by{|i| i.next_installment&.days_left}
 
     @completed_investments = current_user.foundation.completed_investments
 
