@@ -15,17 +15,7 @@
   <% end %>
 
 <% elsif @page == 'home' %>
-  $("#charts-home").empty();
-  $("#charts-home").html( "<%= j render '/partials/charts' %>" );
   $("#unlocked-amount").html( "<%= j render '/partials/total_unlocked_home' %>" );
   $("#investment_count_home").html( "<%= j render '/partials/investment_count_home' %>" );
-  lineChartOptions = {
-    investmentsByMonthLockedCummulative: <%= @investments_by_month_locked_cummulative.values %>,
-    investmentsByMonthUnlockedCummulative: <%= @investments_by_month_unlocked_cummulative.values %>,
-  };
-
-  drawLineChart(lineChartOptions);
-  drawBarChart(barChartByFocusAreaOptions);
-
   $("#<%= @installment.id %>").remove();
 <% end %>
