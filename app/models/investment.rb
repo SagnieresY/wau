@@ -37,8 +37,8 @@ class Investment < ApplicationRecord
   end
 
   def completed?
-    update!(completed:true) if installments.reject{ |m|  m.unlocked?}.blank?
-    update!(completed:false) unless installments.reject{ |m|  m.unlocked?}.blank?
+    update!(completed:true) if installments.reject{ |m|  m.unlocked? || m.rescinded?}.blank?
+    update!(completed:false) unless installments.reject{ |m|  m.unlocked? || m.rescinded?}.blank?
     return completed
   end
 end

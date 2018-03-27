@@ -1,0 +1,44 @@
+body {
+	background: $background-color;
+}
+
+abbr {
+	display: none;
+}
+
+td {
+	font-family: 'Open Sans', sans-serif;
+}
+
+.main-content {
+	margin: 0 auto;
+	width: 95vw;
+}
+
+.unlocked-background-color {
+	background-color: $green;
+}
+
+.locked-background-color {
+	background-color: $orange;
+}
+
+.rescinded-background-color {
+	background-color: $red;
+}
+
+.white-text {
+	color: white;
+}
+
+.green-text {
+	color: $green;
+}
+
+.size-24 {
+  font-size: 24px;
+}
+
+.size-12 {
+  font-size: 12px;
+}
