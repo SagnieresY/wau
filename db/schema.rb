@@ -10,17 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180323155635) do
+ActiveRecord::Schema.define(version: 20180327171313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "foundations", force: :cascade do |t|
-    t.string "name"
-    t.string "logo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "geos", force: :cascade do |t|
     t.string "name"
@@ -41,12 +34,19 @@ ActiveRecord::Schema.define(version: 20180323155635) do
 
   create_table "investments", force: :cascade do |t|
     t.boolean "completed", default: false
-    t.bigint "foundation_id"
+    t.bigint "organisation_id"
     t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["foundation_id"], name: "index_investments_on_foundation_id"
+    t.index ["organisation_id"], name: "index_investments_on_organisation_id"
     t.index ["project_id"], name: "index_investments_on_project_id"
+  end
+
+  create_table "organisations", force: :cascade do |t|
+    t.string "name"
+    t.string "logo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "projects", force: :cascade do |t|
@@ -82,16 +82,16 @@ ActiveRecord::Schema.define(version: 20180323155635) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
-    t.integer "foundation_id"
+    t.integer "organisation_id"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["foundation_id"], name: "index_users_on_foundation_id"
+    t.index ["organisation_id"], name: "index_users_on_organisation_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "installments", "investments"
-  add_foreign_key "investments", "foundations"
+  add_foreign_key "investments", "organisations"
   add_foreign_key "investments", "projects"
   add_foreign_key "projects_geos", "geos"
   add_foreign_key "projects_geos", "projects"
-  add_foreign_key "users", "foundations"
+  add_foreign_key "users", "organisations"
 end

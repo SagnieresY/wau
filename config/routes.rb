@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     end
 
     resources :projects, only: [:show, :new, :create, :edit, :update]
-    get '/no_foundation', to: 'pages#no_foundation', as: :no_foundation
+    get '/no_organisation', to: 'pages#no_organisation', as: :no_organisation
     get '/archive', to: 'pages#archive', as: :archive
     get '/dashboard', to: 'pages#dashboard', as: :dashboard
     get '/landing', to: 'pages#landing', as: :landing

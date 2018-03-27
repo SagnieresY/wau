@@ -2,13 +2,13 @@ class InvestmentsController < ApplicationController
   def index
     #milestn
 
-    @fuck_off_pundit = policy_scope(current_user.foundation.investments.first)
-    @active_investments = current_user.foundation.uncompleted_investments.sort_by{|i| i.next_installment&.days_left}
+    @fuck_off_pundit = policy_scope(current_user.organisation.investments.first)
+    @active_investments = current_user.organisation.uncompleted_investments.sort_by{|i| i.next_installment&.days_left}
 
-    @completed_investments = current_user.foundation.completed_investments
+    @completed_investments = current_user.organisation.completed_investments
 
     #installment
-    #foundation projects where they have investments
+    #organisation projects where they have investments
         #total funding with projects
         #project name
         #next installment time left
@@ -25,7 +25,7 @@ class InvestmentsController < ApplicationController
 
   def create
     @investment = Investment.new(investment_params)
-    @investment.foundation = current_user.foundation
+    @investment.organisation = current_user.organisation
     @investment.installments << Installment.create!(task:'first installment for investment', deadline: Date.today, investment: @investment, amount: 0)
     authorize @investment
 

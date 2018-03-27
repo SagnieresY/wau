@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
 
     @investment = Investment.new(project:@project)
     @investment.installments << Installment.create!(task:'first installment for investment', deadline: Date.today, investment: @investment, amount: 0)
-    @investment.foundation = current_user.foundation
+    @investment.organisation = current_user.organisation
     @investment.save!
     authorize @investment
 
