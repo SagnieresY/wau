@@ -2,7 +2,7 @@ class Investment < ApplicationRecord
 
   belongs_to :organisation
   belongs_to :project
-  has_many :installments
+  has_many :installments, dependent: :destroy
   validates :project, presence: true
   validates :organisation, presence: true
 #installment
