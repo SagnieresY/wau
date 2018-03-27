@@ -6,30 +6,30 @@ class InvestmentPolicy < ApplicationPolicy
   end
 
   def index?
-    user.foundation
+    user.organisation
   end
 
   def new?
-    user.foundation
+    user.organisation
   end
 
   def create?
-    record.foundation == user.foundation
+    record.organisation == user.organisation
   end
 
   def edit?
-    record.foundation == user.foundation
+    record.organisation == user.organisation
   end
 
   def update?
-    record.foundation == user.foundation
+    record.organisation == user.organisation
   end
 
   def show?
-    record.foundation == user.foundation
+    record.organisation == user.organisation
   end
 
   def destroy?
-    record.foundation == user.foundation
+    record.organisation == user.organisation
   end
 end

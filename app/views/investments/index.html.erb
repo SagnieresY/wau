@@ -2,15 +2,15 @@
 <div class="white-info-parent-flex">
   <div class="container-home-info-box">
     <div class="white-info-child-box">
-      <div class="big-number-green"> <%= current_user.foundation.completed_investments_count %> / <%= current_user.foundation.investments.count %></div>
+      <div class="big-number-green"> <%= current_user.organisation.completed_investments.count %> / <%= current_user.organisation.investments.count %></div>
       <div class="small-text-gray">  <%= t(".info_bar.title_left") %> </div>
     </div>
     <div class="white-info-child-box">
-      <div class="big-number-green"><%= nice_money(current_user.foundation.total_unlocked_amount) %></div>
+      <div class="big-number-green"><%= nice_money(current_user.organisation.amount_unlocked) %></div>
       <div class="small-text-gray"> <%= t(".info_bar.title_mid") %>  </div>
     </div>
     <div class="white-info-child-box">
-      <div class="big-number-green"> <%= nice_money(current_user.foundation.total_forecasted_amount) %></div>
+      <div class="big-number-green"> <%= nice_money(current_user.organisation.amount_for_year) %></div>
       <div class="small-text-gray"> <%= t(".info_bar.title_right") %> </div>
     </div>
   </div>

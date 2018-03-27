@@ -1,7 +1,8 @@
 require 'test_helper'
 
-class FoundationTest < ActiveSupport::TestCase
+class OrganisationTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
+  test
 end

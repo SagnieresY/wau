@@ -1,10 +1,10 @@
 class Investment < ApplicationRecord
 
-  belongs_to :foundation
+  belongs_to :organisation
   belongs_to :project
-  has_many :installments
+  has_many :installments, dependent: :destroy
   validates :project, presence: true
-  validates :foundation, presence: true
+  validates :organisation, presence: true
 #installment
   def forecasted_amount
     #calculates projected amount minus the missed installments
