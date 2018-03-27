@@ -6,18 +6,18 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def new?
-    user.foundation
+    user.organisation
   end
 
   def create?
-    user.foundation
+    user.organisation
   end
 
   def edit?
-    user.foundation
+    user.organisation
   end
 
   def update?
-    user.foundation
+    user.organisation
   end
 end

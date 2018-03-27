@@ -84,15 +84,15 @@ environmental_ngo.each_with_index do |ngo, index|
     p.save!
 end
 
-puts 'generating foundations...'
-foundation_name = ['Mont Royale Foundation', 'Red Wagon Foundation']
-foundation_name.each do |foundation|
-  Foundation.create(name:foundation, logo:Faker::Cat.breed)
+puts 'generating organisations...'
+organisation_name = ['Mont Royale Organisation', 'Red Wagon Organisation']
+organisation_name.each do |organisation|
+  Organisation.create(name:organisation, logo:Faker::Cat.breed)
 end
 
-puts 'Adding users to foundations...'
+puts 'Adding users to organisations...'
 i = 0
-Foundation.all.each do |f|
+Organisation.all.each do |f|
   2.times do
     f.users.push(User.create(email: 'user'+i.to_s+'@user.com',password:'123456'))
     i += 1
@@ -101,8 +101,8 @@ end
 
 puts 'generating investments and their installments...'
 Project.all.each do |p|
-  Foundation.all.each do |f|
-    i = Investment.create(project:p,foundation:f)
+  Organisation.all.each do |f|
+    i = Investment.create(project:p,organisation:f)
     rand(1..4).times do
       Installment.create!(task:INSTALLMENT_TASK.sample,investment:i,amount:(INSTALLMENT_AMOUNT.sample*[100,1000].sample),deadline:Faker::Date.forward(180))
     end
@@ -119,7 +119,7 @@ end
 
 puts "generating demo infos"
   richard = User.create!(email:"richardtherich@richard.com",password:'123456')
-  richard.foundation = Foundation.create!(name:"The best foundation there is",logo:"a stack of 100s")
+  richard.organisation = Organisation.create!(name:"The best organisation there is",logo:"a stack of 100s")
   richard.save!
 
   environmental_project_name.each do |project_name|
@@ -131,7 +131,7 @@ puts "generating demo infos"
       new_project.geos.push(Geo.all.sample)
     end
 
-    new_investment = Investment.create!(foundation:richard.foundation,project:new_project)
+    new_investment = Investment.create!(organisation:richard.organisation,project:new_project)
     new_investment.installments.destroy_all
     rand(2..4).times do
       new_installment = Installment.create!(investment: new_investment,amount:INSTALLMENT_AMOUNT.sample*[100,400].sample,task:INSTALLMENT_TASK.sample,deadline:Faker::Date.forward(60))
@@ -139,21 +139,21 @@ puts "generating demo infos"
 
   end
 
-  richard = User.create(email: 'richie@foundation.org', password:'123456')
-  richard.foundation = Foundation.second
+  richard = User.create(email: 'richie@organisation.org', password:'123456')
+  richard.organisation = Organisation.second
   richard.save!
 
   equiterre = Project.create!(ngo:'Equiterre',name:'Energy-Efficient Lighting',description:'Green lightbulbs development',focus_area:'Environmental',main_contact:'thomasnoidion@gmail.com')#hmu
-  investment_late = Investment.create!(project:equiterre,foundation:Foundation.second)
+  investment_late = Investment.create!(project:equiterre,organisation:Organisation.second)
   installment_late = Installment.create(investment:investment_late, amount: 350000, task: 'Q4 report',deadline:(Date.today - 14))
 
   3.times do |i|
     completed_project = Project.create(ngo:community_ngo[i],name:'community_project_name',description:"Dabbing(); == Meaning_of_life();")
-    completed_investments = Investment.new(foundation:Foundation.second,project:completed_project,completed:true)
+    completed_investments = Investment.new(organisation:Organisation.second,project:completed_project,completed:true)
     Installment.new(investment:completed_investments,amount:rand(100..600)*1000,task:['send monthly report', 'impact report','Meeting to do'][i])
   end
 
   norris = avaaz = Project.create!(ngo:'Save the Children',name:'Meet Chuck Norris',description:'don\'t actually please',focus_area:'Child Care',main_contact:'thomasnoidion@gmail.com')
   avaaz = Project.create!(ngo:'Avaaz.org',name:'Save the bees',description:'don\'t actually please',focus_area:'Environmental',main_contact:'thomasnoidion@gmail.com')
-  avaaz_investment = Investment.create(project:avaaz,foundation:Foundation.second)
+  avaaz_investment = Investment.create(project:avaaz,organisation:Organisation.second)
   Installment.create(deadline:(Date.today+3),amount:500000,task:'Save some of the bees',investment:avaaz_investment)

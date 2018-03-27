@@ -14,11 +14,11 @@ class PagesController < ApplicationController
       if current_user.nil?
         @bg = "bg-landing"
         render :landing
-      elsif current_user.foundation
-        @installments = current_user.foundation.next_installments.sort_by{|m| !m.days_left}
+      elsif current_user.organisation
+        @installments = current_user.organisation.next_installments.sort_by{|m| !m.days_left}
 
       else
-        redirect_to no_foundation_path
+        redirect_to no_organisation_path
       end
   end
 
@@ -38,7 +38,7 @@ class PagesController < ApplicationController
     render :layout => false
   end
 
-  def no_foundation
+  def no_organisation
 
   end
 

@@ -1,7 +1,6 @@
 
 
 class Organisation < ApplicationRecord
-  MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   has_many :users, dependent: :destroy
   has_many :investments, dependent: :destroy
   has_many :projects, through: :investments

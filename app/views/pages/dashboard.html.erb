@@ -1,4 +1,4 @@
-<h1>Request a foundation </h1>
+<h1>Request a organisation </h1>
 
 <div class="container">
   <canvas id="myChart"></canvas>
@@ -10,7 +10,7 @@ var chart = new Chart(ctx, {
     // The type of chart we want to create
     type: 'bar',
 
-    <% @investments_by_focus_area = current_user.foundation.investments_by_focus_area.map do |focus_area, projects| %>
+    <% @investments_by_focus_area = current_user.organisation.investments_by_focus_area.map do |focus_area, projects| %>
       <% [focus_area,projects.map(&:total_funding).reduce(0,:+)] %>
     <% end %>
     <% @investments_by_focus_area = @investments_by_focus_area.to_h %>
@@ -38,8 +38,8 @@ var lineChart = new Chart(ctx2, {
     // The type of chart we want to create
     type: 'line',
 
-    <% @investments_by_month_locked_cummulative = current_user.foundation.cummulative_locked_amount_investment_by_installments_deadline_month  %>
-    <% @investments_by_month_unlocked_cummulative = current_user.foundation.cummulative_unlocked_amount_investment_by_installments_deadline_month  %>
+    <% @investments_by_month_locked_cummulative = current_user.organisation.cummulative_locked_amount_investment_by_installments_deadline_month  %>
+    <% @investments_by_month_unlocked_cummulative = current_user.organisation.cummulative_unlocked_amount_investment_by_installments_deadline_month  %>
     <% @chart_colors = []%>
     <% @investments_by_focus_area.count.times do %>
     <% @chart_colors.push("rgba(#{rand(1..255)}, #{rand(1..255)},#{rand(1..255)},0.6)") %>
@@ -113,9 +113,9 @@ var lineChart = new Chart(ctx2, {
 });
 
   let ngoChartOptions = {
-    forcasted_amount: <%= current_user.foundation.forcasted_funding_by_ngo.values %>,
-    unlocked_amount: <%=  current_user.foundation.unlocked_funding_by_ngo.values %>,
-    labels: <%= raw current_user.foundation.forcasted_funding_by_ngo.keys %>
+    forcasted_amount: <%= current_user.organisation.forcasted_funding_by_ngo.values %>,
+    unlocked_amount: <%=  current_user.organisation.unlocked_funding_by_ngo.values %>,
+    labels: <%= raw current_user.organisation.forcasted_funding_by_ngo.keys %>
   }
 
   function drawNgoChart(ngoChartOptions) {

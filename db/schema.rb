@@ -10,17 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180323155635) do
+ActiveRecord::Schema.define(version: 20180327162319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "foundations", force: :cascade do |t|
-    t.string "name"
-    t.string "logo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "geos", force: :cascade do |t|
     t.string "name"
@@ -47,6 +40,13 @@ ActiveRecord::Schema.define(version: 20180323155635) do
     t.datetime "updated_at", null: false
     t.index ["foundation_id"], name: "index_investments_on_foundation_id"
     t.index ["project_id"], name: "index_investments_on_project_id"
+  end
+
+  create_table "organisations", force: :cascade do |t|
+    t.string "name"
+    t.string "logo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "projects", force: :cascade do |t|
@@ -89,9 +89,9 @@ ActiveRecord::Schema.define(version: 20180323155635) do
   end
 
   add_foreign_key "installments", "investments"
-  add_foreign_key "investments", "foundations"
+  add_foreign_key "investments", "organisations", column: "foundation_id"
   add_foreign_key "investments", "projects"
   add_foreign_key "projects_geos", "geos"
   add_foreign_key "projects_geos", "projects"
-  add_foreign_key "users", "foundations"
+  add_foreign_key "users", "organisations", column: "foundation_id"
 end
