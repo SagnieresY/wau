@@ -19,7 +19,7 @@
       <% end %>
       <%= f.input :amount, as: 'integer' %>
       <%= f.input :deadline, as: :date %>
-      <%= f.input :status, collection:['rescinded','locked','unlocked'] %>
+      <%= f.input :status, collection:[:rescinded, :locked,:unlocked], include_blank: false, include_hidden: false %>
       <%= f.input :task %>
       <%= f.submit t("form.save"), class: "btn btn-success"%>
       <% end %>
