@@ -29,3 +29,9 @@ en:
     # prompts:
     #   defaults:
     #     age: 'Select your age'
+    options:
+      installment:
+        status:
+          rescinded: 'Rescinded'
+          unlocked: 'Unlocked'
+          locked: 'Locked'
