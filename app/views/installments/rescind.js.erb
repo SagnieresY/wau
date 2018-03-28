@@ -5,33 +5,17 @@
   <% if @investment.completed %>
     console.log(<%= @investment.completed %>)
     $("#investment-completed-show").removeClass().addClass("table-status unlocked-background-color").text("<%= t("investments.show.mid_section.status_one") %>");
-    $("#invest-show-forecasted-amount").addClass("unlocked-background-color");
-    $("#invest-show-unlocked-amount").addClass("unlocked-background-color");
-    $("#invest-show-focus-area-show").addClass("unlocked-background-color");
-    $("#invest-show-focus-area").removeClass().addClass("white-text");
+    $("#invest-show-forecasted-amount").removeClass().addClass("invest-show-info-child-box unlocked-background-color white-text");
+    $("#invest-show-unlocked-amount").removeClass().addClass("invest-show-info-child-box unlocked-background-color white-text");
+    $("#invest-show-focus-area-show").removeClass().addClass("invest-show-info-child-box unlocked-background-color white-text");
+    $("#invest-show-focus-area").removeClass().removeClass().addClass("white-text");
     console.log("done")
   <% else %>
     console.log($(".investment-completed-show"));
   <% end %>
 
 <% elsif @page == 'home' %>
-  $("#charts-home").empty();
-  $("#charts-home").html( "<%= j render '/partials/charts' %>" );
   $("#forecasted-amount").html( "<%= j render '/partials/forecasted_amount_home' %>" );
   $("#investment_count_home").html( "<%= j render '/partials/investment_count_home' %>" );
-
-  lineChartOptions = {
-    investmentsByMonthLockedCummulative: <%= @investments_by_month_locked_cummulative.values %>,
-    investmentsByMonthUnlockedCummulative: <%= @investments_by_month_unlocked_cummulative.values %>
-  };
-
-  barChartByFocusAreaOptions = {
-    investmentsByFocusAreaKeys: <%= raw @investments_by_focus_area.keys  %>,
-    investmentsByFocusAreaValues: <%= @investments_by_focus_area.values %>
-  };
-
-  drawLineChart(lineChartOptions);
-  drawBarChart(barChartByFocusAreaOptions);
-
   $("#<%= @installment.id %>").remove();
 <% end %>
