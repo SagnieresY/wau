@@ -12,6 +12,39 @@ INSTALLMENT_TASK = ['Provide full report with the detailed impact of investments
 #installments
 #Installment
 #installment
+puts "generating focus_areas"
+["Ageing",
+ "Agriculture & Food",
+ "Animal Health & Rights",
+ "Business & Economic Policy",
+ "Children & Youth",
+ "Communications & Media",
+ "Conflict Resolution",
+ "Development",
+ "Education",
+ "Environment",
+ "Family",
+ "Health & Nutrition",
+ "Human Rights",
+ "Indigenous People",
+ "International Organization",
+ "Labor",
+ "Law & Legal Affairs",
+ "Narcotics, Drugs & Crime",
+ "Peace & Security",
+ "Population/ Human Settlements",
+ "Refugees",
+ "Relief Services",
+ "Religion, Belief & Ethics",
+ "Science & Technology",
+ "Social & Cultural Development",
+ "Sports & Recreation",
+ "Trade & International Finance",
+ "Transportation",
+ "Women`s Status & Issues"].each do |fa|
+  FocusArea.create!(name:fa)
+end
+
 puts 'generating geos...'
 neighbourhood_montreal = ['Ahuntsic-Cartierville', 'Anjou', 'Côte-des-Neiges–Notre-Dame-de-Grâce', 'Lachine', 'LaSalle', 'Le Plateau-Mont-Royal', 'Le Sud-Ouest', 'Île-Bizard–Sainte-Geneviève', 'Mercier–Hochelaga-Maisonneuve', 'Montréal-Nord', 'Outremont', 'Pierrefonds-Roxboro', 'Rivière-des-Prairies–Pointe-aux-Trembles', 'Rosemont–La Petite-Patrie', 'Saint-Laurent', 'Saint-Léonard', 'Verdun', 'Ville-Marie', 'Other neighbourhoods', 'Villeray', 'West Island']
 
@@ -30,11 +63,13 @@ environmental_project_name = ['Energy-Efficient Lighting', 'R&D for Electric Tur
 puts 'generating projects...'
 
 humanrights_ngo.each_with_index do |ngo, index|
+  ngo = Organisation.create!(name:ngo)
+  puts ngo
   p = Project.new(name:humanrights_project_name[index],
                   description:Faker::Commerce.product_name,
-                  focus_area:FOCUS_AREAS.third,
+                  focus_area:FocusArea.all.sample,
                   main_contact:Faker::Internet.email,
-                  ngo:ngo)
+                  organisation:ngo)
     puts '        adding geos to project...'
     rand(1..3) do
       p.geos.push(Geo.all.sample)
@@ -44,11 +79,12 @@ end
 
 
 childcare_ngo.each_with_index do |ngo, index|
+  ngo = Organisation.create!(name:ngo)
   new_project = Project.new(name:childcare_project_name[index],
                   description:Faker::Commerce.product_name,
-                  focus_area:FOCUS_AREAS.first,
+                  focus_area:FocusArea.all.sample,
                   main_contact:Faker::Internet.email,
-                  ngo:ngo)
+                  organisation:ngo)
     puts '        adding geos to project...'
     puts(childcare_project_name[index])
     rand(1..3) do
@@ -59,11 +95,12 @@ childcare_ngo.each_with_index do |ngo, index|
 end
 
 community_ngo.each_with_index do |ngo, index|
+  ngo = Organisation.create!(name:ngo)
   p = Project.new(name:community_project_name[index],
                   description:Faker::Commerce.product_name,
-                  focus_area:FOCUS_AREAS.fourth,
+                  focus_area:FocusArea.all.sample,
                   main_contact:Faker::Internet.email,
-                  ngo:ngo)
+                  organisation:ngo)
     puts '        adding geos to project...'
     rand(1..3) do
       p.geos.push(Geo.all.sample)
@@ -72,11 +109,12 @@ community_ngo.each_with_index do |ngo, index|
 end
 
 environmental_ngo.each_with_index do |ngo, index|
+  ngo = Organisation.create!(name:ngo)
   p = Project.new(name:environmental_project_name[index],
                   description:Faker::Commerce.product_name,
-                  focus_area:FOCUS_AREAS.second,
+                  focus_area:FocusArea.all.sample,
                   main_contact:Faker::Internet.email,
-                  ngo:ngo)
+                  organisation:ngo)
     puts '        adding geos to project...'
     rand(1..3) do
       p.geos.push(Geo.all.sample)
@@ -117,43 +155,3 @@ Project.all.each do |project|
 end
 
 
-puts "generating demo infos"
-  richard = User.create!(email:"richardtherich@richard.com",password:'123456')
-  richard.organisation = Organisation.create!(name:"The best organisation there is",logo:"a stack of 100s")
-  richard.save!
-
-  environmental_project_name.each do |project_name|
-    new_focus = FOCUS_AREAS.sample
-    FOCUS_AREAS.delete_at(FOCUS_AREAS.index(new_focus))
-    new_project = Project.create!(description:"helping the world anyway we can",name:project_name,focus_area:new_focus,main_contact:"thomas@gmail.com",ngo:environmental_ngo.sample)
-
-    rand(1..3).times do
-      new_project.geos.push(Geo.all.sample)
-    end
-
-    new_investment = Investment.create!(organisation:richard.organisation,project:new_project)
-    new_investment.installments.destroy_all
-    rand(2..4).times do
-      new_installment = Installment.create!(investment: new_investment,amount:INSTALLMENT_AMOUNT.sample*[100,400].sample,task:INSTALLMENT_TASK.sample,deadline:Faker::Date.forward(60))
-    end
-
-  end
-
-  richard = User.create(email: 'richie@organisation.org', password:'123456')
-  richard.organisation = Organisation.second
-  richard.save!
-
-  equiterre = Project.create!(ngo:'Equiterre',name:'Energy-Efficient Lighting',description:'Green lightbulbs development',focus_area:'Environmental',main_contact:'thomasnoidion@gmail.com')#hmu
-  investment_late = Investment.create!(project:equiterre,organisation:Organisation.second)
-  installment_late = Installment.create(investment:investment_late, amount: 350000, task: 'Q4 report',deadline:(Date.today - 14))
-
-  3.times do |i|
-    completed_project = Project.create(ngo:community_ngo[i],name:'community_project_name',description:"Dabbing(); == Meaning_of_life();")
-    completed_investments = Investment.new(organisation:Organisation.second,project:completed_project,completed:true)
-    Installment.new(investment:completed_investments,amount:rand(100..600)*1000,task:['send monthly report', 'impact report','Meeting to do'][i])
-  end
-
-  norris = avaaz = Project.create!(ngo:'Save the Children',name:'Meet Chuck Norris',description:'don\'t actually please',focus_area:'Child Care',main_contact:'thomasnoidion@gmail.com')
-  avaaz = Project.create!(ngo:'Avaaz.org',name:'Save the bees',description:'don\'t actually please',focus_area:'Environmental',main_contact:'thomasnoidion@gmail.com')
-  avaaz_investment = Investment.create(project:avaaz,organisation:Organisation.second)
-  Installment.create(deadline:(Date.today+3),amount:500000,task:'Save some of the bees',investment:avaaz_investment)

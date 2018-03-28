@@ -1,7 +1,7 @@
 
 <% if @investment.completed %>
   <div id="invest-show-focus-area-show" class="invest-show-info-child-box unlocked-background-color white-text">
-    <div id="invest-show-focus-area" > <%= @investment.project.focus_area %></div>
+    <div id="invest-show-focus-area" > <%= @investment.project.focus_area.name %></div>
   </div>
   <div id="invest-show-unlocked-amount" class="invest-show-info-child-box unlocked-background-color white-text">
     <%= render "total_unlocked", investment: @investment %>
@@ -12,7 +12,7 @@
 
 <% else %>
   <div id="invest-show-focus-area-show" class="invest-show-info-child-box white-background-color green-text ">
-    <div id="invest-show-focus-area"> <%= @investment.project.focus_area %></div>
+    <div id="invest-show-focus-area"> <%= @investment.project.focus_area.name %></div>
   </div>
   <div id="invest-show-unlocked-amount" class="invest-show-info-child-box white-background-color green-text">
     <%= render "total_unlocked", investment: @investment %>

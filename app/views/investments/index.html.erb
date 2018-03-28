@@ -53,7 +53,7 @@
       <tbody>
         <% @active_investments.each do |investment| %>
           <tr class="white-background table-row-investment" data-investment-id="<%= investment.id %>">
-            <td><%= investment.project.ngo.capitalize %></td>
+            <td><%= investment.project.organisation.name.capitalize %></td>
             <td>
               <%= link_to investment_path(investment), {class: "green-link-text"} do %>
               <%= investment.project.name %>
@@ -108,7 +108,7 @@
         <tbody>
           <% @completed_investments.each do |investment| %>
           <tr class="white-background table-row-investment" data-investment-id="<%= investment.id %>">
-            <td><%= investment.project.ngo.capitalize %></td>
+            <td><%= investment.project.organisation.name.capitalize %></td>
             <td>
               <%= link_to investment_path(investment), {class: "green-link-text"} do %>
               <%= investment.project.name %>
