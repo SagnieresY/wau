@@ -4,7 +4,7 @@
       <div class="invest-show-white-info-name">
         <div class="flex-name-center"><%= @investment.project.name %> </div>
         <div class="size-24" >
-          <i><%= @investment.project.ngo %></i>
+          <i><%= @investment.project.organisation.name %></i>
         </div>
       </div>
       <%= render partial: "/partials/invest_show_info", investment: @investment %>
