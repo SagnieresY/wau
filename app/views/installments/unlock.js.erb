@@ -1,35 +1,21 @@
 <% if @page == "show" %>
-
   $("#invest-show-unlocked-amount").html( "<%= j render 'investments/total_unlocked', investment: @installment.investment %>" );
   $("#invest-show-forecasted-amount").html( "<%= j render partial: '/partials/forecasted_amount_invest_show', investment: @installment.investment %>" );
-  $("#invest-show-table-<%= @installment.id %> > td:nth-child(2) > div").removeClass().addClass("unlocked-status-icon").text("unlocked");
-  $("#installment-dot-<%= @installment.id %> .flex-container > .dot").removeClass().addClass("dot dot-unlocked");
-   <% if @investment.completed %>
+  $("#invest-show-table-<%= @installment.id %> > td:nth-child(2) > div").removeClass().addClass("table-status unlocked-background-color").text("<%= t("investments.show.table.second_column.content.status_one") %>");
+  <% if @investment.completed %>
     console.log(<%= @investment.completed %>)
-     $("#investment-completed-show").removeClass().addClass("completed-icon-invest-show").text("Completed!");
-     $("#invest-show-forecasted-amount").removeClass("not-completed-background").addClass("completed-background");
-     $("#invest-show-unlocked-amount").removeClass("not-completed-background").addClass("completed-background");
-     $("#invest-show-focus-area-show").removeClass("not-completed-background").addClass("completed-background");
-     $("#invest-show-focus-area").removeClass().addClass("invest-show-number-white");
-     console.log(done)
-    <% else %>
-      console.log($(".investment-completed-show"));
-    <% end %>
+    $("#investment-completed-show").removeClass().addClass("table-status unlocked-background-color").text("<%= t("investments.show.mid_section.status_one") %>");
+    $("#invest-show-forecasted-amount").removeClass().addClass("invest-show-info-child-box unlocked-background-color white-text");
+    $("#invest-show-unlocked-amount").removeClass().addClass("invest-show-info-child-box unlocked-background-color white-text");
+    $("#invest-show-focus-area-show").removeClass().addClass("invest-show-info-child-box unlocked-background-color white-text");
+    $("#invest-show-focus-area").removeClass().addClass("white-text");
+    console.log("done")
+  <% else %>
+    console.log($(".investment-completed-show"));
+  <% end %>
 
 <% elsif @page == 'home' %>
-  $("#charts-home").empty();
-  $("#charts-home").html( "<%= j render '/partials/charts' %>" );
   $("#unlocked-amount").html( "<%= j render '/partials/total_unlocked_home' %>" );
   $("#investment_count_home").html( "<%= j render '/partials/investment_count_home' %>" );
-  lineChartOptions = {
-    investmentsByMonthLockedCummulative: <%= @investments_by_month_locked_cummulative.values %>,
-    investmentsByMonthUnlockedCummulative: <%= @investments_by_month_unlocked_cummulative.values %>,
-  };
-
-  drawLineChart(lineChartOptions);
-  drawBarChart(barChartByFocusAreaOptions);
-
   $("#<%= @installment.id %>").remove();
 <% end %>
-
-

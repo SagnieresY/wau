@@ -13,20 +13,3 @@
 @import "layouts/index";
 @import "components/index";
 @import "pages/index";
-
-body {
-  background: $background-color;
-}
-
-abbr {
-  display: none;
-}
-
-td {
-  font-family: 'Open Sans', sans-serif;
-}
-
-.main-content {
-  margin: 0 auto;
-  width: 95vw;
-}

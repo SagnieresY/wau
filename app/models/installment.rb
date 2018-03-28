@@ -1,6 +1,7 @@
 class Installment < ApplicationRecord
   belongs_to :investment
 
+  validates :status, inclusion: { in: %w(locked unlocked rescinded) }
   validates :task, presence: true
   validates :amount, presence: true
   validates :deadline, presence: true

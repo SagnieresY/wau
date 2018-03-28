@@ -19,7 +19,11 @@
   // color: $green;
 }
 
-.invest-show-white-info-child-box {
+.white-background-color {
+  background-color: white;
+}
+
+.invest-show-info-child-box {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -28,11 +32,7 @@
   margin: 0px 5px;
   border-radius: 4px;
   text-align: center;
-  box-shadow: 1px 1px 1px rgb(154, 228, 227);
-}
-
-.invest-show-amount {
-  font-size: 24px;
+  box-shadow: 1px 1px 1px rgb(154, 228, 227); 
 }
 
 .completed-background {
@@ -40,34 +40,10 @@
   color: white;
 }
 
-.not-completed-background {
-  background-color: white;
-  color: $green;
-}
-
 .invest-show-medium-text-gray {
   font-size: 22px;
   font-style: italic;
 }
-
-.invest-show-number-green {
-  color: $green;
-}
-
-.invest-show-number-white {
-  color: white;
-}
-
-.invest-show-small-text {
-  font-size: 12px;
-  color: gray;
-}
-
-.invest-show-small-text-completed {
-  font-size: 12px;
-  color: white;
-}
-
 
 .milestone-graphic{
   display:flex;
@@ -126,51 +102,15 @@ background-color: $orange;
 background-color: $red;
 }
 
-
 .title-mid-invest-show-page-text {
   font-size: 18px;
   margin-right: 15px;;
   padding-left: 5px;
 }
 
-.unlocked-status-icon{
-  color: white;
-  background-color: $green;
-  border-radius: 5px;
-  height: 23px;
-  width: 63px;
+.table-status {
+  display: inline;
   padding: 3px;
-}
-
-.locked-status-icon{
-  color: white;
-  background-color: $orange;
   border-radius: 5px;
-  height: 23px;
-  width: 47px;
-  padding: 3px;
-}
-
-.rescinded-status-icon {
   color: white;
-  background-color: $red;
-  border-radius: 5px;
-  height: 23px;
-  width: 67px;
-  padding: 3px;
 }
-
-.completed-icon-invest-show {
-  background-color: $green;
-  color: white;
-  border-radius: 4px;
-  padding: 4px;
-}
-
-.not-completed-icon-invest-show {
-  background-color: $orange;
-  color: white;
-  border-radius: 4px;
-  padding: 4px;
-}
-
