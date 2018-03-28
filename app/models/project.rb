@@ -3,10 +3,11 @@ class Project < ApplicationRecord
   has_many :geos, through: :projects_geos
   has_many :investments
   has_many :installments, through: :investments
+  belongs_to :focus_area
+  belongs_to :organisation
   validates :name, presence: true
   validates :description, presence: true
-
-  validates :ngo, presence: true
+  validates :organisation, presence: true
   validates :focus_area, presence: true
   validates :main_contact, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
     message: "Please enter an valid email" }
