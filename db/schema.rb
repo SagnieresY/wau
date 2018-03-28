@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180328184016) do
+ActiveRecord::Schema.define(version: 20180328185016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "focus_areas", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "geos", force: :cascade do |t|
     t.string "name"
@@ -55,6 +61,10 @@ ActiveRecord::Schema.define(version: 20180328184016) do
     t.string "main_contact"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "organisation_id"
+    t.bigint "focus_area_id"
+    t.index ["focus_area_id"], name: "index_projects_on_focus_area_id"
+    t.index ["organisation_id"], name: "index_projects_on_organisation_id"
   end
 
   create_table "projects_geos", force: :cascade do |t|
@@ -89,6 +99,8 @@ ActiveRecord::Schema.define(version: 20180328184016) do
   add_foreign_key "installments", "investments"
   add_foreign_key "investments", "organisations"
   add_foreign_key "investments", "projects"
+  add_foreign_key "projects", "focus_areas"
+  add_foreign_key "projects", "organisations"
   add_foreign_key "projects_geos", "geos"
   add_foreign_key "projects_geos", "projects"
   add_foreign_key "users", "organisations"
