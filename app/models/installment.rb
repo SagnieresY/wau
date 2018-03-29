@@ -41,7 +41,6 @@ class Installment < ApplicationRecord
     return update(status:"rescinded")
   end
 
-
   def investment_index
     investment.installments_by_nearest_deadline.index(self)
   end
