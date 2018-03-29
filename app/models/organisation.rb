@@ -14,6 +14,10 @@ class Organisation < ApplicationRecord
     investments.where(completed:false)
   end
 
+  def investments_by_focus_area(completed = false)
+    investments.select{|i| i.completed == completed}.group_by{|i| i.project.focus_area.name}
+  end
+
   def upcoming_installments # accessible installments for the next 365 days
     installments.select{|i| i.deadline < (Date.today + 365) && !i.rescinded?}
   end
@@ -37,7 +41,6 @@ class Organisation < ApplicationRecord
   def amount_for_year #forecasted amount for the upcoming 365 days
     upcoming_installments.map(&:amount).reduce(0,:+)
   end
-
 end
 
 

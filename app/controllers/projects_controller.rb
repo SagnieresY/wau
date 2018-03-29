@@ -40,7 +40,7 @@ class ProjectsController < ApplicationController
 
   private
   def project_params
-    params.require(:project).permit(:name,:description,:ngo,:focus_area,:main_contact,:geos)
+    params.require(:project).permit(:name,:description,:ngo,:focus_area_id,:main_contact,geo_ids:[])
   end
 
   def selected_project

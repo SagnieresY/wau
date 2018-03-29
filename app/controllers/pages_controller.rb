@@ -16,7 +16,7 @@ class PagesController < ApplicationController
         render :landing
       elsif current_user.organisation
         @installments = current_user.organisation.next_installments.sort_by{|m| !m.days_left}
-
+        @investments_by_focus_area = current_user.organisation.investments_by_focus_area
       else
         redirect_to no_organisation_path
       end
