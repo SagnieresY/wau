@@ -35,23 +35,11 @@ class Project < ApplicationRecord
   end
 
   def installments_by_month_unlocked
-    installments_unlocked = []
-    installments.each do |installment|
-      if installment.unlocked == true
-        installments_unlocked << installment
-      end
-    end
-    installments_unlocked.group_by{|m| Date::MONTHNAMES[m.deadline.month] } #returns hash of months => installments
+    installments.locked.group_by{|m| Date::MONTHNAMES[m.deadline.month] } #returns hash of months => installments
   end
 
- def installments_by_month_locked
-    installments_locked = []
-    installments.each do |installment|
-      if installment.unlocked == false
-        installments_locked << installment
-      end
-    end
-    installments_locked.group_by{|m| Date::MONTHNAMES[m.deadline.month] } #returns hash of months => installments
+  def installments_by_month_locked
+    installments.locked.group_by{|m| Date::MONTHNAMES[m.deadline.month] } #returns hash of months => installments
   end
 
 end
