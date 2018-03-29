@@ -18,7 +18,6 @@ Rails.application.routes.draw do
     post '/unlock_installment', to: 'installments#unlock', as: :unlock_installment
     post '/rescind_installment', to: 'installments#rescind', as: :rescind_installment
     post '/investment_unlocked_amount', to: 'investments#unlocked_amount', as: :investment_unlocked_amount
-
     match "/404", :to => "errors#not_found", :via => :all
     match "/500", :to => "errors#internal_server_error", :via => :all
   end
