@@ -1,7 +1,7 @@
 class Project < ApplicationRecord
-  has_many :projects_geos
+  has_many :projects_geos, dependent: :destroy
   has_many :geos, through: :projects_geos
-  has_many :investments
+  has_many :investments, dependent: :destroy
   has_many :installments, through: :investments
   belongs_to :focus_area
   belongs_to :organisation
@@ -9,8 +9,10 @@ class Project < ApplicationRecord
   validates :description, presence: true
   validates :organisation, presence: true
   validates :focus_area, presence: true
+  validates :geos, presence: true
   validates :main_contact, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
     message: "Please enter an valid email" }
+
   def nearest_installment
     installments.order('deadline ASC').select{|m|  !m.unlocked}.detect(&:accessible?)
      #orders project installments by deadline then select the first one
