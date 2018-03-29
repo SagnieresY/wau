@@ -6,8 +6,13 @@ class ProjectsController < ApplicationController
 
   def create
     name = params[:project][:organisation]
-    organisation = Organisation.new(name: name)
-    organisation.save!
+    if Organisation.exists?(name: name)
+      organisation = Organisation.find_by(name: name)
+    else
+      organisation = Organisation.new(name: name)
+      organisation.save!
+    end
+
     @project = Project.new(project_params)
     @project.organisation = organisation
 
