@@ -3,7 +3,9 @@
     <%= f.input :name %>
     <%= f.input :description %>
     <%= f.input :main_contact %>
-    <%= f.association :geos %>
+    <%= f.input :organisation %>
+    <%= f.association :geos , include_blank: false, include_hidden: false %>
+    <%= f.association :focus_area, include_blank: false, include_hidden: false %>
   <%= f.submit 'Save', class: "btn btn-success"%>
   <% end %>
 </div>

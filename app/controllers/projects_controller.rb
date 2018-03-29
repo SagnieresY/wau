@@ -5,16 +5,21 @@ class ProjectsController < ApplicationController
   end
 
   def create
+    name = params[:project][:organisation]
+    organisation = Organisation.new(name: name)
+    organisation.save!
     @project = Project.new(project_params)
+    @project.organisation = organisation
+
     authorize @project
 
-    @investment = Investment.new(project:@project)
-    @investment.installments << Installment.create!(task:'first installment for investment', deadline: Date.today, investment: @investment, amount: 0)
-    @investment.organisation = current_user.organisation
-    @investment.save!
-    authorize @investment
-
     if @project.save
+      @investment = Investment.new(project:@project)
+      @investment.installments << Installment.create!(task:'first installment for investment', deadline: Date.today, investment: @investment, amount: 0)
+      @investment.organisation = current_user.organisation
+      @investment.save!
+      authorize @investment
+
       redirect_to investment_path(@investment)
     else
       render :new
@@ -40,7 +45,7 @@ class ProjectsController < ApplicationController
 
   private
   def project_params
-    params.require(:project).permit(:name,:description,:ngo,:focus_area_id,:main_contact,geo_ids:[])
+    params.require(:project).permit(:name,:description,:focus_area_id,:main_contact,{ :geo_ids => [] })
   end
 
   def selected_project

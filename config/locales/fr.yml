@@ -35,7 +35,7 @@ fr:
     investment_count_home:
       title:  "Dons effectués depuis le début de l'année"
     total_unlocked_home:
-      title: "Disponible (cumul annuel)"
+      title: "Débloqué (cumul annuel)"
     forecased_amount_home:
       title: "Prévus pour l'année financière"
     charts: 
@@ -59,7 +59,7 @@ fr:
     index:
       info_bar:
         title_left: "Dons complétés (cumul annuel)"
-        title_mid: "Disponible (cumul annuel)"
+        title_mid: "Débloqué (cumul annuel)"
         title_right: "Prévus pour l'année financière"
       mid_section:
         title: "Vos dons"
@@ -97,8 +97,8 @@ fr:
     show:
       info_bar:
         mid_box:
-          status_one: "Total disponible"
-          status_two: "Disponible (cumul annuel)"
+          status_one: "Total Débloqué"
+          status_two: "Débloqué (cumul annuel)"
         right_box:
           status_one: "Versé"
           status_two: "Prévu pour l'année financière"
@@ -113,7 +113,7 @@ fr:
         second_column:
           title: "Statut"
           content:
-            status_one: "disponible"
+            status_one: "Débloqué"
             status_two: "verrouillé"
             status_three: "annulé"
         third_column:
@@ -165,6 +165,5 @@ fr:
         amount: "Montant"
         deadline: "Échéance"
         task: "Tâche"
-        unlocked: "Disponible"
 
 
