@@ -35,11 +35,15 @@ class Project < ApplicationRecord
   end
 
   def installments_by_month_unlocked
-    installments.locked.group_by{|m| Date::MONTHNAMES[m.deadline.month] } #returns hash of months => installments
+    installments.unlocked.group_by{|m| Date::MONTHNAMES[m.deadline.month] } #returns hash of months => installments
   end
 
   def installments_by_month_locked
     installments.locked.group_by{|m| Date::MONTHNAMES[m.deadline.month] } #returns hash of months => installments
+  end
+
+   def installments_by_month_rescinded
+    installments.rescinded.group_by{|m| Date::MONTHNAMES[m.deadline.month] } #returns hash of months => installments
   end
 
 end
