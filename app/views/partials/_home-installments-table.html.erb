@@ -65,8 +65,8 @@
 
  <div id="focus-area" class="tablecontent">
  <div class="tab">
-    <% @investments_by_focus_area.keys.each do |focus_area| %>
-    <button class="tablinks" onclick="openFocus(event, '<%= focus_area %>')"><%= focus_area %></button>
+    <% @investments_by_focus_area.keys.each_with_index do |focus_area,index| %>
+    <button class="tablinks" id="<%= index.zero? ? "defaultOpenFocus" : 'l' %>" onclick="openFocus(event, '<%= focus_area %>')"><%= focus_area %></button>
     <% end %>
   </div>
 
@@ -175,6 +175,10 @@ function openTable(evt, table) {
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(table).style.display = "block";
     evt.currentTarget.className += " active";
+
+    if (table === 'focus-area'){
+      document.getElementById("defaultOpenFocus").click();
+    };
 }
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
