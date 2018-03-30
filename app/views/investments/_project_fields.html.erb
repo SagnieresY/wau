@@ -1,0 +1,8 @@
+<div class="nested-fields">
+	<%= f.input :name %>
+    <%= f.input :description %>
+    <%= f.input :main_contact %>
+    <%= f.input :organisation %>
+    <%= f.association :geos , include_blank: false, include_hidden: false %>
+    <%= f.association :focus_area, include_blank: false, include_hidden: false %>
+</div>

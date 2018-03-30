@@ -1,6 +1,6 @@
 class Project < ApplicationRecord
   has_and_belongs_to_many :geos
-  has_many :investments, dependent: :destroy
+  has_many :investments, inverse_of: :project, dependent: :destroy
   has_many :installments, through: :investments
   belongs_to :focus_area
   belongs_to :organisation
@@ -11,6 +11,7 @@ class Project < ApplicationRecord
   validates :geos, presence: true
   validates :main_contact, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
     message: "Please enter an valid email" }
+  accepts_nested_attributes_for :investments
 
   def nearest_installment
     installments.order('deadline ASC').select{|m|  !m.unlocked}.detect(&:accessible?)

@@ -18,8 +18,9 @@ class InvestmentsController < ApplicationController
   end
 
   def new
-
     @investment = Investment.new
+    @investment.project = Project.new
+    @investment.installments << Installment.new(task:'Please add a task', deadline: Date.today, investment: @investment, amount: 0)
     authorize @investment
   end
 
@@ -97,8 +98,10 @@ class InvestmentsController < ApplicationController
 
   def investment_params
     params
-      .require(:investment)
-      .permit(:project_id, installments_attributes: Installment.attribute_names.map(&:to_sym).push(:_destroy))
+      .require(:investment).permit(
+        :project_id, 
+        installments_attributes: Installment.attribute_names.map(&:to_sym).push(:_destroy),
+        projects_attributes: Project.attribute_names.map(&:to_sym).push(:_destroy))
   end
 
 end
