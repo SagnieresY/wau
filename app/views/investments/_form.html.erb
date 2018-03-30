@@ -1,7 +1,24 @@
 <div class="devise-container">
   <h2><%= t("form.investment.title") %></h2>
   <%= simple_form_for([@investment]) do |f| %>
-    <%= f.association :project, label: t("form.investment.duplicate_project")%>
+    <%= f.association :project, label: t("form.investment.duplicate_project"), include_blank: false, include_hidden: false%>
+
+   <table class='table'>
+   	<thead>
+   		<tr>
+   			<th>Remove</th>
+   			<th>Amount</th>
+   			<th>Deadline</th>
+   			<th>Task</th>
+   		</tr>
+   	</thead>
+   	<tbody class='installment'>
+   		<%= f.simple_fields_for :installments do |builder| %>
+        <%= render 'installment_fields', f: builder %>
+      <% end %>
+   	</tbody>
+   </table> 
+  <%= link_to_add_association 'Add Installment', f, :installments, class: 'btn btn-primary', data: { association_insertion_node: '.installment', association_insertion_method: :append } %>
   <%= f.submit t("form.save"), class: "btn btn-success"%>
 <% end %>
 <br>

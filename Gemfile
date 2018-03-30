@@ -24,6 +24,7 @@ gem 'carrierwave', '~> 1.2'
 gem 'pg_search'
 gem 'devise-i18n'
 gem 'rails-i18n'
+gem 'cocoon'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
