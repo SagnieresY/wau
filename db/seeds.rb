@@ -62,64 +62,65 @@ environmental_project_name = ['Energy-Efficient Lighting', 'R&D for Electric Tur
 
 puts 'generating projects...'
 
+p 'humanrights_ngo'
 humanrights_ngo.each_with_index do |ngo, index|
   ngo = Organisation.create!(name:ngo)
-  puts ngo
-  p = Project.new(name:humanrights_project_name[index],
+  puts ngo.name
+
+  geos = [Geo.all.sample, Geo.all.sample]
+
+  new_project = Project.new(name:humanrights_project_name[index],
                   description:Faker::Commerce.product_name,
                   focus_area:FocusArea.all.sample,
                   main_contact:Faker::Internet.email,
-                  organisation:ngo)
-    puts '        adding geos to project...'
-    rand(1..3) do
-      p.geos.push(Geo.all.sample)
-    end
-    p.save!
+                  organisation:ngo,
+                  geos: geos)
+  new_project.save!
 end
 
-
+p 'childcare_ngo'
 childcare_ngo.each_with_index do |ngo, index|
   ngo = Organisation.create!(name:ngo)
+
+  geos = [Geo.all.sample, Geo.all.sample]
+
   new_project = Project.new(name:childcare_project_name[index],
                   description:Faker::Commerce.product_name,
                   focus_area:FocusArea.all.sample,
                   main_contact:Faker::Internet.email,
-                  organisation:ngo)
-    puts '        adding geos to project...'
-    puts(childcare_project_name[index])
-    rand(1..3) do
-      new_project.geos.push(Geo.all.sample)
-      p new_project.geos
-    end
-    new_project.save!
+                  organisation:ngo,
+                  geos: geos)
+  new_project.save!
 end
 
+p 'community_ngo'
 community_ngo.each_with_index do |ngo, index|
   ngo = Organisation.create!(name:ngo)
-  p = Project.new(name:community_project_name[index],
+
+  geos = [Geo.all.sample, Geo.all.sample]
+  
+  new_project = Project.new(name:community_project_name[index],
                   description:Faker::Commerce.product_name,
                   focus_area:FocusArea.all.sample,
                   main_contact:Faker::Internet.email,
-                  organisation:ngo)
-    puts '        adding geos to project...'
-    rand(1..3) do
-      p.geos.push(Geo.all.sample)
-    end
-    p.save!
+                  organisation:ngo,
+                  geos: geos)
+  new_project.save!
 end
 
+p 'environmental_ngo'
 environmental_ngo.each_with_index do |ngo, index|
   ngo = Organisation.create!(name:ngo)
-  p = Project.new(name:environmental_project_name[index],
+
+  geos = [Geo.all.sample, Geo.all.sample]
+  
+  new_project = Project.new(name:environmental_project_name[index],
                   description:Faker::Commerce.product_name,
                   focus_area:FocusArea.all.sample,
                   main_contact:Faker::Internet.email,
-                  organisation:ngo)
-    puts '        adding geos to project...'
-    rand(1..3) do
-      p.geos.push(Geo.all.sample)
-    end
-    p.save!
+                  organisation:ngo,
+                  geos: geos)
+  new_project.save!
 end
 
 puts 'generating organisations...'
