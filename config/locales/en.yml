@@ -138,9 +138,14 @@ en:
       ngo_name: "NGO Name: %{name}"
     investment:
       title: "New Investment"
-      duplicate_project: "Create another investment for an existing project"
-      create_project: "If you can't find your project you can:"
-      create_project_button: "Create a new project!"
+      installment:
+        title: 'Installments'
+        col_one: 'Amount'
+        col_two: 'Deadline'
+        col_three: 'Task'
+        sub_task: 'Please add a task'
+        delete_button: 'Delete'
+        add_button: 'Add more installments'
     project_title: "New Project"
     save: "Save"
   landing:

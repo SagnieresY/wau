@@ -20,7 +20,7 @@ class InvestmentsController < ApplicationController
   def new
     @investment = Investment.new
     @investment.project = Project.new
-    @investment.installments << Installment.new(task:'Please add a task', deadline: Date.today, investment: @investment, amount: 0)
+    @investment.installments << Installment.new(task:t("form.investment.installment.sub_task"), deadline: Date.today, investment: @investment, amount: 10)
     authorize @investment
   end
 
@@ -31,7 +31,7 @@ class InvestmentsController < ApplicationController
     
     if @investment.save && @investment.installments.count == 0
 
-      @investment.installments << Installment.create!(task:'first installment for investment', deadline: Date.today, investment: @investment, amount: 0)
+      @investment.installments << Installment.create!(task:t("form.investment.installment.sub_task"), deadline: Date.today, investment: @investment, amount: 0)
       authorize @investment
 
       flash[:notice] = "Investment successfully created"

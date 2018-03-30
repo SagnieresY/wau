@@ -138,9 +138,14 @@ fr:
       ngo_name: "Nom de l'organisme: %{name}"
     investment:
       title: "Nouveau don"
-      duplicate_project: "Créér un autre don pour un projet existant"
-      create_project: "Si vous ne trouvez pas un projet vous pouvez:"
-      create_project_button: "Créer un nouveau projet!"
+      installment:
+        title: 'Versements'
+        col_one: 'Montant'
+        col_two: 'Échéancier'
+        col_three: 'Tâche'
+        sub_task: 'SVP rajouté une description'
+        delete_button: 'Supprimer'
+        add_button: 'Rajouté un versement'
     project_title: "Nouveau projet"
     save: "Sauvegarder"
   landing:
