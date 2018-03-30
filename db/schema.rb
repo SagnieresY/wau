@@ -27,6 +27,15 @@ ActiveRecord::Schema.define(version: 20180328185016) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "geos_projects", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "geo_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["geo_id"], name: "index_geos_projects_on_geo_id"
+    t.index ["project_id"], name: "index_geos_projects_on_project_id"
+  end
+
   create_table "installments", force: :cascade do |t|
     t.text "task"
     t.date "deadline"
@@ -67,15 +76,6 @@ ActiveRecord::Schema.define(version: 20180328185016) do
     t.index ["organisation_id"], name: "index_projects_on_organisation_id"
   end
 
-  create_table "projects_geos", force: :cascade do |t|
-    t.bigint "project_id"
-    t.bigint "geo_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["geo_id"], name: "index_projects_geos_on_geo_id"
-    t.index ["project_id"], name: "index_projects_geos_on_project_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -96,12 +96,12 @@ ActiveRecord::Schema.define(version: 20180328185016) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "geos_projects", "geos"
+  add_foreign_key "geos_projects", "projects"
   add_foreign_key "installments", "investments"
   add_foreign_key "investments", "organisations"
   add_foreign_key "investments", "projects"
   add_foreign_key "projects", "focus_areas"
   add_foreign_key "projects", "organisations"
-  add_foreign_key "projects_geos", "geos"
-  add_foreign_key "projects_geos", "projects"
   add_foreign_key "users", "organisations"
 end

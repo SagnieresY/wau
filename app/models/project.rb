@@ -1,6 +1,5 @@
 class Project < ApplicationRecord
-  has_many :projects_geos, dependent: :destroy
-  has_many :geos, through: :projects_geos
+  has_and_belongs_to_many :geos
   has_many :investments, dependent: :destroy
   has_many :installments, through: :investments
   belongs_to :focus_area
