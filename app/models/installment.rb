@@ -6,6 +6,11 @@ class Installment < ApplicationRecord
   validates :amount, presence: true
   validates :deadline, presence: true
   validates :investment, presence: true
+
+  scope :unlocked, -> { where(status: 'unlocked') }
+  scope :locked, -> { where(status: 'locked') }
+  scope :rescinded, -> { where(status: 'rescinded') }
+
   def days_left
     #calculates the days left til deadline
     (deadline - Date.today).to_i #pretty much straight forward
@@ -35,7 +40,6 @@ class Installment < ApplicationRecord
   def rescind!
     return update(status:"rescinded")
   end
-
 
   def investment_index
     investment.installments_by_nearest_deadline.index(self)
