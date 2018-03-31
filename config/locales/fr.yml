@@ -146,6 +146,9 @@ fr:
         sub_task: 'SVP rajouté une description'
         delete_button: 'Supprimer'
         add_button: 'Rajouté un versement'
+      project:
+        name: 'Nom du projet'
+        hint: 'Il est possible de choisir plusieurs quartiers.'
     project_title: "Nouveau projet"
     save: "Sauvegarder"
   landing:
@@ -170,5 +173,11 @@ fr:
         amount: "Montant"
         deadline: "Échéance"
         task: "Tâche"
+      project:
+        organisation: "Organisme"
+        main_contact: "Interlocuteur principale"
+        description: "Détails du projet"
+        geos: "Quartiers"
+        focus_area: "Secteur d'intérêt"
 
 
