@@ -5,6 +5,11 @@ class Investment < ApplicationRecord
   has_many :installments, dependent: :destroy
   validates :project, presence: true
   validates :organisation, presence: true
+  accepts_nested_attributes_for :project
+  accepts_nested_attributes_for :installments,
+                                allow_destroy: true,
+                                reject_if: proc { |att| att['amount'].blank? }
+
 #installment
   def forecasted_amount
     #calculates projected amount minus the missed installments

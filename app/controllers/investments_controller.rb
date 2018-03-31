@@ -18,20 +18,32 @@ class InvestmentsController < ApplicationController
   end
 
   def new
-
     @investment = Investment.new
+    @investment.project = Project.new
+    @investment.installments << Installment.new(task:'Please add a task', deadline: Date.today, investment: @investment, amount: 0)
     authorize @investment
   end
 
   def create
     @investment = Investment.new(investment_params)
     @investment.organisation = current_user.organisation
-    @investment.installments << Installment.create!(task:'first installment for investment', deadline: Date.today, investment: @investment, amount: 0)
-    authorize @investment
 
-    if @investment.save
+    
+    if @investment.save && @investment.installments.count == 0
+
+      @investment.installments << Installment.create!(task:'first installment for investment', deadline: Date.today, investment: @investment, amount: 0)
+      authorize @investment
+
+      flash[:notice] = "Investment successfully created"
       redirect_to investment_path(@investment)
+
+    elsif @investment.save && @investment.installments.count > 0
+      authorize @investment
+      flash[:notice] = "Investment successfully created"
+      redirect_to investment_path(@investment)
+
     else
+      flash[:notice] = "Couldn't save!"
       render :new
     end
   end
@@ -85,7 +97,11 @@ class InvestmentsController < ApplicationController
   end
 
   def investment_params
-    params.require(:investment).permit(:project_id)
+    params
+      .require(:investment).permit(
+        :project_id, 
+        installments_attributes: Installment.attribute_names.map(&:to_sym).push(:_destroy),
+        projects_attributes: Project.attribute_names.map(&:to_sym).push(:_destroy))
   end
 
 end
