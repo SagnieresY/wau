@@ -4,13 +4,14 @@
 		<%= f.simple_fields_for :project do |builder| %>
 			<%= render 'project_fields', f: builder %>
 		<% end %>
+		<div class="size-24 green-text"><%= t("form.investment.installment.title") %></div>
 		<table class='table'>
 			<thead>
 				<tr>
-					<th scope="col" width="25%">Amount</th>
-					<th scope="col" width="30%">Deadline</th>
-					<th scope="col" width="35%">Task</th>
-					<th scope="col" width="10%">Remove</th>
+					<th scope="col" width="25%"><%= t("form.investment.installment.col_one") %></th>
+					<th scope="col" width="30%"><%= t("form.investment.installment.col_two") %></th>
+					<th scope="col" width="35%"><%= t("form.investment.installment.col_three") %></th>
+					<th scope="col" width="10%"></th>
 				</tr>
 			</thead>
 			<tbody class='installment'>
@@ -19,7 +20,8 @@
 			 	<% end %>
 			</tbody>
 		</table> 
-		<%= link_to_add_association 'Add installment', f, :installments, class: 'btn btn-success', data: { association_insertion_node: '.installment', association_insertion_method: :append } %>
+		<%= link_to_add_association t("form.investment.installment.add_button"), f, :installments, class: 'btn btn-success', data: { association_insertion_node: '.installment', association_insertion_method: :append } %>
+		<br>
 		<%= f.submit t("form.save"), class: "btn btn-success"%>
 	<% end %>
 	<br>

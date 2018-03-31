@@ -9,42 +9,44 @@ require 'faker'
 FOCUS_AREAS = ['Child Care', 'Environmental', 'Human Rights', 'Community']
 INSTALLMENT_AMOUNT = [400,60,250]
 INSTALLMENT_TASK = ['Provide full report with the detailed impact of investments.', 'Provide a detailed plan of project advancement following our agreed upon template', 'Provide a list of three potential \"theory of change\" for the project', 'Contingent upon federal approval and local regulations', 'Deliver the estimated social impact study in partnership with UDM']
-#installments
-#Installment
-#installment
-puts "generating focus_areas"
-["Ageing",
- "Agriculture & Food",
- "Animal Health & Rights",
- "Business & Economic Policy",
- "Children & Youth",
- "Communications & Media",
- "Conflict Resolution",
- "Development",
- "Education",
- "Environment",
- "Family",
- "Health & Nutrition",
- "Human Rights",
- "Indigenous People",
- "International Organization",
- "Labor",
- "Law & Legal Affairs",
- "Narcotics, Drugs & Crime",
- "Peace & Security",
- "Population/ Human Settlements",
- "Refugees",
- "Relief Services",
- "Religion, Belief & Ethics",
- "Science & Technology",
- "Social & Cultural Development",
- "Sports & Recreation",
- "Trade & International Finance",
- "Transportation",
- "Women`s Status & Issues"].each do |fa|
-  FocusArea.create!(name:fa)
-end
 
+
+puts "generating focus_areas"
+
+[["Ageing", "Vieillissement"],
+ ["Agriculture & Food", "Agriculture et Alimentation"],
+ ["Animal Health & Rights", "Droits des animaux"],
+ ["Business & Economic Policy", "Politique commerciale et conomique"],
+ ["Children & Youth", "Enfants et jeunesse"],
+ ["Communications & Media", "Communications et mdias"],
+ ["Conflict Resolution", "Résolution de conflit"],
+ ["Development", "Développement"],
+ ["Education", "Éducation"],
+ ["Environment", "Environnement"],
+ ["Family", "Famille"],
+ ["Health & Nutrition", "Sant et nutrition"],
+ ["Human Rights", "Droits de l'homme"],
+ ["Indigenous People", "Indigènes"],
+ ["International Organization", "Organisation internationale"],
+ ["Labor", "Droit du travail"],
+ ["Law & Legal Affairs", "Droit et affaires juridiques"],
+ ["Narcotics, Drugs & Crime", "Narcotiques, Drogues et Crime"],
+ ["Peace & Security", "Paix et sécurité"],
+ ["Population/ Human Settlements", "Population / Implantations humaines"],
+ ["Refugees", "Réfugiés"],
+ ["Relief Services", "Services de secours"],
+ ["Religion, Belief & Ethics", "Religion, Croyance et Ethique"],
+ ["Science & Technology", "Technologie & Science"],
+ ["Social & Cultural Development", "Développement social et culturel"],
+ ["Sports & Recreation", "Sports et loisirs"],
+ ["Trade & International Finance", "Commerce et finance internationale"],
+ ["Transportation", "Transport"],
+ ["Women`s Status & Issues", "Droits de la femme"]].each do |fa|
+  f = FocusArea.new
+  f.attributes = { name: fa[0], locale: :en }
+  f.attributes = { name: fa[1], locale: :fr }
+  f.save!
+end
 puts 'generating geos...'
 neighbourhood_montreal = ['Ahuntsic-Cartierville', 'Anjou', 'Côte-des-Neiges–Notre-Dame-de-Grâce', 'Lachine', 'LaSalle', 'Le Plateau-Mont-Royal', 'Le Sud-Ouest', 'Île-Bizard–Sainte-Geneviève', 'Mercier–Hochelaga-Maisonneuve', 'Montréal-Nord', 'Outremont', 'Pierrefonds-Roxboro', 'Rivière-des-Prairies–Pointe-aux-Trembles', 'Rosemont–La Petite-Patrie', 'Saint-Laurent', 'Saint-Léonard', 'Verdun', 'Ville-Marie', 'Other neighbourhoods', 'Villeray', 'West Island']
 
@@ -155,4 +157,66 @@ Project.all.each do |project|
   puts "added geos to project #{project.name}"
 end
 
+#PLEASE KEEP FOR TRANSLATION PURPOSES
+# fa = ["Ageing",
+#  "Agriculture & Food",
+#  "Animal Health & Rights",
+#  "Business & Economic Policy",
+#  "Children & Youth",
+#  "Communications & Media",
+#  "Conflict Resolution",
+#  "Development",
+#  "Education",
+#  "Environment",
+#  "Family",
+#  "Health & Nutrition",
+#  "Human Rights",
+#  "Indigenous People",
+#  "International Organization",
+#  "Labor",
+#  "Law & Legal Affairs",
+#  "Narcotics, Drugs & Crime",
+#  "Peace & Security",
+#  "Population/ Human Settlements",
+#  "Refugees",
+#  "Relief Services",
+#  "Religion, Belief & Ethics",
+#  "Science & Technology",
+#  "Social & Cultural Development",
+#  "Sports & Recreation",
+#  "Trade & International Finance",
+#  "Transportation",
+#  "Women`s Status & Issues"]
+
+# fafr = ["Vieillissement",
+#  "Agriculture et Alimentation",
+#  "Droits des animaux",
+#  "Politique commerciale et économique",
+#  "Enfants et jeunesse",
+#  "Communications et médias",
+#  "Résolution de conflit",
+#  "Développement",
+#  "Éducation",
+#  "Environnement",
+#  "Famille",
+#  "Santé et nutrition",
+#  "Droits de l'homme",
+#  "Indigènes",
+#  "Organisation internationale",
+#  "Droit du travail",
+#  "Droit et affaires juridiques",
+#  "Narcotiques, Drogues et Crime",
+#  "Paix et sécurité",
+#  "Population / établissements humains",
+#  "Réfugiés",
+#  "Services de secours",
+#  "Religion, Croyance et Ethique",
+#  "Technologie & Science",
+#  "Développement social et culturel",
+#  "Sports et loisirs",
+#  "Commerce et finance internationale",
+#  "Transport",
+#  "Statut de la femme et questions"]
+
+# fa.zip(fafr)
 
