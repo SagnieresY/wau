@@ -1,9 +1,9 @@
 <div class="nested-fields">
-	<%= f.input :name, label: 'Project Name' %>
+	<%= f.input :name, label: t("form.investment.project.name") %>
     <%= f.input :organisation %>
     <%= f.input :main_contact %>
     <%= f.input :description %>
     <%= f.association :geos , include_blank: false, include_hidden: false %>
-    <%= f.hint 'You can pick more than one neighborhood by holding the ctrl key and clicking.' %>
+    <%= f.hint t("form.investment.project.hint") %>
     <%= f.association :focus_area, include_blank: false, include_hidden: false %>
 </div>

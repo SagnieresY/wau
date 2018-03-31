@@ -13,7 +13,7 @@ INSTALLMENT_TASK = ['Provide full report with the detailed impact of investments
 
 puts "generating focus_areas"
 
-[["Ageing", "Vieillissement"],
+[["Ageing", "Vieillissement de personnes"],
  ["Agriculture & Food", "Agriculture et Alimentation"],
  ["Animal Health & Rights", "Droits des animaux"],
  ["Business & Economic Policy", "Politique commerciale et conomique"],

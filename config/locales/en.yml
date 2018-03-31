@@ -146,6 +146,9 @@ en:
         sub_task: 'Please add a task'
         delete_button: 'Delete'
         add_button: 'Add more installments'
+      project:
+        name: 'Project Name'
+        hint: 'You can pick more than one neighborhood by holding the ctrl key and clicking.'
     project_title: "New Project"
     save: "Save"
   landing:
