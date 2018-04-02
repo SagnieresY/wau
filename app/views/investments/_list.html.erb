@@ -1,0 +1,26 @@
+<%# app/views/students/_list.html.erb %>
+<div id="filterrific_results">
+
+  <div>
+    <%= page_entries_info investments # provided by will_paginate %>
+  </div>
+
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>organisation</th>
+      <th>Amount</th>
+      <th>days til deadline</th>
+    </tr>
+    <% investments.each do |investment| %>
+      <tr>
+        <td><%= link_to(investment.project.name, investment_path(investment)) %></td>
+        <td><%= investment.organisation.name %></td>
+        <td><%= investment.next_installment.amount %></td>
+        <td><%= investment.next_installment.days_left %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<%= will_paginate investments # provided by will_paginate %>
