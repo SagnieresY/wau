@@ -27,18 +27,18 @@ class InvestmentsController < ApplicationController
   def create
     @investment = Investment.new(investment_params)
     @investment.organisation = current_user.organisation
+    authorize @investment
 
-    
     if @investment.save && @investment.installments.count == 0
 
       @investment.installments << Installment.create!(task:t("form.investment.installment.sub_task"), deadline: Date.today, investment: @investment, amount: 0)
-      authorize @investment
+
 
       flash[:notice] = "Investment successfully created"
       redirect_to investment_path(@investment)
 
     elsif @investment.save && @investment.installments.count > 0
-      authorize @investment
+
       flash[:notice] = "Investment successfully created"
       redirect_to investment_path(@investment)
 
@@ -99,7 +99,7 @@ class InvestmentsController < ApplicationController
   def investment_params
     params
       .require(:investment).permit(
-        :project_id, 
+        :project_id,
         installments_attributes: Installment.attribute_names.map(&:to_sym).push(:_destroy),
         projects_attributes: Project.attribute_names.map(&:to_sym).push(:_destroy))
   end
