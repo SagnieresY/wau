@@ -166,3 +166,6 @@ en:
       second_dropdown: "Investments"
       third_dropdown: "New Investments"
       fourth_dropdown: "Sign Out"
+  user_mailer:
+    welcome:
+      subject: "Welcome to WAU!"
