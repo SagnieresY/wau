@@ -31,15 +31,16 @@
 
 
 <div class="flex-tab">
-  <div id="ongoing-tab" class="tablinks" onclick="openCity(event, 'ongoing')"> <%= t(".table.tab.title_one") %></div>
+  <div id="active-tab" class="tablinks" onclick="openCity(event, 'active')"> <%= t(".table.tab.title_one") %></div>
   <div id="completed-tab" class="tablinks" onclick="openCity(event, 'completed')"><%= t(".table.tab.title_two") %></div>
 </div>
 
 <!-- Tab content -->
-<div id="ongoing" class="tabcontent">
-  <div class="ongoing-investments">
+<div id="active" class="tabcontent">
+  <div class="active-investments">
+    <input type="text" class="searchInvest" id="searchBarActive" onkeyup="searchActive()" placeholder="Search for active investments .." >
     <div class="table-container">
-      <table class="table table-hover margin-center dropshadow-around">
+      <table id="activeTable" class="table table-hover margin-center dropshadow-around">
         <thead>
           <tr class="white-background header-row-milestone">
             <th scope="col" width="25%"><div class="tablesorter-header-inner"> <%= t(".table.first_column.title") %><i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
@@ -91,11 +92,14 @@
   </div>
 </div>
 
+
+<!-- COMPLETED TAB -->
 <div id="completed" class="tabcontent">
   <% unless @completed_investments.blank? %>
   <div class="completed-investments">
+    <input type="text" class="searchInvest" id="searchBarCompleted" onkeyup="searchCompleted()" placeholder="Search for completed investments ..">
     <div class="table-container">
-      <table class="table table-hover margin-center dropshadow-around">
+      <table id="completedTable" class="table table-hover margin-center dropshadow-around">
         <thead>
          <tr class="white-background header-row-milestone">
             <th scope="col" width="20%"><div class="tablesorter-header-inner"><%= t(".table.first_column.title") %><i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
@@ -141,6 +145,7 @@
 <script type="text/javascript">
 
     $("table").tablesorter();
+
   function openCity(evt, cityName) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -161,7 +166,52 @@
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
   }
-  document.getElementById("ongoing-tab").click();
+  document.getElementById("active-tab").click();
+
+  function searchActive() {
+  // Declare variables
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("searchBarActive");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("activeTable");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      td2 = tr[i].getElementsByTagName("td")[1];
+      if (td || td2) {
+        if (td.innerHTML.toUpperCase().indexOf(filter) > -1 || td2.innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+
+  function searchCompleted() {
+  // Declare variables
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("searchBarCompleted");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("completedTable");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      td2 = tr[i].getElementsByTagName("td")[1];
+      if (td || td2) {
+        if (td.innerHTML.toUpperCase().indexOf(filter) > -1 || td2.innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+
 
 </script>
 <% end %>

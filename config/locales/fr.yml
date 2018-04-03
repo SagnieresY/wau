@@ -38,22 +38,22 @@ fr:
       title: "Débloqué (cumul annuel)"
     forecased_amount_home:
       title: "Prévus pour l'année financière"
-    charts: 
+    charts:
       bar_title: "Dons prévus pour l'année financière par champ d'intervention"
       line_title: "Dons prévus pour le terme"
     mid_section_title: "Versement à venir"
     mid_section_button: "Créer un don"
-    table_first_column: 
+    table_first_column:
       title: "Organisme"
-    table_second_column: 
+    table_second_column:
       title: "Nom du projet"
-    table_third_column: 
+    table_third_column:
       title: "Versement"
       content: " %{installment_index} de %{installment_count}"
-    table_fourth_column: 
+    table_fourth_column:
       title: "Échéance"
       content: "%{days} jours"
-    table_fifth_column: 
+    table_fifth_column:
       title: "Montant"
   investments:
     index:
@@ -75,7 +75,7 @@ fr:
         third_column:
           title: "Prévu"
         fourth_column:
-          title: "Prochain versement"
+          title: "Versement"
           content: " %{installment_index} of %{installment_count}"
         fifth_column:
           title: "Échéance"
@@ -88,7 +88,7 @@ fr:
           third_column:
             title: "Versé"
           fourth_column:
-            title: "Procahin versement"
+            title: "Versements"
             content: "Complété"
           fifth_column:
             title: "Modifier"

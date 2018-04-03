@@ -75,7 +75,7 @@ en:
         third_column:
           title: "Forecasted"
         fourth_column:
-          title: "Next Installment"
+          title: "Installment"
           content: " %{installment_index} of %{installment_count}"
         fifth_column:
           title: "Deadline"
@@ -88,7 +88,7 @@ en:
           third_column:
             title: "Invested"
           fourth_column:
-            title: "Next Installment"
+            title: "Installment"
             content: "Completed"
           fifth_column:
             title: "Edit"

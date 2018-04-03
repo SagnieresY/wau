@@ -1,33 +1,14 @@
-.edit-nearest-milestone-button-table {
-  color: $orange;
-  text-align: center;
-}
-
-.edit-nearest-milestone-button-table:hover {
-  color: white;
-  background-color: $orange;
-  border-radius: 4px;
-}
-
-.edit-investment-button-table {
-  color: $yellow;
-  text-align: center;
-}
-
-.edit-investment-button-table:hover {
-  color: white;
-  background-color: $yellow;
-  border-radius: 4px;
-  padding: 0px 5px;
-}
-
-.milestone-view-button-table {
-  // color: white;
-  // text-align: center;
-  // width: 50%;
-  // margin-left: 5px;
-  // background-color: $yellow;
-  // border-radius: 4px;
+.searchInvest {
+    background-image: url('/assets/searchicon.png'); /* Add a search icon to input */
+    background-position: 10px 12px; /* Position the search icon */
+    background-size: 25px;
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 100%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+    margin-top: 12px; /* Add some space above the input */
 }
 
 .completed-icon {
