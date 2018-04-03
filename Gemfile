@@ -28,6 +28,7 @@ gem 'rails-i18n'
 gem 'cocoon'
 gem 'globalize', '~> 5.1.0.beta2'
 gem "smart_listing"
+gem "haml"
 
 group :development do
   gem 'web-console', '>= 3.3.0'

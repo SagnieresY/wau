@@ -54,7 +54,6 @@ class Project < ApplicationRecord
     end
     attributes[:organisation] = organisation
     project = self.new(attributes)
-    project.save!
     project
   end
 end

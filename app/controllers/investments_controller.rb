@@ -4,10 +4,13 @@ class InvestmentsController < ApplicationController
   helper  SmartListing::Helper
 
   def index
-    @users = smart_listing_create(:users, User.active, partial: "users/listing")
     @fuck_off_pundit = policy_scope(current_user.organisation.investments.first)
-    @active_investments = current_user.organisation.uncompleted_investments.sort_by{|i| i.next_installment&.days_left}
-    @completed_investments = current_user.organisation.completed_investments
+    investment_all = Investment.where(organisation: current_user.organisation).joins(:stats)
+    # investment_scope = investment_all.where(params[:filter]) if params[:filter])
+    smart_listing_create(:investments, investment_scope, partial: "investments/listing")
+    # @active_investments = current_user.organisation.uncompleted_investments.sort_by{|i| i.next_installment&.days_left}
+    # @completed_investments = current_user.organisation.completed_investments
+
   end
 
   def new
@@ -18,7 +21,7 @@ class InvestmentsController < ApplicationController
   end
 
   def create
-    project = Project.create_with_check(params.to_unsafe_h[:investment][:project_attributes][:organisation],params.to_unsafe_h[:investment][:project_attributes])
+    project = Project.create_with_check(params[:investment][:project_attributes][:organisation],params[:investment][:project_attributes])
     @investment = Investment.new(investment_params)
     @investment.organisation = current_user.organisation
     @investment.project = project
