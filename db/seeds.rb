@@ -144,73 +144,7 @@ Organisation.all.each do |f|
     i += 1
   end
 end
-bigboi = Organisation.create!(name:'bigboi')
-bigboi.users.push(User.create!(email:"bigboi@big.boi",password:'123456'))
-30.times do
-  humanrights_project_name.each do |project_name|
-    geos = []
-    rand(0..2).times do
-      geos.push(Geo.all.sample)
-    end
-    puts geos
-    me = Project.create(
-      name:project_name,
-      description:"fuck off",
-      main_contact:"veryrealemail@actually.no",
-      organisation: bigboi,
-      focus_area: FocusArea.all.sample,
-      geos: [Geo.all.sample]
-      )
-  end
 
-  childcare_project_name.each do |project_name|
-    geos = []
-    rand(0..2).times do
-      geos.push(Geo.all.sample)
-    end
-    puts geos
-    me = Project.create(
-      name:project_name,
-      description:"fuck off",
-      main_contact:"veryrealemail@actually.no",
-      organisation: bigboi,
-      focus_area: FocusArea.all.sample,
-      geos: [Geo.all.sample]
-      )
-  end
-
-  community_project_name.each do |project_name|
-    geos = []
-    rand(0..2).times do
-      geos.push(Geo.all.sample)
-    end
-    puts geos
-    me = Project.create(
-      name:project_name,
-      description:"fuck off",
-      main_contact:"veryrealemail@actually.no",
-      organisation: bigboi,
-      focus_area: FocusArea.all.sample,
-      geos: [Geo.all.sample]
-      )
-  end
-
-  environmental_project_name.each do |project_name|
-    geos = []
-    rand(0..2).times do
-      geos.push(Geo.all.sample)
-    end
-    puts geos
-    me = Project.create(
-      name:project_name,
-      description:"fuck off",
-      main_contact:"veryrealemail@actually.no",
-      organisation: bigboi,
-      focus_area: FocusArea.all.sample,
-      geos: [Geo.all.sample]
-      )
-  end
-end
 puts 'generating investments and their installments...'
 Project.all.each do |p|
   Organisation.all.each do |f|
@@ -229,7 +163,114 @@ Project.all.each do |project|
 end
 
 
+bigboi = Organisation.create!(name:'bigboi')
+bigboi.users.push(User.create!(email:"bigboi@big.boi",password:'123456'))
+30.times do
+  orgs = Organisation.all.reject{|o| o.name == "bigboi"}
+  humanrights_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: orgs.sample,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+    4.times do |years|
+      this_year = Date.today.year + years
+      firstday = Date.new(this_year, 1 ,1)
+      lastday = firstday + 365
 
+      invest = Investment.create!(project:me,organisation:bigboi)
+        rand(2..4).times do
+          Installment.create!(investment:invest,amount:rand(50000..600000),task:INSTALLMENT_TASK.sample,deadline:Faker::Date.between(Date.today, lastday))
+        end
+      end
+  end
+
+  childcare_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: orgs.sample,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+    4.times do |years|
+      this_year = Date.today.year + years
+      firstday = Date.new(this_year, 1 ,1)
+      lastday = firstday + 365
+
+      invest = Investment.create!(project:me,organisation:bigboi)
+        rand(2..4).times do
+          Installment.create!(investment:invest,amount:rand(50000..600000),task:INSTALLMENT_TASK.sample,deadline:Faker::Date.between(Date.today, lastday))
+        end
+      end
+  end
+
+  community_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: orgs.sample,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+    4.times do |years|
+      this_year = Date.today.year + years
+      firstday = Date.new(this_year, 1 ,1)
+      lastday = firstday + 365
+
+      invest = Investment.create!(project:me,organisation:bigboi)
+        rand(2..4).times do
+          Installment.create!(investment:invest,amount:rand(50000..600000),task:INSTALLMENT_TASK.sample,deadline:Faker::Date.between(Date.today, lastday))
+        end
+      end
+  end
+
+  environmental_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: orgs.sample,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+    4.times do |years|
+      this_year = Date.today.year + years
+      firstday = Date.new(this_year, 1 ,1)
+      lastday = firstday + 365
+
+      invest = Investment.create!(project:me,organisation:bigboi)
+        rand(2..4).times do
+          Installment.create!(investment:invest,amount:rand(50000..600000),task:INSTALLMENT_TASK.sample,deadline:Faker::Date.between(Date.today, lastday))
+        end
+      end
+  end
+end
 
 #PLEASE KEEP FOR TRANSLATION PURPOSES
 # fa = ["Ageing",
