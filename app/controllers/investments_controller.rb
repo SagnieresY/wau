@@ -33,8 +33,6 @@ class InvestmentsController < ApplicationController
 
     if @investment.save && @investment.installments.count == 0
       @investment.installments << Installment.create!(task:t("form.investment.installment.sub_task"), deadline: Date.today, investment: @investment, amount: 0)
-
-
       flash[:notice] = "Investment successfully created"
       redirect_to investment_path(@investment)
 
