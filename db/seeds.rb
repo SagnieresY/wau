@@ -53,76 +53,81 @@ neighbourhood_montreal = ['Ahuntsic-Cartierville', 'Anjou', 'Côte-des-Neiges–
 neighbourhood_montreal.each do |neighbourhood|
   Geo.create(name:neighbourhood)
 end
-humanrights_ngo = ['Amnesty International', 'UNICEF', 'Human Rights Watch']
+humanrights_ngo = ['Amnesty International', 'UNICEF', 'Human Rights Watch'].map{|ngo| Organisation.create!(name:ngo)}
 humanrights_project_name = ['Welcome Refugees to Montreal', 'Open a New Shelter', 'Fund Awareness Campaign']
-childcare_ngo = ['Save The Children Canada', 'Montreal Children\'s Hospital']
+childcare_ngo = ['Save The Children Canada', 'Montreal Children\'s Hospital'].map{|ngo| Organisation.create!(name:ngo)}
 childcare_project_name = ['Give Coding lessons in School', 'Cancer Research']
-community_ngo = ['Santropole Roulant', 'YMCA', 'Women Aware Femme Averties', 'Kids Code Jeunesse']
+community_ngo = ['Santropole Roulant', 'YMCA', 'Women Aware Femme Averties', 'Kids Code Jeunesse'].map{|ngo| Organisation.create!(name:ngo)}
 community_project_name = ['Open New Farms', 'Renovate basketball court', 'Legal Defense', 'Create Afterschool Programs']
-environmental_ngo = ['Equiterre', 'Canadian Wind Energy Association', 'Greenpeace Canada']
+environmental_ngo = ['Equiterre', 'Canadian Wind Energy Association', 'Greenpeace Canada'].map{|ngo| Organisation.create!(name:ngo)}
 environmental_project_name = ['Energy-Efficient Lighting', 'R&D for Electric Turbines', 'Global Climate March']
 
 puts 'generating projects...'
 
-p 'humanrights_ngo'
-humanrights_ngo.each_with_index do |ngo, index|
-  ngo = Organisation.create!(name:ngo)
-  puts ngo.name
+25.times do
+  humanrights_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: humanrights_ngo.sample,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+  end
 
-  geos = [Geo.all.sample, Geo.all.sample]
+  childcare_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: childcare_ngo.sample,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+  end
 
-  new_project = Project.new(name:humanrights_project_name[index],
-                  description:Faker::Commerce.product_name,
-                  focus_area:FocusArea.all.sample,
-                  main_contact:Faker::Internet.email,
-                  organisation:ngo,
-                  geos: geos)
-  new_project.save!
-end
+  community_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: community_ngo.sample,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+  end
 
-p 'childcare_ngo'
-childcare_ngo.each_with_index do |ngo, index|
-  ngo = Organisation.create!(name:ngo)
-
-  geos = [Geo.all.sample, Geo.all.sample]
-
-  new_project = Project.new(name:childcare_project_name[index],
-                  description:Faker::Commerce.product_name,
-                  focus_area:FocusArea.all.sample,
-                  main_contact:Faker::Internet.email,
-                  organisation:ngo,
-                  geos: geos)
-  new_project.save!
-end
-
-p 'community_ngo'
-community_ngo.each_with_index do |ngo, index|
-  ngo = Organisation.create!(name:ngo)
-
-  geos = [Geo.all.sample, Geo.all.sample]
-  
-  new_project = Project.new(name:community_project_name[index],
-                  description:Faker::Commerce.product_name,
-                  focus_area:FocusArea.all.sample,
-                  main_contact:Faker::Internet.email,
-                  organisation:ngo,
-                  geos: geos)
-  new_project.save!
-end
-
-p 'environmental_ngo'
-environmental_ngo.each_with_index do |ngo, index|
-  ngo = Organisation.create!(name:ngo)
-
-  geos = [Geo.all.sample, Geo.all.sample]
-  
-  new_project = Project.new(name:environmental_project_name[index],
-                  description:Faker::Commerce.product_name,
-                  focus_area:FocusArea.all.sample,
-                  main_contact:Faker::Internet.email,
-                  organisation:ngo,
-                  geos: geos)
-  new_project.save!
+  environmental_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: environmental_ngo.sample,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+  end
 end
 
 puts 'generating organisations...'
