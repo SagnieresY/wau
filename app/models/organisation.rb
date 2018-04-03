@@ -9,6 +9,7 @@ class Organisation < ApplicationRecord
     investments.where(completed:true)
   end
 
+
   def uncompleted_investments
     investments.where(completed:false)
   end
