@@ -64,7 +64,7 @@ environmental_project_name = ['Energy-Efficient Lighting', 'R&D for Electric Tur
 
 puts 'generating projects...'
 
-25.times do
+1.times do
   humanrights_project_name.each do |project_name|
     geos = []
     rand(0..2).times do
@@ -144,7 +144,73 @@ Organisation.all.each do |f|
     i += 1
   end
 end
+bigboi = Organisation.create!(name:'bigboi')
+bigboi.users.push(User.create!(email:"bigboi@big.boi",password:'123456'))
+30.times do
+  humanrights_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: bigboi,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+  end
 
+  childcare_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: bigboi,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+  end
+
+  community_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: bigboi,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+  end
+
+  environmental_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: bigboi,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+  end
+end
 puts 'generating investments and their installments...'
 Project.all.each do |p|
   Organisation.all.each do |f|
@@ -161,6 +227,9 @@ Project.all.each do |project|
   end
   puts "added geos to project #{project.name}"
 end
+
+
+
 
 #PLEASE KEEP FOR TRANSLATION PURPOSES
 # fa = ["Ageing",
