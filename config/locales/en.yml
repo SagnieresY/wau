@@ -64,6 +64,9 @@ en:
       mid_section:
         title: "Your Investments"
         button: "New Investment"
+      search_bar:
+        active: "Search for active investments..."
+        completed: "Search for completed investments..."
       table:
         tab:
           title_one: "Active Investments"
