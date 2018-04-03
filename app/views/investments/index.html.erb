@@ -29,13 +29,16 @@
   </div>
 </div>
 
-<%= smart_listing_render(:investments) %>
 
+<div class="flex-tab">
+  <div id="active-tab" class="tablinks" onclick="openCity(event, 'active')"> <%= t(".table.tab.title_one") %></div>
+  <div id="completed-tab" class="tablinks" onclick="openCity(event, 'completed')"><%= t(".table.tab.title_two") %></div>
+</div>
+
+<%= smart_listing_render(:investments) %>
 
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
-
-    $("table").tablesorter();
 
   function openCity(evt, cityName) {
     // Declare all variables
