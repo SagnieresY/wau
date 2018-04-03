@@ -32,7 +32,6 @@ class InvestmentsController < ApplicationController
     authorize @investment
 
     if @investment.save && @investment.installments.count == 0
-      project.save
       @investment.installments << Installment.create!(task:t("form.investment.installment.sub_task"), deadline: Date.today, investment: @investment, amount: 0)
 
 
@@ -40,7 +39,6 @@ class InvestmentsController < ApplicationController
       redirect_to investment_path(@investment)
 
     elsif @investment.save && @investment.installments.count > 0
-      project.save
       flash[:notice] = "Investment successfully created"
       redirect_to investment_path(@investment)
 
