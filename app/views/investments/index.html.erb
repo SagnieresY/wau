@@ -38,7 +38,7 @@
 <!-- Tab content -->
 <div id="active" class="tabcontent">
   <div class="active-investments">
-    <input type="text" class="searchInvest" id="searchBarActive" onkeyup="searchActive()" placeholder="Search for active investments .." >
+    <input type="text" class="searchInvest" id="searchBarActive" onkeyup="searchActive()" placeholder= "<%= t(".search_bar.active") %>" >
     <div class="table-container">
       <table id="activeTable" class="table table-hover margin-center dropshadow-around">
         <thead>
@@ -97,7 +97,7 @@
 <div id="completed" class="tabcontent">
   <% unless @completed_investments.blank? %>
   <div class="completed-investments">
-    <input type="text" class="searchInvest" id="searchBarCompleted" onkeyup="searchCompleted()" placeholder="Search for completed investments ..">
+    <input type="text" class="searchInvest" id="searchBarCompleted" onkeyup="searchCompleted()" placeholder="<%= t(".search_bar.completed") %>">
     <div class="table-container">
       <table id="completedTable" class="table table-hover margin-center dropshadow-around">
         <thead>

@@ -64,6 +64,9 @@ fr:
       mid_section:
         title: "Vos dons"
         button: "Nouveau don"
+      search_bar:
+        active: "Recherche de dons actifs..."
+        completed: "Recherche de dons complétés..."
       table:
         tab:
           title_one: "Dons actifs"
