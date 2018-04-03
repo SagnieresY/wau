@@ -1,0 +1,34 @@
+<%= content_for(:after_js) do %>
+
+<script>
+//INSTALLMENTS CHART
+  // unlocked amount per date
+  let unlocked_amount_installments  = {
+    x: <%= raw @chart_installments_data[:unlocked].keys.sort %> ,
+    y: <%= raw @chart_installments_data[:unlocked].values.sort %> ,
+    fill: 'tozeroy',
+  type: 'scatter',
+  mode: 'none'
+  };
+  // unlocked amount per date
+  let locked_amount_installments = {
+    x: <%= raw @chart_installments_data[:locked].keys.sort %>,
+    y: <%= raw @chart_installments_data[:locked].values.sort %>,
+    fill: 'tonexty',
+  type: 'scatter',
+  mode: 'none'
+
+  };
+
+  var data = [unlocked_amount_installments, locked_amount_installments];
+
+  var installmentLayout = {
+    xaxis: {
+      type:'date'
+    }
+  }
+
+  Plotly.newPlot('installments', data, installmentLayout);
+
+</script>
+<% end %>

@@ -45,4 +45,16 @@ class Installment < ApplicationRecord
     investment.installments_by_nearest_deadline.index(self)
   end
 
+  def self.amount_by_date(organisation)
+    output = {unlocked: {},locked: {}}
+    output[:unlocked] = organisation.unlocked_installments.group_by{ |inst| inst.deadline.to_s}
+    output[:locked] = organisation.locked_installments.group_by{ |inst| inst.deadline.to_s}
+    output.each do |status, values|
+      output[status].each do |k,v|
+        output[status][k] = v.map(&:amount).reduce(0,:+)
+      end
+    end
+    return output
+  end
+
 end

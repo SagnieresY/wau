@@ -24,13 +24,15 @@ class Organisation < ApplicationRecord
     installments.where(status:"unlocked")
   end
 
-  def next_installments # array of next installments of investments
-    uncompleted_investments.map(&:next_installment)
-  end
 
   def locked_installments
     installments.where(status:"locked")
   end
+
+  def next_installments # array of next installments of investments
+    uncompleted_investments.map(&:next_installment)
+  end
+
 
   def amount_unlocked #amount given via installments that are unlocked
     unlocked_installments.map(&:amount).reduce(0,:+)
@@ -38,6 +40,28 @@ class Organisation < ApplicationRecord
 
   def amount_for_year #forecasted amount for the upcoming 365 days
     upcoming_installments.map(&:amount).reduce(0,:+)
+  end
+
+  def amount_by_ngo
+    output = {unlocked: {},locked: {}}
+    invest_by_ngo = investments.group_by{|invest| invest.project.organisation.name}
+    invest_by_ngo.each do |k,v|
+      output[:unlocked][k] = v.map(&:unlocked_amount).reduce(0,:+)
+      output[:locked][k] = v.map(&:locked_amount).reduce(0,:+)
+    end
+    return output
+  end
+
+  def amount_by_date_cumulative
+    amounts_by_date = Installment.amount_by_date(self)
+    amounts_by_date.each do |status, dates|
+      sum = 0
+      amounts_by_date[status].each do |date, amount|
+        sum += amount
+        amounts_by_date[status][date] = sum
+      end
+    end
+    return amounts_by_date
   end
 end
 
