@@ -1,5 +1,8 @@
 class InstallmentsController < ApplicationController
 
+  include SmartListing::Helper::ControllerExtensions
+  helper  SmartListing::Helper
+
   before_action :selected_installment, only: [:edit, :update, :destroy, :unlock, :rescind ]
   before_action :find_investment, only: [:create, :new, :edit, :update, :destroy]
 #Installment

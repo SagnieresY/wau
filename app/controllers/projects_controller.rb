@@ -1,4 +1,7 @@
 class ProjectsController < ApplicationController
+  include SmartListing::Helper::ControllerExtensions
+  helper  SmartListing::Helper
+
   def new
     @project = Project.new
     authorize @project

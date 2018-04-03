@@ -1,20 +1,13 @@
 class InvestmentsController < ApplicationController
-  def index
-    #milestn
 
+  include SmartListing::Helper::ControllerExtensions
+  helper  SmartListing::Helper
+
+  def index
+    @users = smart_listing_create(:users, User.active, partial: "users/listing")
     @fuck_off_pundit = policy_scope(current_user.organisation.investments.first)
     @active_investments = current_user.organisation.uncompleted_investments.sort_by{|i| i.next_installment&.days_left}
-
     @completed_investments = current_user.organisation.completed_investments
-
-    #installment
-    #organisation projects where they have investments
-        #total funding with projects
-        #project name
-        #next installment time left
-        #project description
- #Installment
-        #edit button => edit form
   end
 
   def new
