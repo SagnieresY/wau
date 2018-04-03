@@ -25,20 +25,18 @@ class InvestmentsController < ApplicationController
   end
 
   def create
+    project = Project.create_with_check(params.to_unsafe_h[:investment][:project_attributes][:organisation],params.to_unsafe_h[:investment][:project_attributes])
     @investment = Investment.new(investment_params)
     @investment.organisation = current_user.organisation
+    @investment.project = project
     authorize @investment
 
     if @investment.save && @investment.installments.count == 0
-
       @investment.installments << Installment.create!(task:t("form.investment.installment.sub_task"), deadline: Date.today, investment: @investment, amount: 0)
-
-
       flash[:notice] = "Investment successfully created"
       redirect_to investment_path(@investment)
 
     elsif @investment.save && @investment.installments.count > 0
-
       flash[:notice] = "Investment successfully created"
       redirect_to investment_path(@investment)
 
@@ -101,7 +99,7 @@ class InvestmentsController < ApplicationController
       .require(:investment).permit(
         :project_id,
         installments_attributes: Installment.attribute_names.map(&:to_sym).push(:_destroy),
-        projects_attributes: Project.attribute_names.map(&:to_sym).push(:_destroy))
+        project_attributes: [:name,:description,:focus_area_id,:main_contact,{ :geo_ids => [] }, :_destroy, :organisation_id])
   end
 
 end
