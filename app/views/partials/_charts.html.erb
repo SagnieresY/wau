@@ -1,187 +1,28 @@
-
-<canvas class="home-chart" alt="chart" id="bar-chart"></canvas>
-<canvas class="home-chart" alt="chart" id="line-chart"></canvas>
+<div id="myDiv"></div>
 
 
 <%= content_for(:after_js) do %>
-<script type="text/javascript">
+<script>
 
-Chart.defaults.global.defaultFontFamily = 'Raleway';
-let barChartByFocusAreaOptions = {
-  investmentsByFocusAreaKeys: <%= raw @investments_by_focus_area.keys  %>,
-  investmentsByFocusAreaValues: <%= @investments_by_focus_area.values %>
-};
+  // unlocked amount per focus area
+  let trace1  = {
+    x: <%= raw @chart_focus_area_data[:unlocked].keys %> ,
+    y: <%= raw @chart_focus_area_data[:unlocked].values %> ,
+    name: 'unlocked amount',
+    type: 'bar'
+  };
+  // unlocked amount per focus area
+  let trace2 = {
+    x: <%= raw @chart_focus_area_data[:locked].keys %>,
+    y: <%= raw @chart_focus_area_data[:locked].values %>,
+    name: 'locked amount',
+    type: 'bar'
+  };
 
+  var data = [trace1, trace2];
 
-let barChart;
-function drawBarChart(barChartByFocusAreaOptions) {
-  var barData = {
-      <% @chart_colors = []%>
-      <% @investments_by_focus_area.count.times do %>
-        <% @chart_colors.push("rgba(#{rand(1..255)}, #{rand(1..255)},#{rand(1..255)},0.6)") %>
-      <% end %>
-      labels: barChartByFocusAreaOptions.investmentsByFocusAreaKeys,
-      datasets: [{
-        label: "By Focus Area",
-        backgroundColor: <%= raw @chart_colors  %>,
-        borderColor: 'rgb(255, 99, 132)',
-        data: barChartByFocusAreaOptions.investmentsByFocusAreaValues,
-      }]
-  }
+  var layout = {barmode: 'stack'};
 
-  var barOptions = {
-      responsive: false,
-        legend: {
-          display: false
-        },
-        tooltips: {
-        enabled: true,
-        mode: 'index',
-        intersect: false,
-        callbacks: {
-          label: function(tooltipItem, data) {
-              return tooltipItem.xLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-          },
-        }
-      },
-      title: {
-        display: true,
-        text: '<%= t("home.charts.bar_title") %>'
-      },
-      scales: {
-        xAxes: [{
-          gridLines: {
-            color: "rgba(0, 0, 0, 0)",
-          },
-          ticks: {
-            // Return an empty string to draw the tick line but hide the tick label
-            // Return `null` or `undefined` to hide the tick line entirely
-            userCallback: function(value, index, values) {
-              // Convert the number to a string and splite the string every 3 charaters from the end
-              value = value.toString();
-              value = value.split(/(?=(?:...)*$)/);
-
-              // Convert the array to a string and format the output
-              value = value.join(',');
-              return '$' + value;
-            }
-          }
-        }],
-        yAxes: [{
-          gridLines: {
-            color: "rgba(0, 0, 0, 0)",
-          }
-        }]
-      }
-    }
-
-  var ctx = document.getElementById('bar-chart').getContext('2d');
-  var barChart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'horizontalBar',
-    responsive: false,
-    // The data for our dataset
-    data: barData,
-    // Configuration options go here
-    options: barOptions
-  });
-}
-
-let lineChartOptions = {
-  investmentsByMonthLockedCummulative: <%= @investments_by_month_locked_cummulative.values %>,
-  investmentsByMonthUnlockedCummulative: <%= @investments_by_month_unlocked_cummulative.values %>
-};
-
-let lineChart;
-function drawLineChart(lineChartOptions) {
-    var ctx2 = document.getElementById('line-chart').getContext('2d');
-
-    var lineData = {
-      labels: [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-        ],
-      datasets: [{
-        label: "Unlocked",
-          backgroundColor: 'rgb(145, 126, 216)',
-          data: lineChartOptions.investmentsByMonthUnlockedCummulative,
-      }, {
-        label: "Locked",
-        backgroundColor: 'rgb(185, 102, 185)',
-        data: lineChartOptions.investmentsByMonthLockedCummulative,
-      }]
-    }
-
-    var lineOptions = {
-      responsive: false,
-      legend: {
-        display: true
-      },
-      elements: { point: { radius: 0, hoverRadius: 3 } },
-      tooltips: {
-        enabled: true,
-        mode: 'index',
-        intersect: false,
-        callbacks: {
-          label: function(tooltipItem, data) {
-              return tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-          },
-        }
-      },
-      title: {
-        display: true,
-        text: '<%= t("home.charts.line_title") %>'
-      },
-      scales: {
-        xAxes: [{
-          gridLines: {
-            color: "rgba(0, 0, 0, 0)",
-          }
-        }],
-        yAxes: [{
-          stacked: true,
-          gridLines: {
-            color: "rgba(0, 0, 0, 0)",
-          },
-          ticks: {
-            // Return an empty string to draw the tick line but hide the tick label
-            // Return `null` or `undefined` to hide the tick line entirely
-            userCallback: function(value, index, values) {
-              // Convert the number to a string and splite the string every 3 charaters from the end
-              value = value.toString();
-              value = value.split(/(?=(?:...)*$)/);
-
-              // Convert the array to a string and format the output
-              value = value.join(',');
-              return '$' + value;
-            }
-          }
-        }]
-      }
-    }
-
-    var lineChart = new Chart(ctx2, {
-      // The type of chart we want to create
-      type: 'line',
-
-      // The data for our dataset
-      data: lineData,
-
-      // Configuration options go here
-      options: lineOptions
-    });
-}
-drawBarChart(barChartByFocusAreaOptions);
-drawLineChart(lineChartOptions);
+  Plotly.newPlot('myDiv', data, layout);
 </script>
 <% end %>

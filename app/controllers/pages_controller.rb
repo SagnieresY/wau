@@ -17,6 +17,7 @@ class PagesController < ApplicationController
       elsif current_user.organisation
         @installments = current_user.organisation.next_installments.sort_by{|m| !m.days_left}
         @investments_by_focus_area = current_user.organisation.investments_by_focus_area
+        @chart_focus_area_data = FocusArea.forecasted_amount_by_focus_area(current_user.organisation)
       else
         redirect_to no_organisation_path
       end
