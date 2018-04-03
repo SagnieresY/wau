@@ -6,7 +6,6 @@ class Project < ApplicationRecord
   belongs_to :organisation
   validates :name, presence: true
   validates :description, presence: true
-  validates :organisation, presence: true
   validates :focus_area, presence: true
   validates :geos, presence: true
   validates :main_contact, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
