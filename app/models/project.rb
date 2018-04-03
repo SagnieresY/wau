@@ -46,4 +46,16 @@ class Project < ApplicationRecord
     installments.rescinded.group_by{|m| Date::MONTHNAMES[m.deadline.month] } #returns hash of months => installments
   end
 
+  def self.create_with_check(receiving_name, attributes = {})
+    if Organisation.exists?(name: receiving_name)
+      organisation = Organisation.find_by(name: receiving_name)
+    else
+      organisation = Organisation.new(name: receiving_name)
+      organisation.save!
+    end
+    attributes[:organisation] = organisation
+    project = self.new(attributes)
+    project.save!
+    project
+  end
 end
