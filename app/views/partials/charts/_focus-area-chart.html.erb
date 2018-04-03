@@ -1,0 +1,37 @@
+<%= content_for(:after_js) do %>
+
+<script>
+//FOCUS AREA CHART
+  // unlocked amount per focus area
+  let barcolors_unlocked = <%= raw @chart_focus_area_data[:unlocked].map{|a| a = "rgb(#{rand(0..255)},#{rand(0..255)},#{rand(0..255)})"} %>
+
+  let unlocked_amount_focus  = {
+    x: <%= raw @chart_focus_area_data[:unlocked].keys %> ,
+    y: <%= raw @chart_focus_area_data[:unlocked].values %> ,
+    name: 'unlocked amount',
+    type: 'bar',
+    marker: {
+      color: barcolors_unlocked
+    }
+  };
+  // unlocked amount per focus area
+  let barcolors_locked = <%= raw @chart_focus_area_data[:locked].map{|a| a = "rgb(#{rand(0..255)},#{rand(0..255)},#{rand(0..255)})"} %>
+
+  let locked_amount_focus = {
+    x: <%= raw @chart_focus_area_data[:locked].keys %>,
+    y: <%= raw @chart_focus_area_data[:locked].values %>,
+    name: 'locked amount',
+    type: 'bar',
+    marker: {
+      color: barcolors_locked
+    }
+  };
+
+  var data = [unlocked_amount_focus, locked_amount_focus];
+
+  var layout = {barmode: 'stack'};
+
+  Plotly.newPlot('focus_area', data, layout);
+</script>
+
+<% end %>
