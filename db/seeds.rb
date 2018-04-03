@@ -53,76 +53,81 @@ neighbourhood_montreal = ['Ahuntsic-Cartierville', 'Anjou', 'Côte-des-Neiges–
 neighbourhood_montreal.each do |neighbourhood|
   Geo.create(name:neighbourhood)
 end
-humanrights_ngo = ['Amnesty International', 'UNICEF', 'Human Rights Watch']
+humanrights_ngo = ['Amnesty International', 'UNICEF', 'Human Rights Watch'].map{|ngo| Organisation.create!(name:ngo)}
 humanrights_project_name = ['Welcome Refugees to Montreal', 'Open a New Shelter', 'Fund Awareness Campaign']
-childcare_ngo = ['Save The Children Canada', 'Montreal Children\'s Hospital']
+childcare_ngo = ['Save The Children Canada', 'Montreal Children\'s Hospital'].map{|ngo| Organisation.create!(name:ngo)}
 childcare_project_name = ['Give Coding lessons in School', 'Cancer Research']
-community_ngo = ['Santropole Roulant', 'YMCA', 'Women Aware Femme Averties', 'Kids Code Jeunesse']
+community_ngo = ['Santropole Roulant', 'YMCA', 'Women Aware Femme Averties', 'Kids Code Jeunesse'].map{|ngo| Organisation.create!(name:ngo)}
 community_project_name = ['Open New Farms', 'Renovate basketball court', 'Legal Defense', 'Create Afterschool Programs']
-environmental_ngo = ['Equiterre', 'Canadian Wind Energy Association', 'Greenpeace Canada']
+environmental_ngo = ['Equiterre', 'Canadian Wind Energy Association', 'Greenpeace Canada'].map{|ngo| Organisation.create!(name:ngo)}
 environmental_project_name = ['Energy-Efficient Lighting', 'R&D for Electric Turbines', 'Global Climate March']
 
 puts 'generating projects...'
 
-p 'humanrights_ngo'
-humanrights_ngo.each_with_index do |ngo, index|
-  ngo = Organisation.create!(name:ngo)
-  puts ngo.name
+1.times do
+  humanrights_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: humanrights_ngo.sample,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+  end
 
-  geos = [Geo.all.sample, Geo.all.sample]
+  childcare_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: childcare_ngo.sample,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+  end
 
-  new_project = Project.new(name:humanrights_project_name[index],
-                  description:Faker::Commerce.product_name,
-                  focus_area:FocusArea.all.sample,
-                  main_contact:Faker::Internet.email,
-                  organisation:ngo,
-                  geos: geos)
-  new_project.save!
-end
+  community_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: community_ngo.sample,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+  end
 
-p 'childcare_ngo'
-childcare_ngo.each_with_index do |ngo, index|
-  ngo = Organisation.create!(name:ngo)
-
-  geos = [Geo.all.sample, Geo.all.sample]
-
-  new_project = Project.new(name:childcare_project_name[index],
-                  description:Faker::Commerce.product_name,
-                  focus_area:FocusArea.all.sample,
-                  main_contact:Faker::Internet.email,
-                  organisation:ngo,
-                  geos: geos)
-  new_project.save!
-end
-
-p 'community_ngo'
-community_ngo.each_with_index do |ngo, index|
-  ngo = Organisation.create!(name:ngo)
-
-  geos = [Geo.all.sample, Geo.all.sample]
-  
-  new_project = Project.new(name:community_project_name[index],
-                  description:Faker::Commerce.product_name,
-                  focus_area:FocusArea.all.sample,
-                  main_contact:Faker::Internet.email,
-                  organisation:ngo,
-                  geos: geos)
-  new_project.save!
-end
-
-p 'environmental_ngo'
-environmental_ngo.each_with_index do |ngo, index|
-  ngo = Organisation.create!(name:ngo)
-
-  geos = [Geo.all.sample, Geo.all.sample]
-  
-  new_project = Project.new(name:environmental_project_name[index],
-                  description:Faker::Commerce.product_name,
-                  focus_area:FocusArea.all.sample,
-                  main_contact:Faker::Internet.email,
-                  organisation:ngo,
-                  geos: geos)
-  new_project.save!
+  environmental_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: environmental_ngo.sample,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+  end
 end
 
 puts 'generating organisations...'
@@ -155,6 +160,116 @@ Project.all.each do |project|
     project.geos.push(Geo.all.sample)
   end
   puts "added geos to project #{project.name}"
+end
+
+
+bigboi = Organisation.create!(name:'bigboi')
+bigboi.users.push(User.create!(email:"bigboi@big.boi",password:'123456'))
+30.times do
+  orgs = Organisation.all.reject{|o| o.name == "bigboi"}
+  humanrights_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: orgs.sample,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+    4.times do |years|
+      this_year = Date.today.year + years
+      firstday = Date.new(this_year, 1 ,1)
+      lastday = firstday + 365
+
+      invest = Investment.create!(project:me,organisation:bigboi)
+        rand(2..4).times do
+          Installment.create!(investment:invest,amount:rand(50000..600000),task:INSTALLMENT_TASK.sample,deadline:Faker::Date.between(Date.today, lastday))
+        end
+      end
+  end
+
+  childcare_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: orgs.sample,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+    4.times do |years|
+      this_year = Date.today.year + years
+      firstday = Date.new(this_year, 1 ,1)
+      lastday = firstday + 365
+
+      invest = Investment.create!(project:me,organisation:bigboi)
+        rand(2..4).times do
+          Installment.create!(investment:invest,amount:rand(50000..600000),task:INSTALLMENT_TASK.sample,deadline:Faker::Date.between(Date.today, lastday))
+        end
+      end
+  end
+
+  community_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: orgs.sample,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+    4.times do |years|
+      this_year = Date.today.year + years
+      firstday = Date.new(this_year, 1 ,1)
+      lastday = firstday + 365
+
+      invest = Investment.create!(project:me,organisation:bigboi)
+        rand(2..4).times do
+          Installment.create!(investment:invest,amount:rand(50000..600000),task:INSTALLMENT_TASK.sample,deadline:Faker::Date.between(Date.today, lastday))
+        end
+      end
+  end
+
+  environmental_project_name.each do |project_name|
+    geos = []
+    rand(0..2).times do
+      geos.push(Geo.all.sample)
+    end
+    puts geos
+    me = Project.create(
+      name:project_name,
+      description:"fuck off",
+      main_contact:"veryrealemail@actually.no",
+      organisation: orgs.sample,
+      focus_area: FocusArea.all.sample,
+      geos: [Geo.all.sample]
+      )
+    4.times do |years|
+      this_year = Date.today.year + years
+      firstday = Date.new(this_year, 1 ,1)
+      lastday = firstday + 365
+
+      invest = Investment.create!(project:me,organisation:bigboi)
+        rand(2..4).times do
+          Installment.create!(investment:invest,amount:rand(50000..600000),task:INSTALLMENT_TASK.sample,deadline:Faker::Date.between(Date.today, lastday))
+        end
+      end
+  end
 end
 
 #PLEASE KEEP FOR TRANSLATION PURPOSES
