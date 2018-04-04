@@ -6,17 +6,17 @@
   let unlocked_amount_installments  = {
     x: <%= raw @chart_installments_data[:unlocked].keys.sort %> ,
     y: <%= raw @chart_installments_data[:unlocked].values.sort %> ,
-    fill: 'tozeroy',
+    name: 'unlocked amount',
   type: 'scatter',
-  mode: 'none'
+  mode: 'line'
   };
   // unlocked amount per date
   let locked_amount_installments = {
     x: <%= raw @chart_installments_data[:locked].keys.sort %>,
     y: <%= raw @chart_installments_data[:locked].values.sort %>,
-    fill: 'tonexty',
+    name: 'locked amount',
   type: 'scatter',
-  mode: 'none'
+  mode: 'line'
 
   };
 

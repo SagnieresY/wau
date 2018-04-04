@@ -46,12 +46,17 @@ class Installment < ApplicationRecord
   end
 
   def self.amount_by_date(organisation)
-    output = {unlocked: {},locked: {}}
-    output[:unlocked] = organisation.unlocked_installments.group_by{ |inst| inst.deadline.to_s}
-    output[:locked] = organisation.locked_installments.group_by{ |inst| inst.deadline.to_s}
-    output.each do |status, values|
-      output[status].each do |k,v|
-        output[status][k] = v.map(&:amount).reduce(0,:+)
+    installments = organisation.upcoming_installments
+    installments_by_status = installments.group_by{|inst| inst.status.to_sym}
+
+    output = {locked:{},unlocked:{}}
+    installments_by_status.each do |status, installments|
+      installments_by_status[status].each do |installment|
+        unless output[status][installment.deadline.to_s]
+          output[status][installment.deadline.to_s] = installment.amount
+        else
+          output[status][installment.deadline.to_s] += installment.amount
+        end
       end
     end
     return output
