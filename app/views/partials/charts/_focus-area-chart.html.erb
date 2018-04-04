@@ -3,7 +3,7 @@
 <script>
 //FOCUS AREA CHART
   // unlocked amount per focus area
-  let barcolors_unlocked = <%= raw @chart_focus_area_data[:unlocked].map{|a| a = "rgb(#{rand(0..255)},#{rand(0..255)},#{rand(0..255)})"} %>
+  let barcolors_unlocked = <%= raw @chart_focus_area_data[:unlocked].map{|a| a = "rgb(#{rand(130..255)},#{rand(130..255)},#{rand(130..255)})"} %>
 
   let unlocked_amount_focus  = {
     x: <%= raw @chart_focus_area_data[:unlocked].keys %> ,
@@ -11,7 +11,7 @@
     name: 'unlocked amount',
     type: 'bar',
     marker: {
-      color: barcolors_unlocked
+      color: 'black'
     }
   };
   // unlocked amount per focus area
@@ -23,7 +23,7 @@
     name: 'locked amount',
     type: 'bar',
     marker: {
-      color: barcolors_locked
+      color: barcolors_unlocked
     }
   };
 
