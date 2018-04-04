@@ -11,6 +11,10 @@
     margin-top: 12px; /* Add some space above the input */
 }
 
+.custom-input-filter.disabled {
+  display: none;
+}
+
 .completed-icon {
   border-radius: 4px;
   background: $green;
