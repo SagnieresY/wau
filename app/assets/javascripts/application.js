@@ -13,7 +13,6 @@
 //= require rails-ujs
 //= require jquery
 //= require cocoon
-//= require smart_listing
 //= require_tree .
 
 $(document).ready(function() {

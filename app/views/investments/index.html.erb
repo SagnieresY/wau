@@ -31,16 +31,16 @@
 
 
 <div class="flex-tab">
-  <div id="active-tab" class="tablinks" onclick="openCity(event, 'active')"> <%= t(".table.tab.title_one") %></div>
-  <div id="completed-tab" class="tablinks" onclick="openCity(event, 'completed')"><%= t(".table.tab.title_two") %></div>
+  <div id="active-tab" class="tablinks" onclick="openTab(event, 'active')"> <%= t(".table.tab.title_one") %></div>
+  <div id="completed-tab" class="tablinks" onclick="openTab(event, 'completed')"><%= t(".table.tab.title_two") %></div>
 </div>
 
-<%= smart_listing_render(:investments) %>
+<%= render partial: "index_tables"  %>
 
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
 
-  function openCity(evt, cityName) {
+  function openTab(evt, tabName) {
     // Declare all variables
     var i, tabcontent, tablinks;
 
@@ -57,7 +57,7 @@
     }
 
     // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(cityName).style.display = "block";
+    document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
   }
   document.getElementById("active-tab").click();
