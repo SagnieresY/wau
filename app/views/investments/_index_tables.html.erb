@@ -15,7 +15,7 @@
           </tr>
         </thead>
       <tbody>
-        <% smart_listing.collection.where(completed: false).each do |investment| %>
+        <% @active_investments.each do |investment| %>
           <tr class="white-background table-row-investment" data-investment-id="<%= investment.id %>">
             <td><%= investment.project.organisation.name.capitalize %></td>
             <td>
@@ -58,7 +58,7 @@
 
 <!-- COMPLETED TAB -->
 <div id="completed" class="tabcontent">
-  <% unless smart_listing.collection.where(completed: true).blank? %>
+  <% unless @completed_investments.blank? %>
   <div class="completed-investments">
     <input type="text" class="searchInvest" id="searchBarCompleted" onkeyup="searchCompleted()" placeholder="<%= t("investments.index.search_bar.completed") %>">
     <div class="table-container">
@@ -73,7 +73,7 @@
           </tr>
         </thead>
         <tbody>
-          <% smart_listing.collection.where(completed: true).each do |investment| %>
+          <% @completed_investments.each do |investment| %>
           <tr class="white-background table-row-investment" data-investment-id="<%= investment.id %>">
             <td><%= investment.project.organisation.name.capitalize %></td>
             <td>
@@ -106,6 +106,6 @@
 
 <% content_for(:after_js) do %>
 <script type="text/javascript">
-  document.getElementById("active-tab").click();
+  $("table").tablesorter();
 </script>
 <% end %>
