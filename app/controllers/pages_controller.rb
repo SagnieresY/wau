@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, :only => [:home,:landing]
-  def home
+  def home()
     #installment
     #Milestone
     #todo read chart maker doc
@@ -15,11 +15,20 @@ class PagesController < ApplicationController
         @bg = "bg-landing"
         render :landing
       elsif current_user.organisation
-        @installments = current_user.organisation.next_installments.sort_by{|m| !m.days_left}
+
+        unless params["year"]
+          year = Date.today.year
+          @installments = Installment.next_installments_of_year(current_user.organisation,year).sort_by{|m| !m.days_left}
+
+        else
+          year = params["year"].to_i
+          @installments = Installment.next_installments_of_year(current_user.organisation,year).sort_by{|m| !m.days_left}
+        end
         @investments_by_focus_area = current_user.organisation.investments_by_focus_area
         @chart_focus_area_data = FocusArea.forecasted_amount_by_focus_area(current_user.organisation)
         @chart_ngo_data = current_user.organisation.amount_by_ngo
         @chart_installments_data = current_user.organisation.amount_by_date_cumulative
+        @years_of_service = Installment.years_of_service(current_user.organisation)
       else
         redirect_to no_organisation_path
       end
