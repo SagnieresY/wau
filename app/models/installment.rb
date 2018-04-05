@@ -59,7 +59,7 @@ class Installment < ApplicationRecord
         end
       end
     end
-    return output
+    return FocusArea.chart_formating(output)
   end
 
   def self.years_of_service(organisation)
