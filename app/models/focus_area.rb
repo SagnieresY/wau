@@ -15,7 +15,29 @@ class FocusArea < ApplicationRecord
         end
       end
     end
+    return FocusArea.chart_formating(output)
+  end
+
+  def self.chart_formating(data)
+    output = {locked:{},unlocked:{}}
+    data.each do |status, subhash|
+      data[status].each do |subkey, subvalue|
+        output[:locked][subkey] = 0
+        output[:unlocked][subkey] = 0
+      end
+    end
+    data.each do |status, subhash|
+      data[status].each do |subkey, subvalue|
+        output[status][subkey] = subvalue
+      end
+    end
+    output.each do |status, data|
+      output[status] = output[status].sort.to_h
+    end
     return output
   end
+
+
+
 end
 
