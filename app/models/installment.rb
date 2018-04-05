@@ -57,4 +57,14 @@ class Installment < ApplicationRecord
     return output
   end
 
+  def self.years_of_service(organisation)
+    chronogolical_installments_deadlines = organisation.installments.sort_by(&:deadline).map(&:deadline)
+    first_deadline = chronogolical_installments_deadlines.first
+    last_deadline = chronogolical_installments_deadlines.last
+    output =  *(first_deadline.year..last_deadline.year)
+  end
+
+  def self.next_installments_of_year(organisation,year)
+    organisation.next_installments.select{|i| i.deadline.year == year}
+  end
 end
