@@ -39,11 +39,13 @@ class PagesController < ApplicationController
     raw_next_installments = current_user.organisation.investments.map{|i| i.next_installment}
 
     #filter by date
-  if params[:min_date] || params[:max_date]
-    Installment.filter_by_date(raw_next_installments,params[:min_year],params[:max_year])
-  end
-      #installment_method
+    if params[:min_date] || params[:max_date]
+      installments = Installment.filter_by_date(raw_next_installments,params[:min_year],params[:max_year])
+    end
     #filter by focus area
+    if params[:focus]
+      installments = Installment.filter_by_focus(installments,params[:focus_area])
+    end
 
     #filter by ngo
 

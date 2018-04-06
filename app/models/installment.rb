@@ -73,7 +73,13 @@ class Installment < ApplicationRecord
     organisation.next_installments.select{|i| i.deadline.year == year}
   end
 
-  def self.filter_by_date(installments,min_date,max_year)
+  def self.filter_by_date(installments,min_date,max_date)
+    min_date = Date.new(-2000,1,1) unless min_date
+    max_date = Date.new(9999,1,1) unless max_date
     installments.select{|i| i.deadline > min_date && i.deadline < max_date}
+  end
+
+  def self.filter_by_focus(installments,focus)
+    installments.select{|i| i.investment.project.focus_area.name == focus}
   end
 end

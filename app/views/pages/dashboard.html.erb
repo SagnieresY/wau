@@ -18,5 +18,10 @@
   <%= date_field_tag(:min_date) %>
   <%= label_tag(:max_date, "max date") %>
   <%= date_field_tag(:max_date) %>
+  <br>
+  <% focus_array = FocusArea.all.map {|focus| [focus.name,focus.id]} %>
+  <%  data = options_from_collection_for_select(FocusArea.all, :id, :name) %>
+  <%= select_tag(:focus_area,data) %>
+
   <%= submit_tag("Search") %>
 <% end %>
