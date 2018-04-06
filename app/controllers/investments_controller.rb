@@ -2,8 +2,8 @@ class InvestmentsController < ApplicationController
 
   def index
     @fuck_off_pundit = policy_scope(current_user.organisation.investments.first)
-    @active_investments = current_user.organisation.uncompleted_investments.sort_by{|i| i.next_installment&.days_left}
-    @completed_investments = current_user.organisation.completed_investments
+    @active_investments = Kaminari.paginate_array(current_user.organisation.uncompleted_investments.sort_by{|i| i.next_installment&.days_left}).page(params[:page]).per(10)
+    @completed_investments = Kaminari.paginate_array(current_user.organisation.completed_investments).page(params[:page]).per(10)
   end
 
   def new
