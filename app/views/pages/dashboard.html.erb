@@ -13,3 +13,24 @@
     </div>
   </div>
 </div>
+<%= form_tag("/dashboard", method: "get") do %>
+  <%= label_tag(:min_date, "min date") %>
+  <%= date_field_tag(:min_date) %>
+  <%= label_tag(:max_date, "max date") %>
+  <%= date_field_tag(:max_date) %>
+  <br>
+  <%= label_tag(:focus_area, "focus area") %>
+  <%  focus_areas = options_from_collection_for_select(FocusArea.all, :id, :name) %>
+  <%= select_tag(:focus_area,focus_areas) %>
+  <br>
+  <%= label_tag(:ngo, "ngo") %>
+  <% ngos = options_from_collection_for_select(
+          current_user.organisation.investments.map(&:project).map(&:organisation).uniq,
+          :id,
+          :name)
+          %>
+  <%= select_tag(:ngo, ngos) %>
+  <br>
+  <%= label_tag %>
+  <%= submit_tag("Search") %>
+<% end %>
