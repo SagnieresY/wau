@@ -1,12 +1,12 @@
 
 
-<div id="focus_area" style="width:800px;height:500px"></div>
 <div id="installments" style="width:800px;height:500px"></div>
+<div id="focusarea" style="width:800px;height:500px"></div>
 <%= content_for(:after_js) do %>
 <%= line_chart @chart_installments_data.map { |status, data|
     {name: status, data: data}}, id: "installments" %>
 
 <%= column_chart @chart_focus_area_data.map { |status, data|
-    {name: status, data: data}},id: "focus_area", stacked:true %>
+    {name: status, data: data}},id: "focusarea", stacked:true %>
 
 <% end %>
