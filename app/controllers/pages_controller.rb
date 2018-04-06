@@ -35,15 +35,9 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-
-    #investment index
-      #project name
-      #project type
-      #completed
-      #total given
-      #last installment
-      #Milestone unlocked
-      #trust worthy level (dependent on installments unlocked?)
+    raw_next_installments = current_user.organisation.investments.map{|i| i.next_installment}
+    @installments = Installment.filter_by_params(raw_next_installments,params)
+    #f
   end
 
   def landing

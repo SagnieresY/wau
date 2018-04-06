@@ -72,4 +72,47 @@ class Installment < ApplicationRecord
   def self.next_installments_of_year(organisation,year)
     organisation.next_installments.select{|i| i.deadline.year == year}
   end
+
+  def self.filter_by_date(installments,min_date,max_date)
+    min_date = Date.new(-2000,1,1) if min_date.blank?
+    max_date = Date.new(9999,1,1) if max_date.blank?
+    installments.select{|i| i.deadline > min_date && i.deadline < max_date}
+  end
+
+  def self.filter_by_focus(installments,focus)
+    installments.select{|i| i.investment.project.focus_area.name == focus}
+  end
+
+  def self.filter_by_ngo(installments,ngo)
+    installments.select{|i| i.investment.project.organisation.name == ngo}
+  end
+
+  def self.filter_by_neighborhood(installments,neighborhood)
+    installments.select{|i| i.investment.project.geos.map(&:name).include?(neighborhood)}
+  end
+
+  def self.filter_by_params(installments,params)
+
+    if (params[:min_date] || params[:max_date]) && params[:date_search] == "1"
+      installments = Installment.filter_by_date(installments,params[:min_year],params[:max_year])
+
+    end
+
+    #filter by focus area
+    if params[:focus_area] && params[:focus_area_search] == "1"
+      installments = Installment.filter_by_focus(installments,params[:focus_area])
+
+    end
+
+    #filter by ngo
+    if params[:ngo] && params[:ngo_search] == "1"
+      installments = Installment.filter_by_ngo(installments,params[:ngo])
+    end
+    #filter by neighborhood
+    if params[:neighborhood] && params[:neighborhood_search] == "1"
+      installments = Installment.filter_by_neighborhood(installments,params[:neighborhood])
+    end
+
+    return installments
+  end
 end
