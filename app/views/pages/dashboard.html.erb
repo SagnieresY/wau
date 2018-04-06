@@ -20,6 +20,7 @@
   <%= date_field_tag(:max_date) %>
   <%= check_box_tag(:date_search) %>
   <%= label_tag(:date_search, "search using dates") %>
+=======
   <br>
   <%= label_tag(:focus_area, "focus area") %>
   <%  focus_areas = options_from_collection_for_select(FocusArea.all, :id, :name) %>
@@ -27,6 +28,7 @@
   <%= check_box_tag(:focus_area_search) %>
   <%= label_tag(:focus_area_search, "search using focus_areas") %>
 
+=======
   <br>
   <%= label_tag(:ngo, "ngo") %>
   <% ngos = options_from_collection_for_select(
@@ -53,3 +55,8 @@
 
 <% end %>
 <%= @installments %>
+=======
+  <br>
+  <%= label_tag %>
+  <%= submit_tag("Search") %>
+<% end %>

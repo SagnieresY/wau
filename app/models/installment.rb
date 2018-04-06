@@ -77,6 +77,9 @@ class Installment < ApplicationRecord
     min_date = Date.new(-2000,1,1) if min_date.blank?
     max_date = Date.new(9999,1,1) if max_date.blank?
     installments.select{|i| i.deadline > min_date && i.deadline < max_date}
+    min_date = Date.new(-2000,1,1) unless min_date
+    max_date = Date.new(9999,1,1) unless max_date
+    installments.select{|i| i.deadline > min_date && i.deadline < max_date}
   end
 
   def self.filter_by_focus(installments,focus)
@@ -114,5 +117,7 @@ class Installment < ApplicationRecord
     end
 
     return installments
+
+    installments.select{|i| i.investment.project.geos.map(&:name)include?(neighborhood)}
   end
 end

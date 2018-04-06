@@ -38,6 +38,28 @@ class PagesController < ApplicationController
     raw_next_installments = current_user.organisation.investments.map{|i| i.next_installment}
     @installments = Installment.filter_by_params(raw_next_installments,params)
     #f
+
+    #get installment
+    raw_next_installments = current_user.organisation.investments.map{|i| i.next_installment}
+
+    #filter by date
+    if params[:min_date] || params[:max_date]
+      installments = Installment.filter_by_date(raw_next_installments,params[:min_year],params[:max_year])
+    end
+    #filter by focus area
+    if params[:focus_area]
+      installments = Installment.filter_by_focus(installments,params[:focus_area])
+    end
+
+    #filter by ngo
+    if params[:ngo]
+      installments = Installment.filter_by_ngo(installments,params[:ngo])
+    end
+    #filter by neighborhood
+    if params[:neighborhood]
+      installments = Installment.filter_by_neighborhood(installments,params[:neighborhood])
+    end
+    #add results
   end
 
   def landing
