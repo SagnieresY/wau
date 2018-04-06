@@ -82,4 +82,12 @@ class Installment < ApplicationRecord
   def self.filter_by_focus(installments,focus)
     installments.select{|i| i.investment.project.focus_area.name == focus}
   end
+
+  def self.filter_by_ngo(installments,ngo)
+    installments.select{|i| i.investment.project.organisation.name == ngo}
+  end
+
+  def self.filter_by_neighborhood(installments,neighborhood)
+    installments.select{|i| i.investment.project.geos.map(&:name)include?(neighborhood)}
+  end
 end
