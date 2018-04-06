@@ -14,6 +14,8 @@
 //= require jquery
 //= require cocoon
 //= require jquery-tablesorter
+//= require Chart.bundle
+//= require chartkick
 //= require_tree .
 
 $(document).ready(function() {
