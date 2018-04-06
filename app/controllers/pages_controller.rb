@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, :only => [:home,:landing]
-  def home()
+  def home
     #installment
     #Milestone
     #todo read chart maker doc
@@ -37,36 +37,20 @@ class PagesController < ApplicationController
   def dashboard
     raw_next_installments = current_user.organisation.investments.map{|i| i.next_installment}
     @installments = Installment.filter_by_params(raw_next_installments,params)
-    #f
 
-    #get installment
-    raw_next_installments = current_user.organisation.investments.map{|i| i.next_installment}
-
-    #filter by date
-    if params[:min_date] || params[:max_date]
-      installments = Installment.filter_by_date(raw_next_installments,params[:min_year],params[:max_year])
-    end
-    #filter by focus area
-    if params[:focus_area]
-      installments = Installment.filter_by_focus(installments,params[:focus_area])
-    end
-
-    #filter by ngo
-    if params[:ngo]
-      installments = Installment.filter_by_ngo(installments,params[:ngo])
-    end
-    #filter by neighborhood
-    if params[:neighborhood]
-      installments = Installment.filter_by_neighborhood(installments,params[:neighborhood])
-    end
-    #add results
+    @chart_focus_area_data = FocusArea.forecasted_amount_by_focus_area(current_user.organisation)
+    @chart_ngo_data = current_user.organisation.amount_by_ngo
+    @chart_installments_data = current_user.organisation.amount_by_date_cumulative
+    @years_of_service = Installment.years_of_service(current_user.organisation)
   end
+
 
   def landing
     render :layout => false
   end
 
   def no_organisation
+
 
   end
 
