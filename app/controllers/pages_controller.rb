@@ -18,11 +18,11 @@ class PagesController < ApplicationController
 
         unless params["year"]
           year = Date.today.year
-          @installments = Installment.next_installments_of_year(current_user.organisation,year).sort_by{|m| !m.days_left}
+          @installments = Kaminari.paginate_array(Installment.next_installments_of_year(current_user.organisation,year).sort_by{|m| !m.days_left}).page(params[:page]).per(25)
 
         else
           year = params["year"].to_i
-          @installments = Installment.next_installments_of_year(current_user.organisation,year).sort_by{|m| !m.days_left}
+          @installments = Kaminari.paginate_array(Installment.next_installments_of_year(current_user.organisation,year).sort_by{|m| !m.days_left}).page(params[:page]).per(25)
         end
         @investments_by_focus_area = current_user.organisation.investments_by_focus_area
         @chart_focus_area_data = FocusArea.forecasted_amount_by_focus_area(current_user.organisation)
