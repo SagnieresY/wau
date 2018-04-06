@@ -18,10 +18,17 @@
   <%= date_field_tag(:min_date) %>
   <%= label_tag(:max_date, "max date") %>
   <%= date_field_tag(:max_date) %>
+  <%= check_box_tag(:date_search) %>
+  <%= label_tag(:date_search, "search using dates") %>
+=======
   <br>
   <%= label_tag(:focus_area, "focus area") %>
   <%  focus_areas = options_from_collection_for_select(FocusArea.all, :id, :name) %>
   <%= select_tag(:focus_area,focus_areas) %>
+  <%= check_box_tag(:focus_area_search) %>
+  <%= label_tag(:focus_area_search, "search using focus_areas") %>
+
+=======
   <br>
   <%= label_tag(:ngo, "ngo") %>
   <% ngos = options_from_collection_for_select(
@@ -30,6 +37,25 @@
           :name)
           %>
   <%= select_tag(:ngo, ngos) %>
+  <%= check_box_tag(:ngo_search) %>
+  <%= label_tag(:ngo_search, "search using ngos") %>
+
+  <br>
+  <%= label_tag(:neighborhood, "neighborhood")%>
+  <% neighborhoods = options_from_collection_for_select(
+          Geo.all,
+          :id,
+          :name)
+          %>
+  <%= select_tag(:neighborhood,neighborhoods)  %>
+  <%= check_box_tag(:neighborhood_search) %>
+  <%= label_tag(:neighborhood_search, "search using neighborhood") %>
+
+  <%= submit_tag("Search") %>
+
+<% end %>
+<%= @installments %>
+=======
   <br>
   <%= label_tag %>
   <%= submit_tag("Search") %>

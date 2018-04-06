@@ -35,6 +35,10 @@ class PagesController < ApplicationController
   end
 
   def dashboard
+    raw_next_installments = current_user.organisation.investments.map{|i| i.next_installment}
+    @installments = Installment.filter_by_params(raw_next_installments,params)
+    #f
+
     #get installment
     raw_next_installments = current_user.organisation.investments.map{|i| i.next_installment}
 
