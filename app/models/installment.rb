@@ -72,4 +72,8 @@ class Installment < ApplicationRecord
   def self.next_installments_of_year(organisation,year)
     organisation.next_installments.select{|i| i.deadline.year == year}
   end
+
+  def self.filter_by_date(installments,min_date,max_year)
+    installments.select{|i| i.deadline > min_date && i.deadline < max_date}
+  end
 end

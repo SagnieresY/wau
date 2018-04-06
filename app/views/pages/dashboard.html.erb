@@ -13,3 +13,10 @@
     </div>
   </div>
 </div>
+<%= form_tag("/search", method: "get") do %>
+  <%= label_tag(:min_date, "min date") %>
+  <%= date_field_tag(:min_date) %>
+  <%= label_tag(:max_date, "max date") %>
+  <%= date_field_tag(:max_date) %>
+  <%= submit_tag("Search") %>
+<% end %>

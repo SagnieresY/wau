@@ -35,15 +35,21 @@ class PagesController < ApplicationController
   end
 
   def dashboard
+    #get installment
+    raw_next_installments = current_user.organisation.investments.map{|i| i.next_installment}
 
-    #investment index
-      #project name
-      #project type
-      #completed
-      #total given
-      #last installment
-      #Milestone unlocked
-      #trust worthy level (dependent on installments unlocked?)
+    #filter by date
+  if params[:min_date] || params[:max_date]
+    Installment.filter_by_date(raw_next_installments,params[:min_year],params[:max_year])
+  end
+      #installment_method
+    #filter by focus area
+
+    #filter by ngo
+
+    #filter by neighborhood
+
+    #add results
   end
 
   def landing
