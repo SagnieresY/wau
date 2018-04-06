@@ -36,8 +36,9 @@
 </div>
 <button type="button" id="button">Advanced Search</button>
 
-
-<%= render partial: "index_tables"  %>
+<div id="index-tables">
+  <%= render partial: "index_tables"  %>
+</div>
 
 <%= content_for(:after_js) do %>
 <script type="text/javascript">

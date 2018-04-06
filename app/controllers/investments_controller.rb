@@ -4,6 +4,11 @@ class InvestmentsController < ApplicationController
     @fuck_off_pundit = policy_scope(current_user.organisation.investments.first)
     @active_investments = Kaminari.paginate_array(current_user.organisation.uncompleted_investments.sort_by{|i| i.next_installment&.days_left}).page(params[:page]).per(10)
     @completed_investments = Kaminari.paginate_array(current_user.organisation.completed_investments).page(params[:page]).per(10)
+
+    respond_to do |format|
+      format.js  { render 'index.js.erb' }
+      format.html
+    end
   end
 
   def new
