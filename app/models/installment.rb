@@ -118,6 +118,6 @@ class Installment < ApplicationRecord
 
     return installments
 
-    installments.select{|i| i.investment.project.geos.map(&:name)include?(neighborhood)}
+    installments.select{|i| i.investment.project.geos.map(&:name).include?(neighborhood)}
   end
 end
