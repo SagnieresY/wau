@@ -1,12 +1,26 @@
 class InvestmentsController < ApplicationController
 
   def index
-    @fuck_off_pundit = policy_scope(current_user.organisation.investments.first)
-    @active_investments = Kaminari.paginate_array(current_user.organisation.uncompleted_investments.sort_by{|i| i.next_installment&.days_left}).page(params[:page]).per(10)
-    @completed_investments = Kaminari.paginate_array(current_user.organisation.completed_investments).page(params[:page]).per(10)
+    @fuck_off_pundit = policy_scope(current_user.organisation.investments.last)
+    @active_investments =  active_investments_index
+  end
+
+  def completed_index
+    @completed_investments = completed_investments_index
+    authorize @completed_investments.first
 
     respond_to do |format|
-      format.js  { render 'index.js.erb' }
+      format.js  { completed_investments_path }
+      format.html
+    end
+  end
+
+  def active_index
+    @active_investments =  active_investments_index
+    authorize @active_investments.first
+
+    respond_to do |format|
+      format.js  { active_investments_path }
       format.html
     end
   end
@@ -79,6 +93,14 @@ class InvestmentsController < ApplicationController
   end
 
   private
+
+  def active_investments_index
+    Kaminari.paginate_array(current_user.organisation.uncompleted_investments.sort_by{|i| i.next_installment&.days_left}).page(params[:page]).per(10)
+  end
+
+  def completed_investments_index
+    Kaminari.paginate_array(current_user.organisation.completed_investments).page(params[:page]).per(10)
+  end
 
   def id
     params[:id]
