@@ -1,13 +1,13 @@
 class InvestmentsController < ApplicationController
 
   def index
-    @fuck_off_pundit = policy_scope(current_user.organisation.investments.first)
+    @fuck_off_pundit = policy_scope(current_user.organisation.investments.last)
     @active_investments =  active_investments_index
   end
 
   def completed_index
     @completed_investments = completed_investments_index
-    authorize @completed_investments
+    authorize @completed_investments.first
 
     respond_to do |format|
       format.js  { completed_investments_path }
@@ -17,7 +17,7 @@ class InvestmentsController < ApplicationController
 
   def active_index
     @active_investments =  active_investments_index
-    authorize @active_investments
+    authorize @active_investments.first
 
     respond_to do |format|
       format.js  { active_investments_path }
