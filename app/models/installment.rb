@@ -3,7 +3,7 @@ class Installment < ApplicationRecord
   multisearchable against: [ :status, :amount, :deadline, :task ]
 
   belongs_to :investment
-
+  include pg_search
   validates :status, inclusion: { in: %w(locked unlocked rescinded) }
   validates :task, presence: true
   validates :amount, presence: true
@@ -98,30 +98,4 @@ class Installment < ApplicationRecord
     installments.select{|i| i.investment.project.geos.map(&:name).include?(neighborhood)}
   end
 
-  def self.filter_by_params(installments,params)
-
-    if (params[:min_date] || params[:max_date]) && params[:date_search] == "1"
-      installments = Installment.filter_by_date(installments,params[:min_year],params[:max_year])
-
-    end
-
-    #filter by focus area
-    if params[:focus_area] && params[:focus_area_search] == "1"
-      installments = Installment.filter_by_focus(installments,params[:focus_area])
-
-    end
-
-    #filter by ngo
-    if params[:ngo] && params[:ngo_search] == "1"
-      installments = Installment.filter_by_ngo(installments,params[:ngo])
-    end
-    #filter by neighborhood
-    if params[:neighborhood] && params[:neighborhood_search] == "1"
-      installments = Installment.filter_by_neighborhood(installments,params[:neighborhood])
-    end
-
-    return installments
-
-    installments.select{|i| i.investment.project.geos.map(&:name).include?(neighborhood)}
-  end
 end

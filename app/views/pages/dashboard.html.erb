@@ -14,21 +14,19 @@
   </div>
 </div>
 <%= form_tag("/dashboard", method: "get") do %>
-  <%= label_tag(:min_date, "min date") %>
+  <%= label_tag(:min_date, t("dashboard.search_bar.min_date")) %>
   <%= date_field_tag(:min_date) %>
-  <%= label_tag(:max_date, "max date") %>
+  <%= label_tag(:max_date,  t("dashboard.search_bar.max_date")) %>
   <%= date_field_tag(:max_date) %>
   <%= check_box_tag(:date_search) %>
   <%= label_tag(:date_search, "search using dates") %>
-=======
   <br>
-  <%= label_tag(:focus_area, "focus area") %>
+  <%= label_tag(:focus_area, t"dashboard.search_bar.focus_area")) %>
   <%  focus_areas = options_from_collection_for_select(FocusArea.all, :id, :name) %>
   <%= select_tag(:focus_area,focus_areas) %>
   <%= check_box_tag(:focus_area_search) %>
   <%= label_tag(:focus_area_search, "search using focus_areas") %>
 
-=======
   <br>
   <%= label_tag(:ngo, "ngo") %>
   <% ngos = options_from_collection_for_select(
@@ -55,7 +53,6 @@
 
 <% end %>
 
-=======
   <br>
 <%= render partial: 'partials/charts/charts' %>
 <%= render partial: '/partials/dashboard-investment-table' %>
