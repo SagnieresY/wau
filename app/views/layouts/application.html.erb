@@ -31,10 +31,8 @@
     <%= yield %>
   </div>
   <%= render 'partials/footer' if should_render_footer? %>
-
   <%= javascript_include_tag 'application' %>
   <%= javascript_pack_tag 'application' %>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js" charset="utf-8"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
   <%= yield :after_js %>
 </body>
