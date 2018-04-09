@@ -23,43 +23,55 @@
   <%= check_box_tag(:date_search) %>
   <%= label_tag(:date_search, "search using dates") %>
   <br>
-<<<<<<< HEAD
   <%= label_tag(:focus_area, 'search using focus area') %>
-  <%= text_field_tag(:focus_area) %>
-=======
-  <%= label_tag(:focus_area, t("dashboard.search_bar.focus_area")) %>
-  <%  focus_areas = options_from_collection_for_select(FocusArea.all, :id, :name) %>
-  <%= select_tag(:focus_area,focus_areas) %>
-  <%= check_box_tag(:focus_area_search) %>
-  <%= label_tag(:focus_area_search, "search using focus_areas") %>
-
-  <br>
-  <%= label_tag(:ngo, "ngo") %>
-  <% ngos = options_from_collection_for_select(
-          current_user.organisation.investments.map(&:project).map(&:organisation).uniq,
-          :id,
-          :name)
-          %>
-  <%= select_tag(:ngo, ngos) %>
-  <%= check_box_tag(:ngo_search) %>
-  <%= label_tag(:ngo_search, "search using ngos") %>
-
-  <br>
-  <%= label_tag(:neighborhood, "neighborhood")%>
-  <% neighborhoods = options_from_collection_for_select(
-          Geo.all,
-          :id,
-          :name)
-          %>
-  <%= select_tag(:neighborhood,neighborhoods)  %>
-  <%= check_box_tag(:neighborhood_search) %>
-  <%= label_tag(:neighborhood_search, "search using neighborhood") %>
-
->>>>>>> 6e5488685306795b7f808faa5f348ce16858e8dc
+  <%= text_field_tag :focus_area, nil, style: 'width: 100%' %>
   <%= submit_tag("Search") %>
-
 <% end %>
+ <div id="container">
+    <input type="text" id="search">
+    <ul id="results">
+    </ul>
+  </div>
+<div id="selected-focus" style="border:2px;width:300px;height:400px;">
+  <h2>selected focus</h2>
+</div>
 
-  <br>
-<%= render partial: 'partials/charts/charts' %>
-<%= render partial: '/partials/dashboard-investment-table' %>
+<script>
+const input = document.getElementById('search');
+const results = document.getElementById('results');
+const selectedFocus = document.getElementById('selected-focus')
+
+function clearSearch() {
+  results.childNodes.forEach((child) => {
+    child.remove();
+  });
+}
+
+function addSuggestion(suggestion) {
+  results.insertAdjacentHTML('afterbegin', `<li onclick="helloWorld('${suggestion}');">${suggestion}</li>`);
+}
+
+function addFocus(focus) {
+  selectedFocus.insertAdjacentHTML('afterbegin'. 'h3')
+}
+
+function fetchInfo() {
+  clearSearch();
+  const inputValue = input.value;
+  $.ajax({
+  url: `/focus_area/${inputValue}`,
+  type: 'GET',
+  dataType: 'json',
+  beforeSend: function (xhr) {
+      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+  },
+  success: function(data){data.results.forEach((word) => addSuggestion(word)); },
+  error: function(xhr, status, response) {/* your error callback */}
+});
+}
+function helloWorld(word) {
+  console.log(word)
+};
+document.addEventListener('keyup', fetchInfo);
+
+</script>

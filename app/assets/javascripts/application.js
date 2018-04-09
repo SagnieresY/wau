@@ -16,7 +16,9 @@
 //= require jquery-tablesorter
 //= require Chart.bundle
 //= require chartkick
-//= require_tree .
+//= require underscore
+//= require select2
+//= require_tree
 
 $(document).ready(function() {
   setTimeout(function() {

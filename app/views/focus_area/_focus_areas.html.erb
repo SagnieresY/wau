@@ -1,0 +1,7 @@
+<li>
+  < % if focus_area.respond_to?(:pg_search_highlight) %>
+    < %= focus_area.pg_search_highlight.html_safe %>
+  < % else %>
+    < %= focus_area.name %> < %= focus_area.surname %>
+  < % end %>
+</li>
