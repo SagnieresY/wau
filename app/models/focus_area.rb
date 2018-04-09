@@ -1,14 +1,16 @@
 class FocusArea < ApplicationRecord
 	translates :name
   include PgSearch
-  multisearchable against: [:name]
+  has_many :focus_area_translations
+  multisearchable against: [ :name ]
   pg_search_scope :search_by_name,
-   associated_against: {
-     focus_area_translations: [ :name ]
-   },
-   using: {
-     tsearch: { prefix: true } # <-- now `superman batm` will return something!
-   }
+    associated_against: {
+      focus_area_translations: [ :name ]
+    },
+    using: {
+      tsearch: { prefix: true }
+    }
+
   def self.forecasted_amount_by_focus_area(organisation)
     installments = organisation.upcoming_installments
     installments_by_status = installments.group_by{|inst| inst.status.to_sym}
