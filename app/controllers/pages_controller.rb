@@ -1,3 +1,4 @@
+
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, :only => [:home,:landing]
   def home
@@ -35,7 +36,7 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-    raw_next_installments = current_user.organisation.investments.map{|i| i.next_installment}
+    raw_next_installments = current_user.organisation.uncompleted_investments.map{|i| i.next_installment}
     @installments = raw_next_installments
 
     @chart_focus_area_data = FocusArea.forecasted_amount_by_focus_area(current_user.organisation)

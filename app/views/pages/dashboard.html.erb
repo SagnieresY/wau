@@ -21,7 +21,7 @@
   <%= check_box_tag(:date_search) %>
   <%= label_tag(:date_search, "search using dates") %>
   <br>
-  <%= label_tag(:focus_area, t"dashboard.search_bar.focus_area")) %>
+  <%= label_tag(:focus_area, t("dashboard.search_bar.focus_area")) %>
   <%  focus_areas = options_from_collection_for_select(FocusArea.all, :id, :name) %>
   <%= select_tag(:focus_area,focus_areas) %>
   <%= check_box_tag(:focus_area_search) %>
