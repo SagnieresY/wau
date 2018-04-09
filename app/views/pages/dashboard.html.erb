@@ -14,12 +14,13 @@
   </div>
 </div>
 <%= form_tag("/dashboard", method: "get") do %>
-  <%= label_tag(:min_date, "min date") %>
+  <%= label_tag(:min_date, t("dashboard.search_bar.min_date")) %>
   <%= date_field_tag(:min_date) %>
-  <%= label_tag(:max_date, "max date") %>
+  <%= label_tag(:max_date,  t("dashboard.search_bar.max_date")) %>
   <%= date_field_tag(:max_date) %>
+  <%= check_box_tag(:date_search) %>
   <br>
-  <%= label_tag(:focus_area, "focus area") %>
+  <%= label_tag(:focus_area, t"dashboard.search_bar.focus_area")) %>
   <%  focus_areas = options_from_collection_for_select(FocusArea.all, :id, :name) %>
   <%= select_tag(:focus_area,focus_areas) %>
   <br>

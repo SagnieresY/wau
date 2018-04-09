@@ -1,6 +1,6 @@
 class Installment < ApplicationRecord
   belongs_to :investment
-
+  include pg_search
   validates :status, inclusion: { in: %w(locked unlocked rescinded) }
   validates :task, presence: true
   validates :amount, presence: true
@@ -88,6 +88,10 @@ class Installment < ApplicationRecord
   end
 
   def self.filter_by_neighborhood(installments,neighborhood)
-    installments.select{|i| i.investment.project.geos.map(&:name)include?(neighborhood)}
+    installments.select{|i| i.investment.project.geos.map(&:name).include?(neighborhood)}
+  end
+
+  def self.filter_by_params
+      []
   end
 end

@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, :only => [:home,:landing]
-  def home()
+  def home
     #installment
     #Milestone
     #todo read chart maker doc
@@ -18,11 +18,11 @@ class PagesController < ApplicationController
 
         unless params["year"]
           year = Date.today.year
-          @installments = Installment.next_installments_of_year(current_user.organisation,year).sort_by{|m| !m.days_left}
+          @installments = Kaminari.paginate_array(Installment.next_installments_of_year(current_user.organisation,year).sort_by{|m| !m.days_left}).page(params[:page]).per(25)
 
         else
           year = params["year"].to_i
-          @installments = Installment.next_installments_of_year(current_user.organisation,year).sort_by{|m| !m.days_left}
+          @installments = Kaminari.paginate_array(Installment.next_installments_of_year(current_user.organisation,year).sort_by{|m| !m.days_left}).page(params[:page]).per(25)
         end
         @investments_by_focus_area = current_user.organisation.investments_by_focus_area
         @chart_focus_area_data = FocusArea.forecasted_amount_by_focus_area(current_user.organisation)
@@ -35,34 +35,22 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-    #get installment
     raw_next_installments = current_user.organisation.investments.map{|i| i.next_installment}
+    @installments = raw_next_installments
 
-    #filter by date
-    if params[:min_date] || params[:max_date]
-      installments = Installment.filter_by_date(raw_next_installments,params[:min_year],params[:max_year])
-    end
-    #filter by focus area
-    if params[:focus_area]
-      installments = Installment.filter_by_focus(installments,params[:focus_area])
-    end
-
-    #filter by ngo
-    if params[:ngo]
-      installments = Installment.filter_by_ngo(installments,params[:ngo])
-    end
-    #filter by neighborhood
-    if params[:neighborhood]
-      installments = Installment.filter_by_neighborhood(installments,params[:neighborhood])
-    end
-    #add results
+    @chart_focus_area_data = FocusArea.forecasted_amount_by_focus_area(current_user.organisation)
+    @chart_ngo_data = current_user.organisation.amount_by_ngo
+    @chart_installments_data = current_user.organisation.amount_by_date_cumulative
+    @years_of_service = Installment.years_of_service(current_user.organisation)
   end
+
 
   def landing
     render :layout => false
   end
 
   def no_organisation
+
 
   end
 

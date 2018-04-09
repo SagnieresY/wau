@@ -172,3 +172,8 @@ en:
   user_mailer:
     welcome:
       subject: "Welcome to WAU!"
+  dashboard:
+    search_bar:
+        date_min: "min date"
+        date_max: "max date"
+        focus_area: "focus area"
