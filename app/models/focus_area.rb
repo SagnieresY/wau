@@ -1,4 +1,4 @@
-class FocusArea < ApplicationRecord
+ class FocusArea < ApplicationRecord
 	translates :name
   include PgSearch
   has_many :focus_area_translations
@@ -14,7 +14,6 @@ class FocusArea < ApplicationRecord
   def self.forecasted_amount_by_focus_area(organisation)
     installments = organisation.upcoming_installments
     installments_by_status = installments.group_by{|inst| inst.status.to_sym}
-
     output = {locked:{},unlocked:{}}
     installments_by_status.each do |status, installments|
       installments_by_status[status].each do |installment|
@@ -46,8 +45,5 @@ class FocusArea < ApplicationRecord
     end
     return output
   end
-
-
-
 end
 

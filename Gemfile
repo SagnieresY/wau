@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 ruby '2.4.3'
 
+gem 'select2-rails'
+gem 'underscore-rails'
 gem 'chartkick'
 gem 'jquery-rails'
 gem 'faker'

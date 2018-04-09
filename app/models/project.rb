@@ -1,6 +1,5 @@
 class Project < ApplicationRecord
   include PgSearch
-  multisearchable against: [ :name, :description, :main_contact ]
   pg_search_scope :search_by_name,
     against: [ :name ],
     using: {
