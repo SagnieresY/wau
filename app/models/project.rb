@@ -1,4 +1,7 @@
 class Project < ApplicationRecord
+  include PgSearch
+  multisearchable against: [ :name, :description, :main_contactn ]
+
   has_and_belongs_to_many :geos
   has_many :investments, inverse_of: :project, dependent: :destroy
   has_many :installments, through: :investments
