@@ -35,7 +35,8 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-    raw_next_installments = current_user.organisation.investments.map{|i| i.next_installment}
+    @meme = [params[:focus_area],PgSearch.multisearch(params[:focus_area]).map(&:searchable)]
+    raw_next_installments = current_user.organisation.uncompleted_investments.map{|i| i.next_installment}
     @installments = raw_next_installments
 
     @chart_focus_area_data = FocusArea.forecasted_amount_by_focus_area(current_user.organisation)
