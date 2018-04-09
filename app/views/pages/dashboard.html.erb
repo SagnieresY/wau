@@ -1,4 +1,4 @@
-<h1><%= @meme %></h1>
+<%= params[:focus_area]%>
 <div class=home-wrapper>
   <div class="white-info-parent-flex">
     <div class="container-home-info-box">
@@ -14,33 +14,23 @@
     </div>
   </div>
 </div>
-<%=  %>
-<%= form_tag("/dashboard", method: "get") do %>
-  <%= label_tag(:min_date, t("dashboard.search_bar.min_date")) %>
-  <%= date_field_tag(:min_date) %>
-  <%= label_tag(:max_date,  t("dashboard.search_bar.max_date")) %>
-  <%= date_field_tag(:max_date) %>
-  <%= check_box_tag(:date_search) %>
-  <%= label_tag(:date_search, "search using dates") %>
-  <br>
-  <%= label_tag(:focus_area, 'search using focus area') %>
-  <%= text_field_tag :focus_area, nil, style: 'width: 100%' %>
-  <%= submit_tag("Search") %>
-<% end %>
+<br>
+<br>
  <div id="container">
     <input type="text" id="search">
     <ul id="results">
     </ul>
   </div>
-<div id="selected-focus" style="border:2px;width:300px;height:400px;">
-  <h2>selected focus</h2>
-</div>
+    <h2>selected focus</h2>
 
+<div id="selected-focus">
+</div>
+<button onclick="searchFocus();">search focus</button>
 <script>
 const input = document.getElementById('search');
 const results = document.getElementById('results');
-const selectedFocus = document.getElementById('selected-focus')
-
+const selectedFocusContainer = document.getElementById('selected-focus')
+let selectedFocus = []
 function clearSearch() {
   results.childNodes.forEach((child) => {
     child.remove();
@@ -48,13 +38,25 @@ function clearSearch() {
 }
 
 function addSuggestion(suggestion) {
-  results.insertAdjacentHTML('afterbegin', `<li onclick="helloWorld('${suggestion}');">${suggestion}</li>`);
+  results.insertAdjacentHTML('afterbegin', `<li onclick="addFocus('${suggestion}');">${suggestion}</li>`);
 }
 
 function addFocus(focus) {
-  selectedFocus.insertAdjacentHTML('afterbegin'. 'h3')
-}
+  if ((selectedFocus.indexOf(focus) == -1)){
+  selectedFocusContainer.insertAdjacentHTML('afterbegin', `<h4>${focus}  <a onclick="removeFocus('${focus}')">x</a><h4> `)
+  selectedFocus.push(focus)
+  }
+};
+function removeFocus(focus){
 
+};
+
+function searchFocus(){
+  let focus_areas = ''
+  selectedFocus.forEach((single_focus) => focus_areas += `${single_focus.replace("&","and")},`)
+  console.log(focus_areas)
+  window.location.replace(`/dashboard/?focus_area=${focus_areas}`);
+};
 function fetchInfo() {
   clearSearch();
   const inputValue = input.value;
@@ -69,9 +71,6 @@ function fetchInfo() {
   error: function(xhr, status, response) {/* your error callback */}
 });
 }
-function helloWorld(word) {
-  console.log(word)
-};
 document.addEventListener('keyup', fetchInfo);
 
 </script>
