@@ -4,6 +4,9 @@ class InvestmentsController < ApplicationController
     @fuck_off_pundit = policy_scope(current_user.organisation.investments.last)
     @active_investments =  active_investments_paginated
     @completed_investments = completed_investments_paginated
+
+    @page = "active_page" if params.has_key?(:active_page)
+    @page = "completed_page" if params.has_key?(:completed_page)
   end
 
   def new

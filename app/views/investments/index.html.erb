@@ -36,18 +36,23 @@
 </div>
 <button type="button" id="button">Advanced Search</button>
 
-<div id="active-index-tables">
+<div id="index-active-table">
   <%= render partial: "index_active_table"  %>
+</div>
+
+<div id="index-completed-table">
   <%= render partial: "index_completed_table"  %>
 </div>
 
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
 
+  // Hides on load the advanced search -- table sorter row
   $(document).ready(function() {
     $('tr[role="search"]').hide();
   });
 
+  // Toggles the advanced search button to show -- table sorter row
   $("button").click(function(){
       $('tr[role="search"]').toggle()
   });
@@ -73,8 +78,12 @@
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
   }
+
+  // Selects the tab of active investments on load
   document.getElementById("active-tab").click();
 
+
+  // Defines the search bar of the active investment table
   function searchActive() {
   // Declare variables
     var input, filter, table, tr, td, i;
@@ -97,6 +106,7 @@
     }
   }
 
+  // Defines the search bar of the completed investment table
   function searchCompleted() {
   // Declare variables
     var input, filter, table, tr, td, i;
