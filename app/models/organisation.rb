@@ -1,4 +1,7 @@
 class Organisation < ApplicationRecord
+  include PgSearch
+  multisearchable against: [ :name ]
+
   has_many :users, dependent: :destroy
   has_many :investments, dependent: :destroy
   has_many :projects, through: :investments, dependent: :destroy

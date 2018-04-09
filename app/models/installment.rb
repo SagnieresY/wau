@@ -1,4 +1,7 @@
 class Installment < ApplicationRecord
+  include PgSearch
+  multisearchable against: [ :status, :amount, :deadline, :task ]
+
   belongs_to :investment
 
   validates :status, inclusion: { in: %w(locked unlocked rescinded) }
