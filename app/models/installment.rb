@@ -79,12 +79,13 @@ class Installment < ApplicationRecord
   def self.filter_by_date(installments,min_date,max_date)
     min_date = Date.new(-2000,1,1) if min_date.blank?
     max_date = Date.new(9999,1,1) if max_date.blank?
-    installments.select{|i| i.deadline > min_date && i.deadline < max_date}
-    min_date = Date.new(-2000,1,1) unless min_date
-    max_date = Date.new(9999,1,1) unless max_date
-    installments.select{|i| i.deadline > min_date && i.deadline < max_date}
-  end
+    # installments.select{ |i| i.deadline > min_date && i.deadline < max_date}
+    return installments
 
+  end
+  def self.installments_by_neighborhood(installments)
+    return installments.group_by{|i| i.investment.project.geos}
+  end
   def self.filter_by_focus(installments,focus)
     installments.select{|i| i.investment.project.focus_area.name == focus}
   end

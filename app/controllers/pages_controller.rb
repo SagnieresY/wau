@@ -38,10 +38,10 @@ class PagesController < ApplicationController
     raw_next_installments = current_user.organisation.investments.map{|i| i.next_installment}
     @installments = Installment.filter_by_params(raw_next_installments,params)
 
-    @chart_focus_area_data = FocusArea.forecasted_amount_by_focus_area(current_user.organisation)
-    @chart_ngo_data = current_user.organisation.amount_by_ngo
-    @chart_installments_data = current_user.organisation.amount_by_date_cumulative
-    @years_of_service = Installment.years_of_service(current_user.organisation)
+    @chart_focus_area_data = Installment.filter_by_params(FocusArea.forecasted_amount_by_focus_area(current_user.organisation),params)
+    @chart_ngo_data = Installment.filter_by_params(current_user.organisation.amount_by_ngo,params)
+    @chart_installments_data = Installment.filter_by_params(current_user.organisation.amount_by_date_cumulative,params)
+    @years_of_service = Installment.filter_by_params(Installment.years_of_service(current_user.organisation),params)
   end
 
 
