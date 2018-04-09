@@ -2,26 +2,31 @@ class InvestmentsController < ApplicationController
 
   def index
     @fuck_off_pundit = policy_scope(current_user.organisation.investments.last)
-    @active_investments =  active_investments_index
+    @active_investments =  active_investments_paginated
   end
 
   def completed_index
-    @completed_investments = completed_investments_index
-    authorize @completed_investments.first
+    completed_investments = completed_investments_paginated
+    if completed_investments.any?
+      @completed_investments = completed_investments
+      authorize @completed_investments.first
 
-    respond_to do |format|
-      format.js  { completed_investments_path }
-      format.html
+      respond_to do |format|
+        format.js  { completed_investments_path }
+        format.html
+      end
     end
   end
 
   def active_index
-    @active_investments =  active_investments_index
-    authorize @active_investments.first
+    if completed_investments.any?
+      @active_investments =  active_investments_paginated
+      authorize @active_investments.first
 
-    respond_to do |format|
-      format.js  { active_investments_path }
-      format.html
+      respond_to do |format|
+        format.js  { active_investments_path }
+        format.html
+      end
     end
   end
 
@@ -94,11 +99,11 @@ class InvestmentsController < ApplicationController
 
   private
 
-  def active_investments_index
+  def active_investments_paginated
     Kaminari.paginate_array(current_user.organisation.uncompleted_investments.sort_by{|i| i.next_installment&.days_left}).page(params[:page]).per(10)
   end
 
-  def completed_investments_index
+  def completed_investments_paginated
     Kaminari.paginate_array(current_user.organisation.completed_investments).page(params[:page]).per(10)
   end
 

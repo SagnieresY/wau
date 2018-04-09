@@ -42,7 +42,8 @@
         </tbody>
       </table>
     </div>
-    <%= paginate @completed_investments %>
+    <%= paginate @completed_investments, remote: true %>
   </div>
   <% end %>
+  <p>NO COMPLETED INVESTMENTS</p>
 </div>
