@@ -10,29 +10,34 @@ td {
 	font-family: 'Open Sans', sans-serif;
 }
 
-.main-content {
-	margin: 0 auto;
-	width: 95vw;
-}
+// a,
+// a:link,
+// a:visited,
+// a:hover,
+// a:focus,
+// a:active {
+//   color: inherit; /* blue colors for links too */
+//   text-decoration: inherit; /* no underline */
+// }
 
 .unlocked-background-color {
-	background-color: $green;
+  background-color: $green;
 }
 
 .locked-background-color {
-	background-color: $orange;
+  background-color: $orange;
 }
 
 .rescinded-background-color {
-	background-color: $red;
+  background-color: $red;
 }
 
 .white-text {
-	color: white;
+  color: white;
 }
 
 .green-text {
-	color: $green;
+  color: $green;
 }
 
 .size-24 {
@@ -42,3 +47,4 @@ td {
 .size-12 {
   font-size: 12px;
 }
+

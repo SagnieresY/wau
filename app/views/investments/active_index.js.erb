@@ -1,0 +1,4 @@
+$("#index-tables").html("<%= escape_javascript render partial: "index_active_table" %>");
+$("#active-investments-table").html("<%= escape_javascript(paginate(@active_investments, remote: true, :param_name => "active_page")) %>");
+$("#active-tab").removeClass("inactive").addClass("active")
+$("#completed-tab").removeClass("active").addClass("inactive")

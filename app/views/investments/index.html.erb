@@ -31,17 +31,14 @@
 
 
 <div class="flex-tab">
-  <div id="active-tab" class="tablinks" onclick="openTab(event, 'active')"> <%= t(".table.tab.title_one") %></div>
-  <div id="completed-tab" class="tablinks" onclick="openTab(event, 'completed')"><%= t(".table.tab.title_two") %></div>
+  <%=  link_to t(".table.tab.title_one"), active_investments_path, remote: true, method: :post,id: "active-tab", class: "tablinks active", :onclick =>  'openTab(event, "active")' %>
+  <%=  link_to t(".table.tab.title_two"), completed_investments_path, remote: true, method: :post, id: "completed-tab", class: "tablinks inactive", :onclick =>  'openTab(event, "completed")'%>
 </div>
+
 <button type="button" id="button">Advanced Search</button>
 
-<div id="index-active-table">
+<div id="index-tables">
   <%= render partial: "index_active_table"  %>
-</div>
-
-<div id="index-completed-table">
-  <%= render partial: "index_completed_table"  %>
 </div>
 
 <%= content_for(:after_js) do %>
@@ -80,7 +77,7 @@
   }
 
   // Selects the tab of active investments on load
-  document.getElementById("active-tab").click();
+  // document.getElementById("active-tab").click();
 
 
   // Defines the search bar of the active investment table

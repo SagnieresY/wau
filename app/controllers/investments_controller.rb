@@ -9,6 +9,26 @@ class InvestmentsController < ApplicationController
     @page = "completed_page" if params.has_key?(:completed_page)
   end
 
+    def completed_index
+    @completed_investments = completed_investments_paginated
+    authorize @completed_investments.first
+
+    respond_to do |format|
+      format.js  { completed_investments_path }
+      format.html
+    end
+  end
+
+  def active_index
+    @active_investments =  active_investments_paginated
+    authorize @active_investments.first
+
+    respond_to do |format|
+      format.js  { active_investments_path }
+      format.html
+    end
+  end
+
   def new
     @investment = Investment.new
     @investment.project = Project.new

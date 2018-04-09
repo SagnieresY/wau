@@ -32,16 +32,17 @@
 .tablinks {
   background: white;
   padding: 5px 5px;
+  color: $green !important;
+  text-decoration: none !important;
+  &:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
 }
 
 .tablinks.active {
   background: $green;
-  color: white;
-}
-
-.tablinks:hover {
-  opacity: 0.8;
-  cursor: pointer;
+  color: white !important;;
 }
 
 .flex-tab .tablinks:first-child {
