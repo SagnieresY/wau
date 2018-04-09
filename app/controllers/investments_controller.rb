@@ -2,11 +2,15 @@ class InvestmentsController < ApplicationController
 
   def index
     @fuck_off_pundit = policy_scope(current_user.organisation.investments.last)
-    @active_investments =  active_investments_index
+    @active_investments =  active_investments_paginated
+    @completed_investments = completed_investments_paginated
+
+    @page = "active_page" if params.has_key?(:active_page)
+    @page = "completed_page" if params.has_key?(:completed_page)
   end
 
-  def completed_index
-    @completed_investments = completed_investments_index
+    def completed_index
+    @completed_investments = completed_investments_paginated
     authorize @completed_investments.first
 
     respond_to do |format|
@@ -16,7 +20,7 @@ class InvestmentsController < ApplicationController
   end
 
   def active_index
-    @active_investments =  active_investments_index
+    @active_investments =  active_investments_paginated
     authorize @active_investments.first
 
     respond_to do |format|
@@ -94,12 +98,12 @@ class InvestmentsController < ApplicationController
 
   private
 
-  def active_investments_index
-    Kaminari.paginate_array(current_user.organisation.uncompleted_investments.sort_by{|i| i.next_installment&.days_left}).page(params[:page]).per(10)
+  def active_investments_paginated
+    Kaminari.paginate_array(current_user.organisation.uncompleted_investments.sort_by{|i| i.next_installment&.days_left}).page(params[:active_page]).per(10)
   end
 
-  def completed_investments_index
-    Kaminari.paginate_array(current_user.organisation.completed_investments).page(params[:page]).per(10)
+  def completed_investments_paginated
+    Kaminari.paginate_array(current_user.organisation.completed_investments).page(params[:completed_page]).per(10)
   end
 
   def id

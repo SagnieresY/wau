@@ -31,12 +31,10 @@
 
 
 <div class="flex-tab">
-  <div id="active-tab" class="tablinks" onclick="openTab(event, 'active')"> <%= t(".table.tab.title_one") %></div>
-  <div id="completed-tab" class="tablinks" onclick="openTab(event, 'completed')"><%= t(".table.tab.title_two") %></div>
-  <%=  link_to "AJAX COMPLETED", completed_investments_path, remote: true, method: :post, id: "completed-tab", class: "tablinks", :onclick =>  'openTab(event, "completed")'%>
-  <%=  link_to "AJAX ACTIVE", active_investments_path, remote: true, method: :post %>
-
+  <%=  link_to t(".table.tab.title_one"), active_investments_path, remote: true, method: :post,id: "active-tab", class: "tablinks active", :onclick =>  'openTab(event, "active")' %>
+  <%=  link_to t(".table.tab.title_two"), completed_investments_path, remote: true, method: :post, id: "completed-tab", class: "tablinks inactive", :onclick =>  'openTab(event, "completed")'%>
 </div>
+
 <button type="button" id="button">Advanced Search</button>
 
 <div id="index-tables">
@@ -46,10 +44,12 @@
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
 
+  // Hides on load the advanced search -- table sorter row
   $(document).ready(function() {
     $('tr[role="search"]').hide();
   });
 
+  // Toggles the advanced search button to show -- table sorter row
   $("button").click(function(){
       $('tr[role="search"]').toggle()
   });
@@ -72,11 +72,15 @@
     }
 
     // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(tabName).style.display = "block";
+    // document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
   }
-  document.getElementById("active-tab").click();
 
+  // Selects the tab of active investments on load
+  // document.getElementById("active-tab").click();
+
+
+  // Defines the search bar of the active investment table
   function searchActive() {
   // Declare variables
     var input, filter, table, tr, td, i;
@@ -99,6 +103,7 @@
     }
   }
 
+  // Defines the search bar of the completed investment table
   function searchCompleted() {
   // Declare variables
     var input, filter, table, tr, td, i;
