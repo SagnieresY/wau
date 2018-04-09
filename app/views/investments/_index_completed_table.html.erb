@@ -42,8 +42,9 @@
         </tbody>
       </table>
     </div>
-    <%= paginate @completed_investments, remote: true %>
+    <%= paginate @completed_investments, remote: true, :param_name => "completed_page" %>
   </div>
+  <% else %>
+    <p>NO COMPLETED INVESTMENTS</p>
   <% end %>
-  <p>NO COMPLETED INVESTMENTS</p>
 </div>

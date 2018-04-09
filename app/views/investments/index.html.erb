@@ -33,14 +33,12 @@
 <div class="flex-tab">
   <div id="active-tab" class="tablinks" onclick="openTab(event, 'active')"> <%= t(".table.tab.title_one") %></div>
   <div id="completed-tab" class="tablinks" onclick="openTab(event, 'completed')"><%= t(".table.tab.title_two") %></div>
-  <%=  link_to "AJAX COMPLETED", completed_investments_path, remote: true, method: :post, id: "completed-tab", class: "tablinks", :onclick =>  'openTab(event, "completed")'%>
-  <%=  link_to "AJAX ACTIVE", active_investments_path, remote: true, method: :post %>
-
 </div>
 <button type="button" id="button">Advanced Search</button>
 
-<div id="index-tables">
+<div id="active-index-tables">
   <%= render partial: "index_active_table"  %>
+  <%= render partial: "index_completed_table"  %>
 </div>
 
 <%= content_for(:after_js) do %>

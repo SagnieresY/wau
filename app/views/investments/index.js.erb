@@ -1,2 +1,4 @@
-$("#index-tables").html("<%= escape_javascript render partial: "index_active_table" %>");
-$("#active-investments-table").html("<%= escape_javascript(paginate(@active_investments, remote: true)) %>");
+$("#active-index-tables").html("<%= escape_javascript render partial: "index_active_table" %> <%= escape_javascript render partial: "index_completed_table" %>");
+$("#active-investments-table").html("<%= escape_javascript(paginate(@active_investments, remote: true, :param_name => "active_page")) %>");
+$("#completed-investments-table").html("<%= escape_javascript(paginate(@completed_investments, remote: true, :param_name => "completed_page")) %>");
+$("#active-tab").click();

@@ -49,5 +49,5 @@
       </table>
     </div>
     <div id="active-investments-table">
-      <%= paginate @active_investments, remote: true %>
+      <%= paginate @active_investments, remote: true, :param_name => "active_page" %>
     </div>
