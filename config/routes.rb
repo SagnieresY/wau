@@ -17,6 +17,10 @@ Rails.application.routes.draw do
     get '/landing', to: 'pages#landing', as: :landing
     post '/unlock_installment', to: 'installments#unlock', as: :unlock_installment
     post '/rescind_installment', to: 'installments#rescind', as: :rescind_installment
+    post '/completed_investments', to: 'investments#completed_index', as: :completed_investments
+    get '/completed_investments', to: 'investments#completed_index', as: :completed_investments_home
+    post '/active_investments', to: 'investments#active_index', as: :active_investments
+    get '/active_investments', to: 'investments#active_index', as: :active_investments_home
     post '/investment_unlocked_amount', to: 'investments#unlocked_amount', as: :investment_unlocked_amount
     match "/404", :to => "errors#not_found", :via => :all
     match "/500", :to => "errors#internal_server_error", :via => :all

@@ -1,1 +1,19 @@
-<%= smart_listing_update :investments %>
+// Renders the investments tables
+$("#index-active-table").html("<%= escape_javascript render partial: "index_active_table" %>");
+$("#index-completed-table").html("<%= escape_javascript render partial: "index_completed_table" %>");
+
+// Creates the pagination from KAMINARI
+$("#active-investments-table").html("<%= escape_javascript(paginate(@active_investments, remote: true, :param_name => "active_page")) %>");
+$("#completed-investments-table").html("<%= escape_javascript(paginate(@completed_investments, remote: true, :param_name => "completed_page")) %>");
+
+// IF from completed table
+<% if @page == "completed_page" %>
+   // Selects the completed investments tab
+  document.getElementById("completed-tab").click();
+<% end %>
+
+// IF from active table
+<% if @page == "active_page" %>
+   // Selects the active investments tab
+  document.getElementById("active-tab").click();
+<% end %>

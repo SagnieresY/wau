@@ -50,8 +50,6 @@ class PagesController < ApplicationController
   end
 
   def no_organisation
-
-
   end
 
 end

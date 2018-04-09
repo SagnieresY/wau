@@ -2,6 +2,7 @@
  -->
 <!-- Tab content -->
 <div id="active" class="tabcontent">
+  <div id="loading">
   <div class="active-investments">
     <input type="text" class="searchInvest" id="searchBarActive" onkeyup="searchActive()" placeholder= "<%= t("investments.index.search_bar.active") %>" >
     <div class="table-container">
@@ -54,61 +55,8 @@
         </tbody>
       </table>
     </div>
-    <%= paginate @active_investments %>
-  </div>
-</div>
-
-
-<!-- COMPLETED TAB -->
-<div id="completed" class="tabcontent">
-  <% unless @completed_investments.blank? %>
-  <div class="completed-investments">
-    <input type="text" class="searchInvest" id="searchBarCompleted" onkeyup="searchCompleted()" placeholder="<%= t("investments.index.search_bar.completed") %>">
-    <div class="table-container">
-      <table id="completedTable" class="table table-hover margin-center dropshadow-around">
-        <thead>
-         <tr class="white-background header-row-milestone">
-            <th scope="col" width="20%"><div class="tablesorter-header-inner"><%= t("investments.index.table.first_column.title") %><i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
-            <th scope="col" width="30%"><div class="tablesorter-header-inner"><%= t("investments.index.table.second_column.title") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-            <th scope="col" width="15%"><div class="tablesorter-header-inner"><%= t("investments.index.table.completed.third_column.title") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-            <th scope="col" width="15%"><div class="tablesorter-header-inner"><%= t("investments.index.table.completed.fourth_column.title") %><i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
-            <th scope="col" width="20%" style="text-align: center;"><%= t("investments.index.table.completed.fifth_column.title") %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @completed_investments.each do |investment| %>
-          <tr class="white-background table-row-investment" data-investment-id="<%= investment.id %>">
-            <td><%= investment.project.organisation.name.capitalize %></td>
-            <td>
-              <%= link_to investment_path(investment), {class: "green-link-text"} do %>
-              <%= investment.project.name %>
-              <% end %>
-            </td>
-            <td><%= nice_money(investment.forecasted_amount) %></td>
-            <td >
-              <div class="completed-icon"><%= t("investments.index.table.completed.fourth_column.content") %></div>
-            </td>
-            <td>
-              <div class="table-button-flex">
-                <%= link_to investment_path(investment), { class: "edit-investment-button-table button-appear-hover" } do %>
-                <%= t("investments.index.table.completed.fifth_column.content_one") %>
-                <% end %>
-                <%= link_to edit_project_path(investment.project), { class: "edit-investment-button-table button-appear-hover" } do %>
-                  <%= t("investments.index.table.completed.fifth_column.content_two") %>
-                <% end %>
-              </div>
-            </td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
+    <div id="active-investments-table">
+      <%= paginate @active_investments, remote: true, :param_name => "active_page" %>
     </div>
-    <%= paginate @completed_investments %>
   </div>
-  <% end %>
 </div>
-
-<% content_for(:after_js) do %>
-<script type="text/javascript">
-</script>
-<% end %>

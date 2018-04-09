@@ -9,6 +9,14 @@ class InvestmentPolicy < ApplicationPolicy
     user.organisation
   end
 
+  def completed_index?
+    user.organisation
+  end
+
+  def active_index?
+    user.organisation
+  end
+
   def new?
     user.organisation
   end
