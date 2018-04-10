@@ -1,0 +1,53 @@
+// NGO SEARCH
+
+const inputNgo = document.getElementById('searchNgo');
+const resultsNgo = document.getElementById('resultsNgo');
+const selectedNgoContainer = document.getElementById('selected-ngo')
+let selectedNgo = []
+function clearSearchNgo() {
+  resultsNgo.childNodes.forEach((child) => {
+    child.remove();
+  });
+}
+
+function addSuggestionNgo(suggestion) {
+
+  resultsNgo.insertAdjacentHTML('afterbegin', `<li onclick="addNgo('${suggestion.replace("'","|")}');">${suggestion}</li>`);
+}
+
+function addNgo(ngo) {
+  if ((selectedNgo.indexOf(ngo) == -1)){
+  selectedNgoContainer.insertAdjacentHTML('afterbegin', `<h4>${ngo.replace("|","'")}<h4> `)
+  selectedNgo.push(ngo.replace('|',"'"))
+  }
+};
+function resetNgoSelection(){
+  selectedNgo = []
+  selectedNgoContainer.childNodes.forEach(function(item){
+    item.remove()
+  });
+};
+
+function searchNgo(){
+  let ngos = ''
+  selectedNgo.forEach((single_ngo) =>
+    ngos += `${single_ngo.replace("&","and")},`)
+  console.log(ngos)
+  window.location.replace(`/dashboard/?ngo=${ngos}`);
+};
+function fetchInfoNgo() {
+  clearSearchNgo();
+  clearSearchFocus();
+  const inputValue = inputNgo.value;
+  $.ajax({
+  url: `/ngo/${inputValue}`,
+  type: 'GET',
+  dataType: 'json',
+  beforeSend: function (xhr) {
+      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+  },
+  success: function(data){data.results.forEach((word) => addSuggestionNgo(word)); },
+  error: function(xhr, status, response) {/* your error callback */}
+});
+}
+document.addEventListener('keyup', fetchInfoNgo);

@@ -1,4 +1,5 @@
 <%= params[:ngo]%>
+
 <div class=home-wrapper>
   <div class="white-info-parent-flex">
     <div class="container-home-info-box">
@@ -39,9 +40,9 @@
 <div id="selected-ngo">
 </div>
 <button onclick="searchNgo();">search Ngo</button>
-
+<%=  content_for(:after_js) do %>
 <script>
-const inputFocus = document.getElementById('searchFocus');
+  const inputFocus = document.getElementById('searchFocus');
 const resultsFocus = document.getElementById('resultsFocus');
 const selectedFocusContainer = document.getElementById('selected-focus')
 let selectedFocus = []
@@ -75,71 +76,22 @@ function searchFocus(){
   window.location.replace(`/dashboard/?focus_area=${focus_areas}`);
 };
 function fetchInfoFocus() {
+  clearSearchNgo();
   clearSearchFocus();
   const inputValue = inputFocus.value;
   $.ajax({
-  url: `<%= "/fr" if params["locale"] == "fr" %>/focus_area/${inputValue}`,
+  url: `<%= '/fr' if params["locale"] == "fr" %>/focus_area/${inputValue}`,
   type: 'GET',
   dataType: 'json',
   beforeSend: function (xhr) {
       xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
   },
   success: function(data){data.results.forEach((word) => addSuggestionFocus(word)); },
-  error: function(xhr, status, response) {/* your error callback */}
+  error: function(xhr, status, response) {console.log(xhr)}
 });
 }
 document.addEventListener('keyup', fetchInfoFocus);
 
-// NGO SEARCH
 
-const inputNgo = document.getElementById('searchNgo');
-const resultsNgo = document.getElementById('resultsNgo');
-const selectedNgoContainer = document.getElementById('selected-ngo')
-let selectedNgo = []
-function clearSearchNgo() {
-  resultsNgo.childNodes.forEach((child) => {
-    child.remove();
-  });
-}
-
-function addSuggestionNgo(suggestion) {
-
-  resultsNgo.insertAdjacentHTML('afterbegin', `<li onclick="addNgo('${suggestion.replace("'","|")}');">${suggestion}</li>`);
-}
-
-function addNgo(ngo) {
-  if ((selectedNgo.indexOf(ngo) == -1)){
-  selectedNgoContainer.insertAdjacentHTML('afterbegin', `<h4>${ngo.replace("|","'")}<h4> `)
-  selectedNgo.push(ngo.replace('|',"'"))
-  }
-};
-function resetNgoSelection(){
-  selectedNgo = []
-  selectedNgoContainer.childNodes.forEach(function(item){
-    item.remove()
-  });
-};
-
-function searchNgo(){
-  let ngos = ''
-  selectedNgo.forEach((single_ngo) =>
-    ngos += `${single_ngo.replace("&","and")},`)
-  console.log(ngos)
-  window.location.replace(`/dashboard/?ngo=${ngos}`);
-};
-function fetchInfoNgo() {
-  clearSearchNgo();
-  const inputValue = inputNgo.value;
-  $.ajax({
-  url: `/ngo/${inputValue}`,
-  type: 'GET',
-  dataType: 'json',
-  beforeSend: function (xhr) {
-      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-  },
-  success: function(data){data.results.forEach((word) => addSuggestionNgo(word)); },
-  error: function(xhr, status, response) {/* your error callback */}
-});
-}
-document.addEventListener('keyup', fetchInfoNgo);
 </script>
+<% end %>
