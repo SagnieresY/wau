@@ -43,6 +43,19 @@
    <div id="selected-ngo"></div>
    <button onclick="searchNgo();">search Ngo</button>
 </div>
+<br>
+<br>
+<button onclick="toggleNeighborhoodSearch();">toggle neighborhood search</button>
+<div id="neighborhood-search-wrapper" style="display:none;">
+   <div id="containerNeighborhood">
+      <input type="text" id="searchNeighborhood">
+      <ul id="resultsNeighborhood">
+      </ul>
+   </div>
+   <h2>selected Neighborhood <a onclick="resetNeighborhoodSelection();">reset</a></h2>
+   <div id="selected-neighborhood"></div>
+   <button onclick="searchNeighborhood();">search Neighborhood</button>
+</div>
 
 
 <%=  content_for(:after_js) do %>

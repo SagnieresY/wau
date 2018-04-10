@@ -58,3 +58,63 @@ function fetchInfoNgo() {
 });
 }
 document.addEventListener('keyup', fetchInfoNgo);
+
+// neighborhood search
+const inputNeighborhood = document.getElementById('searchNeighborhood');
+const resultsNeighborhood = document.getElementById('resultsNeighborhood');
+const selectedNeighborhoodContainer = document.getElementById('selected-neighborhood')
+let selectedNeighborhood = []
+const neighborhoodWrapper = document.getElementById('neighborhood-search-wrapper')
+
+function toggleNeighborhoodSearch(){
+  neighborhoodWrapper.style.display = neighborhoodWrapper.style.display === 'none' ? '' : 'none';
+};
+
+
+function clearSearchNeighborhood() {
+  resultsNeighborhood.childNodes.forEach((child) => {
+    child.remove();
+  });
+}
+
+function addSuggestionNeighborhood(suggestion) {
+
+  resultsNeighborhood.insertAdjacentHTML('afterbegin', `<li onclick="addNeighborhood('${suggestion.replace("'","|")}');">${suggestion}</li>`);
+}
+
+function addNeighborhood(neighborhood) {
+  if ((selectedNeighborhood.indexOf(neighborhood) == -1)){
+  selectedNeighborhoodContainer.insertAdjacentHTML('afterbegin', `<h4>${neighborhood.replace("|","'")}<h4> `)
+  selectedNeighborhood.push(neighborhood.replace('|',"'"))
+  }
+};
+function resetNeighborhoodSelection(){
+  selectedNeighborhood = []
+  selectedNeighborhoodContainer.childNodes.forEach(function(item){
+    item.remove()
+  });
+};
+
+function searchNeighborhood(){
+  let neighborhoods = ''
+  selectedNeighborhood.forEach((single_neighborhood) =>
+    neighborhoods += `${single_neighborhood.replace("&","and")},`)
+  console.log(neighborhoods)
+  window.location.replace(`/dashboard/?neighborhood=${neighborhoods}`);
+};
+function fetchInfoNeighborhood() {
+  clearSearchNeighborhood();
+  clearSearchFocus();
+  const inputValue = inputNeighborhood.value;
+  $.ajax({
+  url: `/neighborhood/${inputValue}`,
+  type: 'GET',
+  dataType: 'json',
+  beforeSend: function (xhr) {
+      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+  },
+  success: function(data){data.results.forEach((word) => addSuggestionNeighborhood(word)); },
+  error: function(xhr, status, response) {/* your error callback */}
+});
+}
+document.addEventListener('keyup', fetchInfoNeighborhood);
