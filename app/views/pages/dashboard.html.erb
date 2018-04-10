@@ -56,7 +56,29 @@
    <div id="selected-neighborhood"></div>
    <button onclick="searchNeighborhood();">search Neighborhood</button>
 </div>
-
+<br>
+<br>
+<button onclick="toggleDateSearch();">toggle date search</button>
+<div id="date-search-wrapper" style="display:none" >
+    <h4>min date</h4>
+    <input type="date" id="min-date">
+    <h4>max date</h4>
+    <input type="date" id="max-date">
+   <button onclick="searchDates();">search by date</button>
+</div>
+<br>
+<br>
+<button onclick="toggleProjectSearch();">toggle project search</button>
+<div id="project-search-wrapper" style="display:none;">
+   <div id="containerProject">
+      <input type="text" id="searchProject">
+      <ul id="resultsProject">
+      </ul>
+   </div>
+   <h2>selected Project <a onclick="resetProjectSelection();">reset</a></h2>
+   <div id="selected-project"></div>
+   <button onclick="searchProject();">search Project</button>
+</div>
 
 <%=  content_for(:after_js) do %>
 <script>

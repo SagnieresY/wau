@@ -118,3 +118,70 @@ function fetchInfoNeighborhood() {
 });
 }
 document.addEventListener('keyup', fetchInfoNeighborhood);
+// date search
+const minDate = document.getElementById('min-date').value
+const maxDate = document.getElementById('max-date').value
+
+const dateWrapper = document.getElementById('date-search-wrapper')
+function toggleDateSearch(){
+  dateWrapper.style.display = dateWrapper.style.display === 'none' ? '' : 'none';
+};
+//project name search
+const inputProject = document.getElementById('searchProject');
+const resultsProject = document.getElementById('resultsProject');
+const selectedProjectContainer = document.getElementById('selected-project')
+let selectedProject = []
+const projectWrapper = document.getElementById('project-search-wrapper')
+
+function toggleProjectSearch(){
+  projectWrapper.style.display = projectWrapper.style.display === 'none' ? '' : 'none';
+};
+
+
+function clearSearchProject() {
+  resultsProject.childNodes.forEach((child) => {
+    child.remove();
+  });
+}
+
+function addSuggestionProject(suggestion) {
+
+  resultsProject.insertAdjacentHTML('afterbegin', `<li onclick="addProject('${suggestion.replace("'","|")}');">${suggestion}</li>`);
+}
+
+function addProject(project) {
+  if ((selectedProject.indexOf(project) == -1)){
+  selectedProjectContainer.insertAdjacentHTML('afterbegin', `<h4>${project.replace("|","'")}<h4> `)
+  selectedProject.push(project.replace('|',"'"))
+  }
+};
+function resetProjectSelection(){
+  selectedProject = []
+  selectedProjectContainer.childNodes.forEach(function(item){
+    item.remove()
+  });
+};
+
+function searchProject(){
+  let projects = ''
+  selectedProject.forEach((single_project) =>
+    projects += `${single_project.replace("&","and")},`)
+  console.log(projects)
+  window.location.replace(`/dashboard/?project=${projects}`);
+};
+function fetchInfoProject() {
+  clearSearchProject();
+  clearSearchFocus();
+  const inputValue = inputProject.value;
+  $.ajax({
+  url: `/project/${inputValue}`,
+  type: 'GET',
+  dataType: 'json',
+  beforeSend: function (xhr) {
+      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+  },
+  success: function(data){data.results.forEach((word) => addSuggestionProject(word)); },
+  error: function(xhr, status, response) {/* your error callback */}
+});
+}
+document.addEventListener('keyup', fetchInfoProject);

@@ -1,4 +1,14 @@
 class ProjectsController < ApplicationController
+  skip_after_action :verify_authorized, only: :search
+  def search
+    @projects = {results:[]}
+    Project.search_by_name(params[:query]).uniq.each_with_index do |project, i|
+      @projects[:results].push(project.name)
+    end
+    @projects[:results] = @projects[:results].uniq
+    render json: @projects
+  end
+
   def new
     @project = Project.new
     authorize @project
