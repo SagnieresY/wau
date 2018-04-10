@@ -36,6 +36,7 @@ class PagesController < ApplicationController
   end
 
   def dashboard
+
     raw_next_installments = current_user.organisation.uncompleted_investments.map{|i| i.next_installment}
     @installments = raw_next_installments
     if params[:focus_area].present?

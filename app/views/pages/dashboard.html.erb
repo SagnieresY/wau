@@ -75,7 +75,7 @@ function fetchInfoFocus() {
   clearSearchFocus();
   const inputValue = inputFocus.value;
   $.ajax({
-  url: `/focus_area/${inputValue}`,
+  url: `/<%= "fr" if params["locale"] == "fr" %>/focus_area/${inputValue}`,
   type: 'GET',
   dataType: 'json',
   beforeSend: function (xhr) {
