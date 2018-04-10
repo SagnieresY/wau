@@ -40,7 +40,10 @@ class PagesController < ApplicationController
     @installments = raw_next_installments
     if params[:focus_area].present?
       @installments = Installment.filter_by_focus(@installments,params[:focus_area])
+    elsif params[:ngo].present?
+      @installments = Installment.filter_by_ngo(@installments,params[:ngo])
     end
+
     @chart_focus_area_data = FocusArea.forecasted_amount_by_focus_area(current_user.organisation)
     @chart_ngo_data = current_user.organisation.amount_by_ngo
     @chart_installments_data = current_user.organisation.amount_by_date_cumulative

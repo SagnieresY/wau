@@ -1,6 +1,11 @@
 class Organisation < ApplicationRecord
   include PgSearch
   multisearchable against: [ :name ]
+  pg_search_scope :search_by_name,
+    against: [:name],
+    using: {
+      tsearch: { prefix: true }
+    }
 
   has_many :users, dependent: :destroy
   has_many :investments, dependent: :destroy

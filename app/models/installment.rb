@@ -100,8 +100,15 @@ class Installment < ApplicationRecord
     return output
   end
 
-  def self.filter_by_ngo(installments,ngo)
-    installments.select{|i| i.investment.project.organisation.name == ngo}
+  def self.filter_by_ngo(installments,ngos)
+    @output = []
+    ngos = ngos.split(',')
+    ngos.each do |ngo|
+      installments.select{|i| i.investment.project.organisation.name == ngo}.each do |installment|
+        @output.push(installment)
+      end
+    end
+    @output
   end
 
   def self.filter_by_neighborhood(installments,neighborhood)

@@ -1,4 +1,4 @@
-<%= params[:focus_area]%>
+<%= params[:ngo]%>
 <div class=home-wrapper>
   <div class="white-info-parent-flex">
     <div class="container-home-info-box">
@@ -16,9 +16,9 @@
 </div>
 <br>
 <br>
- <div id="container">
-    <input type="text" id="search">
-    <ul id="results">
+ <div id="containerFocus">
+    <input type="text" id="searchFocus">
+    <ul id="resultsFocus">
     </ul>
   </div>
     <h2>selected focus</h2>
@@ -26,19 +26,33 @@
 <div id="selected-focus">
 </div>
 <button onclick="searchFocus();">search focus</button>
+
+<br>
+<br>
+
+<div id="containerNgo">
+    <input type="text" id="searchNgo">
+    <ul id="resultsNgo">
+    </ul>
+  </div>
+    <h2>selected Ngo</h2>
+<div id="selected-ngo">
+</div>
+<button onclick="searchNgo();">search Ngo</button>
+
 <script>
-const input = document.getElementById('search');
-const results = document.getElementById('results');
+const inputFocus = document.getElementById('searchFocus');
+const resultsFocus = document.getElementById('resultsFocus');
 const selectedFocusContainer = document.getElementById('selected-focus')
 let selectedFocus = []
-function clearSearch() {
-  results.childNodes.forEach((child) => {
+function clearSearchFocus() {
+  resultsFocus.childNodes.forEach((child) => {
     child.remove();
   });
 }
 
-function addSuggestion(suggestion) {
-  results.insertAdjacentHTML('afterbegin', `<li onclick="addFocus('${suggestion}');">${suggestion}</li>`);
+function addSuggestionFocus(suggestion) {
+  resultsFocus.insertAdjacentHTML('afterbegin', `<li onclick="addFocus('${suggestion}');">${suggestion}</li>`);
 }
 
 function addFocus(focus) {
@@ -57,9 +71,9 @@ function searchFocus(){
   console.log(focus_areas)
   window.location.replace(`/dashboard/?focus_area=${focus_areas}`);
 };
-function fetchInfo() {
-  clearSearch();
-  const inputValue = input.value;
+function fetchInfoFocus() {
+  clearSearchFocus();
+  const inputValue = inputFocus.value;
   $.ajax({
   url: `/focus_area/${inputValue}`,
   type: 'GET',
@@ -67,10 +81,59 @@ function fetchInfo() {
   beforeSend: function (xhr) {
       xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
   },
-  success: function(data){data.results.forEach((word) => addSuggestion(word)); },
+  success: function(data){data.results.forEach((word) => addSuggestionFocus(word)); },
   error: function(xhr, status, response) {/* your error callback */}
 });
 }
-document.addEventListener('keyup', fetchInfo);
+document.addEventListener('keyup', fetchInfoFocus);
 
+// NGO SEARCH
+
+const inputNgo = document.getElementById('searchNgo');
+const resultsNgo = document.getElementById('resultsNgo');
+const selectedNgoContainer = document.getElementById('selected-ngo')
+let selectedNgo = []
+function clearSearchNgo() {
+  resultsNgo.childNodes.forEach((child) => {
+    child.remove();
+  });
+}
+
+function addSuggestionNgo(suggestion) {
+
+  resultsNgo.insertAdjacentHTML('afterbegin', `<li onclick="addNgo('${suggestion.replace("'","|")}');">${suggestion}</li>`);
+}
+
+function addNgo(ngo) {
+  if ((selectedNgo.indexOf(ngo) == -1)){
+  selectedNgoContainer.insertAdjacentHTML('afterbegin', `<h4>${ngo.replace("|","'")} <a onclick="removeNgo('${ngo}')">x</a><h4> `)
+  selectedNgo.push(ngo.replace('|',"'"))
+  }
+};
+function removeNgo(ngo){
+
+};
+
+function searchNgo(){
+  let ngos = ''
+  selectedNgo.forEach((single_ngo) =>
+    ngos += `${single_ngo.replace("&","and")},`)
+  console.log(ngos)
+  window.location.replace(`/dashboard/?ngo=${ngos}`);
+};
+function fetchInfoNgo() {
+  clearSearchNgo();
+  const inputValue = inputNgo.value;
+  $.ajax({
+  url: `/ngo/${inputValue}`,
+  type: 'GET',
+  dataType: 'json',
+  beforeSend: function (xhr) {
+      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+  },
+  success: function(data){data.results.forEach((word) => addSuggestionNgo(word)); },
+  error: function(xhr, status, response) {/* your error callback */}
+});
+}
+document.addEventListener('keyup', fetchInfoNgo);
 </script>
