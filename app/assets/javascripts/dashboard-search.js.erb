@@ -4,6 +4,7 @@ const inputNgo = document.getElementById('searchNgo');
 const resultsNgo = document.getElementById('resultsNgo');
 const selectedNgoContainer = document.getElementById('selected-ngo')
 let selectedNgo = []
+let selectedNgoString = ''
 const ngoWrapper = document.getElementById('ngo-search-wrapper')
 
 function toggleNgoSearch(){
@@ -26,6 +27,7 @@ function addNgo(ngo) {
   if ((selectedNgo.indexOf(ngo) == -1)){
   selectedNgoContainer.insertAdjacentHTML('afterbegin', `<h4>${ngo.replace("|","'")}<h4> `)
   selectedNgo.push(ngo.replace('|',"'"))
+  selectedNgoString += `${ngo.replace('&','and')},`
   }
 };
 function resetNgoSelection(){
@@ -59,6 +61,7 @@ const inputNeighborhood = document.getElementById('searchNeighborhood');
 const resultsNeighborhood = document.getElementById('resultsNeighborhood');
 const selectedNeighborhoodContainer = document.getElementById('selected-neighborhood')
 let selectedNeighborhood = []
+let selectedNeighborhoodString = ''
 const neighborhoodWrapper = document.getElementById('neighborhood-search-wrapper')
 
 function toggleNeighborhoodSearch(){
@@ -81,6 +84,7 @@ function addNeighborhood(neighborhood) {
   if ((selectedNeighborhood.indexOf(neighborhood) == -1)){
   selectedNeighborhoodContainer.insertAdjacentHTML('afterbegin', `<h4>${neighborhood.replace("|","'")}<h4> `)
   selectedNeighborhood.push(neighborhood.replace('|',"'"))
+  selectedNeighborhoodString += `${neighborhood.replace('&','and')},`
   }
 };
 function resetNeighborhoodSelection(){
@@ -120,6 +124,7 @@ const inputProject = document.getElementById('searchProject');
 const resultsProject = document.getElementById('resultsProject');
 const selectedProjectContainer = document.getElementById('selected-project')
 let selectedProject = []
+let selectedProjectString = ''
 const projectWrapper = document.getElementById('project-search-wrapper')
 
 function toggleProjectSearch(){
@@ -142,6 +147,7 @@ function addProject(project) {
   if ((selectedProject.indexOf(project) == -1)){
   selectedProjectContainer.insertAdjacentHTML('afterbegin', `<h4>${project.replace("|","'")}<h4> `)
   selectedProject.push(project.replace('|',"'"))
+  selectedProjectString += `${project.replace('&','and')},`
   }
 };
 function resetProjectSelection(){
@@ -172,5 +178,9 @@ document.addEventListener('keyup', fetchInfoProject);
 // search all
 function searchAll(){
   let output = ''
-
+  output += `?focus_area=${selectedFocusString}`
+  output += `&ngo=${selectedNgoString}`
+  output += `&neighborhood=${selectedNeighborhoodString}`
+  output += `&project=${selectedProjectString}`
+  window.location.replace(`/dashboard/${output}`)
 };

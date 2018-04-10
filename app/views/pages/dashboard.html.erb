@@ -82,6 +82,7 @@ const inputFocus = document.getElementById('searchFocus');
 const resultsFocus = document.getElementById('resultsFocus');
 const selectedFocusContainer = document.getElementById('selected-focus')
 let selectedFocus = []
+let selectedFocusString = ''
 
 function toggleFocusSearch(){
   focusWrapper.style.display = focusWrapper.style.display === 'none' ? '' : 'none';
@@ -101,6 +102,7 @@ function addFocus(focus) {
   if ((selectedFocus.indexOf(focus) == -1)){
   selectedFocusContainer.insertAdjacentHTML('afterbegin', `<h4>${focus}  <h4> `)
   selectedFocus.push(focus)
+  selectedFocusString += `${focus.replace('&','and')},`
   }
 };
 function resetFocusSelection(){
