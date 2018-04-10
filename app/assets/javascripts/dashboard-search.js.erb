@@ -1,0 +1,120 @@
+// NGO SEARCH
+
+const inputNgo = document.getElementById('searchNgo');
+const resultsNgo = document.getElementById('resultsNgo');
+const selectedNgoContainer = document.getElementById('selected-ngo')
+let selectedNgo = []
+const ngoWrapper = document.getElementById('ngo-search-wrapper')
+
+function toggleNgoSearch(){
+  ngoWrapper.style.display = ngoWrapper.style.display === 'none' ? '' : 'none';
+};
+
+
+function clearSearchNgo() {
+  resultsNgo.childNodes.forEach((child) => {
+    child.remove();
+  });
+}
+
+function addSuggestionNgo(suggestion) {
+
+  resultsNgo.insertAdjacentHTML('afterbegin', `<li onclick="addNgo('${suggestion.replace("'","|")}');">${suggestion}</li>`);
+}
+
+function addNgo(ngo) {
+  if ((selectedNgo.indexOf(ngo) == -1)){
+  selectedNgoContainer.insertAdjacentHTML('afterbegin', `<h4>${ngo.replace("|","'")}<h4> `)
+  selectedNgo.push(ngo.replace('|',"'"))
+  }
+};
+function resetNgoSelection(){
+  selectedNgo = []
+  selectedNgoContainer.childNodes.forEach(function(item){
+    item.remove()
+  });
+};
+
+function searchNgo(){
+  let ngos = ''
+  selectedNgo.forEach((single_ngo) =>
+    ngos += `${single_ngo.replace("&","and")},`)
+  console.log(ngos)
+  window.location.replace(`/dashboard/?ngo=${ngos}`);
+};
+function fetchInfoNgo() {
+  clearSearchNgo();
+  clearSearchFocus();
+  const inputValue = inputNgo.value;
+  $.ajax({
+  url: `/ngo/${inputValue}`,
+  type: 'GET',
+  dataType: 'json',
+  beforeSend: function (xhr) {
+      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+  },
+  success: function(data){data.results.forEach((word) => addSuggestionNgo(word)); },
+  error: function(xhr, status, response) {/* your error callback */}
+});
+}
+document.addEventListener('keyup', fetchInfoNgo);
+
+// neighborhood search
+const inputNeighborhood = document.getElementById('searchNeighborhood');
+const resultsNeighborhood = document.getElementById('resultsNeighborhood');
+const selectedNeighborhoodContainer = document.getElementById('selected-neighborhood')
+let selectedNeighborhood = []
+const neighborhoodWrapper = document.getElementById('neighborhood-search-wrapper')
+
+function toggleNeighborhoodSearch(){
+  neighborhoodWrapper.style.display = neighborhoodWrapper.style.display === 'none' ? '' : 'none';
+};
+
+
+function clearSearchNeighborhood() {
+  resultsNeighborhood.childNodes.forEach((child) => {
+    child.remove();
+  });
+}
+
+function addSuggestionNeighborhood(suggestion) {
+
+  resultsNeighborhood.insertAdjacentHTML('afterbegin', `<li onclick="addNeighborhood('${suggestion.replace("'","|")}');">${suggestion}</li>`);
+}
+
+function addNeighborhood(neighborhood) {
+  if ((selectedNeighborhood.indexOf(neighborhood) == -1)){
+  selectedNeighborhoodContainer.insertAdjacentHTML('afterbegin', `<h4>${neighborhood.replace("|","'")}<h4> `)
+  selectedNeighborhood.push(neighborhood.replace('|',"'"))
+  }
+};
+function resetNeighborhoodSelection(){
+  selectedNeighborhood = []
+  selectedNeighborhoodContainer.childNodes.forEach(function(item){
+    item.remove()
+  });
+};
+
+function searchNeighborhood(){
+  let neighborhoods = ''
+  selectedNeighborhood.forEach((single_neighborhood) =>
+    neighborhoods += `${single_neighborhood.replace("&","and")},`)
+  console.log(neighborhoods)
+  window.location.replace(`/dashboard/?neighborhood=${neighborhoods}`);
+};
+function fetchInfoNeighborhood() {
+  clearSearchNeighborhood();
+  clearSearchFocus();
+  const inputValue = inputNeighborhood.value;
+  $.ajax({
+  url: `/neighborhood/${inputValue}`,
+  type: 'GET',
+  dataType: 'json',
+  beforeSend: function (xhr) {
+      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+  },
+  success: function(data){data.results.forEach((word) => addSuggestionNeighborhood(word)); },
+  error: function(xhr, status, response) {/* your error callback */}
+});
+}
+document.addEventListener('keyup', fetchInfoNeighborhood);

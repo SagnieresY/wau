@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     get '/active_investments', to: 'investments#active_index', as: :active_investments_home
     post '/investment_unlocked_amount', to: 'investments#unlocked_amount', as: :investment_unlocked_amount
     get '/focus_area/:query', to: 'focus_area#search', as: :focus_area_search
+    get '/ngo/:query', to: 'organisations#search', as: :ngo_search
+    get '/neighborhood/:query', to:  "geos#search", as: :geo_search
     match "/404", :to => "errors#not_found", :via => :all
     match "/500", :to => "errors#internal_server_error", :via => :all
   end

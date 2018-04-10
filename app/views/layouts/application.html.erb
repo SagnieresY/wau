@@ -22,7 +22,6 @@
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
 </head>
-
 <body class="<%= @bg %>">
   <%= render 'partials/navbar' if should_render_navbar? %>
   <%= render 'partials/navbar_landing' if should_render_navbar_landing? %>
