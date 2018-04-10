@@ -1,12 +1,52 @@
 
 
-<div id="focus_area" style="width:800px;height:500px"></div>
+<div id="focus_area" class="home-chart"></div>
 <div id="ngo"></div>
-<div id="installments" style="width:800px;height:500px"></div>
+<div id="installments" class="home-chart"></div>
 <%= content_for(:after_js) do %>
-<%= line_chart @chart_installments_data.map { |status, data|
-    {name: status, data: data}}, id: "installments" %>
+<script type="text/javascript">
+  Chart.defaults.global.defaultFontFamily = 'Raleway';
+</script>
+<!-- CUMMULATIVE INSTALLMENT BY DATE CHART -->
+<%= area_chart @chart_installments_data.map { |status, data|
+    {name: status, data: data}},
+    id: "installments",
+    points: false,
+    prefix: "$",
+    max: current_user.organisation.amount_for_year,
+    thousands: ",",
+    colors: ["#AE6CB5", "#8D81D2"],
+    library: {
+        tooltips: {
+        enabled: true,
+        mode: 'index',
+        intersect: false
+        },
+      title: {
+        display: true,
+        text: 'FY Forecasted Investments by Focus Area'
+      }
+    } %>
 
-<%= column_chart @chart_focus_area_data.map { |status, data|
-    {name: status, data: data}},id: "focus_area", stacked:true %>
+<!-- CUMMULATIVE INSTALLMENT BY FOCUS AREA CHART -->
+<%= bar_chart @chart_focus_area_data.map { |status, data|
+    {name: status, data: data}},
+    id: "focus_area",
+    stacked:true, prefix: "$",
+    thousands: ",",
+    download: true,
+    colors: ["#AE6CB5", "#8D81D2"],
+    library: {
+        tooltips: {
+        enabled: true,
+        mode: 'index',
+        intersect: false
+        },
+      title: {
+        display: true,
+        text: 'FY Forecasted Investments'
+      },
+    } %>
+
 <% end %>
+

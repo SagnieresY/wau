@@ -32,6 +32,7 @@ gem 'cocoon'
 gem 'globalize', '~> 5.1.0.beta2'
 gem 'jquery-tablesorter'
 gem 'kaminari'
+gem 'groupdate'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
