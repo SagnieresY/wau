@@ -28,7 +28,6 @@
    </div>
    <h2>selected focus <a onclick="resetFocusSelection();">reset</a></h2>
    <div id="selected-focus"></div>
-   <button onclick="searchFocus();">search focus</button>
 </div>
 <br>
 <br>
@@ -41,7 +40,6 @@
    </div>
    <h2>selected Ngo <a onclick="resetNgoSelection();">reset</a></h2>
    <div id="selected-ngo"></div>
-   <button onclick="searchNgo();">search Ngo</button>
 </div>
 <br>
 <br>
@@ -54,7 +52,6 @@
    </div>
    <h2>selected Neighborhood <a onclick="resetNeighborhoodSelection();">reset</a></h2>
    <div id="selected-neighborhood"></div>
-   <button onclick="searchNeighborhood();">search Neighborhood</button>
 </div>
 <br>
 <br>
@@ -64,7 +61,6 @@
     <input type="date" id="min-date">
     <h4>max date</h4>
     <input type="date" id="max-date">
-   <button onclick="searchDates();">search by date</button>
 </div>
 <br>
 <br>
@@ -77,9 +73,8 @@
    </div>
    <h2>selected Project <a onclick="resetProjectSelection();">reset</a></h2>
    <div id="selected-project"></div>
-   <button onclick="searchProject();">search Project</button>
 </div>
-
+<button onclick="searchAll();">Search!</button>
 <%=  content_for(:after_js) do %>
 <script>
 const focusWrapper = document.getElementById('focus-search-wrapper')

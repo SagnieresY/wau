@@ -35,16 +35,11 @@ function resetNgoSelection(){
   });
 };
 
-function searchNgo(){
-  let ngos = ''
-  selectedNgo.forEach((single_ngo) =>
-    ngos += `${single_ngo.replace("&","and")},`)
-  console.log(ngos)
-  window.location.replace(`/dashboard/?ngo=${ngos}`);
-};
 function fetchInfoNgo() {
-  clearSearchNgo();
+  clearSearchProject();
+  clearSearchNeighborhood();
   clearSearchFocus();
+  clearSearchNgo();
   const inputValue = inputNgo.value;
   $.ajax({
   url: `/ngo/${inputValue}`,
@@ -95,16 +90,11 @@ function resetNeighborhoodSelection(){
   });
 };
 
-function searchNeighborhood(){
-  let neighborhoods = ''
-  selectedNeighborhood.forEach((single_neighborhood) =>
-    neighborhoods += `${single_neighborhood.replace("&","and")},`)
-  console.log(neighborhoods)
-  window.location.replace(`/dashboard/?neighborhood=${neighborhoods}`);
-};
 function fetchInfoNeighborhood() {
+  clearSearchProject();
   clearSearchNeighborhood();
   clearSearchFocus();
+  clearSearchNgo();
   const inputValue = inputNeighborhood.value;
   $.ajax({
   url: `/neighborhood/${inputValue}`,
@@ -121,7 +111,6 @@ document.addEventListener('keyup', fetchInfoNeighborhood);
 // date search
 const minDate = document.getElementById('min-date').value
 const maxDate = document.getElementById('max-date').value
-
 const dateWrapper = document.getElementById('date-search-wrapper')
 function toggleDateSearch(){
   dateWrapper.style.display = dateWrapper.style.display === 'none' ? '' : 'none';
@@ -162,16 +151,11 @@ function resetProjectSelection(){
   });
 };
 
-function searchProject(){
-  let projects = ''
-  selectedProject.forEach((single_project) =>
-    projects += `${single_project.replace("&","and")},`)
-  console.log(projects)
-  window.location.replace(`/dashboard/?project=${projects}`);
-};
 function fetchInfoProject() {
   clearSearchProject();
+  clearSearchNeighborhood();
   clearSearchFocus();
+  clearSearchNgo();
   const inputValue = inputProject.value;
   $.ajax({
   url: `/project/${inputValue}`,
@@ -185,3 +169,8 @@ function fetchInfoProject() {
 });
 }
 document.addEventListener('keyup', fetchInfoProject);
+// search all
+function searchAll(){
+  let output = ''
+
+};
