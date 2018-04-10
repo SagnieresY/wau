@@ -21,7 +21,7 @@
     <ul id="resultsFocus">
     </ul>
   </div>
-    <h2>selected focus</h2>
+    <h2>selected focus <a onclick="resetFocusSelection();">reset</a></h2>
 
 <div id="selected-focus">
 </div>
@@ -35,7 +35,7 @@
     <ul id="resultsNgo">
     </ul>
   </div>
-    <h2>selected Ngo</h2>
+    <h2>selected Ngo <a onclick="resetNgoSelection();">reset</a></h2>
 <div id="selected-ngo">
 </div>
 <button onclick="searchNgo();">search Ngo</button>
@@ -57,12 +57,15 @@ function addSuggestionFocus(suggestion) {
 
 function addFocus(focus) {
   if ((selectedFocus.indexOf(focus) == -1)){
-  selectedFocusContainer.insertAdjacentHTML('afterbegin', `<h4>${focus}  <a onclick="removeFocus('${focus}')">x</a><h4> `)
+  selectedFocusContainer.insertAdjacentHTML('afterbegin', `<h4>${focus}  <h4> `)
   selectedFocus.push(focus)
   }
 };
-function removeFocus(focus){
-
+function resetFocusSelection(){
+  selectedFocus = []
+  selectedFocusContainer.childNodes.forEach(function(item){
+    item.remove()
+  });
 };
 
 function searchFocus(){
@@ -75,7 +78,7 @@ function fetchInfoFocus() {
   clearSearchFocus();
   const inputValue = inputFocus.value;
   $.ajax({
-  url: `/<%= "fr" if params["locale"] == "fr" %>/focus_area/${inputValue}`,
+  url: `<%= "/fr" if params["locale"] == "fr" %>/focus_area/${inputValue}`,
   type: 'GET',
   dataType: 'json',
   beforeSend: function (xhr) {
@@ -106,12 +109,15 @@ function addSuggestionNgo(suggestion) {
 
 function addNgo(ngo) {
   if ((selectedNgo.indexOf(ngo) == -1)){
-  selectedNgoContainer.insertAdjacentHTML('afterbegin', `<h4>${ngo.replace("|","'")} <a onclick="removeNgo('${ngo}')">x</a><h4> `)
+  selectedNgoContainer.insertAdjacentHTML('afterbegin', `<h4>${ngo.replace("|","'")}<h4> `)
   selectedNgo.push(ngo.replace('|',"'"))
   }
 };
-function removeNgo(ngo){
-
+function resetNgoSelection(){
+  selectedNgo = []
+  selectedNgoContainer.childNodes.forEach(function(item){
+    item.remove()
+  });
 };
 
 function searchNgo(){
