@@ -4,6 +4,13 @@ const inputNgo = document.getElementById('searchNgo');
 const resultsNgo = document.getElementById('resultsNgo');
 const selectedNgoContainer = document.getElementById('selected-ngo')
 let selectedNgo = []
+const ngoWrapper = document.getElementById('ngo-search-wrapper')
+
+function toggleNgoSearch(){
+  ngoWrapper.style.display = ngoWrapper.style.display === 'none' ? '' : 'none';
+};
+
+
 function clearSearchNgo() {
   resultsNgo.childNodes.forEach((child) => {
     child.remove();
