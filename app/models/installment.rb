@@ -102,7 +102,7 @@ class Installment < ApplicationRecord
 
   def self.filter_by_ngo(installments,ngos)
     @output = []
-    ngos = ngos.split(',')
+    ngos = ngos.gsub('and', '&').split(',')
     ngos.each do |ngo|
       installments.select{|i| i.investment.project.organisation.name == ngo}.each do |installment|
         @output.push(installment)
@@ -111,8 +111,25 @@ class Installment < ApplicationRecord
     @output
   end
 
-  def self.filter_by_neighborhood(installments,neighborhood)
-    installments.select{|i| i.investment.project.geos.map(&:name).include?(neighborhood)}
+  def self.filter_by_neighborhood(installments,neighborhoods)
+    @output = []
+    neighborhoods.gsub('and','&').split(',').each do |neighborhood|
+      new_installments = installments.select{|i| i.investment.project.geos.map(&:name).include?(neighborhood)}
+      new_installments.each do |installment|
+        @output.push(installment)
+      end
+    end
+    @output
+  end
+
+  def self.filter_by_project(installments,projects)
+    @output = []
+    projects.gsub('and','&').split(',').each do |project|
+      installments.select{|i| i.investment.project.name == project}.each do |installment|
+        @output.push(installment)
+      end
+    end
+    @output
   end
 
 end

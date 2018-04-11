@@ -1,4 +1,4 @@
-<%= params[:ngo]%>
+<%= params[:project]%>
 
 
 
@@ -28,7 +28,6 @@
    </div>
    <h2>selected focus <a onclick="resetFocusSelection();">reset</a></h2>
    <div id="selected-focus"></div>
-   <button onclick="searchFocus();">search focus</button>
 </div>
 <br>
 <br>
@@ -41,7 +40,6 @@
    </div>
    <h2>selected Ngo <a onclick="resetNgoSelection();">reset</a></h2>
    <div id="selected-ngo"></div>
-   <button onclick="searchNgo();">search Ngo</button>
 </div>
 <br>
 <br>
@@ -54,10 +52,29 @@
    </div>
    <h2>selected Neighborhood <a onclick="resetNeighborhoodSelection();">reset</a></h2>
    <div id="selected-neighborhood"></div>
-   <button onclick="searchNeighborhood();">search Neighborhood</button>
 </div>
-
-
+<br>
+<br>
+<button onclick="toggleDateSearch();">toggle date search</button>
+<div id="date-search-wrapper" style="display:none" >
+    <h4>min date</h4>
+    <input type="date" id="min-date">
+    <h4>max date</h4>
+    <input type="date" id="max-date">
+</div>
+<br>
+<br>
+<button onclick="toggleProjectSearch();">toggle project search</button>
+<div id="project-search-wrapper" style="display:none;">
+   <div id="containerProject">
+      <input type="text" id="searchProject">
+      <ul id="resultsProject">
+      </ul>
+   </div>
+   <h2>selected Project <a onclick="resetProjectSelection();">reset</a></h2>
+   <div id="selected-project"></div>
+</div>
+<button onclick="searchAll();">Search!</button>
 <%=  content_for(:after_js) do %>
 <script>
 const focusWrapper = document.getElementById('focus-search-wrapper')
@@ -65,6 +82,7 @@ const inputFocus = document.getElementById('searchFocus');
 const resultsFocus = document.getElementById('resultsFocus');
 const selectedFocusContainer = document.getElementById('selected-focus')
 let selectedFocus = []
+let selectedFocusString = ''
 
 function toggleFocusSearch(){
   focusWrapper.style.display = focusWrapper.style.display === 'none' ? '' : 'none';
@@ -84,6 +102,7 @@ function addFocus(focus) {
   if ((selectedFocus.indexOf(focus) == -1)){
   selectedFocusContainer.insertAdjacentHTML('afterbegin', `<h4>${focus}  <h4> `)
   selectedFocus.push(focus)
+  selectedFocusString += `${focus.replace('&','and')},`
   }
 };
 function resetFocusSelection(){
@@ -119,3 +138,6 @@ document.addEventListener('keyup', fetchInfoFocus);
 
 </script>
 <% end %>
+
+
+<%= render partial: '/partials/dashboard_investment_table' %>

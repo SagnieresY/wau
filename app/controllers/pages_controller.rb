@@ -36,14 +36,21 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-
     raw_next_installments = current_user.organisation.uncompleted_investments.map{|i| i.next_installment}
     @installments = raw_next_installments
     if params[:focus_area].present?
       @installments = Installment.filter_by_focus(@installments,params[:focus_area])
-    elsif params[:ngo].present?
+    end
+    if params[:ngo].present?
       @installments = Installment.filter_by_ngo(@installments,params[:ngo])
     end
+    if params[:neighborhood].present?
+      @installments = Installment.filter_by_neighborhood(@installments,params[:neighborhood])
+    end
+    if params[:project].present?
+      @installments = Installment.filter_by_project(@installments, params[:project])
+    end
+
 
     @chart_focus_area_data = FocusArea.forecasted_amount_by_focus_area(current_user.organisation)
     @chart_ngo_data = current_user.organisation.amount_by_ngo
