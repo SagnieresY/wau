@@ -80,13 +80,13 @@ class Organisation < ApplicationRecord
   def locked_amount_by_focus_area_year(year)
     # Will iterate through all focus_areas and cumulate the locked amounts
     locked = {}
-    focus_areas.each do |p| 
-      name = p.name 
+    focus_areas.each do |p|
+      name = p.name
       amount = p.locked_amount_year_range(self, year)
       p name
       p amount
       if locked.key?(name)
-          unless amount.nil?  
+          unless amount.nil?
           locked[name] += amount
           end
       elsif amount.nil?
@@ -101,13 +101,13 @@ class Organisation < ApplicationRecord
   def unlocked_amount_by_focus_area_year(year)
     # Will iterate through all focus_areas and cumulate the unlocked amounts
     unlocked = {}
-    focus_areas.each do |p| 
-      name = p.name 
+    focus_areas.each do |p|
+      name = p.name
       amount = p.unlocked_amount_year_range(self, year)
       p name
       p amount
       if unlocked.key?(name)
-          unless amount.nil?  
+          unless amount.nil?
           unlocked[name] += amount
           end
       elsif amount.nil?

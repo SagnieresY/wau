@@ -29,7 +29,7 @@ class PagesController < ApplicationController
         @chart_focus_area_data = FocusArea.forecasted_amount_by_focus_area(current_user.organisation)
         @chart_ngo_data = current_user.organisation.amount_by_ngo
         # NOT USED IN HOME CHARTS ANYMORE
-        # @chart_installments_data = current_user.organisation.amount_by_date_cumulative 
+        # @chart_installments_data = current_user.organisation.amount_by_date_cumulative
         @years_of_service = Installment.years_of_service(current_user.organisation)
       else
         redirect_to no_organisation_path
@@ -51,12 +51,6 @@ class PagesController < ApplicationController
     if params[:project].present?
       @installments = Installment.filter_by_project(@installments, params[:project])
     end
-
-
-    @chart_focus_area_data = FocusArea.forecasted_amount_by_focus_area(current_user.organisation)
-    @chart_ngo_data = current_user.organisation.amount_by_ngo
-    @chart_installments_data = current_user.organisation.amount_by_date_cumulative
-    @years_of_service = Installment.years_of_service(current_user.organisation)
   end
 
 
