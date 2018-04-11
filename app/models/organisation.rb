@@ -33,14 +33,14 @@ class Organisation < ApplicationRecord
   end
 
   def unlocked_installments
-    installments.where(status:"unlocked")
-  end
+    installments.where(status:"unlocked") #array of unlocked installments
+   end
 
   def locked_installments
-    installments.where(status:"locked")
+    installments.where(status:"locked") #array of locked installments
   end
 
-  def rescinded_installments
+  def rescinded_installments #array of rescinded installments
     installments.where(status:"rescinded")
   end
 
@@ -60,7 +60,7 @@ class Organisation < ApplicationRecord
     upcoming_installments.map(&:amount).reduce(0,:+)
   end
 
-  def amount_by_ngo
+  def amount_by_ngo #hash of invested amount(locked & unlocked) by ngo
     output = {unlocked: {},locked: {}}
     invest_by_ngo = investments.group_by{|invest| invest.project.organisation.name}
     invest_by_ngo.each do |k,v|
@@ -80,13 +80,13 @@ class Organisation < ApplicationRecord
   def locked_amount_by_focus_area_year(year)
     # Will iterate through all focus_areas and cumulate the locked amounts
     locked = {}
-    focus_areas.each do |p| 
-      name = p.name 
+    focus_areas.each do |p|
+      name = p.name
       amount = p.locked_amount_year_range(self, year)
       p name
       p amount
       if locked.key?(name)
-          unless amount.nil?  
+          unless amount.nil?
           locked[name] += amount
           end
       elsif amount.nil?
@@ -101,13 +101,13 @@ class Organisation < ApplicationRecord
   def unlocked_amount_by_focus_area_year(year)
     # Will iterate through all focus_areas and cumulate the unlocked amounts
     unlocked = {}
-    focus_areas.each do |p| 
-      name = p.name 
+    focus_areas.each do |p|
+      name = p.name
       amount = p.unlocked_amount_year_range(self, year)
       p name
       p amount
       if unlocked.key?(name)
-          unless amount.nil?  
+          unless amount.nil?
           unlocked[name] += amount
           end
       elsif amount.nil?
