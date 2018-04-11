@@ -1,49 +1,22 @@
-<%= params[:project]%>
-
-<div class=home-wrapper>
-   <div class="white-info-parent-flex">
-      <div class="container-home-info-box">
-         <div id="investment_count_home" class="white-info-child-box">
-            <%= render partial: "/partials/investment_count_home" %>
-         </div>
-         <div id="unlocked-amount" class="white-info-child-box">
-            <%= render partial: "/partials/total_unlocked_home" %>
-         </div>
-         <div id="forecasted-amount" class="white-info-child-box">
-            <%= render partial: "/partials/forecasted_amount_home" %>
-         </div>
-      </div>
-   </div>
-</div>
-<br>
-<br>
-<<<<<<< HEAD
-<input type="text" id="year-range">
-<button onclick="changeyear()">Change year</button>
-<br>
-<br>
-<%= render partial: '/partials/dashboard_search' %>
-<div id="charts">
-  <%= render partial: '/partials/charts/dashboard_charts' %>
-=======
+<div class="search-wrapper">
+<!-- COMMMMMMMMMMMENT -->
 <button onclick="toggleFocusSearch()">toggle focus search</button>
-<div id="focus-search-wrapper" style="display:none;">
+<div id="focus-search-wrapper" class="search-tool" style="display:none;">
    <div id="containerFocus">
       <input type="text" id="searchFocus">
-      <ul id="resultsFocus">
+      <ul id="resultsFocus" class="suggestion-box">
       </ul>
    </div>
    <h2>selected focus <a onclick="resetFocusSelection();">reset</a></h2>
    <div id="selected-focus"></div>
->>>>>>> 91fc2387740387e2f79b960b60e7f5e57ba9036a
 </div>
 <br>
 <br>
 <button onclick="toggleNgoSearch();">toggle ngo search</button>
-<div id="ngo-search-wrapper" style="display:none;">
+<div id="ngo-search-wrapper" class="search-tool" style="display:none;">
    <div id="containerNgo">
       <input type="text" id="searchNgo">
-      <ul id="resultsNgo">
+      <ul id="resultsNgo" class="suggestion-box">
       </ul>
    </div>
    <h2>selected Ngo <a onclick="resetNgoSelection();">reset</a></h2>
@@ -52,10 +25,10 @@
 <br>
 <br>
 <button onclick="toggleNeighborhoodSearch();">toggle neighborhood search</button>
-<div id="neighborhood-search-wrapper" style="display:none;">
+<div id="neighborhood-search-wrapper" class="search-tool" style="display:none;">
    <div id="containerNeighborhood">
       <input type="text" id="searchNeighborhood">
-      <ul id="resultsNeighborhood">
+      <ul id="resultsNeighborhood" class="suggestion-box">
       </ul>
    </div>
    <h2>selected Neighborhood <a onclick="resetNeighborhoodSelection();">reset</a></h2>
@@ -64,7 +37,7 @@
 <br>
 <br>
 <button onclick="toggleDateSearch();">toggle date search</button>
-<div id="date-search-wrapper" style="display:none" >
+<div id="date-search-wrapper" class="search-tool" style="display:none" >
     <h4>min date</h4>
     <input type="date" id="min-date">
     <h4>max date</h4>
@@ -73,16 +46,17 @@
 <br>
 <br>
 <button onclick="toggleProjectSearch();">toggle project search</button>
-<div id="project-search-wrapper" style="display:none;">
+<div id="project-search-wrapper" class="search-tool" style="display:none;">
    <div id="containerProject">
       <input type="text" id="searchProject">
-      <ul id="resultsProject">
+      <ul id="resultsProject" class="suggestion-box">
       </ul>
    </div>
    <h2>selected Project <a onclick="resetProjectSelection();">reset</a></h2>
    <div id="selected-project"></div>
 </div>
 <button onclick="searchAll();">Search!</button>
+</div>
 <%=  content_for(:after_js) do %>
 <script>
 const focusWrapper = document.getElementById('focus-search-wrapper')
@@ -103,7 +77,7 @@ function clearSearchFocus() {
 }
 
 function addSuggestionFocus(suggestion) {
-  resultsFocus.insertAdjacentHTML('afterbegin', `<li onclick="addFocus('${suggestion}');">${suggestion}</li>`);
+  resultsFocus.insertAdjacentHTML('afterbegin', `<li class="suggestion-item"  onclick="addFocus('${suggestion}');">${suggestion}</li>`);
 }
 
 function addFocus(focus) {
@@ -146,10 +120,3 @@ document.addEventListener('keyup', fetchInfoFocus);
 
 </script>
 <% end %>
-
-
-<%= render partial: '/partials/dashboard_investment_table' %>
-<script>
-
-</script>
-<!-- COMMENT -->

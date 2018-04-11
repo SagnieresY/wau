@@ -118,7 +118,7 @@ class Organisation < ApplicationRecord
     end
     unlocked
   end
-
+#COMMENT
 
   # NOT USED IN HOME CHARTS ANYMORE
   # def amount_by_date_cumulative
