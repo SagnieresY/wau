@@ -54,7 +54,7 @@ function fetchInfoNgo() {
   error: function(xhr, status, response) {/* your error callback */}
 });
 }
-document.addEventListener('keyup', fetchInfoNgo);
+inputNgo.addEventListener('keyup', fetchInfoNgo);
 
 // neighborhood search
 const inputNeighborhood = document.getElementById('searchNeighborhood');
@@ -111,7 +111,7 @@ function fetchInfoNeighborhood() {
   error: function(xhr, status, response) {/* your error callback */}
 });
 }
-document.addEventListener('keyup', fetchInfoNeighborhood);
+inputNeighborhood.addEventListener('keyup', fetchInfoNeighborhood);
 // date search
 const minDate = document.getElementById('min-date').value
 const maxDate = document.getElementById('max-date').value
@@ -174,7 +174,7 @@ function fetchInfoProject() {
   error: function(xhr, status, response) {/* your error callback */}
 });
 }
-document.addEventListener('keyup', fetchInfoProject);
+inputProject.addEventListener('keyup', fetchInfoProject);
 // search all
 function searchAll(){
   let output = ''
