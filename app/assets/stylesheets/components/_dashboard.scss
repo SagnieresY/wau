@@ -1,0 +1,19 @@
+.search-wrapper {
+  display:flex;
+  margin-bottom: 50px;
+}
+.search-tool {
+  display:block;
+}
+.suggestion-box {
+  position:absolute;
+}
+.suggestion-item {
+  position:relative;
+  left:-40px;
+  width:300px;
+  font-size:15px;
+  border: 1px solid lightgrey;
+  display:block;
+  background-color:white;
+}

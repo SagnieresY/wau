@@ -20,7 +20,7 @@ function clearSearchNgo() {
 
 function addSuggestionNgo(suggestion) {
 
-  resultsNgo.insertAdjacentHTML('afterbegin', `<li onclick="addNgo('${suggestion.replace("'","|")}');">${suggestion}</li>`);
+  resultsNgo.insertAdjacentHTML('afterbegin', `<li class="suggestion-item" onclick="addNgo('${suggestion.replace("'","|")}');">${suggestion}</li>`);
 }
 
 function addNgo(ngo) {
@@ -77,7 +77,7 @@ function clearSearchNeighborhood() {
 
 function addSuggestionNeighborhood(suggestion) {
 
-  resultsNeighborhood.insertAdjacentHTML('afterbegin', `<li onclick="addNeighborhood('${suggestion.replace("'","|")}');">${suggestion}</li>`);
+  resultsNeighborhood.insertAdjacentHTML('afterbegin', `<li class="suggestion-item" onclick="addNeighborhood('${suggestion.replace("'","|")}');">${suggestion}</li>`);
 }
 
 function addNeighborhood(neighborhood) {
@@ -140,7 +140,7 @@ function clearSearchProject() {
 
 function addSuggestionProject(suggestion) {
 
-  resultsProject.insertAdjacentHTML('afterbegin', `<li onclick="addProject('${suggestion.replace("'","|")}');">${suggestion}</li>`);
+  resultsProject.insertAdjacentHTML('afterbegin', `<li class="suggestion-item" onclick="addProject('${suggestion.replace("'","|")}');">${suggestion}</li>`);
 }
 
 function addProject(project) {
