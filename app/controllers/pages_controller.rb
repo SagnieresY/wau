@@ -24,16 +24,12 @@ class PagesController < ApplicationController
           
           current_year_unlocked_installments = current_user.organisation.locked_installments.group_by_year(:deadline, range: current_year)
         # NOT USED IN HOME CHARTS ANYMORE
-        # @years_of_service = Installment.years_of_service(current_user.organisation)
-        # @chart_focus_area_data = FocusArea.forecasted_amount_by_focus_area(current_user.organisation)
-        # @chart_ngo_data = current_user.organisation.amount_by_ngo
-        # @chart_installments_data = current_user.organisation.amount_by_date_cumulative 
-        # @investments_by_focus_area = current_user.organisation.investments_by_focus_area
+        @years_of_service = Installment.years_of_service(current_user.organisation)
       else
         redirect_to no_organisation_path
       end
   end
-
+#COMMENT
   def dashboard
     raw_next_installments = current_user.organisation.uncompleted_investments.map{|i| i.next_installment}
     @installments = raw_next_installments
@@ -49,12 +45,6 @@ class PagesController < ApplicationController
     if params[:project].present?
       @installments = Installment.filter_by_project(@installments, params[:project])
     end
-
-
-    @chart_focus_area_data = FocusArea.forecasted_amount_by_focus_area(current_user.organisation)
-    @chart_ngo_data = current_user.organisation.amount_by_ngo
-    @chart_installments_data = current_user.organisation.amount_by_date_cumulative
-    @years_of_service = Installment.years_of_service(current_user.organisation)
   end
 
 
