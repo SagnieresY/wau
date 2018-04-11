@@ -1,0 +1,132 @@
+<div class="tab">
+  <h3>Chart menu</h3>
+  <button class="tablinks" onclick="openChart(event, 'focus_area')">By Focus area</button>
+  <button class="tablinks" onclick="openChart(event, 'ngo')">By NGO</button>
+  <button class="tablinks" onclick="openChart(event, 'installments')">Timeline</button>
+  <button class="tablinks" onclick="openChart(event, 'neighborhood')">Close chart</button>
+</div>
+
+
+
+
+<div class="dashboard-charts">
+<div id="focus_area" class="dashboard-chart tabcontent"></div>
+<div id="ngo" class="dashboard-chart tabcontent"></div>
+<div id="installments" class="dashboard-chart tabcontent"></div>
+<div class="neighborhood" class="dashboard-chart tabcontent"></div>
+</div>
+<%= content_for(:after_js) do %>
+<script type="text/javascript">
+  Chart.defaults.global.defaultFontFamily = 'Raleway';
+</script>
+<!-- CUMMULATIVE INSTALLMENT BY DATE CHART -->
+
+<% year = params[:year].present? ? params[:year] : Date.today.year %>
+<%= area_chart [
+    {name: "Unocked", data: cumulate_my_hash(current_user.organisation.unlocked_installments.current_year_monthly_amount(year_range(year)))},
+    {name: "Locked", data: cumulate_my_hash(current_user.organisation.locked_installments.current_year_monthly_amount(year_range(year)))}],
+    id: "installments",
+    points: false,
+    stacked: true,
+    download:true,
+    prefix: "$",
+    thousands: ",",
+    colors: ["#8D81D2","#AE6CB5"],
+    library: {
+        tooltips: {
+            enabled: true,
+            mode: 'index',
+            intersect: false,
+        },
+      title: {
+        display: true,
+        text: 'FY Forecasted Investments'
+      }
+    } %>
+
+<%= bar_chart [
+    {name: "Unocked", data: current_user.organisation.unlocked_amount_by_focus_area_year(year)},
+    {name: "Locked", data: current_user.organisation.locked_amount_by_focus_area_year(year)}],
+    id: "focus_area",
+    stacked:true,
+    prefix: "$",
+    thousands: ",",
+    download: true,
+    colors: ["#8D81D2", "#AE6CB5"],
+    library: {
+        tooltips: {
+        enabled: true,
+        mode: 'index',
+        intersect: false
+        },
+      title: {
+        display: true,
+        text: 'FY Forecasted Investments by Focus Area'
+      },
+    } %>
+
+  <%= bar_chart [
+    {name: "Unocked", data: current_user.organisation.amount_by_ngo[:unlocked]},
+    {name: "Locked", data: current_user.organisation.amount_by_ngo[:unlocked]}],
+    id: "ngo",
+    stacked:true,
+    prefix: "$",
+    thousands: ",",
+    download: true,
+    colors: ["#8D81D2", "#AE6CB5"],
+    library: {
+        tooltips: {
+        enabled: true,
+        mode: 'index',
+        intersect: false
+        },
+      title: {
+        display: true,
+        text: 'FY Forecasted Investments by NGO'
+      },
+    } %>
+    <%= bar_chart [
+    {name: "Unocked", data: current_user.organisation.amount_by_ngo[:unlocked]},
+    {name: "Locked", data: current_user.organisation.amount_by_ngo[:unlocked]}],
+    id: "neighborhood",
+    stacked:true,
+    prefix: "$",
+    thousands: ",",
+    download: true,
+    colors: ["#8D81D2", "#AE6CB5"],
+    library: {
+        tooltips: {
+        enabled: true,
+        mode: 'index',
+        intersect: false
+        },
+      title: {
+        display: true,
+        text: 'FY Forecasted Investments by NGO'
+      },
+    } %>
+
+  <script>
+    function openChart(evt, chartName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(chartName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+  </script>
+<% end %>
+
