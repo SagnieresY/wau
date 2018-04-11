@@ -2,6 +2,7 @@ class Investment < ApplicationRecord
 
   belongs_to :organisation
   belongs_to :project
+  has_one :focus_area, through: :project
   has_many :installments, dependent: :destroy
   validates :project, presence: true
   validates :organisation, presence: true
@@ -10,19 +11,17 @@ class Investment < ApplicationRecord
                                 allow_destroy: true,
                                 reject_if: proc { |att| att['amount'].blank? }
 
+  scope :completed, -> { where(completed: 'true') }
+  scope :active, -> {where(completed: 'false')}
+
 #installment
   def forecasted_amount
     #calculates projected amount minus the missed installments
-    valid_installments = installments.map do |m| #map passed deadline (if the installment task was done or is b4 deadline)
-      !m.rescinded? ? m.amount : 0
-    end
-
-    valid_installments.reduce(0, :+) #sums the valid installments and returns it
+    installments.unlocked.sum(:amount) + installments.unlocked.sum(:amount)
   end
 
   def unlocked_amount
-    unlocked_installments_amount = installments.map {|m| m.unlocked? ? m.amount : 0} #maps unlocked installments
-    unlocked_installments_amount.reduce(0, :+) #sums unlocked installments and returns it
+    installments.unlocked.sum(:amount)
   end
 
   def locked_amount
@@ -45,5 +44,11 @@ class Investment < ApplicationRecord
     update!(completed:true) if installments.reject{ |m|  m.unlocked? || m.rescinded?}.blank?
     update!(completed:false) unless installments.reject{ |m|  m.unlocked? || m.rescinded?}.blank?
     return completed
+  end
+
+  def active_year
+    active_year = []
+    installments.each {|i| active_year << i.year if active_year.exclude?(i.year)}
+    active_year
   end
 end

@@ -11,18 +11,21 @@ class Organisation < ApplicationRecord
   has_many :investments, dependent: :destroy
   has_many :projects, through: :investments, dependent: :destroy
   has_many :installments, through: :investments
+  has_many :focus_areas, through: :investments
   validates :name, presence: true, uniqueness: true
+
   def completed_investments
     investments.where(completed:true)
   end
-
 
   def uncompleted_investments
     investments.where(completed:false)
   end
 
   def investments_by_focus_area(completed = false)
-    investments.select{|i| i.completed == completed}.group_by{|i| i.project.focus_area.name}
+    investments.includes(:project)
+               .includes(:focus_area)
+               .select{|i| i.completed == completed}.group_by{|i| i.project.focus_area.name}
   end
 
   def upcoming_installments # accessible installments for the next 365 days
@@ -33,18 +36,24 @@ class Organisation < ApplicationRecord
     installments.where(status:"unlocked")
   end
 
-
   def locked_installments
     installments.where(status:"locked")
+  end
+
+  def rescinded_installments
+    installments.where(status:"rescinded")
   end
 
   def next_installments # array of next installments of investments
     uncompleted_investments.map(&:next_installment)
   end
 
+  def unlocked_amount #amount given via installments that are unlocked
+    unlocked_installments.sum(:amount)
+  end
 
-  def amount_unlocked #amount given via installments that are unlocked
-    unlocked_installments.map(&:amount).reduce(0,:+)
+  def locked_amount #amount given via installments that are unlocked
+    locked_installments.sum(:amount)
   end
 
   def amount_for_year #forecasted amount for the upcoming 365 days
@@ -61,17 +70,68 @@ class Organisation < ApplicationRecord
     return output
   end
 
-  def amount_by_date_cumulative
-    amounts_by_date = Installment.amount_by_date(self)
-    amounts_by_date.each do |status, dates|
-      sum = 0
-      amounts_by_date[status].each do |date, amount|
-        sum += amount
-        amounts_by_date[status][date] = sum
+  def year_range(year)
+    # Returns a Time Range of year.
+    # To be used with GROUP_BY_ (GROUPDATE)
+    t = Time.new(year,1,1,0,0,0,'+00:00')
+    t.beginning_of_year..t.end_of_year
+  end
+
+  def locked_amount_by_focus_area_year(year)
+    # Will iterate through all focus_areas and cumulate the locked amounts
+    locked = {}
+    focus_areas.each do |p| 
+      name = p.name 
+      amount = p.locked_amount_year_range(self, year)
+      p name
+      p amount
+      if locked.key?(name)
+          unless amount.nil?  
+          locked[name] += amount
+          end
+      elsif amount.nil?
+          locked[name] = 0
+      else
+          locked[name] = amount
       end
     end
-    return amounts_by_date
+    locked
   end
+
+  def unlocked_amount_by_focus_area_year(year)
+    # Will iterate through all focus_areas and cumulate the unlocked amounts
+    unlocked = {}
+    focus_areas.each do |p| 
+      name = p.name 
+      amount = p.unlocked_amount_year_range(self, year)
+      p name
+      p amount
+      if unlocked.key?(name)
+          unless amount.nil?  
+          unlocked[name] += amount
+          end
+      elsif amount.nil?
+          unlocked[name] = 0
+      else
+          unlocked[name] = amount
+      end
+    end
+    unlocked
+  end
+
+
+  # NOT USED IN HOME CHARTS ANYMORE
+  # def amount_by_date_cumulative
+  #   amounts_by_date = Installment.amount_by_date(self)
+  #   amounts_by_date.each do |status, dates|
+  #     sum = 0
+  #     amounts_by_date[status].each do |date, amount|
+  #       sum += amount
+  #       amounts_by_date[status][date] = sum
+  #     end
+  #   end
+  #   return amounts_by_date
+  # end
 end
 
 

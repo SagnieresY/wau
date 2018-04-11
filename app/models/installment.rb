@@ -7,6 +7,8 @@ class Installment < ApplicationRecord
       tsearch: { prefix: true}
     }
   belongs_to :investment
+  has_one :focus_area, through: :investment
+  has_one :project, through: :investment
   validates :status, inclusion: { in: %w(locked unlocked rescinded) }
   validates :task, presence: true
   validates :amount, presence: true
@@ -53,7 +55,7 @@ class Installment < ApplicationRecord
 
   def self.amount_by_date(organisation)
     installments = organisation.upcoming_installments
-    installments_by_status = installments.group_by{|inst| inst.status.to_sym}
+    installments_by_status = installments.group_by{|inst| inst.status.to_sym}.includes(:investment)
 
     output = {locked:{},unlocked:{}}
     installments_by_status.each do |status, installments|
@@ -86,9 +88,11 @@ class Installment < ApplicationRecord
     return installments
 
   end
+
   def self.installments_by_neighborhood(installments)
     return installments.group_by{|i| i.investment.project.geos}
   end
+
   def self.filter_by_focus(installments,focus_areas)
     focus_areas = focus_areas.gsub('and', '&').split(',')
     output = []
@@ -132,4 +136,11 @@ class Installment < ApplicationRecord
     @output
   end
 
+  def self.current_year_monthly_amount(year_range)
+    self.group_by_month(:deadline, format: "%b", range: year_range).sum(:amount)
+  end
+
+  def year
+    deadline.year
+  end
 end
