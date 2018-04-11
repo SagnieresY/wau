@@ -83,8 +83,6 @@ class Organisation < ApplicationRecord
     focus_areas.each do |p|
       name = p.name
       amount = p.locked_amount_year_range(self, year)
-      p name
-      p amount
       if locked.key?(name)
           unless amount.nil?
           locked[name] += amount
@@ -104,8 +102,6 @@ class Organisation < ApplicationRecord
     focus_areas.each do |p|
       name = p.name
       amount = p.unlocked_amount_year_range(self, year)
-      p name
-      p amount
       if unlocked.key?(name)
           unless amount.nil?
           unlocked[name] += amount
@@ -121,17 +117,17 @@ class Organisation < ApplicationRecord
 #COMMENT
 
   # NOT USED IN HOME CHARTS ANYMORE
-  # def amount_by_date_cumulative
-  #   amounts_by_date = Installment.amount_by_date(self)
-  #   amounts_by_date.each do |status, dates|
-  #     sum = 0
-  #     amounts_by_date[status].each do |date, amount|
-  #       sum += amount
-  #       amounts_by_date[status][date] = sum
-  #     end
-  #   end
-  #   return amounts_by_date
-  # end
+  def amount_by_date_cumulative
+    amounts_by_date = Installment.amount_by_date(self)
+    amounts_by_date.each do |status, dates|
+      sum = 0
+      amounts_by_date[status].each do |date, amount|
+        sum += amount
+        amounts_by_date[status][date] = sum
+      end
+    end
+    return amounts_by_date
+  end
 end
 
 
