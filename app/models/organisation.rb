@@ -76,7 +76,13 @@ class Organisation < ApplicationRecord
     t = Time.new(year,1,1,0,0,0,'+00:00')
     t.beginning_of_year..t.end_of_year
   end
-
+  def self.Otherify(hash)
+    main_focuses = hash.sort{ |focus, amount| focus[1]<=>amount[1] }.reverse[(0..8)].to_h
+    others = hash.sort{ |focus, amount| focus[1]<=>amount[1] }.reverse[(9..-1)]
+    others = others.map{|focus| focus[1]}.reduce(0,:+)
+    main_focuses["Others"] = others
+    main_focuses
+  end
   def locked_amount_by_focus_area_year(year)
     # Will iterate through all focus_areas and cumulate the locked amounts
     locked = {}
@@ -95,17 +101,15 @@ class Organisation < ApplicationRecord
           locked[name] = amount
       end
     end
-    locked
+    Organisation.Otherify(locked)
   end
 
   def unlocked_amount_by_focus_area_year(year)
     # Will iterate through all focus_areas and cumulate the unlocked amounts
     unlocked = {}
-    focus_areas.each do |p|
-      name = p.name
-      amount = p.unlocked_amount_year_range(self, year)
-      p name
-      p amount
+    focus_areas.each do |focus|
+      name = focus.name
+      amount = focus.unlocked_amount_year_range(self, year)
       if unlocked.key?(name)
           unless amount.nil?
           unlocked[name] += amount
@@ -116,7 +120,7 @@ class Organisation < ApplicationRecord
           unlocked[name] = amount
       end
     end
-    unlocked
+    Organisation.Otherify(unlocked)
   end
 
 
