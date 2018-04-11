@@ -24,6 +24,30 @@ class Project < ApplicationRecord
      #orders project installments by deadline then select the first one
   end
 
+  def unlocked_installments
+    installments.where(status:"unlocked")
+  end
+
+  def unlocked_amount
+    unlocked_installments.sum(:amount)
+  end
+
+  def locked_installments
+    installments.where(status:"locked")
+  end
+
+  def locked_amount
+    locked_installments.sum(:amount)
+  end
+
+  def rescinded_installments
+    installments.where(status:"rescinded")
+  end
+
+  def rescinded_amount
+    rescinded_installments.sum(:amount)
+  end
+
   def installments_by_deadline
     installments.order('deadline ASC')
   end
@@ -33,7 +57,7 @@ class Project < ApplicationRecord
   end
 
   def total_funding
-    installments.map(&:amount).reduce(0,:+)
+    installments.sum(:amount)
   end
 
   def installments_by_month

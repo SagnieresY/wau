@@ -51,6 +51,8 @@ GEM
       sass (>= 3.3.4)
     builder (3.2.3)
     byebug (10.0.0)
+    calculate-all (0.2.0)
+      activerecord
     carrierwave (1.2.2)
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
@@ -262,6 +264,7 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   bootstrap-sass (~> 3.3)
+  calculate-all
   carrierwave (~> 1.2)
   chartkick
   cloudinary

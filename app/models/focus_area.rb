@@ -1,5 +1,9 @@
  class FocusArea < ApplicationRecord
-	translates :name
+	has_many :projects
+  has_many :investments, through: :projects
+  has_many :installments, through: :investments
+
+  translates :name
   include PgSearch
   has_many :focus_area_translations
   multisearchable against: [ :name ]
@@ -11,16 +15,55 @@
       tsearch: { prefix: true }
     }
 
+  def year_range(year)
+    # Returns a Time Range of year.
+    # To be used with GROUP_BY_ (GROUPDATE)
+    t = Time.new(year,1,1,0,0,0,'+00:00')
+    t.beginning_of_year..t.end_of_year
+  end
+
+  def unlocked_installments
+    installments.where(status:"unlocked")
+  end
+
+  def unlocked_amount
+    unlocked_installments.sum(:amount)
+  end
+
+  def unlocked_amount_year_range(year)
+    unlocked_installments.group_by_year(:deadline, range: year_range(year), format: "%Y").sum(:amount)[year]
+  end
+
+  def locked_installments
+    installments.where(status:"locked")
+  end
+
+  def locked_amount
+    locked_installments.sum(:amount)
+  end
+
+  def locked_amount_year_range(year)
+    locked_installments.group_by_year(:deadline, range: year_range(year), format: "%Y").sum(:amount)[year]
+  end
+
+  def rescinded_installments
+    installments.where(status:"rescinded")
+  end
+
+  def rescinded_amount
+    rescinded_installments.sum(:amount)
+  end
+
   def self.forecasted_amount_by_focus_area(organisation)
     installments = organisation.upcoming_installments
     installments_by_status = installments.group_by{|inst| inst.status.to_sym}
     output = {locked:{},unlocked:{}}
     installments_by_status.each do |status, installments|
       installments_by_status[status].each do |installment|
-        unless output[status][installment.investment.project.focus_area.name]
-          output[status][installment.investment.project.focus_area.name] = installment.amount
+        unless output[status][installment.focus_area.name]
+          output[status][installment.focus_area.name] = installment.amount
         else
-          output[status][installment.investment.project.focus_area.name] += installment.amount
+          output[status][installment.focus_area.name] += installment.amount
         end
       end
     end

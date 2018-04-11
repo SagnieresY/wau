@@ -2,6 +2,7 @@ class Investment < ApplicationRecord
 
   belongs_to :organisation
   belongs_to :project
+  delegate :focus_area, :to => :project
   has_many :installments, dependent: :destroy
   validates :project, presence: true
   validates :organisation, presence: true
@@ -9,6 +10,9 @@ class Investment < ApplicationRecord
   accepts_nested_attributes_for :installments,
                                 allow_destroy: true,
                                 reject_if: proc { |att| att['amount'].blank? }
+
+  scope :completed, -> { where(completed: 'true') }
+  scope :active, -> {where(completed: 'false')}
 
 #installment
   def forecasted_amount
@@ -45,5 +49,11 @@ class Investment < ApplicationRecord
     update!(completed:true) if installments.reject{ |m|  m.unlocked? || m.rescinded?}.blank?
     update!(completed:false) unless installments.reject{ |m|  m.unlocked? || m.rescinded?}.blank?
     return completed
+  end
+
+  def active_year
+    active_year = []
+    installments.each {|i| active_year << i.year if active_year.exclude?(i.year)}
+    active_year
   end
 end
