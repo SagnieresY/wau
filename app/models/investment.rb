@@ -2,7 +2,7 @@ class Investment < ApplicationRecord
 
   belongs_to :organisation
   belongs_to :project
-  delegate :focus_area, :to => :project
+  has_one :focus_area, through: :project
   has_many :installments, dependent: :destroy
   validates :project, presence: true
   validates :organisation, presence: true
@@ -17,16 +17,11 @@ class Investment < ApplicationRecord
 #installment
   def forecasted_amount
     #calculates projected amount minus the missed installments
-    valid_installments = installments.map do |m| #map passed deadline (if the installment task was done or is b4 deadline)
-      !m.rescinded? ? m.amount : 0
-    end
-
-    valid_installments.reduce(0, :+) #sums the valid installments and returns it
+    installments.unlocked.sum(:amount) + installments.unlocked.sum(:amount)
   end
 
   def unlocked_amount
-    unlocked_installments_amount = installments.map {|m| m.unlocked? ? m.amount : 0} #maps unlocked installments
-    unlocked_installments_amount.reduce(0, :+) #sums unlocked installments and returns it
+    installments.unlocked.sum(:amount)
   end
 
   def locked_amount

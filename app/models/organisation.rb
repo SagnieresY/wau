@@ -11,6 +11,7 @@ class Organisation < ApplicationRecord
   has_many :investments, dependent: :destroy
   has_many :projects, through: :investments, dependent: :destroy
   has_many :installments, through: :investments
+  has_many :focus_areas, through: :investments
   validates :name, presence: true, uniqueness: true
 
   def completed_investments
@@ -22,7 +23,9 @@ class Organisation < ApplicationRecord
   end
 
   def investments_by_focus_area(completed = false)
-    investments.select{|i| i.completed == completed}.group_by{|i| i.project.focus_area.name}
+    investments.includes(:project)
+               .includes(:focus_area)
+               .select{|i| i.completed == completed}.group_by{|i| i.project.focus_area.name}
   end
 
   def upcoming_installments # accessible installments for the next 365 days
@@ -75,11 +78,11 @@ class Organisation < ApplicationRecord
   end
 
   def locked_amount_by_focus_area_year(year)
-    # Will iterate through all projects and pull out specific focus_area and cumulate the locked amounts
+    # Will iterate through all focus_areas and cumulate the locked amounts
     locked = {}
-    investments.active.each do |p| 
-      name = p.focus_area.name 
-      amount = p.focus_area.locked_amount_year_range(year)
+    focus_areas.each do |p| 
+      name = p.name 
+      amount = p.locked_amount_year_range(self, year)
       p name
       p amount
       if locked.key?(name)
@@ -93,6 +96,27 @@ class Organisation < ApplicationRecord
       end
     end
     locked
+  end
+
+  def unlocked_amount_by_focus_area_year(year)
+    # Will iterate through all focus_areas and cumulate the unlocked amounts
+    unlocked = {}
+    focus_areas.each do |p| 
+      name = p.name 
+      amount = p.unlocked_amount_year_range(self, year)
+      p name
+      p amount
+      if unlocked.key?(name)
+          unless amount.nil?  
+          unlocked[name] += amount
+          end
+      elsif amount.nil?
+          unlocked[name] = 0
+      else
+          unlocked[name] = amount
+      end
+    end
+    unlocked
   end
 
 

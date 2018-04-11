@@ -2,6 +2,7 @@
 	has_many :projects
   has_many :investments, through: :projects
   has_many :installments, through: :investments
+  has_many :organisation, through: :investments
 
   translates :name
   include PgSearch
@@ -30,8 +31,8 @@
     unlocked_installments.sum(:amount)
   end
 
-  def unlocked_amount_year_range(year)
-    unlocked_installments.group_by_year(:deadline, range: year_range(year), format: "%Y").sum(:amount)[year]
+  def unlocked_amount_year_range(organisation, year)
+    organisation.unlocked_installments.group_by_year(:deadline, range: year_range(year), format: "%Y").sum(:amount)[year.to_s]
   end
 
   def locked_installments
@@ -42,8 +43,8 @@
     locked_installments.sum(:amount)
   end
 
-  def locked_amount_year_range(year)
-    locked_installments.group_by_year(:deadline, range: year_range(year), format: "%Y").sum(:amount)[year]
+  def locked_amount_year_range(organisation, year)
+    organisation.locked_installments.group_by_year(:deadline, range: year_range(year), format: "%Y").sum(:amount)[year.to_s]
   end
 
   def rescinded_installments

@@ -8,18 +8,19 @@
 <!-- CUMMULATIVE INSTALLMENT BY DATE CHART -->
 <% year = 2018 %>
 <%= area_chart [
-    {name: "Locked", data: cumulate_my_hash(current_user.organisation.locked_installments.current_year_monthly_amount(year_range(year)))},
-    {name: "Unocked", data: cumulate_my_hash(current_user.organisation.unlocked_installments.current_year_monthly_amount(year_range(year)))}],
+    {name: "Unocked", data: cumulate_my_hash(current_user.organisation.unlocked_installments.current_year_monthly_amount(year_range(year)))},
+    {name: "Locked", data: cumulate_my_hash(current_user.organisation.locked_installments.current_year_monthly_amount(year_range(year)))}],
     id: "installments",
     points: false,
+    stacked: true,
     prefix: "$",
     thousands: ",",
-    colors: ["#AE6CB5", "#8D81D2"],
+    colors: ["#8D81D2","#AE6CB5"],
     library: {
         tooltips: {
-        enabled: true,
-        mode: 'index',
-        intersect: false
+            enabled: true,
+            mode: 'index',
+            intersect: false,
         },
       title: {
         display: true,
@@ -54,12 +55,15 @@ end
 @chart_focus_area_data.map { |status, data|
     {name: status, data: data}} -->
 
-<%= bar_chart current_user.organisation.locked_amount_by_focus_area_year(2018),
+<%= bar_chart [
+    {name: "Unocked", data: current_user.organisation.unlocked_amount_by_focus_area_year(year)},
+    {name: "Locked", data: current_user.organisation.locked_amount_by_focus_area_year(year)}],
     id: "focus_area",
-    stacked:true, prefix: "$",
+    stacked:true, 
+    prefix: "$",
     thousands: ",",
     download: true,
-    colors: ["#AE6CB5", "#8D81D2"],
+    colors: ["#8D81D2", "#AE6CB5"],
     library: {
         tooltips: {
         enabled: true,
