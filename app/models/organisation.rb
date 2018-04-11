@@ -138,7 +138,7 @@ class Organisation < ApplicationRecord
     end
     Organisation.otherify(unlocked)
   end
-
+#COMMENT
 
   # NOT USED IN HOME CHARTS ANYMORE
   # def amount_by_date_cumulative

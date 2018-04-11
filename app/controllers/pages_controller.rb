@@ -35,7 +35,7 @@ class PagesController < ApplicationController
         redirect_to no_organisation_path
       end
   end
-
+#COMMENT
   def dashboard
     raw_next_installments = current_user.organisation.uncompleted_investments.map{|i| i.next_installment}
     @installments = raw_next_installments
