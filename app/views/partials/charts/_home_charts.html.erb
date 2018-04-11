@@ -6,14 +6,13 @@
   Chart.defaults.global.defaultFontFamily = 'Raleway';
 </script>
 <!-- CUMMULATIVE INSTALLMENT BY DATE CHART -->
-<% year = params[:year].present? ? params[:year] : Date.today.year %>
+<% year = 2018 %>
 <%= area_chart [
     {name: "Unocked", data: cumulate_my_hash(current_user.organisation.unlocked_installments.current_year_monthly_amount(year_range(year)))},
     {name: "Locked", data: cumulate_my_hash(current_user.organisation.locked_installments.current_year_monthly_amount(year_range(year)))}],
     id: "installments",
     points: false,
     stacked: true,
-    download:true,
     prefix: "$",
     thousands: ",",
     colors: ["#8D81D2","#AE6CB5"],
@@ -42,8 +41,8 @@ FocusArea.first.installments.group(:status).sum(:amount)
 
 locked = {}
 Organisation.first.locked_installments.group_by_year(:deadline, range: Time.now.utc.beginning_of_year..Time.now.utc.end_of_year).sum(:amount)
-o.projects.each do |p|
-    name = p.focus_area.name
+o.projects.each do |p| 
+    name = p.focus_area.name 
     amount = p.focus_area.locked_amount_year(current_year)
 
     if locked.key?(name)
@@ -60,7 +59,7 @@ end
     {name: "Unocked", data: current_user.organisation.unlocked_amount_by_focus_area_year(year)},
     {name: "Locked", data: current_user.organisation.locked_amount_by_focus_area_year(year)}],
     id: "focus_area",
-    stacked:true,
+    stacked:true, 
     prefix: "$",
     thousands: ",",
     download: true,

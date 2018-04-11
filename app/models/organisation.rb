@@ -33,14 +33,14 @@ class Organisation < ApplicationRecord
   end
 
   def unlocked_installments
-    installments.where(status:"unlocked") #array of unlocked installments
-   end
-
-  def locked_installments
-    installments.where(status:"locked") #array of locked installments
+    installments.where(status:"unlocked")
   end
 
-  def rescinded_installments #array of rescinded installments
+  def locked_installments
+    installments.where(status:"locked")
+  end
+
+  def rescinded_installments
     installments.where(status:"rescinded")
   end
 
@@ -60,55 +60,33 @@ class Organisation < ApplicationRecord
     upcoming_installments.map(&:amount).reduce(0,:+)
   end
 
-  def amount_by_ngo #hash of invested amount(locked & unlocked) by ngo
+  def amount_by_ngo
     output = {unlocked: {},locked: {}}
     invest_by_ngo = investments.group_by{|invest| invest.project.organisation.name}
     invest_by_ngo.each do |k,v|
       output[:unlocked][k] = v.map(&:unlocked_amount).reduce(0,:+)
       output[:locked][k] = v.map(&:locked_amount).reduce(0,:+)
     end
-    output[:locked] = Organisation.otherify(output[:locked])
-    output[:unlocked] = Organisation.otherify(output[:unlocked])
-
-    output
+    return output
   end
 
-  def amount_by_neighborhood
-    output = {unlocked: {},locked: {}}
-    invest_by_ngo = investments.group_by{|invest| invest.project.geos.map(&:name).to_s.gsub(/(\W)/,'-')
-}
-    invest_by_ngo.each do |k,v|
-      output[:unlocked][k] = v.map(&:unlocked_amount).reduce(0,:+)
-      output[:locked][k] = v.map(&:locked_amount).reduce(0,:+)
-    end
-    output[:locked] = Organisation.otherify(output[:locked])
-    output[:unlocked] = Organisation.otherify(output[:unlocked])
-
-    output
-  end
   def year_range(year)
     # Returns a Time Range of year.
     # To be used with GROUP_BY_ (GROUPDATE)
     t = Time.new(year,1,1,0,0,0,'+00:00')
     t.beginning_of_year..t.end_of_year
   end
-  def self.otherify(hash)
-    main_focuses = hash.sort{ |focus, amount| focus[1]<=>amount[1] }.reverse[(0..8)].to_h
-    others = hash.sort{ |focus, amount| focus[1]<=>amount[1] }.reverse[(9..-1)]
-    others = others.map{|focus| focus[1]}.reduce(0,:+)
-    main_focuses["Others"] = others
-    main_focuses
-  end
+
   def locked_amount_by_focus_area_year(year)
     # Will iterate through all focus_areas and cumulate the locked amounts
     locked = {}
-    focus_areas.each do |p|
-      name = p.name
+    focus_areas.each do |p| 
+      name = p.name 
       amount = p.locked_amount_year_range(self, year)
       p name
       p amount
       if locked.key?(name)
-          unless amount.nil?
+          unless amount.nil?  
           locked[name] += amount
           end
       elsif amount.nil?
@@ -117,17 +95,19 @@ class Organisation < ApplicationRecord
           locked[name] = amount
       end
     end
-    Organisation.otherify(locked)
+    locked
   end
 
   def unlocked_amount_by_focus_area_year(year)
     # Will iterate through all focus_areas and cumulate the unlocked amounts
     unlocked = {}
-    focus_areas.each do |focus|
-      name = focus.name
-      amount = focus.unlocked_amount_year_range(self, year)
+    focus_areas.each do |p| 
+      name = p.name 
+      amount = p.unlocked_amount_year_range(self, year)
+      p name
+      p amount
       if unlocked.key?(name)
-          unless amount.nil?
+          unless amount.nil?  
           unlocked[name] += amount
           end
       elsif amount.nil?
@@ -136,7 +116,7 @@ class Organisation < ApplicationRecord
           unlocked[name] = amount
       end
     end
-    Organisation.otherify(unlocked)
+    unlocked
   end
 
 
