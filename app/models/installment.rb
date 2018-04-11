@@ -55,7 +55,7 @@ class Installment < ApplicationRecord
 
   def self.amount_by_date(organisation)
     installments = organisation.upcoming_installments
-    installments_by_status = installments.group_by{|inst| inst.status.to_sym}.includes(:investment)
+    installments_by_status = installments.group_by{|inst| inst.status.to_sym}
 
     output = {locked:{},unlocked:{}}
     installments_by_status.each do |status, installments|
@@ -140,7 +140,7 @@ class Installment < ApplicationRecord
     self.group_by_month(:deadline, format: "%b", range: year_range).sum(:amount)
   end
 
-  def year
-    deadline.year
+  def self.deadline_year(year)
+    self if deadline.year = year
   end
 end

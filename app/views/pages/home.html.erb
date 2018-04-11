@@ -15,9 +15,7 @@
   </div>
 </div>
 
-<div id="charts-home" class="chart-box">
-  <%= render partial: "/partials/charts/home_charts" %>
-</div>
+
 
 <div class="mid-title-box">
   <div class="mid-title-flex">
@@ -27,11 +25,6 @@
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Year selection
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <% @years_of_service.each do |year| %>
-              <%= link_to year, root_path(year: year), {class: "dropdown-item"} %>
-          <% end %>
-        </div>
       </div>
     </div>
     <div class="mid-title-button-right grow">
@@ -43,7 +36,7 @@
 </div>
 
 <div id="tables">
-    <%= render partial: 'partials/home-installments-table' %>
+    <%= render partial: 'partials/tables/home/upcoming_locked_installments' %>
 </div>
 
 <%= content_for(:after_js) do %>
@@ -51,3 +44,6 @@
   $("table").tablesorter();
 </script>
 <% end %>
+
+<!-- Organisation.first.locked_installments.sort_by(&:deadline).inject({}){|h, k| h[k.investment_id] = k unless h.key? k.investment_id; h}.values.count -->
+
