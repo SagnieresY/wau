@@ -73,6 +73,19 @@ class Organisation < ApplicationRecord
     output
   end
 
+  def amount_by_neighborhood
+    output = {unlocked: {},locked: {}}
+    invest_by_ngo = investments.group_by{|invest| invest.project.geos.map(&:name).to_s.gsub(/(\W)/,'-')
+}
+    invest_by_ngo.each do |k,v|
+      output[:unlocked][k] = v.map(&:unlocked_amount).reduce(0,:+)
+      output[:locked][k] = v.map(&:locked_amount).reduce(0,:+)
+    end
+    output[:locked] = Organisation.otherify(output[:locked])
+    output[:unlocked] = Organisation.otherify(output[:unlocked])
+
+    output
+  end
   def year_range(year)
     # Returns a Time Range of year.
     # To be used with GROUP_BY_ (GROUPDATE)

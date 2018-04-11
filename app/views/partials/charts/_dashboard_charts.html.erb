@@ -3,6 +3,7 @@
   <button class="tablinks" onclick="openChart(event, 'focus_area')">By Focus area</button>
   <button class="tablinks" onclick="openChart(event, 'ngo')">By NGO</button>
   <button class="tablinks" onclick="openChart(event, 'installments')">Timeline</button>
+  <button class="tablinks" onclick="openChart(event, 'neighborhood')">Close chart</button>
 </div>
 
 
@@ -12,6 +13,7 @@
 <div id="focus_area" class="dashboard-chart tabcontent"></div>
 <div id="ngo" class="dashboard-chart tabcontent"></div>
 <div id="installments" class="dashboard-chart tabcontent"></div>
+<div class="neighborhood" class="dashboard-chart tabcontent"></div>
 </div>
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
@@ -83,6 +85,27 @@
         text: 'FY Forecasted Investments by NGO'
       },
     } %>
+    <%= bar_chart [
+    {name: "Unocked", data: current_user.organisation.amount_by_ngo[:unlocked]},
+    {name: "Locked", data: current_user.organisation.amount_by_ngo[:unlocked]}],
+    id: "neighborhood",
+    stacked:true,
+    prefix: "$",
+    thousands: ",",
+    download: true,
+    colors: ["#8D81D2", "#AE6CB5"],
+    library: {
+        tooltips: {
+        enabled: true,
+        mode: 'index',
+        intersect: false
+        },
+      title: {
+        display: true,
+        text: 'FY Forecasted Investments by NGO'
+      },
+    } %>
+
   <script>
     function openChart(evt, chartName) {
     // Declare all variables

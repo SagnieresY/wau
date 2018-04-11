@@ -25,7 +25,7 @@ class Investment < ApplicationRecord
   end
 
   def locked_amount
-    forecasted_amount - unlocked_amount
+    installments.locked.sum(:amount)
   end
 
   def installments_by_nearest_deadline
