@@ -6,7 +6,7 @@
   Chart.defaults.global.defaultFontFamily = 'Raleway';
 </script>
 <!-- CUMMULATIVE INSTALLMENT BY DATE CHART -->
-<% year = 2018 %>
+<% year = params[:year].present? ? params[:year] : Date.today.year %>
 <%= area_chart [
     {name: "Unocked", data: cumulate_my_hash(current_user.organisation.unlocked_installments.current_year_monthly_amount(year_range(year)))},
     {name: "Locked", data: cumulate_my_hash(current_user.organisation.locked_installments.current_year_monthly_amount(year_range(year)))}],

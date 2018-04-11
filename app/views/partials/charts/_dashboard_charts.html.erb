@@ -1,12 +1,15 @@
-<div id="focus_area" class="home-chart"></div>
+<div class="dashboard-charts">
+<div id="focus_area" class="dashboard-chart"></div>
 <div id="ngo"></div>
-<div id="installments" class="home-chart"></div>
+<div id="installments" class="dashboard-chart"></div>
+</div>
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
   Chart.defaults.global.defaultFontFamily = 'Raleway';
 </script>
 <!-- CUMMULATIVE INSTALLMENT BY DATE CHART -->
-<% year = 2018 %>
+
+<% year = params[:year].present? ? params[:year] : Date.today.year %>
 <%= area_chart [
     {name: "Unocked", data: cumulate_my_hash(current_user.organisation.unlocked_installments.current_year_monthly_amount(year_range(year)))},
     {name: "Locked", data: cumulate_my_hash(current_user.organisation.locked_installments.current_year_monthly_amount(year_range(year)))}],
@@ -28,33 +31,6 @@
         text: 'FY Forecasted Investments by Focus Area'
       }
     } %>
-
-<!-- CUMMULATIVE INSTALLMENT BY FOCUS AREA CHART -->
-<!-- current_user.organisation.projects.group(:focus_area).unlocked_installments.sum(:amount)
-Project.group(:focus_area).unlocked_installments.sum(:amount)
-
-Installment.investment.project.group_by{ |p| p.focus_area }
-Project.installments.group_by{ |c| c.focus_area }
-post.comments.group_by{ |c| c.user.country_code }
-
-o.projects.each {|p| p p.focus_area.}
-FocusArea.first.installments.group(:status).sum(:amount)
-
-locked = {}
-Organisation.first.locked_installments.group_by_year(:deadline, range: Time.now.utc.beginning_of_year..Time.now.utc.end_of_year).sum(:amount)
-o.projects.each do |p|
-    name = p.focus_area.name
-    amount = p.focus_area.locked_amount_year(current_year)
-
-    if locked.key?(name)
-        locked[name] += amount
-    else
-        locked[name] = amount
-    end
-end
-
-@chart_focus_area_data.map { |status, data|
-    {name: status, data: data}} -->
 
 <%= bar_chart [
     {name: "Unocked", data: current_user.organisation.unlocked_amount_by_focus_area_year(year)},

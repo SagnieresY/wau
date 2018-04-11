@@ -2,6 +2,21 @@
   display:flex;
   margin-bottom: 50px;
 }
+
+.dashboard-charts{
+  display:flex;
+  margin-bottom: 50px;
+}
+
+.dashboard-chart{
+  position:relative;
+  left:40px;
+  width: 40vw;
+  height: 35vh;
+  background-color:white;
+  margin-left: 40px;
+  border-radius:5px;
+}
 .search-tool {
   display:block;
 }

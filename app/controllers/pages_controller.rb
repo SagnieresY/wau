@@ -39,6 +39,9 @@ class PagesController < ApplicationController
   def dashboard
     raw_next_installments = current_user.organisation.uncompleted_investments.map{|i| i.next_installment}
     @installments = raw_next_installments
+    if params[:year].present?
+      @installments = @installments.select{|i| i.deadline.year == params[:year].to_i}
+    end
     if params[:focus_area].present?
       @installments = Installment.filter_by_focus(@installments,params[:focus_area])
     end
