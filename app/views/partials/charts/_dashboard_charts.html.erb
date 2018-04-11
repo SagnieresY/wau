@@ -3,17 +3,16 @@
   <button class="tablinks" onclick="openChart(event, 'focus_area')">By Focus area</button>
   <button class="tablinks" onclick="openChart(event, 'ngo')">By NGO</button>
   <button class="tablinks" onclick="openChart(event, 'installments')">Timeline</button>
-  <button class="tablinks" onclick="openChart(event, 'neighborhood')">Close chart</button>
+  <button class="tablinks" onclick="openChart(event, 'neighborhood')">By Neighborhood</button>
+  <button class="tablinks" onclick="openChart(event, 'sdasfag')">Close charts</button>
+
 </div>
-
-
-
 
 <div class="dashboard-charts">
 <div id="focus_area" class="dashboard-chart tabcontent"></div>
 <div id="ngo" class="dashboard-chart tabcontent"></div>
 <div id="installments" class="dashboard-chart tabcontent"></div>
-<div class="neighborhood" class="dashboard-chart tabcontent"></div>
+<div id="neighborhood" class="dashboard-chart tabcontent"></div>
 </div>
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
@@ -61,13 +60,13 @@
         },
       title: {
         display: true,
-        text: 'FY Forecasted Investments by Focus Area'
+        text: 'FY Forecasted Investments By Focus Area'
       },
     } %>
 
   <%= bar_chart [
     {name: "Unocked", data: current_user.organisation.amount_by_ngo[:unlocked]},
-    {name: "Locked", data: current_user.organisation.amount_by_ngo[:unlocked]}],
+    {name: "Locked", data: current_user.organisation.amount_by_ngo[:locked]}],
     id: "ngo",
     stacked:true,
     prefix: "$",
@@ -82,12 +81,12 @@
         },
       title: {
         display: true,
-        text: 'FY Forecasted Investments by NGO'
+        text: 'FY Forecasted Investments By NGO'
       },
     } %>
     <%= bar_chart [
     {name: "Unocked", data: current_user.organisation.amount_by_ngo[:unlocked]},
-    {name: "Locked", data: current_user.organisation.amount_by_ngo[:unlocked]}],
+    {name: "Locked", data: current_user.organisation.amount_by_ngo[:locked]}],
     id: "neighborhood",
     stacked:true,
     prefix: "$",
@@ -102,7 +101,7 @@
         },
       title: {
         display: true,
-        text: 'FY Forecasted Investments by NGO'
+        text: 'FY Forecasted Investments By Neighborhood'
       },
     } %>
 
