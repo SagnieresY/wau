@@ -16,14 +16,57 @@ class PagesController < ApplicationController
         @bg = "bg-landing"
         render :landing
       elsif current_user.organisation
+
+          #Gets the current year and transforms it into a range
           t = Time.new(Time.now.year,1,1,0,0,0,'+00:00')
+          @year = t.year
           current_year = t.beginning_of_year..t.end_of_year
 
-          current_year_locked_installments = current_user.organisation.locked_installments.where("extract(year from deadline) = #{t.year}")
-          @first_page_locked_installments = current_year_locked_installments.sort_by(&:deadline).group_by(&:investment_id).collect{|k,v| v.first}.first(25)
+          #Used in home charts
+          @locked_installments = current_user.organisation.locked_installments.includes(:focus_area)
+          @unlocked_installments = current_user.organisation.unlocked_installments.includes(:focus_area)
+
+          #Used in home locked table
+          @first_page_locked_installments = @locked_installments
+                                                                .where("extract(year from deadline) = #{@year}")
+                                                                .sort_by(&:deadline)
+                                                                .group_by(&:investment_id).collect{|k,v| v.first}
+                                                                .first(25)
           
-          current_year_unlocked_installments = current_user.organisation.locked_installments.group_by_year(:deadline, range: current_year)
-        # NOT USED IN HOME CHARTS ANYMORE
+          # .group_by_year(:deadline, range: current_year)
+          @cumulated_fa_locked_amount = {}
+          @locked_installments = @locked_installments.where("extract(year from deadline) = #{@year}")
+          @locked_installments.each do |installment|
+            focus_area = installment.focus_area.name
+            amount = installment.amount
+            if @cumulated_fa_locked_amount.key?(focus_area)
+                unless amount.nil?
+                @cumulated_fa_locked_amount[focus_area] += amount
+                else amount.nil?
+                @cumulated_fa_locked_amount[focus_area] = 0
+              end
+            else
+                @cumulated_fa_locked_amount[focus_area] = amount
+            end
+          end
+          @cumulated_fa_locked_amount
+
+          @cumulated_fa_unlocked_amount = {}
+          @unlocked_installments = @unlocked_installments.where("extract(year from deadline) = #{@year}")
+          @unlocked_installments.each do |installment|
+            focus_area = installment.focus_area.name
+            amount = installment.amount
+            if @cumulated_fa_unlocked_amount.key?(focus_area)
+                unless amount.nil?
+                @cumulated_fa_unlocked_amount[focus_area] += amount
+                else amount.nil?
+                @cumulated_fa_unlocked_amount[focus_area] = 0
+              end
+            else
+                @cumulated_fa_unlocked_amount[focus_area] = amount
+            end
+          end
+        
         @years_of_service = Installment.years_of_service(current_user.organisation)
       else
         redirect_to no_organisation_path

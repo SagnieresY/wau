@@ -140,7 +140,21 @@ class Installment < ApplicationRecord
     self.group_by_month(:deadline, format: "%b", range: year_range).sum(:amount)
   end
 
-  def self.deadline_year(year)
-    self if deadline.year = year
+  def self.cumulate_focus_area_amount
+    cumulated_fa_amount = {}
+    self.each do |installment|
+      focus_area = installment.focus_area.name
+      amount = installment.amount
+      if cumulated_fa_amount.key?(focus_area)
+          unless amount.nil?
+          cumulated_fa_amount[focus_area] += amount
+          end
+      elsif amount.nil?
+          cumulated_fa_amount[focus_area] = 0
+      else
+          cumulated_fa_amount[focus_area] = amount
+      end
+    end
+    cumulated_fa_amount
   end
 end

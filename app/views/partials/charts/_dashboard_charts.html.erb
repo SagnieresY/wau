@@ -85,8 +85,8 @@
       },
     } %>
     <%= bar_chart [
-    {name: "Unocked", data: current_user.organisation.amount_by_ngo[:unlocked]},
-    {name: "Locked", data: current_user.organisation.amount_by_ngo[:locked]}],
+    {name: "Unocked", data: current_user.organisation.amount_by_neighborhood[:unlocked]},
+    {name: "Locked", data: current_user.organisation.amount_by_neighborhood[:locked]}],
     id: "neighborhood",
     stacked:true,
     prefix: "$",
