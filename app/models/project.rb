@@ -8,7 +8,7 @@ class Project < ApplicationRecord
 
   has_and_belongs_to_many :geos
   has_many :investments, inverse_of: :project, dependent: :destroy
-  has_many :installments, through: :investments
+  has_many :installments, through: :investments, dependent: :destroy
   belongs_to :focus_area
   belongs_to :organisation
   validates :name, presence: true

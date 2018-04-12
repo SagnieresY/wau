@@ -160,15 +160,17 @@ en:
     navbar:
       button: "Login"
   navbar:
-    first_tab: "INVESTMENTS"
+    first_tab: "DASHBOARD"
+    second_tab: "INVESTMENTS"
     menu:
       first_dropdown: "New Investment"
       second_dropdown: "Sign out"
     mobile:
       first_dropdown: "Homepage"
-      second_dropdown: "Investments"
-      third_dropdown: "New Investments"
-      fourth_dropdown: "Sign Out"
+      second_dropdown: "Dashboard"
+      third_dropdown: "Investments"
+      fourth_dropdown: "New Investments"
+      fifth_dropdown: "Sign Out"
   user_mailer:
     welcome:
       subject: "Welcome to WAU!"

@@ -8,7 +8,8 @@ class Organisation < ApplicationRecord
     }
 
   has_many :users, dependent: :destroy
-  has_many :investments, dependent: :destroy
+  has_many :investments, inverse_of: :organisation, dependent: :destroy
+  has_many :installments, through: :investments, dependent: :destroy
   has_many :projects, through: :investments, dependent: :destroy
   has_many :installments, through: :investments
   has_many :focus_areas, through: :investments

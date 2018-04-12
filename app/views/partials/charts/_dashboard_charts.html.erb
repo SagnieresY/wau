@@ -9,25 +9,24 @@
 </div>
 
 <div class="dashboard-charts">
-<div id="focus_area" class="dashboard-chart tabcontent"></div>
+<!-- <div id="focus_area" class="dashboard-chart tabcontent"></div>
 <div id="ngo" class="dashboard-chart tabcontent"></div>
 <div id="installments" class="dashboard-chart tabcontent"></div>
-<div id="neighborhood" class="dashboard-chart tabcontent"></div>
+<div id="neighborhood" class="dashboard-chart tabcontent"></div> -->
 </div>
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
   Chart.defaults.global.defaultFontFamily = 'Raleway';
 </script>
-<!-- CUMMULATIVE INSTALLMENT BY DATE CHART -->
 
+<!-- DATE CHART: Cumulative installments by month in chronological order -->
 <% year = params[:year].present? ? params[:year] : Date.today.year %>
 <%= area_chart [
-    {name: "Unocked", data: cumulate_my_hash(current_user.organisation.unlocked_installments.current_year_monthly_amount(year_range(year)))},
-    {name: "Locked", data: cumulate_my_hash(current_user.organisation.locked_installments.current_year_monthly_amount(year_range(year)))}],
+    {name: "Unocked", data: cumulate_my_hash(@unlocked_installments.current_year_monthly_amount(year_range(@year)))},
+    {name: "Locked", data: cumulate_my_hash(@locked_installments.current_year_monthly_amount(year_range(@year)))}],
     id: "installments",
     points: false,
     stacked: true,
-    download:true,
     prefix: "$",
     thousands: ",",
     colors: ["#8D81D2","#AE6CB5"],
@@ -39,7 +38,7 @@
         },
       title: {
         display: true,
-        text: 'FY Forecasted Investments'
+        text: 'FY Forecasted Investments by Focus Area'
       }
     } %>
 

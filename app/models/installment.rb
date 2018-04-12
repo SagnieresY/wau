@@ -9,6 +9,8 @@ class Installment < ApplicationRecord
   belongs_to :investment
   has_one :focus_area, through: :investment
   has_one :project, through: :investment
+  has_one :organisation, through: :investment
+  has_many :geos, through: :investment
   validates :status, inclusion: { in: %w(locked unlocked rescinded) }
   validates :task, presence: true
   validates :amount, presence: true
