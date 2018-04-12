@@ -103,6 +103,10 @@ class PagesController < ApplicationController
 
   def no_organisation
   end
+  def downloads
+
+  end
+
   def users_csv
     send_data User.to_csv(current_user.organisation), filename: "Users-#{Date.today.to_s}.csv", type: 'text/csv'
   end
