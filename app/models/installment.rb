@@ -160,4 +160,6 @@ class Installment < ApplicationRecord
     end
     cumulated_fa_amount
   end
+
+
 end
