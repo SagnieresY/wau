@@ -8,4 +8,8 @@ class UserPolicy < ApplicationPolicy
   def users_csv?
     user.organisation == record.organisation
   end
+
+  def generate_users?
+    record.organisation == user.organisation
+  end
 end
