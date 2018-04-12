@@ -53,7 +53,7 @@ class Investment < ApplicationRecord
   end
 
   def self.to_csv(organisation)
-      attributes = %w{id project_id forecasted_amount unlocked_amount locked_amount completed? }
+      attributes = %w{id created_at project_id forecasted_amount unlocked_amount locked_amount completed? }
       CSV.generate(headers: true) do |csv|
         csv << attributes
 
