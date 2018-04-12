@@ -177,10 +177,13 @@ function fetchInfoProject() {
 inputProject.addEventListener('keyup', fetchInfoProject);
 // search all
 function searchAll(){
+  let minimumDate = document.getElementById('min-date').value
+  let maximuDate = document.getElementById('max-date').value
   let output = ''
   output += `?focus_area=${selectedFocusString}`
   output += `&ngo=${selectedNgoString}`
   output += `&neighborhood=${selectedNeighborhoodString}`
   output += `&project=${selectedProjectString}`
+  output += `&min_date=${minimumDate}&max_date=${maximuDate}`
   window.location.replace(`/dashboard/${output}`)
 };
