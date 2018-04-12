@@ -81,11 +81,14 @@ class Installment < ApplicationRecord
     organisation.next_installments.select{|i| i.deadline.year == year}
   end
 
-  def self.filter_by_year(installments,min_year,max_year)
-    min_year = 0 if min_year.blank?
-    max_year = 9999 if max_year.blank?
-    installments.select{ |i| i.deadline.year > min_year && i.deadline.year < max_year}
-    return installments
+  def self.filter_by_date(installments,min_date,max_date)
+    min_date = Date.new(0,1,1) if min_date.blank?
+    max_date = Date.new(9999,1,1) if max_date.blank?
+    puts min_date.to_s
+    puts max_date.to_s
+
+    installments.select{ |i| i.deadline > min_date && i.deadline < max_date}
+
 
   end
 

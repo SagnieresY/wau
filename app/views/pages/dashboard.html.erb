@@ -17,11 +17,6 @@
 </div>
 <br>
 <br>
-<p>min year</p>
-<input type="number" id="min-year">
-<p>max year</p>
-<input type="number" id="max-year">
-<button onclick="changeYear()">Change year</button>
 <br>
 <br>
 <%= render partial: '/partials/dashboard_search' %>
@@ -32,10 +27,5 @@
 
 <%= render partial: '/partials/dashboard_investment_table' %>
 <script>
-  function changeYear(){
-    const minYear = document.getElementById('min-year').value
-    const maxYear = document.getElementById('max-year').value
-    window.location.replace(`/dashboard/?min-year=${minYear}&max-year=${maxYear}`)
-  }
-</script>
+  </script>
 <!-- COMMENT -->
