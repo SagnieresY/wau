@@ -32,7 +32,7 @@ class PagesController < ApplicationController
                                                                 .sort_by(&:deadline)
                                                                 .group_by(&:investment_id).collect{|k,v| v.first}
                                                                 .first(25)
-          
+
           # .group_by_year(:deadline, range: current_year)
           @cumulated_fa_locked_amount = {}
           @locked_installments = @locked_installments.where("extract(year from deadline) = #{@year}")
@@ -66,7 +66,7 @@ class PagesController < ApplicationController
                 @cumulated_fa_unlocked_amount[focus_area] = amount
             end
           end
-        
+
         @years_of_service = Installment.years_of_service(current_user.organisation)
       else
         redirect_to no_organisation_path
@@ -76,19 +76,22 @@ class PagesController < ApplicationController
   def dashboard
     raw_next_installments = current_user.organisation.uncompleted_investments.map{|i| i.next_installment}
     @installments = raw_next_installments
-    if params[:min_year].present? || params[:max_year].present?
-      @installments.filter_by_year(@installments,params[:min_year].to_i,params[:max_year].to_i)
+
+    if !params[:min_date].blank? || !params[:max_date].blank?
+      min_date = params[:min_date].blank? ? '' : Date.parse(params[:min_date])
+      max_date = params[:max_date].blank? ? '' : Date.parse(params[:max_date])
+      @installments = Installment.filter_by_date(@installments,min_date,max_date)
     end
-    if params[:focus_area].present?
+    unless params[:focus_area].blank?
       @installments = Installment.filter_by_focus(@installments,params[:focus_area])
     end
-    if params[:ngo].present?
+    unless params[:ngo].blank?
       @installments = Installment.filter_by_ngo(@installments,params[:ngo])
     end
-    if params[:neighborhood].present?
+    unless params[:neighborhood].blank?
       @installments = Installment.filter_by_neighborhood(@installments,params[:neighborhood])
     end
-    if params[:project].present?
+    unless params[:project].blank?
       @installments = Installment.filter_by_project(@installments, params[:project])
     end
   end
