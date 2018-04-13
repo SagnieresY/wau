@@ -75,10 +75,10 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-    #Prepares the installments for graphs / tables
-    @locked_installments = current_user.organisation.locked_installments.includes(:focus_area, :geos, :organisation, :project )
-    @unlocked_installments = current_user.organisation.unlocked_installments.includes(:focus_area, :geos, :organisation, :project)
-
+    #Prepares the installments for graphs / tables and includes investment, focus_area and projects in the query
+    @locked_installments = current_user.organisation.locked_installments.includes( :investment, :focus_area, :project)
+    @unlocked_installments = current_user.organisation.unlocked_installments.includes(:investment, :focus_area, :project)
+    
     #Gets the current year and transforms it into a range
     t = Time.new(Time.now.year,1,1,0,0,0,'+00:00')
     @year = t.year
@@ -87,20 +87,54 @@ class PagesController < ApplicationController
     raw_next_installments = current_user.organisation.uncompleted_investments.map{|i| i.next_installment}
     @installments = raw_next_installments
 
-    if !params[:min_date].blank? || !params[:max_date].blank?
-      min_date = params[:min_date].blank? ? '' : Date.parse(params[:min_date])
-      max_date = params[:max_date].blank? ? '' : Date.parse(params[:max_date])
-      @installments = Installment.filter_by_date(@installments,min_date,max_date)
+    #Gets installments between the dates 
+    if !params[:min_date].blank? || !params[:min_date].blank?
+        
+      #Makes (string)date into DATETIME object
+      min_date = params[:min_date].to_time
+      max_date = params[:max_date].to_time
+
+
+      #Picks smallest date as start date
+      start_date = min_date < max_date ? min_date : max_date
+      end_date = max_date > min_date ? max_date : min_date
+      
+      @start_date = start_date.strftime("%d/%m/%Y")
+      @end_date = end_date.strftime("%d/%m/%Y")
+
+      @locked_installments = @locked_installments.where(deadline: start_date..max_date)
+      @unlocked_installments = @unlocked_installments.where(deadline: start_date..max_date)
+      
+      #Calculate year range
+      time_range_seconds = (max_date.to_i - start_date.to_i)
+
+      #if range greater two years
+      if (time_range_seconds) > 63115201
+        @locked_installments_time_chart = @locked_installments.group_by_year(:deadline, format: "%Y", range: start_date..end_date).sum(:amount)
+        @unlocked_installments_time_chart = @unlocked_installments.group_by_year(:deadline, format: "%Y", range: start_date..end_date).sum(:amount)
+      
+      else
+        @locked_installments_time_chart = @locked_installments.group_by_month(:deadline, format: "%b %Y", range: start_date..end_date).sum(:amount)
+        @unlocked_installments_time_chart = @unlocked_installments.group_by_month(:deadline, format: "%b %Y", range: start_date..end_date).sum(:amount)
+      end
     end
+
     unless params[:focus_area].blank?
-      @installments = Installment.filter_by_focus(@installments,params[:focus_area])
+      @locked_installments_fa_chart = @locked_installments.filter_by_focus(params[:project])
     end
+
     unless params[:ngo].blank?
+      geos_array = params[:neighborhood].split(',')
       @installments = Installment.filter_by_ngo(@installments,params[:ngo])
     end
+
     unless params[:neighborhood].blank?
-      @installments = Installment.filter_by_neighborhood(@installments,params[:neighborhood])
+      geos_array = params[:neighborhood].split(',')
+      @locked_installments_geos_chart = @locked_installments.joins(:geos).group('geos.name').where("geos.name":geos_array).sum(:amount)
+      @unlocked_installments_geos_chart = @unlocked_installments.joins(:geos).group('geos.name').where("geos.name":geos_array).sum(:amount)
+      # .joins(:project).group('projects.name').where("projects.name":"Legal Defense").sum(:amount)
     end
+
     unless params[:project].blank?
       @installments = Installment.filter_by_project(@installments, params[:project])
     end

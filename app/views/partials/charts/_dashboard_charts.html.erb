@@ -9,10 +9,10 @@
 </div>
 
 <div class="dashboard-charts">
-<!-- <div id="focus_area" class="dashboard-chart tabcontent"></div>
+<div id="focus_area" class="dashboard-chart tabcontent"></div>
 <div id="ngo" class="dashboard-chart tabcontent"></div>
 <div id="installments" class="dashboard-chart tabcontent"></div>
-<div id="neighborhood" class="dashboard-chart tabcontent"></div> -->
+<div id="neighborhood" class="dashboard-chart tabcontent"></div>
 </div>
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
@@ -21,9 +21,9 @@
 
 <!-- DATE CHART: Cumulative installments by month in chronological order -->
 <% year = params[:year].present? ? params[:year] : Date.today.year %>
-<%= area_chart [
-    {name: "Unocked", data: cumulate_my_hash(@unlocked_installments.current_year_monthly_amount(year_range(@year)))},
-    {name: "Locked", data: cumulate_my_hash(@locked_installments.current_year_monthly_amount(year_range(@year)))}],
+<%= column_chart [
+    {name: "Unlocked", data: @unlocked_installments_time_chart},
+    {name: "Locked", data: @locked_installments_time_chart}],
     id: "installments",
     points: false,
     stacked: true,
@@ -38,12 +38,12 @@
         },
       title: {
         display: true,
-        text: 'FY Forecasted Investments by Focus Area'
+        text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
       }
     } %>
 
 <%= bar_chart [
-    {name: "Unocked", data: current_user.organisation.unlocked_amount_by_focus_area_year(year)},
+    {name: "Unlocked", data: current_user.organisation.unlocked_amount_by_focus_area_year(year)},
     {name: "Locked", data: current_user.organisation.locked_amount_by_focus_area_year(year)}],
     id: "focus_area",
     stacked:true,
@@ -64,8 +64,8 @@
     } %>
 
   <%= bar_chart [
-    {name: "Unocked", data: current_user.organisation.amount_by_ngo[:unlocked]},
-    {name: "Locked", data: current_user.organisation.amount_by_ngo[:locked]}],
+    {name: "Unlocked", data:  @unlocked_installments_geos_chart},
+    {name: "Locked", data:  @locked_installments_geos_chart}],
     id: "ngo",
     stacked:true,
     prefix: "$",
@@ -83,9 +83,10 @@
         text: 'FY Forecasted Investments By NGO'
       },
     } %>
+
     <%= bar_chart [
-    {name: "Unocked", data: current_user.organisation.amount_by_neighborhood[:unlocked]},
-    {name: "Locked", data: current_user.organisation.amount_by_neighborhood[:locked]}],
+    {name: "Unlocked", data:  @locked_installments_geos_chart},
+    {name: "Locked", data:  @unlocked_installments_geos_chart}],
     id: "neighborhood",
     stacked:true,
     prefix: "$",
