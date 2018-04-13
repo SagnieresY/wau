@@ -1,6 +1,13 @@
 .search-wrapper {
-  display:flex;
+  margin-bottom: 150px
+
+}
+#search-content {
+  display:none;
   margin-bottom: 50px;
+  bottom:-120px;
+  height:40px;
+  width:80vw;
 }
 
 .dashboard-charts{
@@ -42,7 +49,7 @@
 .tab button {
     background-color: inherit;
     float: left;
-    border: none;
+    border: none;git
     outline: none;
     cursor: pointer;
     padding: 14px 16px;
