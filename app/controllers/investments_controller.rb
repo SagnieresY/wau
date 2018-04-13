@@ -96,6 +96,11 @@ class InvestmentsController < ApplicationController
     render json: selected_investment.unlocked_amount
   end
 
+  def to_csv
+    authorize current_user.organisation.investments.first
+    send_data Investment.to_csv(current_user.organisation), filename: "investments-#{Date.today.to_s}.csv", type: 'text/csv'
+  end
+
   private
 
   def active_investments_paginated
@@ -121,5 +126,6 @@ class InvestmentsController < ApplicationController
         installments_attributes: Installment.attribute_names.map(&:to_sym).push(:_destroy),
         project_attributes: [:name,:description,:focus_area_id,:main_contact,{ :geo_ids => [] }, :_destroy, :organisation_id])
   end
+
 
 end

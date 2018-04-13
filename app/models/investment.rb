@@ -17,7 +17,7 @@ class Investment < ApplicationRecord
 #installment
   def forecasted_amount
     #calculates projected amount minus the missed installments
-    installments.unlocked.sum(:amount) + installments.unlocked.sum(:amount)
+    installments.unlocked.sum(:amount) + installments.locked.sum(:amount)
   end
 
   def unlocked_amount
@@ -25,7 +25,7 @@ class Investment < ApplicationRecord
   end
 
   def locked_amount
-    forecasted_amount - unlocked_amount
+    installments.locked.sum(:amount)
   end
 
   def installments_by_nearest_deadline
@@ -50,5 +50,16 @@ class Investment < ApplicationRecord
     active_year = []
     installments.each {|i| active_year << i.year if active_year.exclude?(i.year)}
     active_year
+  end
+
+  def self.to_csv(organisation)
+      attributes = %w{id created_at project_id forecasted_amount unlocked_amount locked_amount completed? }
+      CSV.generate(headers: true) do |csv|
+        csv << attributes
+
+        organisation.investments.each do |investment|
+          csv << attributes.map{ |attr| investment.send(attr) }
+        end
+      end
   end
 end

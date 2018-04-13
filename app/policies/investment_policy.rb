@@ -4,7 +4,9 @@ class InvestmentPolicy < ApplicationPolicy
       scope
     end
   end
-
+  def to_csv?
+    user.organisation = record.organisation
+  end
   def index?
     user.organisation
   end
