@@ -120,7 +120,10 @@ class PagesController < ApplicationController
     end
 
     unless params[:focus_area].blank?
-      @locked_installments_fa_chart = @locked_installments.filter_by_focus(params[:project])
+      @sum_locked = 0
+      @sum_unlocked = 0
+      @locked_installments_fa_chart = @locked_installments.filter_by_focus(params[:focus_area]).each{|i| @sum_locked =+ i.amount}
+      @unlocked_installments_fa_chart = @unlocked_installments.filter_by_focus(params[:focus_area]).each{|i| @sum_unlocked =+ i.amount}
     end
 
     unless params[:ngo].blank?
