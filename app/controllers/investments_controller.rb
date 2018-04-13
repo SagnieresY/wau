@@ -101,10 +101,22 @@ class InvestmentsController < ApplicationController
     send_data Investment.to_csv(current_user.organisation), filename: "investments-#{Date.today.to_s}.csv", type: 'text/csv'
   end
 
+  def generate_investments
+    authorize current_user
+    investments_csv = params[:investments_csv]
+    investments_attributes = []
+    CSV.foreach(investments_csv.path) do |investment|
+      Investment.create!(email:user[0],password:user[1], organisation: current_user.organisation) unless user[0].split("@").count < 2
+    end
+
+    redirect_to downloads_path
+  end
+
   private
 
   def active_investments_paginated
     Kaminari.paginate_array(current_user.organisation.uncompleted_investments.sort_by{|i| i.next_installment&.days_left}).page(params[:active_page]).per(10)
+    raise
   end
 
   def completed_investments_paginated

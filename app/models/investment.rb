@@ -62,4 +62,8 @@ class Investment < ApplicationRecord
         end
       end
   end
+
+  def to_a
+    [id,project_id,completed?,forecasted_amount,unlocked_amount,locked_amount]
+  end
 end
