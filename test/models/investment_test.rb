@@ -9,8 +9,8 @@ class InvestmentTest < ActiveSupport::TestCase
     @test_focus = FocusArea.create!(name:'test')
     @test_geo = Geo.create(name:'test land')
     @test_project = Project.create!(name:'test',description:'testing',focus_area: @test_focus,main_contact:'www@www.com',organisation: @test_org, geos:[@test_geo])
-
   end
+
   test "doesn't save without organisation" do
     assert_not Investment.new(project: @test_project).save
   end
