@@ -6,7 +6,9 @@ class User < ApplicationRecord
   belongs_to :organisation, optional: true
 
   after_create :send_welcome_email
-
+  def to_a
+    [id,email,created_at]
+  end
   private
 
   def send_welcome_email
