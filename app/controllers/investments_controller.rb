@@ -116,7 +116,6 @@ class InvestmentsController < ApplicationController
 
   def active_investments_paginated
     Kaminari.paginate_array(current_user.organisation.uncompleted_investments.sort_by{|i| i.next_installment&.days_left}).page(params[:active_page]).per(10)
-    raise
   end
 
   def completed_investments_paginated

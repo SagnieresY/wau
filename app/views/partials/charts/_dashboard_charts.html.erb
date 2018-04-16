@@ -40,7 +40,18 @@
       title: {
         display: true,
         text: 'FY Forecasted Investments'
-      }
+      },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }   
+                }]},
     } %>
 
 <%= bar_chart [
@@ -62,6 +73,17 @@
         display: true,
         text: 'FY Forecasted Investments By Focus Area'
       },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }   
+                }]},
     } %>
 
   <%= bar_chart [
@@ -83,6 +105,17 @@
         display: true,
         text: 'FY Forecasted Investments By NGO'
       },
+    scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }   
+                }]},
     } %>
     <%= bar_chart [
     {name: "Unocked", data: current_user.organisation.amount_by_neighborhood[:unlocked]},
@@ -103,6 +136,17 @@
         display: true,
         text: 'FY Forecasted Investments By Neighborhood'
       },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }   
+                }]},
     } %>
 
   <script>
