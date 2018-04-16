@@ -1,3 +1,4 @@
+
 require './test/test_helper'
 
 class FocusAreaTest < ActiveSupport::TestCase

@@ -19,8 +19,13 @@ class InvestmentTest < ActiveSupport::TestCase
     assert_not Investment.new(organisation: @test_org).save
   end
 
+  test "saves with good attributes" do
+    assert investment = Investment.new(organisation: @test_org, project: @test_project).save
+
+  end
   test "can destroy an investments" do
     investment = Investment.create(organisation: @test_org, project: @test_project)
+
     assert investment.destroy
   end
 
