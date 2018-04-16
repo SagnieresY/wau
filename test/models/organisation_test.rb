@@ -22,7 +22,11 @@ class OrganisationTest < ActiveSupport::TestCase
     focus = FocusArea.create!(name:'test')
     geo = Geo.create(name:'test land')
     project = Project.create!(name:'test',description:'testing',focus_area: focus,main_contact:'www@www.com',organisation: test_org, geos:[geo])
+
     Investment.create!(organisation: test_org, project: project)
+
     assert test_org.destroy
   end
+
+
 end
