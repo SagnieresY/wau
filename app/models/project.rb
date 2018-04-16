@@ -10,6 +10,7 @@ class Project < ApplicationRecord
   has_many :investments, inverse_of: :project, dependent: :destroy
   has_many :installments, through: :investments, dependent: :destroy
   belongs_to :focus_area
+  has_one :focus_area_translations, through: :focus_area
   belongs_to :organisation
   validates :name, presence: true
   validates :description, presence: true

@@ -8,6 +8,7 @@ class Installment < ApplicationRecord
     }
   belongs_to :investment
   has_one :focus_area, through: :investment
+  has_one :focus_area_translations, through: :investment
   has_one :project, through: :investment
   has_one :organisation, through: :investment
   has_many :geos, through: :investment
