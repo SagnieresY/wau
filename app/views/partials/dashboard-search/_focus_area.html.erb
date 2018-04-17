@@ -1,5 +1,36 @@
-<h3>Focus Search:</h3><input type="text" id="focus_query">
+<h3>Focus Search:</h3>
+<div class="search-content">
+  <div class="input">
+    <input type="text" id="focus_query">
+    <div id="focusSuggestions" class="suggestions"></div>
+  </div>
+  <div id="focus_selection"></div>
+</div>
+
 <%= content_for(:after_js) do %>
-<script>
+
+  <script>
+    function fetchSuggestionsFocus(){
+      clearSuggestions();
+      let inputFocus = document.getElementById('focus_query').value
+      $.ajax({
+      url: `/focus_area/${inputFocus}`,
+      type: 'GET',
+      dataType: 'json',
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+      },
+      success: function(data){data.results.forEach((word) => addSuggestionFocus(word)); },
+      error: function(xhr, status, response) {console.log('could not fetch request')}
+    });
+    };
+
+    function addSuggestionFocus(suggestion){
+      const focusSuggestions = document.getElementById('focusSuggestions')
+      focusSuggestions.insertAdjacentHTML('afterbegin', `<li class="suggestion" onclick="addTag('focus_selection','${suggestion.replace("'","|")}');">${suggestion}</li>`);
+    }
+
+    const searchFocus = document.getElementById('focus_query')
+    searchFocus.addEventListener('keyup',fetchSuggestionsFocus)
   </script>
 <% end %>

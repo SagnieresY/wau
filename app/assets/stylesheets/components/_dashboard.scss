@@ -3,7 +3,7 @@
   background-color:white;
   width:700px;
   height:150px;
-  margin-bottom:30px;
+  margin-bottom:100px;
 }
 
 .search-buttons {
@@ -14,10 +14,19 @@
 
 .search-input {
   display:flex;
+
 }
 
 .active {
   background-color: #4FC0A6!important;
+}
+.suggestions {
+  margin-bottom:30px;
+}
+.suggestion {
+  background-color:white;
+  display:block;
+  color: #4FC0A6;
 }
 // END DASHBOARD SEARCH
 
@@ -70,6 +79,5 @@
 .tabcontent {
     display: none;
     padding: 6px 12px;
-    border: 1px solid #ccc;
     border-top: none;
 }

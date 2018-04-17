@@ -82,7 +82,7 @@ function addSuggestionNeighborhood(suggestion) {
 
 function addNeighborhood(neighborhood) {
   if ((selectedNeighborhood.indexOf(neighborhood) == -1)){
-  selectedNeighborhoodContainer.insertAdjacentHTML('afterbegin', `<h4>${neighborhood.replace("|","'")}<h4> `)
+  selectedNeighborhoodContainer.insertAdjacentHTML('afterbegin', `<h2>${neighborhood.replace("|","'")}</h2> `)
   selectedNeighborhood.push(neighborhood.replace('|',"'"))
   selectedNeighborhoodString += `${neighborhood.replace('&','and')},`
   }

@@ -37,5 +37,17 @@
       document.getElementById(tabName).style.display = "block";
       evt.currentTarget.className += " active";
 }
+  function addTag(selectionType, tag) {
+    let selection = document.getElementById(selectionType)
+    selection.insertAdjacentHTML('afterbegin',tag)
+  }
+  function clearSuggestions(){
+    ['focusSuggestions'].forEach((selection) => {
+      document.getElementById(selection).childNodes.forEach((child) => {
+        child.remove();
+      });
+    });
+
+  }
   </script>
 <% end %>
