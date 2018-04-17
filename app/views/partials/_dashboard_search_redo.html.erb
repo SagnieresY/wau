@@ -39,7 +39,13 @@
 }
   function addTag(selectionType, tag) {
     let selection = document.getElementById(selectionType)
-    selection.insertAdjacentHTML('afterbegin',tag)
+    var selectiontags = ''
+    selection.childNodes.forEach((child) => {
+      selectiontags += child.innerHTML
+    });
+    if (!selectiontags.includes(tag.replace("&","&amp;"))){
+    selection.insertAdjacentHTML('afterbegin',`<h7 class="tag"> ${tag}</h7>`)
+    }
   }
   function clearSuggestions(){
     ['focusSuggestions'].forEach((selection) => {
