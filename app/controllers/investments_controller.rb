@@ -96,6 +96,22 @@ class InvestmentsController < ApplicationController
     render json: selected_investment.unlocked_amount
   end
 
+  def to_csv
+    authorize current_user.organisation.investments.first
+    send_data Investment.to_csv(current_user.organisation), filename: "investments-#{Date.today.to_s}.csv", type: 'text/csv'
+  end
+
+  def generate_investments
+    authorize current_user
+    investments_csv = params[:investments_csv]
+    investments_attributes = []
+    CSV.foreach(investments_csv.path) do |investment|
+      Investment.create!(email:user[0],password:user[1], organisation: current_user.organisation) unless user[0].split("@").count < 2
+    end
+
+    redirect_to downloads_path
+  end
+
   private
 
   def active_investments_paginated
@@ -121,5 +137,6 @@ class InvestmentsController < ApplicationController
         installments_attributes: Installment.attribute_names.map(&:to_sym).push(:_destroy),
         project_attributes: [:name,:description,:focus_area_id,:main_contact,{ :geo_ids => [] }, :_destroy, :organisation_id])
   end
+
 
 end

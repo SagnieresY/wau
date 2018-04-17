@@ -37,8 +37,23 @@
         },
       title: {
         display: true,
+
         text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
       },
+        text: 'FY Forecasted Investments'
+      },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }   
+                }]},
+
     } %>
 
 <%= bar_chart [
@@ -60,6 +75,17 @@
         display: true,
         text: 'FY Forecasted Investments By Focus Area'
       },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }   
+                }]},
     } %>
 
   <%= bar_chart [
@@ -81,6 +107,17 @@
         display: true,
         text: 'FY Forecasted Investments By NGO'
       },
+    scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }   
+                }]},
     } %>
 
     <%= bar_chart [
@@ -102,6 +139,17 @@
         display: true,
         text: 'FY Forecasted Investments By Neighborhood'
       },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }   
+                }]},
     } %>
 
   <script>

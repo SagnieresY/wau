@@ -1,4 +1,4 @@
-require 'test_helper'
+require './test/test_helper'
 
 class ErrorsControllerTest < ActionDispatch::IntegrationTest
   test "should get not_found" do

@@ -1,4 +1,4 @@
-require 'test_helper'
+require './test/test_helper'
 
 class FocusAreaControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do

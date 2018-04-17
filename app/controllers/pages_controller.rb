@@ -22,8 +22,8 @@ class PagesController < ApplicationController
           current_year = t.beginning_of_year..t.end_of_year
 
           #Used in home charts
-          @locked_installments = current_user.organisation.locked_installments.includes(:focus_area)
-          @unlocked_installments = current_user.organisation.unlocked_installments.includes(:focus_area)
+          @locked_installments = current_user.organisation.locked_installments
+          @unlocked_installments = current_user.organisation.unlocked_installments
 
           #Used in home locked table
           @first_page_locked_installments = @locked_installments
@@ -170,5 +170,9 @@ class PagesController < ApplicationController
 
   def no_organisation
   end
+  def downloads
+
+  end
+
 
 end

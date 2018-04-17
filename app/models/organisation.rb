@@ -6,7 +6,6 @@ class Organisation < ApplicationRecord
     using: {
       tsearch: { prefix: true }
     }
-
   has_many :users, dependent: :destroy
   has_many :investments, inverse_of: :organisation, dependent: :destroy
   has_many :installments, through: :investments, dependent: :destroy
@@ -16,11 +15,11 @@ class Organisation < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
   def completed_investments
-    investments.where(completed:true) 
+    investments.where(completed:true)
   end
 
   def uncompleted_investments
-    investments.where(completed:false) 
+    investments.where(completed:false)
   end
 
   def investments_by_focus_area(completed = false)
