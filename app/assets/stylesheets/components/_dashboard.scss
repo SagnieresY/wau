@@ -4,6 +4,7 @@
   width:700px;
   height:250px;
   margin-bottom:100px;
+  color: #4FC0A6;
 }
 
 .search-buttons {
@@ -16,7 +17,12 @@
   display:flex;
 
 }
-
+.search-btn {
+  color: #4FC0A6;
+  border: 3px solid #4FC0A6;
+  background-color:white;
+  font-size:17px;
+}
 .active {
   background-color: #4FC0A6!important;
 }
@@ -45,13 +51,14 @@
 .dashboard-charts{
   display:flex;
   margin-bottom: 50px;
-}
 
+}
 .dashboard-chart{
-  position:relative;
-  left:40px;
-  width: 60vw;
-  height: 52vh;
+
+  margin-bottom:42px;
+
+  width: 579px;
+  height: 387px;
   background-color:white;
   margin-left: 40px;
   border-radius:5px;
@@ -93,3 +100,16 @@
     padding: 6px 12px;
     border-top: none;
 }
+
+#installments, #neighborhood {
+  width:1200px;
+  height: 380px;
+}
+
+#second-chart-row{
+  display:flex;
+  margin-right:0px;
+  margin-left:0px;
+
+}
+

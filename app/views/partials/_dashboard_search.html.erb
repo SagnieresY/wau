@@ -1,72 +1,79 @@
-<button onclick="toggleSearch();">toggle advanced search</button>
+<div class="search-container">
+  <% search_buttons = ['Focus Area', 'Date', 'NGO', 'Neighborhood','Project'] %>
+  <div class="search-buttons">
+    <h3>Search by: </h3>
+  <% search_buttons.each do |tab| %>
+    <button class="tablinks" onclick="openTab(event,'<%= tab %>')"><%= tab %></button>
+  <% end %>
+  <button class="search-btn" onclick="mainSearch()">search!</button>
+  </div>
+  <% search_buttons.each do |tab| %>
 
-<div class="search-wrapper">
-  <div id="search-content">
-  <!-- COMMMMMMMMMMMENT -->
-  <button onclick="toggleFocusSearch()">toggle focus search</button>
-  <div id="focus-search-wrapper" class="search-tool" style="display:none;">
-
-  </div>
-  <br>
-  <br>
-  <button onclick="toggleNgoSearch();">toggle ngo search</button>
-  <div id="ngo-search-wrapper" class="search-tool" style="display:none;">
-     <div id="containerNgo">
-        <input type="text" id="searchNgo">
-        <ul id="resultsNgo" class="suggestion-box">
-        </ul>
-     </div>
-     <h2>selected Ngo <a onclick="resetNgoSelection();">reset</a></h2>
-     <div id="selected-ngo"></div>
-  </div>
-  <br>
-  <br>
-  <button onclick="toggleNeighborhoodSearch();">toggle neighborhood search</button>
-  <div id="neighborhood-search-wrapper" class="search-tool" style="display:none;">
-     <div id="containerNeighborhood">
-        <input type="text" id="searchNeighborhood">
-        <ul id="resultsNeighborhood" class="suggestion-box">
-        </ul>
-     </div>
-     <h2>selected Neighborhood <a onclick="resetNeighborhoodSelection();">reset</a></h2>
-     <div id="selected-neighborhood"></div>
-  </div>
-  <br>
-  <br>
-  <button onclick="toggleDateSearch();">toggle date search</button>
-  <div id="date-search-wrapper" class="search-tool" style="display:none" >
-      <h4>min date</h4>
-      <input type="date" id="min-date">
-      <h4>max date</h4>
-      <input type="date" id="max-date">
-  </div>
-  <br>
-  <br>
-  <button onclick="toggleProjectSearch();">toggle project search</button>
-  <div id="project-search-wrapper" class="search-tool" style="display:none;">
-     <div id="containerProject">
-        <input type="text" id="searchProject">
-        <ul id="resultsProject" class="suggestion-box">
-        </ul>
-     </div>
-     <h2>selected Project <a onclick="resetProjectSelection();">reset</a></h2>
-     <div id="selected-project"></div>
-  </div>
-  <button onclick="searchAll();">Search!</button>
-  </div>
+    <div id="<%= tab %>" class="tabcontent search-input" >
+      <% tab = tab == 'Focus Area' ? 'focus_area' : tab  %>
+      <%= render partial: "/partials/dashboard-search/#{tab}" %>
+    </div>
+  <% end %>
 </div>
-<%=  content_for(:after_js) do %>
-<script>
 
-// TOGGLE SEARCH
-  const searchBar = document.getElementById('search-content')
-  function toggleSearch(){
-  searchBar.style.display = searchBar.style.display === 'none' ? 'flex' : 'none';
-};
-  toggleSearch();
-// FOCUS SEARCH
+<%= content_for(:after_js) do %>
+  <script>
+    function openTab(evt, tabName) {
+    // Declare all variables
+      var i, tabcontent, tablinks;
 
+      // Get all elements with class="tabcontent" and hide them
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+      }
 
+      // Get all elements with class="tablinks" and remove the class "active"
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
 
-</script>
+      // Show the current tab, and add an "active" class to the button that opened the tab
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+}
+  function addTag(selectionType, tag) {
+    let selection = document.getElementById(selectionType)
+    var selectiontags = ''
+    selection.childNodes.forEach((child) => {
+      selectiontags += child.innerHTML
+    });
+    if (!selectiontags.includes(tag.replace("&","&amp;"))){
+    selection.insertAdjacentHTML('afterbegin',`<h7 class="tag"> ${tag}</h7>`)
+    }
+  }
+  function clearSuggestions(){
+    ['focusSuggestions'].forEach((selection) => { // just add some tags whenever you add a new searchfield
+      document.getElementById(selection).childNodes.forEach((child) => {
+        child.remove();
+      });
+    });
+
+  }
+
+  function mainSearch(){
+    var url = '?search=true'
+    var fields = ['focus_selection','ngo_selection','neighborhood_selection','project_selection']
+    fields.forEach((selection) => {
+      var field = selection.split('_')[0]
+      console.log(field)
+      var tags = ''
+      document.getElementById(selection).childNodes.forEach((child)=>{
+        tags += `${child.innerHTML.replace("&amp;",'and')},`
+        console.log(child.innerHTML)
+      });
+      url += `&${field}=${tags}`
+    })
+    url += `&min_date=${document.getElementById('min-date').value}`
+
+    url += `&max_date=${document.getElementById('max-date').value}`
+      window.location.replace(`${url}`)
+  };
+  </script>
 <% end %>

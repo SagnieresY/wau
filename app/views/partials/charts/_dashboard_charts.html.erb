@@ -1,19 +1,11 @@
-<div class="tab">
-  <h3>Chart menu</h3>
-  <button class="tablinks" onclick="openChart(event, 'focus_area')">By Focus area</button>
-  <button class="tablinks" onclick="openChart(event, 'ngo')">By NGO</button>
-  <button class="tablinks" onclick="openChart(event, 'installments')">Timeline</button>
-  <button class="tablinks" onclick="openChart(event, 'neighborhood')">By Neighborhood</button>
-  <button class="tablinks" onclick="openChart(event, 'sdasfag')">Close charts</button>
 
+<div id="installments" class="dashboard-chart"></div>
+<div id="second-chart-row">
+  <div id="focus_area" class="dashboard-chart"></div>
+  <div id="ngo" class="dashboard-chart"></div>
 </div>
+<div id="neighborhood" class="dashboard-chart"></div>
 
-<div class="dashboard-charts">
-<div id="focus_area" class="dashboard-chart tabcontent"></div>
-<div id="ngo" class="dashboard-chart tabcontent"></div>
-<div id="installments" class="dashboard-chart tabcontent"></div>
-<div id="neighborhood" class="dashboard-chart tabcontent"></div>
-</div>
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
   Chart.defaults.global.defaultFontFamily = 'Raleway';
@@ -50,7 +42,7 @@
         yAxes: [{
                     gridLines: {
                         display:false
-                    }   
+                    }
                 }]},
     } %>
 
@@ -82,7 +74,7 @@
         yAxes: [{
                     gridLines: {
                         display:false
-                    }   
+                    }
                 }]},
     } %>
 
@@ -114,7 +106,7 @@
         yAxes: [{
                     gridLines: {
                         display:false
-                    }   
+                    }
                 }]},
     } %>
     <%= bar_chart [
@@ -145,7 +137,7 @@
         yAxes: [{
                     gridLines: {
                         display:false
-                    }   
+                    }
                 }]},
     } %>
 

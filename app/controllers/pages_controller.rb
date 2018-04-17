@@ -76,14 +76,13 @@ class PagesController < ApplicationController
   def dashboard
     raw_next_installments = current_user.organisation.uncompleted_investments.map{|i| i.next_installment}
     @installments = raw_next_installments
-
     if !params[:min_date].blank? || !params[:max_date].blank?
       min_date = params[:min_date].blank? ? '' : Date.parse(params[:min_date])
       max_date = params[:max_date].blank? ? '' : Date.parse(params[:max_date])
       @installments = Installment.filter_by_date(@installments,min_date,max_date)
     end
-    unless params[:focus_area].blank?
-      @installments = Installment.filter_by_focus(@installments,params[:focus_area])
+    unless params[:focus].blank?
+      @installments = Installment.filter_by_focus(@installments,params[:focus])
     end
     unless params[:ngo].blank?
       @installments = Installment.filter_by_ngo(@installments,params[:ngo])
