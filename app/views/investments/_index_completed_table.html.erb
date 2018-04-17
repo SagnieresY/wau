@@ -1,5 +1,5 @@
 <!-- COMPLETED TAB -->
-<div id="completed" class="tabcontent">
+<div id="completed" class="tabcontent" style="display:block!important;">
   <% unless @completed_investments.blank? %>
   <div class="completed-investments">
     <input type="text" class="searchInvest" id="searchBarCompleted" onkeyup="searchCompleted()" placeholder="<%= t("investments.index.search_bar.completed") %>">
