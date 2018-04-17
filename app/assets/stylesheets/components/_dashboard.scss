@@ -11,8 +11,15 @@
   justify-content: space-around;
   border-bottom: 1px solid #ccc;
 }
-// END DASHBOARD SEARCH
 
+.search-input {
+  display:flex;
+}
+
+.active {
+  background-color: #4FC0A6!important;
+}
+// END DASHBOARD SEARCH
 
 .dashboard-charts{
   display:flex;
@@ -28,7 +35,7 @@
   margin-left: 40px;
   border-radius:5px;
 }
-.tab {
+.tablinks {
     overflow: hidden;
     border:none;
     background-color: white;

@@ -5,13 +5,7 @@
   <!-- COMMMMMMMMMMMENT -->
   <button onclick="toggleFocusSearch()">toggle focus search</button>
   <div id="focus-search-wrapper" class="search-tool" style="display:none;">
-     <div id="containerFocus">
-        <input type="text" id="searchFocus">
-        <ul id="resultsFocus" class="suggestion-box">
-        </ul>
-     </div>
-     <h2>selected focus <a onclick="resetFocusSelection();">reset</a></h2>
-     <div id="selected-focus"></div>
+
   </div>
   <br>
   <br>
@@ -71,63 +65,7 @@
 };
   toggleSearch();
 // FOCUS SEARCH
-const focusWrapper = document.getElementById('focus-search-wrapper')
-const inputFocus = document.getElementById('searchFocus');
-const resultsFocus = document.getElementById('resultsFocus');
-const selectedFocusContainer = document.getElementById('selected-focus')
-let selectedFocus = []
-let selectedFocusString = ''
 
-function toggleFocusSearch(){
-  focusWrapper.style.display = focusWrapper.style.display === 'none' ? '' : 'none';
-};
-
-function clearSearchFocus() {
-  resultsFocus.childNodes.forEach((child) => {
-    child.remove();
-  });
-}
-
-function addSuggestionFocus(suggestion) {
-  resultsFocus.insertAdjacentHTML('afterbegin', `<li class="suggestion-item"  onclick="addFocus('${suggestion}');">${suggestion}</li>`);
-}
-
-function addFocus(focus) {
-  if ((selectedFocus.indexOf(focus) == -1)){
-  selectedFocusContainer.insertAdjacentHTML('afterbegin', `<h4>${focus}  <h4> `)
-  selectedFocus.push(focus)
-  selectedFocusString += `${focus.replace('&','and')},`
-  }
-};
-function resetFocusSelection(){
-  selectedFocus = []
-  selectedFocusContainer.childNodes.forEach(function(item){
-    item.remove()
-  });
-};
-
-function searchFocus(){
-  let focus_areas = ''
-  selectedFocus.forEach((single_focus) => focus_areas += `${single_focus.replace("&","and")},`)
-  console.log(focus_areas)
-  window.location.replace(`/dashboard/?focus_area=${focus_areas}`);
-};
-function fetchInfoFocus() {
-  clearSearchNgo();
-  clearSearchFocus();
-  const inputValue = inputFocus.value;
-  $.ajax({
-  url: `<%= '/fr' if params["locale"] == "fr" %>/focus_area/${inputValue}`,
-  type: 'GET',
-  dataType: 'json',
-  beforeSend: function (xhr) {
-      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-  },
-  success: function(data){data.results.forEach((word) => addSuggestionFocus(word)); },
-  error: function(xhr, status, response) {console.log(xhr)}
-});
-}
-inputFocus.addEventListener('keyup', fetchInfoFocus);
 
 
 </script>
