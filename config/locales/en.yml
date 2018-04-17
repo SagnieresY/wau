@@ -176,6 +176,19 @@ en:
       subject: "Welcome to WAU!"
   dashboard:
     search_bar:
-        date_min: "min date"
-        date_max: "max date"
-        focus_area: "focus area"
+      date_min: "min date"
+      date_max: "max date"
+      focus_area: "focus area"
+    table:
+      header:
+        ngo:  "NGO"
+        project_name: "Project Name"
+        invested: "Invested"
+        status: "Status"
+        edit: "Edit"
+      completed: "Completed"
+      active: "Active"
+      editable:
+        investment: "Investment"
+        project: "Project"
+

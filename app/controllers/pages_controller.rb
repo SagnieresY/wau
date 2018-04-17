@@ -150,16 +150,19 @@ class PagesController < ApplicationController
     @unlocked_installments_ngo_chart = @installments.unlocked.joins(project: :organisation).group("organisations.name").sum(:amount)
     
     #Returns hash by FA & sum(:amount)
-    @locked_installments_fa_chart = @installments.joins(:focus_area).group('focus_areas.id').sum(:amount)
-    @locked_installments_fa_chart = @installments.joins(:focus_area).group('focus_areas.id').sum(:amount)
+    @locked_installments_fa_chart = @installments.locked.joins(:focus_area).group('focus_areas.id').sum(:amount)
+    @unlocked_installments_fa_chart = @installments.unlocked.joins(:focus_area).group('focus_areas.id').sum(:amount)
       # @locked_installments_fa_chart = @locked_installments.filter_by_focus(params[:focus_area]).each{|i| @sum_locked =+ i.amount}
       # @unlocked_installments_fa_chart = @unlocked_installments.filter_by_focus(params[:focus_area]).each{|i| @sum_unlocked =+ i.amount}
 
     unless params[:project].blank?
       # @installments = Installment.filter_by_project(@installments, params[:project])
     end
-  end
 
+    #Returns installments grouped by investments for TABLE
+    installment_ids = @installments.ids
+    @investments = Investment.joins(:installments).where("installments.id":installment_ids).distinct
+  end
 
   def landing
     render :layout => false

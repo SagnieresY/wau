@@ -21,7 +21,7 @@
 
 <!-- DATE CHART: Cumulative installments by month in chronological order -->
 <% year = params[:year].present? ? params[:year] : Date.today.year %>
-<%= line_chart [
+<%= area_chart [
     {name: "Unlocked", data: @unlocked_installments_time_chart},
     {name: "Locked", data: @locked_installments_time_chart}],
     id: "installments",

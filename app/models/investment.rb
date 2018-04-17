@@ -19,7 +19,7 @@ class Investment < ApplicationRecord
 #installment
   def forecasted_amount
     #calculates projected amount minus the missed installments
-    installments.unlocked.sum(:amount) + installments.unlocked.sum(:amount)
+    installments.unlocked.sum(:amount) + installments.locked.sum(:amount)
   end
 
   def unlocked_amount
