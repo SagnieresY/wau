@@ -21,11 +21,10 @@
 
 <!-- DATE CHART: Cumulative installments by month in chronological order -->
 <% year = params[:year].present? ? params[:year] : Date.today.year %>
-<%= column_chart [
+<%= line_chart [
     {name: "Unlocked", data: @unlocked_installments_time_chart},
     {name: "Locked", data: @locked_installments_time_chart}],
     id: "installments",
-    points: false,
     stacked: true,
     prefix: "$",
     thousands: ",",
@@ -43,8 +42,8 @@
     } %>
 
 <%= bar_chart [
-    {name: "Unlocked", data: @sum_unlocked},
-    {name: "Locked", data: @sum_locked}],
+    {name: "Unlocked", data: @unlocked_installments_fa_chart},
+    {name: "Locked", data: @locked_installments_fa_chart}],
     id: "focus_area",
     stacked:true,
     prefix: "$",
@@ -64,8 +63,8 @@
     } %>
 
   <%= bar_chart [
-    {name: "Unocked", data: current_user.organisation.amount_by_ngo[:unlocked]},
-    {name: "Locked", data: current_user.organisation.amount_by_ngo[:locked]}],
+    {name: "Unocked", data: @unlocked_installments_ngo_chart},
+    {name: "Locked", data: @locked_installments_ngo_chart}],
     id: "ngo",
     stacked:true,
     prefix: "$",
@@ -85,8 +84,8 @@
     } %>
 
     <%= bar_chart [
-    {name: "Unlocked", data:  @unlocked_installments_geos_chart},
-    {name: "Locked", data:  @locked_installments_geos_chart}],
+    {name: "Unlocked", data:  @unlocked_installments_geo_chart},
+    {name: "Locked", data:  @locked_installments_geo_chart}],
     id: "neighborhood",
     stacked:true,
     prefix: "$",

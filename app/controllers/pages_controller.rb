@@ -105,64 +105,55 @@ class PagesController < ApplicationController
     #Get installments with date range and joins tables
     @installments = current_user.organisation.installments.where(deadline: start_date..end_date).includes(:investment, :project, :focus_area, :organisation)
 
-    #Updates installments with geo selection if there is one
+    #Updates installments with GEO selection if there is one
     unless params[:neighborhood].blank?
       geos_array = params[:neighborhood].split(',')
       @installments = @installments.joins(:geos).where("geos.name":geos_array)
     end
 
-# NOTES PASSING PROJECT ALSO WORKS
-#@installments.where("projects.name":"Welcome Refugees to Montreal").sum(:amount)
+    #Updates installments with FOCUSAREA selection if there is one
+    unless params[:focus_area].blank?
+      fa_hash = {}
+      fa_array_id = []
+      FocusArea.all.each {|fa| fa_hash[fa.name] = fa.id}
+      params[:focus_area].gsub('and','&').split(',').each {|fa| fa_array_id << fa_hash[fa]}
+      @installments = @installments.joins(:focus_area).where('focus_areas.id':fa_array_id)
+    end
 
     #Updates installments with NGO selection if there is one
     unless params[:ngo].blank?
-      org_array = params[:ngo].split(',')
-      # org_array = ["UNICEF", "Equiterre"] for testing purposes
-      @installments = @installments.select {|i| i.project.organisation.name.presence_in org_array} #returns an array
+      org_array = params[:ngo].gsub('and','&').split(',')
+      @installments.joins(project: :organisation).where("organisations.name":org_array)
     end
 
-    #Updates installments with FA selection if there is one
-    unless params[:focus_area].blank?
-      fa_array = params[:focus_area].split(',')
-      # fa_array = ["Narcotics, Drugs & Crime", "Transportation"] for testing purposes
-      @installments.select {|i| i.focus_area.name.presence_in fa_array}  #returns an array
-    end
-
+  # NOTE: PASSING PROJECT ALSO WORKS
+  #@installments.where("projects.name":"Welcome Refugees to Montreal").sum(:amount)
 
     #Calculate year range
     time_range_seconds = (max_date.to_i - start_date.to_i)
 
     #Return hash by TIME depending on range
     if (time_range_seconds) > 63115201
-      @locked_installments_time_chart = @locked_installments.group_by_year(:deadline, format: "%Y", range: start_date..end_date).sum(:amount)
-      @unlocked_installments_time_chart = @unlocked_installments.group_by_year(:deadline, format: "%Y", range: start_date..end_date).sum(:amount)
+      @locked_installments_time_chart = @installments.locked.group_by_year(:deadline, format: "%Y", range: start_date..end_date).sum(:amount)
+      @unlocked_installments_time_chart = @installments.unlocked.group_by_year(:deadline, format: "%Y", range: start_date..end_date).sum(:amount)
     else
-      @locked_installments_time_chart = @locked_installments.group_by_month(:deadline, format: "%b %Y", range: start_date..end_date).sum(:amount)
-      @unlocked_installments_time_chart = @unlocked_installments.group_by_month(:deadline, format: "%b %Y", range: start_date..end_date).sum(:amount)
+      @locked_installments_time_chart = @installments.locked.group_by_month(:deadline, format: "%b %Y", range: start_date..end_date).sum(:amount)
+      @unlocked_installments_time_chart = @installments.unlocked.group_by_month(:deadline, format: "%b %Y", range: start_date..end_date).sum(:amount)
     end
 
     #Returns hash by GEO & sum(:amount)
-    unless params[:neighborhood].blank?
-      geos_array = params[:neighborhood].split(',')
-      @locked_installments_geos_chart = @locked_installments.joins(:geos).group('geos.name').where("geos.name":geos_array).sum(:amount)
-      @unlocked_installments_geos_chart = @unlocked_installments.joins(:geos).group('geos.name').where("geos.name":geos_array).sum(:amount)
-    end
+    @locked_installments_geo_chart = @installments.locked.joins(:geos).group("geos.name").sum(:amount)
+    @unlocked_installments_geo_chart = @installments.unlocked.joins(:geos).group("geos.name").sum(:amount)
     
-    #Returns hash by NGO & sum(:amount)
-    unless params[:ngo].blank?
-      # ngo_array = params[:ngo].split(',')
-      # @installments = Installment.filter_by_ngo(@installments,params[:ngo])
-    end
+    # #Returns hash by NGO & sum(:amount)
+    @locked_installments_ngo_chart = @installments.locked.joins(project: :organisation).group("organisations.name").sum(:amount)
+    @unlocked_installments_ngo_chart = @installments.unlocked.joins(project: :organisation).group("organisations.name").sum(:amount)
     
     #Returns hash by FA & sum(:amount)
-    unless params[:focus_area].blank?
-      # @sum_locked = 0
-      # @sum_unlocked = 0
+    @locked_installments_fa_chart = @installments.joins(:focus_area).group('focus_areas.id').sum(:amount)
+    @locked_installments_fa_chart = @installments.joins(:focus_area).group('focus_areas.id').sum(:amount)
       # @locked_installments_fa_chart = @locked_installments.filter_by_focus(params[:focus_area]).each{|i| @sum_locked =+ i.amount}
       # @unlocked_installments_fa_chart = @unlocked_installments.filter_by_focus(params[:focus_area]).each{|i| @sum_unlocked =+ i.amount}
-    end
-
-
 
     unless params[:project].blank?
       # @installments = Installment.filter_by_project(@installments, params[:project])
