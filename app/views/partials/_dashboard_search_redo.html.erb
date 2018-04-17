@@ -48,7 +48,7 @@
     }
   }
   function clearSuggestions(){
-    ['focusSuggestions'].forEach((selection) => {
+    ['focusSuggestions'].forEach((selection) => { // just add some tags whenever you add a new searchfield
       document.getElementById(selection).childNodes.forEach((child) => {
         child.remove();
       });
