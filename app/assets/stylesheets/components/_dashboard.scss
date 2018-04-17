@@ -1,14 +1,18 @@
-.search-wrapper {
-  margin-bottom: 150px
+//DASHOBARD SEARCH
+.search-container {
+  background-color:white;
+  width:700px;
+  height:150px;
+  margin-bottom:30px;
+}
 
+.search-buttons {
+  display:flex;
+  justify-content: space-around;
+  border-bottom: 1px solid #ccc;
 }
-#search-content {
-  display:none;
-  margin-bottom: 50px;
-  bottom:-120px;
-  height:40px;
-  width:80vw;
-}
+// END DASHBOARD SEARCH
+
 
 .dashboard-charts{
   display:flex;
@@ -24,24 +28,9 @@
   margin-left: 40px;
   border-radius:5px;
 }
-.search-tool {
-  display:block;
-}
-.suggestion-box {
-  position:absolute;
-}
-.suggestion-item {
-  position:relative;
-  left:-40px;
-  width:300px;
-  font-size:15px;
-  border: 1px solid lightgrey;
-  display:block;
-  background-color:white;
-}
 .tab {
     overflow: hidden;
-    border: 1px solid #ccc;
+    border:none;
     background-color: white;
 }
 //COMMMMMMMMMMENT
