@@ -1,17 +1,22 @@
 
 <div class="row margin-top-bottom-6">
-    <div id="installments" class="dashboard-chart col-md-12 white-dropshadow-card"></div>
+    <div id="dash_timeseries" class="dashboard-chart col-md-12 white-dropshadow-card"></div>
 </div>
 <div class="row margin-top-bottom-6">
     <div class="col-md-6 no-left-padding-md">
-        <div id="focus_area" class="dashboard-chart white-dropshadow-card"></div>
+        <div id="dash_fa_bars" class="dashboard-chart white-dropshadow-card"></div>
     </div>
     <div class="col-md-6 no-right-padding-md">
-        <div id="ngo" class="dashboard-chart white-dropshadow-card left-padding-3"></div>
+        <div id="dash_ngo_bars" class="dashboard-chart white-dropshadow-card"></div>
     </div>
 </div>
 <div class="row margin-top-bottom-6">
-    <div id="neighborhood" class="dashboard-chart white-dropshadow-card col-md-12"></div>
+    <div class="col-md-6 no-left-padding-md">
+        <div id="dash_geo_bars" class="dashboard-chart white-dropshadow-card"></div>
+    </div>
+    <div class="col-md-6 no-right-padding-md">
+        <div id="dash_project_bars" class="dashboard-chart white-dropshadow-card"></div>
+    </div>
 </div>
 
 <%= content_for(:after_js) do %>
@@ -23,7 +28,7 @@
 <%= area_chart [
     {name: "Unlocked", data: @unlocked_installments_time_chart},
     {name: "Locked", data: @locked_installments_time_chart}],
-    id: "installments",
+    id: "dash_timeseries",
     stacked: true,
     prefix: "$",
     thousands: ",",
@@ -51,12 +56,12 @@
                     }
                 }]},
 
-    } %>
+} %>
 
 <%= bar_chart [
     {name: "Unlocked", data: @unlocked_installments_fa_chart},
     {name: "Locked", data: @locked_installments_fa_chart}],
-    id: "focus_area",
+    id: "dash_fa_bars",
     stacked:true,
     prefix: "$",
     thousands: ",",
@@ -85,10 +90,10 @@
                 }]},
     } %>
 
-  <%= bar_chart [
+<%= bar_chart [
     {name: "Unocked", data: @unlocked_installments_ngo_chart},
     {name: "Locked", data: @locked_installments_ngo_chart}],
-    id: "ngo",
+    id: "dash_ngo_bars",
     stacked:true,
     prefix: "$",
     thousands: ",",
@@ -115,12 +120,12 @@
                         display:false
                     }
                 }]},
-    } %>
+} %>
 
-    <%= bar_chart [
+<%= bar_chart [
     {name: "Unlocked", data:  @unlocked_installments_geo_chart},
     {name: "Locked", data:  @locked_installments_geo_chart}],
-    id: "neighborhood",
+    id: "dash_geo_bars",
     stacked:true,
     prefix: "$",
     thousands: ",",
@@ -148,6 +153,38 @@
                     }
                 }]},
     } %>
+
+<%= bar_chart [
+    {name: "Unlocked", data:  @unlocked_installments_project_chart},
+    {name: "Locked", data:  @locked_installments_project_chart}],
+    id: "dash_project_bars",
+    stacked:true,
+    prefix: "$",
+    thousands: ",",
+    download: true,
+    colors: ["#8D81D2", "#AE6CB5"],
+    library: {
+        tooltips: {
+        enabled: true,
+        mode: 'index',
+        intersect: false
+        },
+      title: {
+        display: true,
+        text: 'FY Forecasted Investments By Projects'
+      },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }]},
+} %>
 
   <script>
     function openChart(evt, chartName) {
