@@ -45,4 +45,20 @@ class OrganisationTest < ActiveSupport::TestCase
     assert @test_org.locked_amount == 100*10
   end
 
+  test "returns correct unlocked amount" do
+    10.times do |i|
+      Installment.create(amount:100, task:'meme',deadline:Date.today,investment:@test_investment,status:'unlocked') if i.odd?
+      Installment.create(amount:100, task:'meme',deadline:Date.today,investment:@test_investment) unless i.odd?
+    end
+    assert @test_org.unlocked_amount == 100*5
+  end
+
+  test "returns correct forecasted amount for year" do
+    10.times do
+      Installment.create(amount:100, task:'meme',deadline:Date.today,investment:@test_investment,status:'unlocked')
+      Installment.create(amount:100, task:'meme',deadline:(Date.today + 500),investment:@test_investment)
+    end
+    assert @test_org.amount_for_year == 100*10
+  end
+
 end
