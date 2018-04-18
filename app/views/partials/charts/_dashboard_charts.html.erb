@@ -18,16 +18,14 @@
 <script type="text/javascript">
   Chart.defaults.global.defaultFontFamily = 'Raleway';
 </script>
-<!-- CUMMULATIVE INSTALLMENT BY DATE CHART -->
 
+<!-- DATE CHART: Cumulative installments by month in chronological order -->
 <% year = params[:year].present? ? params[:year] : Date.today.year %>
 <%= area_chart [
-    {name: "Unocked", data: cumulate_my_hash(current_user.organisation.unlocked_installments.current_year_monthly_amount(year_range(year)))},
-    {name: "Locked", data: cumulate_my_hash(current_user.organisation.locked_installments.current_year_monthly_amount(year_range(year)))}],
+    {name: "Unlocked", data: @unlocked_installments_time_chart},
+    {name: "Locked", data: @locked_installments_time_chart}],
     id: "installments",
-    points: false,
     stacked: true,
-    download:true,
     prefix: "$",
     thousands: ",",
     colors: ["#8D81D2","#AE6CB5"],
@@ -39,6 +37,9 @@
         },
       title: {
         display: true,
+
+        text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
+      },
         text: 'FY Forecasted Investments'
       },
       scales: {
@@ -52,11 +53,12 @@
                         display:false
                     }   
                 }]},
+
     } %>
 
 <%= bar_chart [
-    {name: "Unocked", data: current_user.organisation.unlocked_amount_by_focus_area_year(year)},
-    {name: "Locked", data: current_user.organisation.locked_amount_by_focus_area_year(year)}],
+    {name: "Unlocked", data: @unlocked_installments_fa_chart},
+    {name: "Locked", data: @locked_installments_fa_chart}],
     id: "focus_area",
     stacked:true,
     prefix: "$",
@@ -87,8 +89,8 @@
     } %>
 
   <%= bar_chart [
-    {name: "Unocked", data: current_user.organisation.amount_by_ngo[:unlocked]},
-    {name: "Locked", data: current_user.organisation.amount_by_ngo[:locked]}],
+    {name: "Unocked", data: @unlocked_installments_ngo_chart},
+    {name: "Locked", data: @locked_installments_ngo_chart}],
     id: "ngo",
     stacked:true,
     prefix: "$",
@@ -117,9 +119,10 @@
                     }   
                 }]},
     } %>
+
     <%= bar_chart [
-    {name: "Unocked", data: current_user.organisation.amount_by_neighborhood[:unlocked]},
-    {name: "Locked", data: current_user.organisation.amount_by_neighborhood[:locked]}],
+    {name: "Unlocked", data:  @unlocked_installments_geo_chart},
+    {name: "Locked", data:  @locked_installments_geo_chart}],
     id: "neighborhood",
     stacked:true,
     prefix: "$",
