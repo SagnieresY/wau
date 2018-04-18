@@ -1,7 +1,8 @@
 <!-- <input class="search" type="search" data-column="all"> (Match any column)<br>
  -->
 <!-- Tab content -->
-<div id="active" class="tabcontent">
+<div id="active" class="tabcontent" style="display:block!important;">
+  <div id="loading">
   <div class="active-investments">
     <input type="text" class="searchInvest" id="searchBarActive" onkeyup="searchActive()" placeholder= "<%= t("investments.index.search_bar.active") %>" >
     <div class="table-container">
