@@ -20,7 +20,6 @@
 </script>
 
 <!-- DATE CHART: Cumulative installments by month in chronological order -->
-<% year = params[:year].present? ? params[:year] : Date.today.year %>
 <%= area_chart [
     {name: "Unlocked", data: @unlocked_installments_time_chart},
     {name: "Locked", data: @locked_installments_time_chart}],
@@ -39,8 +38,6 @@
         display: true,
 
         text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
-      },
-        text: 'FY Forecasted Investments'
       },
       scales: {
         xAxes: [{
