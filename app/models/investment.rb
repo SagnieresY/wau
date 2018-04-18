@@ -1,9 +1,11 @@
 class Investment < ApplicationRecord
 
-  belongs_to :organisation
-  belongs_to :project
+  belongs_to :organisation, inverse_of: :investments
+  belongs_to :project, inverse_of: :investments
   has_one :focus_area, through: :project
+  has_one :focus_area_translations, through: :project
   has_many :installments, dependent: :destroy
+  has_many :geos, through: :project
   validates :project, presence: true
   validates :organisation, presence: true
   accepts_nested_attributes_for :project

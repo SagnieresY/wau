@@ -24,6 +24,15 @@
   padding: 2px;
 }
 
+.active-icon {
+  border-radius: 4px;
+  background: $orange;
+  width: 70px;
+  text-align: center;
+  color: white;
+  padding: 2px;
+}
+
 .flex-tab {
   display: flex;
   margin-bottom: 5px;
