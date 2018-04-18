@@ -1,6 +1,6 @@
-<div id="focus_area" class="home-chart"></div>
-<div id="ngo"></div>
-<div id="installments" class="home-chart"></div>
+<div id="home_focus_area" class="home-chart"></div>
+<div id="home_timeseries" class="home-chart"></div>
+
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
   Chart.defaults.global.defaultFontFamily = 'Raleway';
@@ -9,7 +9,7 @@
 <%= area_chart [
     {name: "Unocked", data: cumulate_my_hash(@unlocked_installments.current_year_monthly_amount(year_range(@year)))},
     {name: "Locked", data: cumulate_my_hash(@locked_installments.current_year_monthly_amount(year_range(@year)))}],
-    id: "installments",
+    id: "home_timeseries",
     points: false,
     stacked: true,
     prefix: "$",
@@ -57,7 +57,7 @@ end
 <%= bar_chart [
     {name: "Unlocked", data: @cumulated_fa_unlocked_amount},
     {name: "Locked", data: @cumulated_fa_locked_amount}],
-    id: "focus_area",
+    id: "home_focus_area",
     stacked:true, 
     prefix: "$",
     thousands: ",",

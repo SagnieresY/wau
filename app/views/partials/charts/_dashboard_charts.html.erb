@@ -1,19 +1,19 @@
-<div class="tab">
-  <h3>Chart menu</h3>
-  <button class="tablinks" onclick="openChart(event, 'focus_area')">By Focus area</button>
-  <button class="tablinks" onclick="openChart(event, 'ngo')">By NGO</button>
-  <button class="tablinks" onclick="openChart(event, 'installments')">Timeline</button>
-  <button class="tablinks" onclick="openChart(event, 'neighborhood')">By Neighborhood</button>
-  <button class="tablinks" onclick="openChart(event, 'sdasfag')">Close charts</button>
 
+<div class="row margin-top-bottom-6">
+    <div id="installments" class="dashboard-chart col-md-12 white-dropshadow-card"></div>
+</div>
+<div class="row margin-top-bottom-6">
+    <div class="col-md-6 no-left-padding-md">
+        <div id="focus_area" class="dashboard-chart white-dropshadow-card"></div>
+    </div>
+    <div class="col-md-6 no-right-padding-md">
+        <div id="ngo" class="dashboard-chart white-dropshadow-card left-padding-3"></div>
+    </div>
+</div>
+<div class="row margin-top-bottom-6">
+    <div id="neighborhood" class="dashboard-chart white-dropshadow-card col-md-12"></div>
 </div>
 
-<div class="dashboard-charts">
-<div id="focus_area" class="dashboard-chart tabcontent"></div>
-<div id="ngo" class="dashboard-chart tabcontent"></div>
-<div id="installments" class="dashboard-chart tabcontent"></div>
-<div id="neighborhood" class="dashboard-chart tabcontent"></div>
-</div>
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
   Chart.defaults.global.defaultFontFamily = 'Raleway';
@@ -48,7 +48,7 @@
         yAxes: [{
                     gridLines: {
                         display:false
-                    }   
+                    }
                 }]},
 
     } %>
@@ -81,7 +81,7 @@
         yAxes: [{
                     gridLines: {
                         display:false
-                    }   
+                    }
                 }]},
     } %>
 
@@ -113,7 +113,7 @@
         yAxes: [{
                     gridLines: {
                         display:false
-                    }   
+                    }
                 }]},
     } %>
 
@@ -145,7 +145,7 @@
         yAxes: [{
                     gridLines: {
                         display:false
-                    }   
+                    }
                 }]},
     } %>
 

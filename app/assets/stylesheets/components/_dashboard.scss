@@ -1,47 +1,58 @@
-.search-wrapper {
-  margin-bottom: 150px
-
-}
-#search-content {
-  display:none;
-  margin-bottom: 50px;
-  bottom:-120px;
-  height:40px;
-  width:80vw;
+//DASHOBARD SEARCH
+.margin-top-bottom {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-.dashboard-charts{
+.search-buttons {
   display:flex;
-  margin-bottom: 50px;
+  justify-content: space-around;
+  border-bottom: 1px solid #ccc;
 }
+
+.search-input {
+  display:flex;
+
+}
+.search-btn {
+  color: #4FC0A6;
+  border: 3px solid #4FC0A6;
+  background-color:white;
+  font-size:17px;
+}
+.active {
+  background-color: #4FC0A6!important;
+}
+.suggestions {
+  margin-bottom:30px;
+}
+.suggestion {
+  background-color:white;
+  display:block;
+  color: #4FC0A6;
+}
+
+.search-content {
+  display:flex;
+}
+
+.tag{
+  border-radius:30px;
+  color: #4FC0A6;
+  padding:5px;
+  border: 2px solid #4FC0A6;
+  margin-left:3px;
+}
+
+// END DASHBOARD SEARCH
 
 .dashboard-chart{
-  position:relative;
-  left:40px;
-  width: 60vw;
-  height: 52vh;
-  background-color:white;
-  margin-left: 40px;
-  border-radius:5px;
+  height: 35vh;
 }
-.search-tool {
-  display:block;
-}
-.suggestion-box {
-  position:absolute;
-}
-.suggestion-item {
-  position:relative;
-  left:-40px;
-  width:300px;
-  font-size:15px;
-  border: 1px solid lightgrey;
-  display:block;
-  background-color:white;
-}
-.tab {
+
+.tablinks {
     overflow: hidden;
-    border: 1px solid #ccc;
+    border:none;
     background-color: white;
 }
 //COMMMMMMMMMMENT
@@ -74,6 +85,13 @@
 .tabcontent {
     display: none;
     padding: 6px 12px;
-    border: 1px solid #ccc;
     border-top: none;
 }
+
+#second-chart-row{
+  display:flex;
+  margin-right:0px;
+  margin-left:0px;
+
+}
+
