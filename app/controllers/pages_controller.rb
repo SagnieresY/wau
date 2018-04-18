@@ -112,22 +112,26 @@ class PagesController < ApplicationController
     end
 
     #Updates installments with FOCUSAREA selection if there is one
-    unless params[:focus_area].blank?
+    unless params[:focus].blank?
       fa_hash = {}
       fa_array_id = []
       FocusArea.all.each {|fa| fa_hash[fa.name] = fa.id}
-      params[:focus_area].gsub('and','&').split(',').each {|fa| fa_array_id << fa_hash[fa]}
+      params[:focus].gsub('and','&').delete(' ').split(',').each {|fa| fa_array_id << fa_hash[fa]}
       @installments = @installments.joins(:focus_area).where('focus_areas.id':fa_array_id)
+      byebug
     end
 
     #Updates installments with NGO selection if there is one
     unless params[:ngo].blank?
       org_array = params[:ngo].gsub('and','&').split(',')
-      @installments.joins(project: :organisation).where("organisations.name":org_array)
+      @installments = @installments.joins(project: :organisation).where("organisations.name":org_array)
+      byebug
     end
 
-  # NOTE: PASSING PROJECT ALSO WORKS
-  #@installments.where("projects.name":"Welcome Refugees to Montreal").sum(:amount)
+    unless params[:project].blank?
+      project_array = params[:project].gsub('and','&').split(',')
+      @installments = @installments.joins(:project).where("projects.name":project_array)
+    end
 
     #Calculate year range
     time_range_seconds = (max_date.to_i - start_date.to_i)
@@ -152,12 +156,9 @@ class PagesController < ApplicationController
     #Returns hash by FA & sum(:amount)
     @locked_installments_fa_chart = @installments.locked.joins(:focus_area).group('focus_areas.id').sum(:amount)
     @unlocked_installments_fa_chart = @installments.unlocked.joins(:focus_area).group('focus_areas.id').sum(:amount)
-      # @locked_installments_fa_chart = @locked_installments.filter_by_focus(params[:focus_area]).each{|i| @sum_locked =+ i.amount}
-      # @unlocked_installments_fa_chart = @unlocked_installments.filter_by_focus(params[:focus_area]).each{|i| @sum_unlocked =+ i.amount}
 
-    unless params[:project].blank?
-      # @installments = Installment.filter_by_project(@installments, params[:project])
-    end
+    @locked_installments_project_chart = @installments.locked.joins(:project).group('projects.name').sum(:amount)
+    @unlocked_installments_fa_chart = @installments.unlocked.joins(:project).group('projects.name').sum(:amount)
 
     #Returns installments grouped by investments for TABLE
     installment_ids = @installments.ids
