@@ -1,19 +1,22 @@
-<div id="search-container">
-  <% search_buttons = ['Focus Area', 'Date', 'NGO', 'Neighborhood','Project'] %>
-  <div class="search-buttons">
-    <h3>Search by: </h3>
-  <% search_buttons.each do |tab| %>
-    <button class="tablinks" onclick="openTab(event,'<%= tab %>')"><%= tab %></button>
-  <% end %>
-  <button class="search-btn" onclick="mainSearch()">search!</button>
-  </div>
-  <% search_buttons.each do |tab| %>
 
-    <div id="<%= tab %>" class="tabcontent search-input" >
-      <% tab = tab == 'Focus Area' ? 'focus_area' : tab  %>
-      <%= render partial: "/partials/dashboard-search/#{tab}" %>
+<div id="search-container" class="row margin-top-bottom-6">
+  <div class="col-md-12 white-dropshadow-card green-text">
+    <% search_buttons = ['Focus Area', 'Date', 'NGO', 'Neighborhood','Project'] %>
+    <div class="search-buttons">
+      <h3>Search by: </h3>
+    <% search_buttons.each do |tab| %>
+      <button class="tablinks" onclick="openTab(event,'<%= tab %>')"><%= tab %></button>
+    <% end %>
+    <button class="search-btn" onclick="mainSearch()">search!</button>
     </div>
-  <% end %>
+    <% search_buttons.each do |tab| %>
+
+      <div id="<%= tab %>" class="tabcontent search-input" >
+        <% tab = tab == 'Focus Area' ? 'focus_area' : tab  %>
+        <%= render partial: "/partials/dashboard-search/#{tab}" %>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <%= content_for(:after_js) do %>

@@ -5,6 +5,10 @@
   margin-bottom:100px;
   color: #4FC0A6;
 }
+.margin-top-bottom {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 
 .search-buttons {
   display:flex;
@@ -40,6 +44,7 @@
 .search-content {
   display:flex;
 }
+
 .tag{
   border-radius:30px;
   color: #4FC0A6;
@@ -50,21 +55,10 @@
 
 // END DASHBOARD SEARCH
 
-.dashboard-charts{
-  display:flex;
-  margin-bottom: 50px;
-
-}
 .dashboard-chart{
-
-  margin-bottom:42px;
-
-  width: 579px;
-  height: 387px;
-  background-color:white;
-  margin-left: 40px;
-  border-radius:5px;
+  height: 35vh;
 }
+
 .tablinks {
     overflow: hidden;
     border:none;
@@ -101,11 +95,6 @@
     display: none;
     padding: 6px 12px;
     border-top: none;
-}
-
-#installments, #neighborhood {
-  width:1200px;
-  height: 380px;
 }
 
 #second-chart-row{

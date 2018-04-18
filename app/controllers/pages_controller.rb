@@ -171,8 +171,8 @@ class PagesController < ApplicationController
 
   def no_organisation
   end
-  def downloads
 
+  def downloads
   end
 
 
