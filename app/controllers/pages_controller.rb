@@ -107,7 +107,7 @@ class PagesController < ApplicationController
 
     #Updates installments with GEO selection if there is one
     unless params[:neighborhood].blank?
-      geos_array = params[:neighborhood].split(',')
+      geos_array = params[:neighborhood].strip.gsub('and','&').gsub(', ',',').split(',')
       @installments = @installments.joins(:geos).where("geos.name":geos_array)
     end
 
@@ -116,20 +116,18 @@ class PagesController < ApplicationController
       fa_hash = {}
       fa_array_id = []
       FocusArea.all.each {|fa| fa_hash[fa.name] = fa.id}
-      params[:focus].gsub('and','&').delete(' ').split(',').each {|fa| fa_array_id << fa_hash[fa]}
+      params[:focus].strip.gsub('and','&').gsub(', ',',').split(',').each {|fa| fa_array_id << fa_hash[fa]}
       @installments = @installments.joins(:focus_area).where('focus_areas.id':fa_array_id)
-      byebug
     end
 
     #Updates installments with NGO selection if there is one
     unless params[:ngo].blank?
-      org_array = params[:ngo].gsub('and','&').split(',')
+      org_array = params[:ngo].strip.gsub('and','&').gsub(', ',',').split(',')
       @installments = @installments.joins(project: :organisation).where("organisations.name":org_array)
-      byebug
     end
 
     unless params[:project].blank?
-      project_array = params[:project].gsub('and','&').split(',')
+      project_array = params[:project].strip.gsub('and','&').gsub(', ',',').split(',')
       @installments = @installments.joins(:project).where("projects.name":project_array)
     end
 
@@ -157,6 +155,7 @@ class PagesController < ApplicationController
     @locked_installments_fa_chart = @installments.locked.joins(:focus_area).group('focus_areas.id').sum(:amount)
     @unlocked_installments_fa_chart = @installments.unlocked.joins(:focus_area).group('focus_areas.id').sum(:amount)
 
+    #Returns hash by PROJECT & sum(:amount)
     @locked_installments_project_chart = @installments.locked.joins(:project).group('projects.name').sum(:amount)
     @unlocked_installments_fa_chart = @installments.unlocked.joins(:project).group('projects.name').sum(:amount)
 
