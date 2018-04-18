@@ -75,6 +75,7 @@ class PagesController < ApplicationController
   end
 
   def dashboard
+
     #Prepares the installments for graphs / tables and includes investment, focus_area and projects in the query
     # @locked_installments = current_user.organisation.locked_installments.includes( :investment, :focus_area, :project)
     # @unlocked_installments = current_user.organisation.unlocked_installments.includes(:investment, :focus_area, :project)
@@ -87,7 +88,7 @@ class PagesController < ApplicationController
 
     #Updates to filter for specific time range if there is one
     if !params[:min_date].blank? || !params[:min_date].blank?
-        
+
       #Makes (string)date into DATETIME object
       min_date = params[:min_date].to_time
       max_date = params[:max_date].to_time
@@ -146,14 +147,15 @@ class PagesController < ApplicationController
     #Returns hash by GEO & sum(:amount)
     @locked_installments_geo_chart = @installments.locked.joins(:geos).group("geos.name").sum(:amount)
     @unlocked_installments_geo_chart = @installments.unlocked.joins(:geos).group("geos.name").sum(:amount)
-    
+
     # #Returns hash by NGO & sum(:amount)
     @locked_installments_ngo_chart = @installments.locked.joins(project: :organisation).group("organisations.name").sum(:amount)
     @unlocked_installments_ngo_chart = @installments.unlocked.joins(project: :organisation).group("organisations.name").sum(:amount)
-    
+
     #Returns hash by FA & sum(:amount)
     @locked_installments_fa_chart = @installments.locked.joins(:focus_area).group('focus_areas.id').sum(:amount)
     @unlocked_installments_fa_chart = @installments.unlocked.joins(:focus_area).group('focus_areas.id').sum(:amount)
+
 
     #Returns hash by PROJECT & sum(:amount)
     @locked_installments_project_chart = @installments.locked.joins(:project).group('projects.name').sum(:amount)
@@ -170,7 +172,7 @@ class PagesController < ApplicationController
 
   def no_organisation
   end
-  
+
   def downloads
   end
 
