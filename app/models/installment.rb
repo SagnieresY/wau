@@ -8,7 +8,10 @@ class Installment < ApplicationRecord
     }
   belongs_to :investment
   has_one :focus_area, through: :investment
+  has_one :focus_area_translations, through: :investment
   has_one :project, through: :investment
+  has_one :organisation, through: :investment
+  has_many :geos, through: :investment
   validates :status, inclusion: { in: %w(locked unlocked rescinded) }
   validates :task, presence: true
   validates :amount, presence: true
@@ -88,19 +91,17 @@ class Installment < ApplicationRecord
     puts max_date.to_s
 
     installments.select{ |i| i.deadline > min_date && i.deadline < max_date}
-
-
   end
 
   def self.installments_by_neighborhood(installments)
     return installments.group_by{|i| i.investment.project.geos}
   end
 
-  def self.filter_by_focus(installments,focus_areas)
+  def self.filter_by_focus(focus_areas)
     focus_areas = focus_areas.gsub('and', '&').split(',')
     output = []
     focus_areas.each do |focus|
-      installments.select{|i| i.investment.project.focus_area.name == focus}.each do |installment|
+      self.select{|i| i.investment.project.focus_area.name == focus}.each do |installment|
         output.push(installment)
       end
     end

@@ -158,15 +158,17 @@ fr:
     title: "Gérer vos dons"
     sub_title: "Découvrez l'impact réél de vos dons grâce à un tableau de bord compréhensif"
   navbar:
-    first_tab: "DONS"
+    first_tab: "DASHBOARD"
+    second_tab: "DONS" 
     menu:
       first_dropdown: "Nouveau don"
       second_dropdown: "Déconnexion"
     mobile:
       first_dropdown: "Page d'accueil"
-      second_dropdown: "Dons"
-      third_dropdown: "Nouveaux dons"
-      fourth_dropdown: "Déconnexion"
+      second_dropdown: "Dashboard"
+      third_dropdown: "Dons"
+      fourth_dropdown: "New Investments"
+      fifth_dropdown: "Déconnexion"
   activerecord:
     models:
       investment: "Don"
