@@ -157,7 +157,7 @@ class PagesController < ApplicationController
 
     #Returns hash by PROJECT & sum(:amount)
     @locked_installments_project_chart = @installments.locked.joins(:project).group('projects.name').sum(:amount)
-    @unlocked_installments_fa_chart = @installments.unlocked.joins(:project).group('projects.name').sum(:amount)
+    @unlocked_installments_project_chart = @installments.unlocked.joins(:project).group('projects.name').sum(:amount)
 
     #Returns installments grouped by investments for TABLE
     installment_ids = @installments.ids
