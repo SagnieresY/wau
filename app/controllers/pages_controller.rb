@@ -117,11 +117,8 @@ class PagesController < ApplicationController
       fa_hash = {}
       fa_array_id = []
       FocusArea.all.each {|fa| fa_hash[fa.name] = fa.id}
-<<<<<<< HEAD
-      params[:focus].gsub('and','&').split(',').each {|fa| fa_array_id << fa_hash[fa]}
-=======
+
       params[:focus].strip.gsub('and','&').gsub(', ',',').split(',').each {|fa| fa_array_id << fa_hash[fa]}
->>>>>>> cacecfb9fd2bb6594d0cab2ca1b11b9b1dcd30c0
       @installments = @installments.joins(:focus_area).where('focus_areas.id':fa_array_id)
     end
 

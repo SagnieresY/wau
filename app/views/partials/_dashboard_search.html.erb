@@ -34,9 +34,9 @@
 
       // Get all elements with class="tablinks" and remove the class "active"
       tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-          tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
+      // for (i = 0; i < tablinks.length; i++) {
+      //     tablinks[i].className = tablinks[i].className.replace(" active", "");
+      // }
 
       // Show the current tab, and add an "active" class to the button that opened the tab
       if (document.getElementById(tabName).style.display === "block") {
@@ -50,7 +50,11 @@
         document.getElementById('search-container').style.height = `${searchHeight}px`
       }
 
-      evt.currentTarget.className += " active";
+      if (evt.currentTarget.className.includes('active')) {
+        evt.currentTarget.className = evt.currentTarget.className.replace('active', '');
+      }else{
+        evt.currentTarget.className += ' active';
+      }
 }
   function addTag(selectionType, tag) {
     let selection = document.getElementById(selectionType)
