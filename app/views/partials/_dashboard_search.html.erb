@@ -32,13 +32,13 @@
       //     tabcontent[i].style.display = "none";
       // }
 
-      // Get all elements with class="tablinks" and remove the class "active"
+      // Get all elements with class="tablinks" and remove the class "active-tab"
       tablinks = document.getElementsByClassName("tablinks");
       // for (i = 0; i < tablinks.length; i++) {
       //     tablinks[i].className = tablinks[i].className.replace(" active", "");
       // }
 
-      // Show the current tab, and add an "active" class to the button that opened the tab
+      // Show the current tab, and add an "active-tab" class to the button that opened the tab
       if (document.getElementById(tabName).style.display === "block") {
         document.getElementById(tabName).style.display = "none";
         searchHeight -= 130
@@ -50,11 +50,13 @@
         document.getElementById('search-container').style.height = `${searchHeight}px`
       }
 
+
       if (evt.currentTarget.className.includes('active')) {
         evt.currentTarget.className = evt.currentTarget.className.replace('active', '');
       }else{
         evt.currentTarget.className += ' active';
       }
+
 }
   function addTag(selectionType, tag) {
     let selection = document.getElementById(selectionType)
