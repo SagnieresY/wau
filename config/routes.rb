@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     get '/archive', to: 'pages#archive', as: :archive
     get '/dashboard', to: 'pages#dashboard', as: :dashboard
     get '/landing', to: 'pages#landing', as: :landing
+    post '/reject_investment/:id', to: "investments#reject", as: :reject_investment
     post '/unlock_installment', to: 'installments#unlock', as: :unlock_installment
     post '/rescind_installment', to: 'installments#rescind', as: :rescind_installment
     post '/completed_investments', to: 'investments#completed_index', as: :completed_investments
