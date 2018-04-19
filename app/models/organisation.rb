@@ -10,10 +10,18 @@ class Organisation < ApplicationRecord
   has_many :investments, inverse_of: :organisation, dependent: :destroy
   has_many :installments, through: :investments, dependent: :destroy
   has_many :projects, through: :investments, dependent: :destroy
-  has_many :installments, through: :investments
+  has_many :installments, through: :investments, dependent: :destroy
   has_many :focus_areas, through: :investments
   validates :name, presence: true, uniqueness: true
+  validates :charity_id, presence: true, uniqueness: true
+  attribute :name
 
+  def destroy
+    installments.each{|i| i.destroy!}
+    investments.each{|i| i.destroy!}
+    projects.where(organisation: self).each{|i| i.destroy}
+    super
+  end
   def completed_investments
     investments.where(completed:true)
   end
