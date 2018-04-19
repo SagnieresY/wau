@@ -4,7 +4,9 @@ class ProjectPolicy < ApplicationPolicy
       scope
     end
   end
-
+  def project_csv?
+    user.organisation
+  end
   def new?
     user.organisation
   end

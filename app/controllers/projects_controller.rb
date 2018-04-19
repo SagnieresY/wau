@@ -1,5 +1,32 @@
 class ProjectsController < ApplicationController
   skip_after_action :verify_authorized, only: :search
+
+  def project_csv
+
+    authorize current_user.organisation.projects.first
+    data_string = ""
+    current_user.organisation.investments.each do |investment|
+      investment.installments.each do |installment|
+        data_string += "#{investment.project.name},#{investment.project.description}#{investment.project.main_contact},#{installment.task},#{installment.amount},#{installment.deadline.to_s}\n"
+      end
+    end
+    send_data data_string, filename: "Projects-#{Date.today.to_s}.csv", type: 'text/csv'
+  end
+
+  def generate_projects
+
+    authorize current_user
+    projects_csv = params[:projects_csv]
+    projects_attributes = []
+    installments_attributes = []
+    CSV.foreach(projects_csv.path) do |project|
+      projects_attributes.push(project[0..3])
+      installments_attributes.push(project[4..6])
+    end
+    raise
+    redirect_to downloads_path
+
+  end
   def search
     @projects = {results:[]}
     Project.search_by_name(params[:query]).uniq.each_with_index do |project, i|

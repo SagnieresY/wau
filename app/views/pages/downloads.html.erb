@@ -1,10 +1,16 @@
 <%= link_to "investments",investments_csv_path %>
 <br>
 <%= link_to "users",users_csv_path %>
-
+<br>
+<%= link_to "projects",projects_csv_path %>
 
 <h2>add users</h2>
 <%= form_tag '/generate_users', multipart: true %>
 <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 <%= file_field_tag :users_csv %>
 <%= submit_tag("Generate users",controller:"users",action:"generate_users") %>
+<h2>add projects</h2>
+<%= form_tag '/generate_projects', multipart: true %>
+<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+<%= file_field_tag :projects_csv %>
+<%= submit_tag("Generate projects",controller:"projects",action:"generate_projects") %>
