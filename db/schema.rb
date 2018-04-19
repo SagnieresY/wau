@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180419155944) do
+ActiveRecord::Schema.define(version: 20180419172046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,10 +58,10 @@ ActiveRecord::Schema.define(version: 20180419155944) do
 
   create_table "investment_tags", force: :cascade do |t|
     t.string "name"
-    t.bigint "investment_id"
+    t.bigint "organisation_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["investment_id"], name: "index_investment_tags_on_investment_id"
+    t.index ["organisation_id"], name: "index_investment_tags_on_organisation_id"
   end
 
   create_table "investments", force: :cascade do |t|
@@ -72,6 +72,13 @@ ActiveRecord::Schema.define(version: 20180419155944) do
     t.datetime "updated_at", null: false
     t.index ["organisation_id"], name: "index_investments_on_organisation_id"
     t.index ["project_id"], name: "index_investments_on_project_id"
+  end
+
+  create_table "investments_investment_tags", force: :cascade do |t|
+    t.bigint "investment_id"
+    t.bigint "investment_tag_id"
+    t.index ["investment_id"], name: "index_investments_investment_tags_on_investment_id"
+    t.index ["investment_tag_id"], name: "index_investments_investment_tags_on_investment_tag_id"
   end
 
   create_table "organisations", force: :cascade do |t|
@@ -125,7 +132,7 @@ ActiveRecord::Schema.define(version: 20180419155944) do
   add_foreign_key "geos_projects", "geos"
   add_foreign_key "geos_projects", "projects"
   add_foreign_key "installments", "investments"
-  add_foreign_key "investment_tags", "investments"
+  add_foreign_key "investment_tags", "organisations"
   add_foreign_key "investments", "organisations"
   add_foreign_key "investments", "projects"
   add_foreign_key "projects", "focus_areas"

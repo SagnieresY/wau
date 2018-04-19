@@ -6,7 +6,7 @@ class Investment < ApplicationRecord
   has_one :focus_area_translations, through: :project
   has_many :installments, dependent: :destroy
   has_many :geos, through: :project
-  has_many :investment_tags
+  has_and_belongs_to_many :investment_tags
   validates :project, presence: true
   validates :organisation, presence: true
   accepts_nested_attributes_for :project
