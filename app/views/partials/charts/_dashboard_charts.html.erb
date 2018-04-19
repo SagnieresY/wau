@@ -1,10 +1,10 @@
 
 <div class="row margin-top-bottom-6">
     <div class="col-md-12 white-dropshadow-card">
-        <p> Total: <%= nice_money(@installments.sum(:amount)) %></p>
-        <p> Locked: <%= nice_money(@installments.locked.sum(:amount)) %></p>
-        <p> Unocked: <%= nice_money(@installments.unlocked.sum(:amount)) %></p>
-        <p> Investment #: <%= @investments.count %></p>
+        <p> <%= t("dashboard.charts.info.total", amount: nice_money(@installments.sum(:amount))) %></p>
+        <p> <%= t("dashboard.charts.info.unlocked", amount: nice_money(@installments.locked.sum(:amount))) %></p>
+        <p> <%= t("dashboard.charts.info.locked", amount: nice_money(@installments.unlocked.sum(:amount))) %></p>
+        <p> <%= t("dashboard.charts.info.investment_count", amount: @investments.count) %></p>
         <ul class="nav nav-tabs">
           <li><a data-toggle="tab" href="#day">Day</a></li>
           <li><a data-toggle="tab" href="#week">Week</a></li>

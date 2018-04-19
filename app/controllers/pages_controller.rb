@@ -133,17 +133,17 @@ class PagesController < ApplicationController
     end
 
     #Return hash by TIME depending on range
-    @locked_installments_time_year = @installments.locked.group_by_year(:deadline, format: "%Y", range: start_date..end_date).sum(:amount)
-    @unlocked_installments_time_year = @installments.unlocked.group_by_year(:deadline, format: "%Y", range: start_date..end_date).sum(:amount)
+    @locked_installments_time_year = @installments.locked.group_by_year(:deadline, range: start_date..end_date).sum(:amount)
+    @unlocked_installments_time_year = @installments.unlocked.group_by_year(:deadline, range: start_date..end_date).sum(:amount)
 
-    @locked_installments_time_month = @installments.locked.group_by_month(:deadline, format: "%b %Y", range: start_date..end_date).sum(:amount)
-    @unlocked_installments_time_month = @installments.unlocked.group_by_month(:deadline, format: "%b %Y", range: start_date..end_date).sum(:amount)
+    @locked_installments_time_month = @installments.locked.group_by_month(:deadline, range: start_date..end_date).sum(:amount)
+    @unlocked_installments_time_month = @installments.unlocked.group_by_month(:deadline, range: start_date..end_date).sum(:amount)
 
-    @locked_installments_time_week = @installments.locked.group_by_week(:deadline, format: "%d %b %Y", range: start_date..end_date).sum(:amount)
-    @unlocked_installments_time_week = @installments.unlocked.group_by_week(:deadline, format: "%d %b %Y", range: start_date..end_date).sum(:amount)
+    @locked_installments_time_week = @installments.locked.group_by_week(:deadline, range: start_date..end_date).sum(:amount)
+    @unlocked_installments_time_week = @installments.unlocked.group_by_week(:deadline, range: start_date..end_date).sum(:amount)
 
-    @locked_installments_time_day = @installments.locked.group_by_day(:deadline, format: "%d %b %Y", range: start_date..end_date).sum(:amount)
-    @unlocked_installments_time_day = @installments.unlocked.group_by_day(:deadline, format: "%d %b %Y", range: start_date..end_date).sum(:amount)
+    @locked_installments_time_day = @installments.locked.group_by_day(:deadline, range: start_date..end_date).sum(:amount)
+    @unlocked_installments_time_day = @installments.unlocked.group_by_day(:deadline, range: start_date..end_date).sum(:amount)
 
 
 

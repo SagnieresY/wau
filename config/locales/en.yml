@@ -179,6 +179,18 @@ en:
       date_min: "min date"
       date_max: "max date"
       focus_area: "focus area"
+    charts:
+      info:
+        total: "Total: %{amount}"
+        locked: "Locked: %{amount}"
+        unlocked: "Unlocked: %{amount}"
+        investment_count: "Number of investments: %{amount}"
+      time:
+        title:
+        day: "Day"
+        week: "Week"
+        month: "Month"
+        year: "Year"
     table:
       header:
         ngo:  "NGO"
