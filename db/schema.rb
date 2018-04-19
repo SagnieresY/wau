@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180409001748) do
+ActiveRecord::Schema.define(version: 20180419155944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,14 @@ ActiveRecord::Schema.define(version: 20180409001748) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["investment_id"], name: "index_installments_on_investment_id"
+  end
+
+  create_table "investment_tags", force: :cascade do |t|
+    t.string "name"
+    t.bigint "investment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["investment_id"], name: "index_investment_tags_on_investment_id"
   end
 
   create_table "investments", force: :cascade do |t|
@@ -117,6 +125,7 @@ ActiveRecord::Schema.define(version: 20180409001748) do
   add_foreign_key "geos_projects", "geos"
   add_foreign_key "geos_projects", "projects"
   add_foreign_key "installments", "investments"
+  add_foreign_key "investment_tags", "investments"
   add_foreign_key "investments", "organisations"
   add_foreign_key "investments", "projects"
   add_foreign_key "projects", "focus_areas"
