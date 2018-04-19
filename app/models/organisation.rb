@@ -12,6 +12,7 @@ class Organisation < ApplicationRecord
   has_many :projects, through: :investments, dependent: :destroy
   has_many :installments, through: :investments
   has_many :focus_areas, through: :investments
+  has_many :tags, through: :investments
   validates :name, presence: true, uniqueness: true
 
   def completed_investments
