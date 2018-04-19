@@ -132,17 +132,20 @@ class PagesController < ApplicationController
       @installments = @installments.joins(:project).where("projects.name":project_array)
     end
 
-    #Calculate year range
-    time_range_seconds = (max_date.to_i - start_date.to_i)
-
     #Return hash by TIME depending on range
-    if (time_range_seconds) > 63115201
-      @locked_installments_time_chart = @installments.locked.group_by_year(:deadline, format: "%Y", range: start_date..end_date).sum(:amount)
-      @unlocked_installments_time_chart = @installments.unlocked.group_by_year(:deadline, format: "%Y", range: start_date..end_date).sum(:amount)
-    else
-      @locked_installments_time_chart = @installments.locked.group_by_month(:deadline, format: "%b %Y", range: start_date..end_date).sum(:amount)
-      @unlocked_installments_time_chart = @installments.unlocked.group_by_month(:deadline, format: "%b %Y", range: start_date..end_date).sum(:amount)
-    end
+    @locked_installments_time_year = @installments.locked.group_by_year(:deadline, format: "%Y", range: start_date..end_date).sum(:amount)
+    @unlocked_installments_time_year = @installments.unlocked.group_by_year(:deadline, format: "%Y", range: start_date..end_date).sum(:amount)
+
+    @locked_installments_time_month = @installments.locked.group_by_month(:deadline, format: "%b %Y", range: start_date..end_date).sum(:amount)
+    @unlocked_installments_time_month = @installments.unlocked.group_by_month(:deadline, format: "%b %Y", range: start_date..end_date).sum(:amount)
+
+    @locked_installments_time_week = @installments.locked.group_by_week(:deadline, format: "%d %b %Y", range: start_date..end_date).sum(:amount)
+    @unlocked_installments_time_week = @installments.unlocked.group_by_week(:deadline, format: "%d %b %Y", range: start_date..end_date).sum(:amount)
+
+    @locked_installments_time_day = @installments.locked.group_by_day(:deadline, format: "%d %b %Y", range: start_date..end_date).sum(:amount)
+    @unlocked_installments_time_day = @installments.unlocked.group_by_day(:deadline, format: "%d %b %Y", range: start_date..end_date).sum(:amount)
+
+
 
     #Returns hash by GEO & sum(:amount)
     @locked_installments_geo_chart = @installments.locked.joins(:geos).group("geos.name").sum(:amount)

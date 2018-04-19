@@ -1,6 +1,31 @@
 
 <div class="row margin-top-bottom-6">
-    <div id="dash_timeseries" class="dashboard-chart col-md-12 white-dropshadow-card"></div>
+    <div class="col-md-12 white-dropshadow-card">
+        <p> Total: <%= nice_money(@installments.sum(:amount)) %></p>
+        <p> Locked: <%= nice_money(@installments.locked.sum(:amount)) %></p>
+        <p> Unocked: <%= nice_money(@installments.unlocked.sum(:amount)) %></p>
+        <p> Investment #: <%= @investments.count %></p>
+        <ul class="nav nav-tabs">
+          <li><a data-toggle="tab" href="#day">Day</a></li>
+          <li><a data-toggle="tab" href="#week">Week</a></li>
+          <li class="active"><a data-toggle="tab" href="#month">Month</a></li>
+          <li><a data-toggle="tab" href="#year">Year</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="day" class="tab-pane fade">
+                <div id="dash_timeseries_day" class="dashboard-chart"></div>
+            </div>
+            <div id="week" class="tab-pane fade">
+                <div id="dash_timeseries_week" class="dashboard-chart"></div>
+            </div>
+            <div id="month" class="tab-pane fade in active">
+                <div id="dash_timeseries_month" class="dashboard-chart"></div>
+            </div>
+            <div id="year" class="tab-pane fade">
+                <div id="dash_timeseries_year" class="dashboard-chart"></div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="row margin-top-bottom-6">
     <div class="col-md-6 no-left-padding-md">
@@ -26,9 +51,108 @@
 
 <!-- DATE CHART: Cumulative installments by month in chronological order -->
 <%= area_chart [
-    {name: "Unlocked", data: @unlocked_installments_time_chart},
-    {name: "Locked", data: @locked_installments_time_chart}],
-    id: "dash_timeseries",
+    {name: "Unlocked", data: @unlocked_installments_time_day},
+    {name: "Locked", data: @locked_installments_time_day}],
+    id: "dash_timeseries_day",
+    stacked: true,
+    prefix: "$",
+    thousands: ",",
+    colors: ["#8D81D2","#AE6CB5"],
+    library: {
+        tooltips: {
+            enabled: true,
+            mode: 'index',
+            intersect: false,
+        },
+      title: {
+        display: true,
+
+        text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
+      },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }]},
+
+} %>
+
+<%= area_chart [
+    {name: "Unlocked", data: @unlocked_installments_time_week},
+    {name: "Locked", data: @locked_installments_time_week}],
+    id: "dash_timeseries_week",
+    stacked: true,
+    prefix: "$",
+    thousands: ",",
+    colors: ["#8D81D2","#AE6CB5"],
+    library: {
+        tooltips: {
+            enabled: true,
+            mode: 'index',
+            intersect: false,
+        },
+      title: {
+        display: true,
+
+        text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
+      },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }]},
+
+} %>
+
+<%= area_chart [
+    {name: "Unlocked", data: @unlocked_installments_time_month},
+    {name: "Locked", data: @locked_installments_time_month}],
+    id: "dash_timeseries_month",
+    stacked: true,
+    prefix: "$",
+    thousands: ",",
+    colors: ["#8D81D2","#AE6CB5"],
+    library: {
+        tooltips: {
+            enabled: true,
+            mode: 'index',
+            intersect: false,
+        },
+      title: {
+        display: true,
+
+        text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
+      },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }]},
+
+} %>
+
+<%= area_chart [
+    {name: "Unlocked", data: @unlocked_installments_time_year},
+    {name: "Locked", data: @locked_installments_time_year}],
+    id: "dash_timeseries_year",
     stacked: true,
     prefix: "$",
     thousands: ",",
