@@ -14,12 +14,22 @@ class Organisation < ApplicationRecord
   has_many :focus_areas, through: :investments
   validates :name, presence: true, uniqueness: true
 
+  def self.create!(organisation_attributes) #improved project create!
+    organisations = Organisation.where(name:organisation_attributes[:name]) #gets organisation by name
+
+    if organisations.blank? #check if a organisation whith the name exists
+      return super(organisation_attributes) #if not it creates it
+    end
+
+    return organisations[0] #if yes it returns it
+  end
+
   def completed_investments
-    investments.where(completed:true) 
+    investments.where(completed:true)
   end
 
   def uncompleted_investments
-    investments.where(completed:false) 
+    investments.where(completed:false)
   end
 
   def investments_by_focus_area(completed = false)

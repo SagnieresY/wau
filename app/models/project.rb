@@ -18,7 +18,19 @@ class Project < ApplicationRecord
   validates :main_contact, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
     message: "Please enter an valid email" }
   accepts_nested_attributes_for :investments
+  def self.create!(project_attributes) #improved project create!
+    projects = Project.where(name:project_attributes[:name]) #gets project by name
 
+    if projects.blank? #check if a project whith the name exists
+      return super(project_attributes) #if not it creates it
+    end
+
+    return projects[0] #if yes it returns it
+  end
+
+  def self.create(attributes)
+    self.create!(attributes)
+  end
   def nearest_installment
     installments.order('deadline ASC').select{|m|  !m.unlocked}.detect(&:accessible?)
      #orders project installments by deadline then select the first one

@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     get '/users_csv', to: "users#users_csv", as: :users_csv
     get '/projects_csv', to: "projects#project_csv", as: :projects_csv
     post '/generate_users', to: "users#generate_users", as: :generate_users
-    post '/generate_projects', to: "project#generate_projects", as: :generate_projects
+    post '/generate_projects', to: "projects#generate_projects", as: :generate_projects
     match "/404", :to => "errors#not_found", :via => :all
     match "/500", :to => "errors#internal_server_error", :via => :all
   end

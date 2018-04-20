@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
     data_string = ""
     current_user.organisation.investments.each do |investment|
       investment.installments.each do |installment|
-        data_string += "#{investment.project.name},#{investment.project.description}#{investment.project.main_contact},#{installment.task},#{installment.amount},#{installment.deadline.to_s}\n"
+        data_string += "#{investment.project.name},#{investment.project.description},#{investment.project.organisation.name},#{investment.project.main_contact},#{installment.task},#{installment.amount},#{installment.deadline.to_s}\n"
       end
     end
     send_data data_string, filename: "Projects-#{Date.today.to_s}.csv", type: 'text/csv'
@@ -16,16 +16,26 @@ class ProjectsController < ApplicationController
   def generate_projects
 
     authorize current_user
-    projects_csv = params[:projects_csv]
+    projects_csv = params[:projects_csv] #file
     projects_attributes = []
     installments_attributes = []
-    CSV.foreach(projects_csv.path) do |project|
-      projects_attributes.push(project[0..3])
-      installments_attributes.push(project[4..6])
+    File.open(projects_csv.path,"r") do |f| #reads file
+      f.each do |line|
+        projects_attributes.push(line.split(',')[0..3]) #seperates project info
+        installments_attributes.push(line.split(',')[4..7]) #seprates installment info
+      end
     end
-    raise
-    redirect_to downloads_path
 
+    projects_attributes.each_with_index do |project, index|
+      current_installment = installments_attributes[index] #gets installments info for project
+      organisation_obj = Organisation.create!(name:project[2])
+      project_obj = Project.create!(name:project[0],description:project[1],organisation:organisation_obj,main_contact:project[3],main_contact:project[4])
+      investment_obj = Investment.create!(project:project_obj,organisation:current_user.organisation)
+      Installment.create!(investment:investment_obj,task:current_installment[0],amount:current_installment[1],deadline:Date.parse(current_installment[2]))
+      current_project = project[0]
+    end
+
+    redirect_to downloads_path
   end
   def search
     @projects = {results:[]}
