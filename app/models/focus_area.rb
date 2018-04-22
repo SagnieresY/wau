@@ -15,7 +15,7 @@
     using: {
       tsearch: { prefix: true }
     }
-
+  attribute :name
   def year_range(year)
     # Returns a Time Range of year.
     # To be used with GROUP_BY_ (GROUPDATE)

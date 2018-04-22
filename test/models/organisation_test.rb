@@ -99,6 +99,9 @@ class OrganisationTest < ActiveSupport::TestCase
       Installment.create(amount:100, task:'meme',deadline:(Date.today + 400),investment:@test_investment)
       array.push(Installment.create(amount:100, task:'meme',deadline:(Date.today),investment:@test_investment))
     end
+
     assert @test_org.upcoming_installments == array
   end
+
+
 end
