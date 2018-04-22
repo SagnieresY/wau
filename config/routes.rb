@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  get 'investment_tags/new'
+
+  get 'investment_tags/create'
+
+  get 'investment_tags/edit'
+
+  get 'investment_tags/update'
+
+  get 'investment_tags/destroy'
+
   scope '(:locale)', locale: /en|fr/ do
     devise_for :users
     root to: 'pages#home'
