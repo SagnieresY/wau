@@ -70,7 +70,6 @@ puts 'generating projects...'
     rand(0..2).times do
       geos.push(Geo.all.sample)
     end
-    puts geos
     me = Project.create(
       name:project_name,
       description:"fuck off",
@@ -86,7 +85,6 @@ puts 'generating projects...'
     rand(0..2).times do
       geos.push(Geo.all.sample)
     end
-    puts geos
     me = Project.create(
       name:project_name,
       description:"fuck off",
@@ -102,7 +100,6 @@ puts 'generating projects...'
     rand(0..2).times do
       geos.push(Geo.all.sample)
     end
-    puts geos
     me = Project.create(
       name:project_name,
       description:"fuck off",
@@ -118,7 +115,6 @@ puts 'generating projects...'
     rand(0..2).times do
       geos.push(Geo.all.sample)
     end
-    puts geos
     me = Project.create(
       name:project_name,
       description:"fuck off",
@@ -172,7 +168,6 @@ bigboi.users.push(User.create!(email:"bigboi@big.boi",password:'123456'))
     rand(0..2).times do
       geos.push(Geo.all.sample)
     end
-    puts geos
     me = Project.create(
       name:project_name,
       description:"fuck off",
@@ -198,7 +193,6 @@ bigboi.users.push(User.create!(email:"bigboi@big.boi",password:'123456'))
     rand(0..2).times do
       geos.push(Geo.all.sample)
     end
-    puts geos
     me = Project.create(
       name:project_name,
       description:"fuck off",
@@ -224,7 +218,6 @@ bigboi.users.push(User.create!(email:"bigboi@big.boi",password:'123456'))
     rand(0..2).times do
       geos.push(Geo.all.sample)
     end
-    puts geos
     me = Project.create(
       name:project_name,
       description:"fuck off",
@@ -250,7 +243,6 @@ bigboi.users.push(User.create!(email:"bigboi@big.boi",password:'123456'))
     rand(0..2).times do
       geos.push(Geo.all.sample)
     end
-    puts geos
     me = Project.create(
       name:project_name,
       description:"fuck off",

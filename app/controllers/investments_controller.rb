@@ -1,5 +1,5 @@
 class InvestmentsController < ApplicationController
-
+  before_action :selected_investment, only:[:reject]
   def index
     @fuck_off_pundit = policy_scope(current_user.organisation.investments.last)
     @active_investments =  active_investments_paginated
@@ -27,6 +27,12 @@ class InvestmentsController < ApplicationController
       format.js  { active_investments_path }
       format.html
     end
+  end
+
+  def reject
+    authorize @investment
+    @investment.reject!
+    redirect_to investments_path
   end
 
   def new

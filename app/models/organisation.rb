@@ -27,7 +27,7 @@ class Organisation < ApplicationRecord
   end
 
   def uncompleted_investments
-    investments.where(completed:false)
+    investments.where(completed:false).reject{|i| i.rejected?}
   end
 
   def investments_by_focus_area(completed = false)
