@@ -53,13 +53,13 @@ neighbourhood_montreal = ['Ahuntsic-Cartierville', 'Anjou', 'Côte-des-Neiges–
 neighbourhood_montreal.each do |neighbourhood|
   Geo.create(name:neighbourhood)
 end
-humanrights_ngo = ['Amnesty International', 'UNICEF', 'Human Rights Watch'].map{|ngo| Organisation.create!(name:ngo)}
+humanrights_ngo = ['Amnesty International', 'UNICEF', 'Human Rights Watch'].map{|ngo| Organisation.create!(name:ngo,charity_id:rand(10000.99999))}
 humanrights_project_name = ['Welcome Refugees to Montreal', 'Open a New Shelter', 'Fund Awareness Campaign']
-childcare_ngo = ['Save The Children Canada', 'Montreal Children\'s Hospital'].map{|ngo| Organisation.create!(name:ngo)}
+childcare_ngo = ['Save The Children Canada', 'Montreal Children\'s Hospital'].map{|ngo| Organisation.create!(name:ngo,charity_id:rand(10000.99999))}
 childcare_project_name = ['Give Coding lessons in School', 'Cancer Research']
-community_ngo = ['Santropole Roulant', 'YMCA', 'Women Aware Femme Averties', 'Kids Code Jeunesse'].map{|ngo| Organisation.create!(name:ngo)}
+community_ngo = ['Santropole Roulant', 'YMCA', 'Women Aware Femme Averties', 'Kids Code Jeunesse'].map{|ngo| Organisation.create!(name:ngo,charity_id:rand(10000.99999))}
 community_project_name = ['Open New Farms', 'Renovate basketball court', 'Legal Defense', 'Create Afterschool Programs']
-environmental_ngo = ['Equiterre', 'Canadian Wind Energy Association', 'Greenpeace Canada'].map{|ngo| Organisation.create!(name:ngo)}
+environmental_ngo = ['Equiterre', 'Canadian Wind Energy Association', 'Greenpeace Canada'].map{|ngo| Organisation.create!(name:ngo,charity_id:rand(10000.99999))}
 environmental_project_name = ['Energy-Efficient Lighting', 'R&D for Electric Turbines', 'Global Climate March']
 
 puts 'generating projects...'
@@ -133,7 +133,7 @@ end
 puts 'generating organisations...'
 organisation_name = ['Mont Royale Organisation', 'Red Wagon Organisation']
 organisation_name.each do |organisation|
-  Organisation.create(name:organisation, logo:Faker::Cat.breed)
+  Organisation.create(name:organisation, logo:Faker::Cat.breed,charity_id:rand(10000..99999))
 end
 
 puts 'Adding users to organisations...'
@@ -163,7 +163,7 @@ Project.all.each do |project|
 end
 
 
-bigboi = Organisation.create!(name:'bigboi')
+bigboi = Organisation.create!(name:'bigboi',charity_id:818801)
 bigboi.users.push(User.create!(email:"bigboi@big.boi",password:'123456'))
 30.times do
   orgs = Organisation.all.reject{|o| o.name == "bigboi"}
