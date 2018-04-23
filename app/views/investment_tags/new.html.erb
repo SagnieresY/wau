@@ -1,2 +1,7 @@
-<h1>InvestmentTags#new</h1>
-<p>Find me in app/views/investment_tags/new.html.erb</p>
+<div class="devise-container">
+	<h2><%= t("form.investment.title") %></h2>
+	<%= simple_form_for([@investment_tag]) do |f| %>
+		<%= f.input :name, label: t("form.investment.project.name") %>
+		<%= f.submit t("form.save"), class: "btn btn-success"%>
+	<% end %>
+</div>

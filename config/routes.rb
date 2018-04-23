@@ -1,15 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'investment_tags/new'
-
-  get 'investment_tags/create'
-
-  get 'investment_tags/edit'
-
-  get 'investment_tags/update'
-
-  get 'investment_tags/destroy'
-
   scope '(:locale)', locale: /en|fr/ do
     devise_for :users
     root to: 'pages#home'
@@ -19,6 +9,8 @@ Rails.application.routes.draw do
     resources :investments do
       resources :installments, only: [:new, :create, :edit, :update, :destroy]
     end
+
+    resources :investment_tags
 
     resources :projects, only: [:show, :new, :create, :edit, :update]
     get '/no_organisation', to: 'pages#no_organisation', as: :no_organisation

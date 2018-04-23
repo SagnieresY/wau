@@ -1,0 +1,16 @@
+<br>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 white-dropshadow-card">
+			<h2 class="green-text">Your Investment Tags</h2>
+			<%= link_to new_investment_tag_path, { class: "mid-title-button-body" } do %>
+				<%= t("home.mid_section_button") %>
+			<% end %>
+			<% @investment_tags.each do |tag|%>
+			<div>
+				<%= tag.name %>   <%= tag.organisation.name %>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>

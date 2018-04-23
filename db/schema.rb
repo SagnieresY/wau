@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180419172046) do
-=======
-ActiveRecord::Schema.define(version: 20180419162407) do
->>>>>>> master
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +78,8 @@ ActiveRecord::Schema.define(version: 20180419162407) do
   create_table "investments_investment_tags", force: :cascade do |t|
     t.bigint "investment_id"
     t.bigint "investment_tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["investment_id"], name: "index_investments_investment_tags_on_investment_id"
     t.index ["investment_tag_id"], name: "index_investments_investment_tags_on_investment_tag_id"
   end
