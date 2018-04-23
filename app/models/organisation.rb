@@ -13,6 +13,19 @@ class Organisation < ApplicationRecord
   has_many :installments, through: :investments, dependent: :destroy
   has_many :focus_areas, through: :investments
   validates :name, presence: true, uniqueness: true
+
+
+  def self.create!(organisation_attributes) #improved project create!
+    organisations = Organisation.where(name:organisation_attributes[:name]) #gets organisation by name
+
+    if organisations.blank? #check if a organisation whith the name exists
+      return super(organisation_attributes) #if not it creates it
+    end
+
+    return organisations[0] #if yes it returns it
+  end
+
+
   validates :charity_id, presence: true, uniqueness: true
   attribute :name
 
@@ -22,11 +35,13 @@ class Organisation < ApplicationRecord
     projects.where(organisation: self).each{|i| i.destroy}
     super
   end
+
   def completed_investments
     investments.where(completed:true)
   end
 
   def uncompleted_investments
+
     investments.where(completed:false).reject{|i| i.rejected?}
   end
 
