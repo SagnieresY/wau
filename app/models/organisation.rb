@@ -13,6 +13,8 @@ class Organisation < ApplicationRecord
   has_many :installments, through: :investments, dependent: :destroy
   has_many :focus_areas, through: :investments
   validates :name, presence: true, uniqueness: true
+  
+  attribute :name
 
 
   def self.create!(organisation_attributes) #improved project create!
@@ -35,7 +37,7 @@ class Organisation < ApplicationRecord
     projects.where(organisation: self).each{|i| i.destroy}
     super
   end
-
+  
   def completed_investments
     investments.where(completed:true)
   end

@@ -21,6 +21,9 @@ class Project < ApplicationRecord
   accepts_nested_attributes_for :investments
 
   attribute :name
+
+
+  attribute :name
   def self.create!(project_attributes) #improved project create!
     projects = Project.where(name:project_attributes[:name]) #gets project by name
 
