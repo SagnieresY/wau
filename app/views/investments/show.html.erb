@@ -1,16 +1,17 @@
   <div class="white-info-parent-flex">
 
-    <div class="container-invest-show-info-box">
+    <div class="container-invest-show-info-box ">
       <div class="invest-show-white-info-name">
         <div class="flex-name-center"><%= @investment.project.name %> </div>
         <div class="size-24" >
-          <i><%= @investment.project.organisation.name %></i>
+          <i><%= @investment.project.organisation.name %> - charity number: <%= @investment.project.organisation.charity_id %></i>
         </div>
       </div>
       <%= render partial: "/partials/invest_show_info", investment: @investment %>
     </div>
   </div>
-
+<% unless @investment.rejected? %>
+   <%= link_to "Reject investment", reject_investment_path(@investment), method: :post, class: "btn btn-lg btn-danger" %>
   <div class="mid-title-box">
     <div class="mid-title-flex">
       <div class="title-mid-invest-show-page-text">
@@ -94,7 +95,11 @@
       </tbody>
     </table>
   </div>
-
+<% else %>
+<br>
+<br>
+<h1 style="color:red;text-decoration: underline;text-align:center;">This investment was rejected</h1>
+<% end %>
   <%= content_for(:after_js) do %>
   <script type="text/javascript">
 
