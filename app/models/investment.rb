@@ -8,6 +8,7 @@ class Investment < ApplicationRecord
   has_many :geos, through: :project
   validates :project, presence: true
   validates :organisation, presence: true
+  validates :status, presence: true
   accepts_nested_attributes_for :project
   accepts_nested_attributes_for :installments,
                                 allow_destroy: true,
@@ -16,7 +17,14 @@ class Investment < ApplicationRecord
   scope :completed, -> { where(completed: 'true') }
   scope :active, -> {where(completed: 'false')}
 
-#installment
+  def rejected?
+    status == 'rejected'
+  end
+
+  def reject!
+    update!(status:"rejected")
+  end
+
   def forecasted_amount
     #calculates projected amount minus the missed installments
     installments.unlocked.sum(:amount) + installments.locked.sum(:amount)

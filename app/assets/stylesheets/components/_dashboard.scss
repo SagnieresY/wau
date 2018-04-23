@@ -15,13 +15,14 @@
 
 }
 .search-btn {
-  color: #4FC0A6;
-  border: 3px solid #4FC0A6;
+  color: $green;
+  border: 3px solid $green;
   background-color:white;
   font-size:17px;
 }
-.active {
-  background-color: #4FC0A6!important;
+.active-tab {
+  background-color: $green!important;
+  color: white!important;
 }
 .suggestions {
   margin-bottom:30px;
@@ -29,7 +30,7 @@
 .suggestion {
   background-color:white;
   display:block;
-  color: #4FC0A6;
+  color: $green;
 }
 
 .search-content {
@@ -38,9 +39,9 @@
 
 .tag{
   border-radius:30px;
-  color: #4FC0A6;
+  color: $green;
   padding:5px;
-  border: 2px solid #4FC0A6;
+  border: 2px solid $green;
   margin-left:3px;
 }
 

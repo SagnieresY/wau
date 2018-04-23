@@ -12,4 +12,8 @@ class UserPolicy < ApplicationPolicy
   def generate_users?
     record.organisation == user.organisation
   end
+
+  def generate_projects?
+    user.organisation
+  end
 end

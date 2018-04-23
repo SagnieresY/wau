@@ -75,6 +75,7 @@ class PagesController < ApplicationController
   end
 
   def dashboard
+
     #Prepares the installments for graphs / tables and includes investment, focus_area and projects in the query
     # @locked_installments = current_user.organisation.locked_installments.includes( :investment, :focus_area, :project)
     # @unlocked_installments = current_user.organisation.unlocked_installments.includes(:investment, :focus_area, :project)
@@ -87,7 +88,7 @@ class PagesController < ApplicationController
 
     #Updates to filter for specific time range if there is one
     if !params[:min_date].blank? || !params[:min_date].blank?
-        
+
       #Makes (string)date into DATETIME object
       min_date = params[:min_date].to_time
       max_date = params[:max_date].to_time
@@ -116,6 +117,7 @@ class PagesController < ApplicationController
       fa_hash = {}
       fa_array_id = []
       FocusArea.all.each {|fa| fa_hash[fa.name] = fa.id}
+
       params[:focus].strip.gsub('and','&').gsub(', ',',').split(',').each {|fa| fa_array_id << fa_hash[fa]}
       @installments = @installments.joins(:focus_area).where('focus_areas.id':fa_array_id)
     end
@@ -131,29 +133,33 @@ class PagesController < ApplicationController
       @installments = @installments.joins(:project).where("projects.name":project_array)
     end
 
-    #Calculate year range
-    time_range_seconds = (max_date.to_i - start_date.to_i)
-
     #Return hash by TIME depending on range
-    if (time_range_seconds) > 63115201
-      @locked_installments_time_chart = @installments.locked.group_by_year(:deadline, format: "%Y", range: start_date..end_date).sum(:amount)
-      @unlocked_installments_time_chart = @installments.unlocked.group_by_year(:deadline, format: "%Y", range: start_date..end_date).sum(:amount)
-    else
-      @locked_installments_time_chart = @installments.locked.group_by_month(:deadline, format: "%b %Y", range: start_date..end_date).sum(:amount)
-      @unlocked_installments_time_chart = @installments.unlocked.group_by_month(:deadline, format: "%b %Y", range: start_date..end_date).sum(:amount)
-    end
+    @locked_installments_time_year = @installments.locked.group_by_year(:deadline, range: start_date..end_date).sum(:amount)
+    @unlocked_installments_time_year = @installments.unlocked.group_by_year(:deadline, range: start_date..end_date).sum(:amount)
+
+    @locked_installments_time_month = @installments.locked.group_by_month(:deadline, range: start_date..end_date).sum(:amount)
+    @unlocked_installments_time_month = @installments.unlocked.group_by_month(:deadline, range: start_date..end_date).sum(:amount)
+
+    @locked_installments_time_week = @installments.locked.group_by_week(:deadline, range: start_date..end_date).sum(:amount)
+    @unlocked_installments_time_week = @installments.unlocked.group_by_week(:deadline, range: start_date..end_date).sum(:amount)
+
+    @locked_installments_time_day = @installments.locked.group_by_day(:deadline, range: start_date..end_date).sum(:amount)
+    @unlocked_installments_time_day = @installments.unlocked.group_by_day(:deadline, range: start_date..end_date).sum(:amount)
+
+
 
     #Returns hash by GEO & sum(:amount)
     @locked_installments_geo_chart = @installments.locked.joins(:geos).group("geos.name").sum(:amount)
     @unlocked_installments_geo_chart = @installments.unlocked.joins(:geos).group("geos.name").sum(:amount)
-    
+
     # #Returns hash by NGO & sum(:amount)
     @locked_installments_ngo_chart = @installments.locked.joins(project: :organisation).group("organisations.name").sum(:amount)
     @unlocked_installments_ngo_chart = @installments.unlocked.joins(project: :organisation).group("organisations.name").sum(:amount)
-    
+
     #Returns hash by FA & sum(:amount)
     @locked_installments_fa_chart = @installments.locked.joins(:focus_area).group('focus_areas.id').sum(:amount)
     @unlocked_installments_fa_chart = @installments.unlocked.joins(:focus_area).group('focus_areas.id').sum(:amount)
+
 
     #Returns hash by PROJECT & sum(:amount)
     @locked_installments_project_chart = @installments.locked.joins(:project).group('projects.name').sum(:amount)
@@ -170,7 +176,7 @@ class PagesController < ApplicationController
 
   def no_organisation
   end
-  
+
   def downloads
   end
 

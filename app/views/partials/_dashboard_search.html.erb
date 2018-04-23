@@ -1,4 +1,5 @@
-<div class="row margin-top-bottom-6">
+
+<div id="search-container" class="row margin-top-bottom-6">
   <div class="col-md-12 white-dropshadow-card green-text">
     <% search_buttons = ['Focus Area', 'Date', 'NGO', 'Neighborhood','Project'] %>
     <div class="search-buttons">
@@ -20,25 +21,42 @@
 
 <%= content_for(:after_js) do %>
   <script>
+    let searchHeight = 53
     function openTab(evt, tabName) {
     // Declare all variables
       var i, tabcontent, tablinks;
 
       // Get all elements with class="tabcontent" and hide them
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-          tabcontent[i].style.display = "none";
-      }
+      // tabcontent = document.getElementsByClassName("tabcontent");
+      // for (i = 0; i < tabcontent.length; i++) {
+      //     tabcontent[i].style.display = "none";
+      // }
 
-      // Get all elements with class="tablinks" and remove the class "active"
+      // Get all elements with class="tablinks" and remove the class "active-tab"
       tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-          tablinks[i].className = tablinks[i].className.replace(" active", "");
+      // for (i = 0; i < tablinks.length; i++) {
+      //     tablinks[i].className = tablinks[i].className.replace(" active", "");
+      // }
+
+      // Show the current tab, and add an "active-tab" class to the button that opened the tab
+      if (document.getElementById(tabName).style.display === "block") {
+        document.getElementById(tabName).style.display = "none";
+        searchHeight -= 130
+        document.getElementById('search-container').style.height = `${searchHeight}px`
+
+      }else{
+        document.getElementById(tabName).style.display = "block";
+        searchHeight += 130
+        document.getElementById('search-container').style.height = `${searchHeight}px`
       }
 
-      // Show the current tab, and add an "active" class to the button that opened the tab
-      document.getElementById(tabName).style.display = "block";
-      evt.currentTarget.className += " active";
+
+      if (evt.currentTarget.className.includes('active')) {
+        evt.currentTarget.className = evt.currentTarget.className.replace('active', '');
+      }else{
+        evt.currentTarget.className += ' active';
+      }
+
 }
   function addTag(selectionType, tag) {
     let selection = document.getElementById(selectionType)
