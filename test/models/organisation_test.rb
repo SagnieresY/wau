@@ -12,7 +12,10 @@ class OrganisationTest < ActiveSupport::TestCase
     @test_investment = Investment.create!(organisation:@test_org,project:@test_project)
 
   end
-
+  def reset_org
+    @test_org = Organisation.create(name:rand(1..1000).to_s)
+    @test_investment = Investment.create(organisation:@test_org,project:@test_project)
+  end
   test "doesnt save without a name" do
     assert_not Organisation.new.save
   end
@@ -26,16 +29,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_not Organisation.new(name:'test').save
   end
 
-  test "can delete an org with investments" do
-    test_org = Organisation.create!(name:'test')
-    focus = FocusArea.create!(name:'test')
-    geo = Geo.create(name:'test land')
-    project = Project.create!(name:'test',description:'testing',focus_area: focus,main_contact:'www@www.com',organisation: test_org, geos:[@test_geo])
-
-    Investment.create!(organisation: test_org, project: project)
-
-    assert test_org.destroy
-  end
 
   test "returns correct total locked amount" do
     10.times do
@@ -72,10 +65,13 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "returns correct uncompleted investments" do
     array = []
+    reset_org
+    @test_investment.destroy!
     10.times do |i|
       array.push(Investment.create(organisation:@test_org,project:@test_project)) if i.odd?
       Investment.create(organisation:@test_org,project:@test_project,completed:true)
     end
+
     assert @test_org.uncompleted_investments == array
   end
 
@@ -95,10 +91,29 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "returns the corrects upcoming installments" do
     array = []
+    reset_org
     10.times do |i|
       Installment.create(amount:100, task:'meme',deadline:(Date.today + 400),investment:@test_investment)
       array.push(Installment.create(amount:100, task:'meme',deadline:(Date.today),investment:@test_investment))
     end
     assert @test_org.upcoming_installments == array
+  end
+
+  test "returns the correct unlocked installments" do
+    array =  []
+    10.times do |i|
+      inst = Installment.create(investment:@test_investment,amount:100,task:"test",deadline:Date.today,status: i.odd? ? "unlocked" : nil)
+      array.push(inst) if inst.unlocked?
+    end
+    assert @test_org.unlocked_installments == array
+  end
+
+  test "returns the correct locked installments" do
+    array =  []
+    10.times do |i|
+      inst = Installment.create(investment:@test_investment,amount:100,task:"test",deadline:Date.today,status: i.odd? ? "locked" : nil)
+      array.push(inst) if inst.locked?
+    end
+    assert @test_org.locked_installments == array
   end
 end

@@ -13,7 +13,7 @@ class Organisation < ApplicationRecord
   has_many :installments, through: :investments
   has_many :focus_areas, through: :investments
   validates :name, presence: true, uniqueness: true
-
+  attribute :name
   def completed_investments
     investments.where(completed:true)
   end
