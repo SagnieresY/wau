@@ -8,8 +8,9 @@ class Project < ApplicationRecord
 
   has_and_belongs_to_many :geos
   has_many :investments, inverse_of: :project, dependent: :destroy
-  has_many :installments, through: :investments
+  has_many :installments, through: :investments, dependent: :destroy
   belongs_to :focus_area
+  has_one :focus_area_translations, through: :focus_area
   belongs_to :organisation
   validates :name, presence: true
   validates :description, presence: true
@@ -18,6 +19,8 @@ class Project < ApplicationRecord
   validates :main_contact, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
     message: "Please enter an valid email" }
   accepts_nested_attributes_for :investments
+
+  attribute :name
   def self.create!(project_attributes) #improved project create!
     projects = Project.where(name:project_attributes[:name]) #gets project by name
 
@@ -31,6 +34,7 @@ class Project < ApplicationRecord
   def self.create(attributes)
     self.create!(attributes)
   end
+
   def nearest_installment
     installments.order('deadline ASC').select{|m|  !m.unlocked}.detect(&:accessible?)
      #orders project installments by deadline then select the first one

@@ -1,11 +1,14 @@
 class Investment < ApplicationRecord
 
-  belongs_to :organisation
-  belongs_to :project
+  belongs_to :organisation, inverse_of: :investments
+  belongs_to :project, inverse_of: :investments
   has_one :focus_area, through: :project
+  has_one :focus_area_translations, through: :project
   has_many :installments, dependent: :destroy
+  has_many :geos, through: :project
   validates :project, presence: true
   validates :organisation, presence: true
+  validates :status, presence: true
   accepts_nested_attributes_for :project
   accepts_nested_attributes_for :installments,
                                 allow_destroy: true,
@@ -14,7 +17,14 @@ class Investment < ApplicationRecord
   scope :completed, -> { where(completed: 'true') }
   scope :active, -> {where(completed: 'false')}
 
-#installment
+  def rejected?
+    status == 'rejected'
+  end
+
+  def reject!
+    update!(status:"rejected")
+  end
+
   def forecasted_amount
     #calculates projected amount minus the missed installments
     installments.unlocked.sum(:amount) + installments.locked.sum(:amount)
@@ -61,5 +71,9 @@ class Investment < ApplicationRecord
           csv << attributes.map{ |attr| investment.send(attr) }
         end
       end
+  end
+
+  def to_a
+    [id,project_id,completed?,forecasted_amount,unlocked_amount,locked_amount]
   end
 end

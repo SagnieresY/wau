@@ -9,9 +9,18 @@
 <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 <%= file_field_tag :users_csv %>
 <%= submit_tag("Generate users",controller:"users",action:"generate_users") %>
+<<<<<<< HEAD
  -->
 <h2>add projects</h2>
 <%= form_tag '/generate_projects', multipart: true %>
 <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 <%= file_field_tag :projects_csv %>
 <%= submit_tag("Generate projects",controller:"projects",action:"generate_projects") %>
+
+
+<h2>add investments</h2>
+<%= form_tag '/generate_investments', multipart: true %>
+<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+<%= file_field_tag :investments_csv %>
+<%= submit_tag("Generate investments",controller:"investments",action:"generate_investments") %>
+

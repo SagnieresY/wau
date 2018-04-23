@@ -1,5 +1,5 @@
 class InvestmentsController < ApplicationController
-
+  before_action :selected_investment, only:[:reject]
   def index
     @fuck_off_pundit = policy_scope(current_user.organisation.investments.last)
     @active_investments =  active_investments_paginated
@@ -27,6 +27,12 @@ class InvestmentsController < ApplicationController
       format.js  { active_investments_path }
       format.html
     end
+  end
+
+  def reject
+    authorize @investment
+    @investment.reject!
+    redirect_to investments_path
   end
 
   def new
@@ -99,6 +105,17 @@ class InvestmentsController < ApplicationController
   def to_csv
     authorize current_user.organisation.investments.first
     send_data Investment.to_csv(current_user.organisation), filename: "investments-#{Date.today.to_s}.csv", type: 'text/csv'
+  end
+
+  def generate_investments
+    authorize current_user
+    investments_csv = params[:investments_csv]
+    investments_attributes = []
+    CSV.foreach(investments_csv.path) do |investment|
+      Investment.create!(email:user[0],password:user[1], organisation: current_user.organisation) unless user[0].split("@").count < 2
+    end
+
+    redirect_to downloads_path
   end
 
   private

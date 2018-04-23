@@ -1,0 +1,37 @@
+<h3>Ngo Search:</h3>
+<div class="search-content">
+  <div class="input">
+    <input type="text" id="ngo_query">
+    <div id="ngoSuggestions" class="suggestions"></div>
+
+  </div>
+  <div id="ngo_selection"></div>
+</div>
+
+<%= content_for(:after_js) do %>
+
+  <script>
+    function fetchSuggestionsNgo(){
+      clearSuggestions();
+      let inputNgo = document.getElementById('ngo_query').value
+      $.ajax({
+      url: `/ngo/${inputNgo}`,
+      type: 'GET',
+      dataType: 'json',
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+      },
+      success: function(data){data.results.forEach((word) => addSuggestionNgo(word)); },
+      error: function(xhr, status, response) {console.log('could not fetch request')}
+    });
+    };
+
+    function addSuggestionNgo(suggestion){
+      const ngoSuggestions = document.getElementById('ngoSuggestions')
+      ngoSuggestions.insertAdjacentHTML('afterbegin', `<li class="suggestion" onclick="addTag('ngo_selection','${suggestion.replace("'","|")}');">${suggestion}</li>`);
+    }
+
+    const searchNgo = document.getElementById('ngo_query')
+    searchNgo.addEventListener('keyup',fetchSuggestionsNgo)
+  </script>
+<% end %>

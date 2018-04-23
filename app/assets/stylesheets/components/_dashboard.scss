@@ -1,41 +1,60 @@
-.search-wrapper {
-  display:flex;
-  margin-bottom: 50px;
+//DASHOBARD SEARCH
+.margin-top-bottom {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-.dashboard-charts{
+.search-buttons {
   display:flex;
-  margin-bottom: 50px;
+  justify-content: space-around;
+  border-bottom: 1px solid #ccc;
 }
+
+.search-input {
+  display:flex;
+
+}
+.search-btn {
+  color: $green;
+  border: 3px solid $green;
+  background-color:white;
+  font-size:17px;
+}
+.active-tab {
+  background-color: $green!important;
+  color: white!important;
+}
+.suggestions {
+  margin-bottom:30px;
+}
+.suggestion {
+  background-color:white;
+  display:block;
+  color: $green;
+}
+
+.search-content {
+  display:flex;
+}
+
+.tag{
+  border-radius:30px;
+  color: $green;
+  padding:5px;
+  border: 2px solid $green;
+  margin-left:3px;
+}
+
+// END DASHBOARD SEARCH
 
 .dashboard-chart{
-  position:relative;
-  left:40px;
-  width: 60vw;
-  height: 52vh;
-  background-color:white;
-  margin-left: 40px;
-  border-radius:5px;
+  height: 35vh;
 }
-.search-tool {
-  display:block;
-}
-.suggestion-box {
-  position:absolute;
-}
-.suggestion-item {
-  position:relative;
-  left:-40px;
-  width:300px;
-  font-size:15px;
-  border: 1px solid lightgrey;
-  display:block;
-  background-color:white;
-}
-.tab {
+
+.tablinks {
     overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
+    border:none;
+    background-color: white;
 }
 //COMMMMMMMMMMENT
 /* Style the buttons that are used to open the tab content */
@@ -67,6 +86,13 @@
 .tabcontent {
     display: none;
     padding: 6px 12px;
-    border: 1px solid #ccc;
     border-top: none;
 }
+
+#second-chart-row{
+  display:flex;
+  margin-right:0px;
+  margin-left:0px;
+
+}
+

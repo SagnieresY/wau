@@ -1,33 +1,60 @@
-<div class="tab">
-  <h3>Chart menu</h3>
-  <button class="tablinks" onclick="openChart(event, 'focus_area')">By Focus area</button>
-  <button class="tablinks" onclick="openChart(event, 'ngo')">By NGO</button>
-  <button class="tablinks" onclick="openChart(event, 'installments')">Timeline</button>
-  <button class="tablinks" onclick="openChart(event, 'neighborhood')">By Neighborhood</button>
-  <button class="tablinks" onclick="openChart(event, 'sdasfag')">Close charts</button>
 
+<div class="row margin-top-bottom-6">
+    <div class="col-md-12 white-dropshadow-card">
+        <p> <%= t("dashboard.charts.info.total", amount: nice_money(@installments.sum(:amount))) %></p>
+        <p> <%= t("dashboard.charts.info.unlocked", amount: nice_money(@installments.locked.sum(:amount))) %></p>
+        <p> <%= t("dashboard.charts.info.locked", amount: nice_money(@installments.unlocked.sum(:amount))) %></p>
+        <p> <%= t("dashboard.charts.info.investment_count", amount: @investments.count) %></p>
+        <ul class="nav nav-tabs">
+          <li><a data-toggle="tab" href="#day">Day</a></li>
+          <li><a data-toggle="tab" href="#week">Week</a></li>
+          <li class="active"><a data-toggle="tab" href="#month">Month</a></li>
+          <li><a data-toggle="tab" href="#year">Year</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="day" class="tab-pane fade">
+                <div id="dash_timeseries_day" class="dashboard-chart"></div>
+            </div>
+            <div id="week" class="tab-pane fade">
+                <div id="dash_timeseries_week" class="dashboard-chart"></div>
+            </div>
+            <div id="month" class="tab-pane fade in active">
+                <div id="dash_timeseries_month" class="dashboard-chart"></div>
+            </div>
+            <div id="year" class="tab-pane fade">
+                <div id="dash_timeseries_year" class="dashboard-chart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row margin-top-bottom-6">
+    <div class="col-md-6 no-left-padding-md">
+        <div id="dash_fa_bars" class="dashboard-chart white-dropshadow-card"></div>
+    </div>
+    <div class="col-md-6 no-right-padding-md">
+        <div id="dash_ngo_bars" class="dashboard-chart white-dropshadow-card"></div>
+    </div>
+</div>
+<div class="row margin-top-bottom-6">
+    <div class="col-md-6 no-left-padding-md">
+        <div id="dash_geo_bars" class="dashboard-chart white-dropshadow-card"></div>
+    </div>
+    <div class="col-md-6 no-right-padding-md">
+        <div id="dash_project_bars" class="dashboard-chart white-dropshadow-card"></div>
+    </div>
 </div>
 
-<div class="dashboard-charts">
-<div id="focus_area" class="dashboard-chart tabcontent"></div>
-<div id="ngo" class="dashboard-chart tabcontent"></div>
-<div id="installments" class="dashboard-chart tabcontent"></div>
-<div id="neighborhood" class="dashboard-chart tabcontent"></div>
-</div>
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
   Chart.defaults.global.defaultFontFamily = 'Raleway';
 </script>
-<!-- CUMMULATIVE INSTALLMENT BY DATE CHART -->
 
-<% year = params[:year].present? ? params[:year] : Date.today.year %>
+<!-- DATE CHART: Cumulative installments by month in chronological order -->
 <%= area_chart [
-    {name: "Unocked", data: cumulate_my_hash(current_user.organisation.unlocked_installments.current_year_monthly_amount(year_range(year)))},
-    {name: "Locked", data: cumulate_my_hash(current_user.organisation.locked_installments.current_year_monthly_amount(year_range(year)))}],
-    id: "installments",
-    points: false,
+    {name: "Unlocked", data: @unlocked_installments_time_day},
+    {name: "Locked", data: @locked_installments_time_day}],
+    id: "dash_timeseries_day",
     stacked: true,
-    download:true,
     prefix: "$",
     thousands: ",",
     colors: ["#8D81D2","#AE6CB5"],
@@ -39,14 +66,126 @@
         },
       title: {
         display: true,
-        text: 'FY Forecasted Investments'
-      }
-    } %>
+
+        text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
+      },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }]},
+
+} %>
+
+<%= area_chart [
+    {name: "Unlocked", data: @unlocked_installments_time_week},
+    {name: "Locked", data: @locked_installments_time_week}],
+    id: "dash_timeseries_week",
+    stacked: true,
+    prefix: "$",
+    thousands: ",",
+    colors: ["#8D81D2","#AE6CB5"],
+    library: {
+        tooltips: {
+            enabled: true,
+            mode: 'index',
+            intersect: false,
+        },
+      title: {
+        display: true,
+
+        text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
+      },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }]},
+
+} %>
+
+<%= area_chart [
+    {name: "Unlocked", data: @unlocked_installments_time_month},
+    {name: "Locked", data: @locked_installments_time_month}],
+    id: "dash_timeseries_month",
+    stacked: true,
+    prefix: "$",
+    thousands: ",",
+    colors: ["#8D81D2","#AE6CB5"],
+    library: {
+        tooltips: {
+            enabled: true,
+            mode: 'index',
+            intersect: false,
+        },
+      title: {
+        display: true,
+
+        text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
+      },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }]},
+
+} %>
+
+<%= area_chart [
+    {name: "Unlocked", data: @unlocked_installments_time_year},
+    {name: "Locked", data: @locked_installments_time_year}],
+    id: "dash_timeseries_year",
+    stacked: true,
+    prefix: "$",
+    thousands: ",",
+    colors: ["#8D81D2","#AE6CB5"],
+    library: {
+        tooltips: {
+            enabled: true,
+            mode: 'index',
+            intersect: false,
+        },
+      title: {
+        display: true,
+
+        text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
+      },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }]},
+
+} %>
 
 <%= bar_chart [
-    {name: "Unocked", data: current_user.organisation.unlocked_amount_by_focus_area_year(year)},
-    {name: "Locked", data: current_user.organisation.locked_amount_by_focus_area_year(year)}],
-    id: "focus_area",
+    {name: "Unlocked", data: @unlocked_installments_fa_chart},
+    {name: "Locked", data: @locked_installments_fa_chart}],
+    id: "dash_fa_bars",
     stacked:true,
     prefix: "$",
     thousands: ",",
@@ -62,12 +201,23 @@
         display: true,
         text: 'FY Forecasted Investments By Focus Area'
       },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }]},
     } %>
 
-  <%= bar_chart [
-    {name: "Unocked", data: current_user.organisation.amount_by_ngo[:unlocked]},
-    {name: "Locked", data: current_user.organisation.amount_by_ngo[:locked]}],
-    id: "ngo",
+<%= bar_chart [
+    {name: "Unocked", data: @unlocked_installments_ngo_chart},
+    {name: "Locked", data: @locked_installments_ngo_chart}],
+    id: "dash_ngo_bars",
     stacked:true,
     prefix: "$",
     thousands: ",",
@@ -83,11 +233,23 @@
         display: true,
         text: 'FY Forecasted Investments By NGO'
       },
-    } %>
-    <%= bar_chart [
-    {name: "Unocked", data: current_user.organisation.amount_by_neighborhood[:unlocked]},
-    {name: "Locked", data: current_user.organisation.amount_by_neighborhood[:locked]}],
-    id: "neighborhood",
+    scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }]},
+} %>
+
+<%= bar_chart [
+    {name: "Unlocked", data:  @unlocked_installments_geo_chart},
+    {name: "Locked", data:  @locked_installments_geo_chart}],
+    id: "dash_geo_bars",
     stacked:true,
     prefix: "$",
     thousands: ",",
@@ -103,7 +265,50 @@
         display: true,
         text: 'FY Forecasted Investments By Neighborhood'
       },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }]},
     } %>
+
+<%= bar_chart [
+    {name: "Unlocked", data:  @unlocked_installments_project_chart},
+    {name: "Locked", data:  @locked_installments_project_chart}],
+    id: "dash_project_bars",
+    stacked:true,
+    prefix: "$",
+    thousands: ",",
+    download: true,
+    colors: ["#8D81D2", "#AE6CB5"],
+    library: {
+        tooltips: {
+        enabled: true,
+        mode: 'index',
+        intersect: false
+        },
+      title: {
+        display: true,
+        text: 'FY Forecasted Investments By Projects'
+      },
+      scales: {
+        xAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }],
+        yAxes: [{
+                    gridLines: {
+                        display:false
+                    }
+                }]},
+} %>
 
   <script>
     function openChart(evt, chartName) {

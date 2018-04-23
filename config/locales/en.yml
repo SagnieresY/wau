@@ -160,20 +160,47 @@ en:
     navbar:
       button: "Login"
   navbar:
-    first_tab: "INVESTMENTS"
+    first_tab: "DASHBOARD"
+    second_tab: "INVESTMENTS"
     menu:
       first_dropdown: "New Investment"
       second_dropdown: "Sign out"
     mobile:
       first_dropdown: "Homepage"
-      second_dropdown: "Investments"
-      third_dropdown: "New Investments"
-      fourth_dropdown: "Sign Out"
+      second_dropdown: "Dashboard"
+      third_dropdown: "Investments"
+      fourth_dropdown: "New Investments"
+      fifth_dropdown: "Sign Out"
   user_mailer:
     welcome:
       subject: "Welcome to WAU!"
   dashboard:
     search_bar:
-        date_min: "min date"
-        date_max: "max date"
-        focus_area: "focus area"
+      date_min: "min date"
+      date_max: "max date"
+      focus_area: "focus area"
+    charts:
+      info:
+        total: "Total: %{amount}"
+        locked: "Locked: %{amount}"
+        unlocked: "Unlocked: %{amount}"
+        investment_count: "Number of investments: %{amount}"
+      time:
+        title:
+        day: "Day"
+        week: "Week"
+        month: "Month"
+        year: "Year"
+    table:
+      header:
+        ngo:  "NGO"
+        project_name: "Project Name"
+        invested: "Invested"
+        status: "Status"
+        edit: "Edit"
+      completed: "Completed"
+      active: "Active"
+      editable:
+        investment: "Investment"
+        project: "Project"
+

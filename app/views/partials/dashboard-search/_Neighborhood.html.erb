@@ -1,0 +1,38 @@
+<h3>Neighborhood Search:</h3>
+
+<div class="search-content">
+  <div class="input">
+    <input type="text" id="neighborhood_query">
+    <div id="neighborhoodSuggestions" class="suggestions"></div>
+
+  </div>
+  <div id="neighborhood_selection"></div>
+</div>
+
+<%= content_for(:after_js) do %>
+
+  <script>
+    function fetchSuggestionsNeighborhood(){
+      clearSuggestions();
+      let inputNeighborhood = document.getElementById('neighborhood_query').value
+      $.ajax({
+      url: `/neighborhood/${inputNeighborhood}`,
+      type: 'GET',
+      dataType: 'json',
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+      },
+      success: function(data){data.results.forEach((word) => addSuggestionNeighborhood(word)); },
+      error: function(xhr, status, response) {console.log('could not fetch request')}
+    });
+    };
+
+    function addSuggestionNeighborhood(suggestion){
+      const neighborhoodSuggestions = document.getElementById('neighborhoodSuggestions')
+      neighborhoodSuggestions.insertAdjacentHTML('afterbegin', `<li class="suggestion" onclick="addTag('neighborhood_selection','${suggestion.replace("'","|")}');">${suggestion}</li>`);
+    }
+
+    const searchNeighborhood = document.getElementById('neighborhood_query')
+    searchNeighborhood.addEventListener('keyup',fetchSuggestionsNeighborhood)
+  </script>
+<% end %>

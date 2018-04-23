@@ -6,13 +6,14 @@ class Organisation < ApplicationRecord
     using: {
       tsearch: { prefix: true }
     }
-
   has_many :users, dependent: :destroy
-  has_many :investments, dependent: :destroy
+  has_many :investments, inverse_of: :organisation, dependent: :destroy
+  has_many :installments, through: :investments, dependent: :destroy
   has_many :projects, through: :investments, dependent: :destroy
-  has_many :installments, through: :investments
+  has_many :installments, through: :investments, dependent: :destroy
   has_many :focus_areas, through: :investments
   validates :name, presence: true, uniqueness: true
+
 
   def self.create!(organisation_attributes) #improved project create!
     organisations = Organisation.where(name:organisation_attributes[:name]) #gets organisation by name
@@ -24,12 +25,24 @@ class Organisation < ApplicationRecord
     return organisations[0] #if yes it returns it
   end
 
+
+  validates :charity_id, presence: true, uniqueness: true
+  attribute :name
+
+  def destroy
+    installments.each{|i| i.destroy!}
+    investments.each{|i| i.destroy!}
+    projects.where(organisation: self).each{|i| i.destroy}
+    super
+  end
+
   def completed_investments
     investments.where(completed:true)
   end
 
   def uncompleted_investments
-    investments.where(completed:false)
+
+    investments.where(completed:false).reject{|i| i.rejected?}
   end
 
   def investments_by_focus_area(completed = false)

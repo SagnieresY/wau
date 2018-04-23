@@ -4,8 +4,12 @@ class InvestmentPolicy < ApplicationPolicy
       scope
     end
   end
+
+  def reject?
+    user.organisation == record.organisation
+  end
   def to_csv?
-    user.organisation = record.organisation
+    user.organisation == record.organisation
   end
   def index?
     user.organisation
