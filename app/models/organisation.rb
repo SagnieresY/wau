@@ -29,7 +29,7 @@ class Organisation < ApplicationRecord
   end
 
 
-  validates :charity_id, presence: true, uniqueness: true
+  validates :charity_number, presence: true, uniqueness: true
   attribute :name
 
   def destroy
