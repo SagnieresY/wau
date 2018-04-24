@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180419172046) do
+ActiveRecord::Schema.define(version: 20180424124848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,13 @@ ActiveRecord::Schema.define(version: 20180419172046) do
     t.index ["organisation_id"], name: "index_investment_tags_on_organisation_id"
   end
 
+  create_table "investment_tags_investments", id: false, force: :cascade do |t|
+    t.bigint "investment_id", null: false
+    t.bigint "investment_tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "investments", force: :cascade do |t|
     t.boolean "completed", default: false
     t.bigint "organisation_id"
@@ -73,15 +80,6 @@ ActiveRecord::Schema.define(version: 20180419172046) do
     t.string "status", default: "ongoing"
     t.index ["organisation_id"], name: "index_investments_on_organisation_id"
     t.index ["project_id"], name: "index_investments_on_project_id"
-  end
-
-  create_table "investments_investment_tags", force: :cascade do |t|
-    t.bigint "investment_id"
-    t.bigint "investment_tag_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["investment_id"], name: "index_investments_investment_tags_on_investment_id"
-    t.index ["investment_tag_id"], name: "index_investments_investment_tags_on_investment_tag_id"
   end
 
   create_table "organisations", force: :cascade do |t|

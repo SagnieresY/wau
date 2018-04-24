@@ -47,12 +47,15 @@ puts "generating focus_areas"
   f.attributes = { name: fa[1], locale: :fr }
   f.save!
 end
+
 puts 'generating geos...'
 neighbourhood_montreal = ['Ahuntsic-Cartierville', 'Anjou', 'Côte-des-Neiges–Notre-Dame-de-Grâce', 'Lachine', 'LaSalle', 'Le Plateau-Mont-Royal', 'Le Sud-Ouest', 'Île-Bizard–Sainte-Geneviève', 'Mercier–Hochelaga-Maisonneuve', 'Montréal-Nord', 'Outremont', 'Pierrefonds-Roxboro', 'Rivière-des-Prairies–Pointe-aux-Trembles', 'Rosemont–La Petite-Patrie', 'Saint-Laurent', 'Saint-Léonard', 'Verdun', 'Ville-Marie', 'Other neighbourhoods', 'Villeray', 'West Island']
 
 neighbourhood_montreal.each do |neighbourhood|
   Geo.create(name:neighbourhood)
 end
+
+
 humanrights_ngo = ['Amnesty International', 'UNICEF', 'Human Rights Watch'].map{|ngo| Organisation.create!(name:ngo,charity_id:rand(10000.99999))}
 humanrights_project_name = ['Welcome Refugees to Montreal', 'Open a New Shelter', 'Fund Awareness Campaign']
 childcare_ngo = ['Save The Children Canada', 'Montreal Children\'s Hospital'].map{|ngo| Organisation.create!(name:ngo,charity_id:rand(10000.99999))}
@@ -61,6 +64,15 @@ community_ngo = ['Santropole Roulant', 'YMCA', 'Women Aware Femme Averties', 'Ki
 community_project_name = ['Open New Farms', 'Renovate basketball court', 'Legal Defense', 'Create Afterschool Programs']
 environmental_ngo = ['Equiterre', 'Canadian Wind Energy Association', 'Greenpeace Canada'].map{|ngo| Organisation.create!(name:ngo,charity_id:rand(10000.99999))}
 environmental_project_name = ['Energy-Efficient Lighting', 'R&D for Electric Turbines', 'Global Climate March']
+
+puts "generating tags"
+tags = ["Handicaped Children", "Elderly Motility", "copper", "truck", "neat", "unite", "branch", "educated", "tenuous", "hum", "decisive", "notice"]
+
+Organisation.all.each do |organisation|
+    tags.sample(3).each do |tag|
+      InvestmentTag.create(name:tag, organisation:organisation)
+  end
+end
 
 puts 'generating projects...'
 
@@ -141,7 +153,7 @@ Organisation.all.each do |f|
   end
 end
 
-puts 'generating investments and their installments...'
+puts 'generating investments and their installments and adding tags...'
 Project.all.each do |p|
   Organisation.all.each do |f|
     i = Investment.create(project:p,organisation:f)
