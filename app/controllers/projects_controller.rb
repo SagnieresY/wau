@@ -7,11 +7,14 @@ class ProjectsController < ApplicationController
 
     geos_amount = investments.sort_by{|invest| invest.project.geos.count}.last.project.geos.count
     tags_amount = investments.sort_by{|invest| invest.investment_tags.count}.last.investment_tags.count
-    data_string = "Project Name, Project Description, Receiving Organisation, Charity ID, Project Contact Email, Investment Status, Installment Task, Installment Amount, Installment status,#{'Geo,'*geos_amount}#{'Tag,'*tags_amount}\n"
+    data_string = "Project Name, Project Description, Receiving Organisation, Charity ID, Project Contact Email, Investment Status, Installment Task, Installment Amount, Installment Deadline, Installment status,#{'Geo,'*geos_amount}#{'Tag,'*tags_amount}\n"
 
     investments.each do |investment|
       investment.installments.each do |installment|
-        data_string += "#{investment.project.name},#{investment.project.description},#{investment.project.organisation.name},#{investment.project.organisation.charity_number},#{investment.project.main_contact},#{installment.task},#{installment.amount},#{installment.deadline.to_s},#{installment.status}\n"
+        data_string += "#{investment.project.name},#{investment.project.description},#{investment.project.organisation.name},#{investment.project.organisation.charity_number},#{investment.project.main_contact},#{investment.status},#{installment.task},#{installment.amount},#{installment.deadline.to_s},#{installment.status}"
+        data_string += ",#{investment.geos.map(&:name).join(',')}#{', '*(geos_amount-investment.geos.count)}"
+        data_string += ",#{investment.investment_tags.map(&:name).join(',')}#{', '*(tags_amount-investment.investment_tags.count)}"
+        data_string += "\n"
       end
     end
 
