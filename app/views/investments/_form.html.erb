@@ -1,12 +1,29 @@
 <div class="devise-container">
 	<h2><%= t("form.investment.title") %></h2>
 	<%= simple_form_for([@investment]) do |f| %>
-	<%= f.association :investment_tags, collection: current_user.organisation.investment_tags.all
-	 %>
+		<%= f.association :investment_tags, collection: current_user.organisation.investment_tags.all, include_blank: false, include_hidden: false %>
+
+		<!-- FORM FOR ORGANISATION -->
+		<div class="size-24 green-text">
+			<%= t("form.investment.organisation.title") %>
+		</div>
+		<%= f.simple_fields_for :organisation do |builder| %>
+			<%= render 'organisation_fields', f: builder %>
+		<% end %>
+
+		<!-- FORM FOR PROJECT -->
+		<div class="size-24 green-text">
+			<%= t("form.investment.project.title") %>
+		</div>
 		<%= f.simple_fields_for :project do |builder| %>
 			<%= render 'project_fields', f: builder %>
 		<% end %>
-		<div class="size-24 green-text"><%= t("form.investment.installment.title") %></div>
+
+
+		<!-- FORMS FOR CREATING 1 OR MORE INSTALLMENTS -->
+		<div class="size-24 green-text">
+			<%= t("form.investment.installment.title") %>
+		</div>
 		<table class='table'>
 			<thead>
 				<tr>
@@ -22,6 +39,7 @@
 			 	<% end %>
 			</tbody>
 		</table> 
+
 		<%= link_to_add_association t("form.investment.installment.add_button"), f, :installments, class: 'btn btn-success', data: { association_insertion_node: '.installment', association_insertion_method: :append } %>
 		<br>
 		<%= f.submit t("form.save"), class: "btn btn-success"%>

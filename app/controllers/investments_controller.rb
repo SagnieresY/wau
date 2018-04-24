@@ -140,6 +140,7 @@ class InvestmentsController < ApplicationController
     params
       .require(:investment).permit(
         :project_id,
+        { :investment_tag_ids => [] },
         installments_attributes: Installment.attribute_names.map(&:to_sym).push(:_destroy),
         project_attributes: [:name,:description,:focus_area_id,:main_contact,{ :geo_ids => [] }, :_destroy, :organisation_id])
   end
