@@ -26,50 +26,13 @@ class ProjectsController < ApplicationController
 
     authorize current_user
     projects_csv = params[:projects_csv] #file
-    projects_attributes = []
-    projects_geos = []
-    investments_tags = []
-    investments_status = []
-    installments_attributes = []
-    geo_index = 0
-    tag_index = 0
-    current_investment = ''
+
+    full_data = []
     File.open(projects_csv.path,"r") do |f| #reads file
-      f.each_with_index do |line,index|
-        row = line.split(',').map(&:chomp)
-        row = row
-        if index.zero?
-          tag_index = row.index('Tag')
-          geo_index = row.index('Geo')
-          next
-        end
-        projects_attributes.push(row[0..5]) #seperates project info
-        installments_attributes.push(row[7..11]) #seprates installment info
-        investments_status.push(row[6])
-        geos = row[geo_index...(tag_index.nil? ? -1 : tag_index)].dup
-        geos.reject{|e| e == ' '|| e.empty?} if geos.kind_of?(Array)
-        projects_geos.push(geos)
-        unless tag_index.nil?
-          investments_tags.push(row[tag_index..-1].reject{|e| e == ' '|| e.empty?})
-        else
-          investments_tags.push([])
-        end
-      end
+      full_data = f.read.split("\n")
     end
-    installments_attributes.each_with_index do |installment,i|
-      if installment[0].to_i == 1
-        project = projects_attributes[i]
-        project = Project.create!(name:project[0],description:project[1],organisation:Organisation.create!(name:project[2],charity_number:project[3].to_i),main_contact:project[4],geos:projects_geos[i].reject{|e| e == ' '|| e.empty?}.map{|pname| Geo.where(name:pname).first},focus_area:FocusArea.where(name:project[5].gsub('|',',')).first)
-
-        current_investment = Investment.new(project:project,organisation:current_user.organisation,status:investments_status[i])
-        tags = investments_tags[i].map{|tag| InvestmentTag.create(name:tag,organisation:current_user.organisation)}
-        current_investment.investment_tags = tags
-        current_investment.save!
-      end
-
-      Installment.create(task:installment[1],amount:installment[2],deadline:Date.parse(installment[3]),status:installment[4],investment:current_investment)
-    end
-    redirect_to downloads_path
+     GenerateOrgDataJob.perform_now(full_data,current_user.organisation)
+     redirect_to downloads_path
   end
   def search
     @projects = {results:[]}
