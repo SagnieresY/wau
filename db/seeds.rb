@@ -72,7 +72,7 @@ puts 'generating projects...'
     end
     me = Project.create(
       name:project_name,
-      description:"fuck off",
+      description:"non-offensive project description",
       main_contact:"veryrealemail@actually.no",
       organisation: humanrights_ngo.sample,
       focus_area: FocusArea.all.sample,
@@ -87,7 +87,7 @@ puts 'generating projects...'
     end
     me = Project.create(
       name:project_name,
-      description:"fuck off",
+      description:"non-offensive project description",
       main_contact:"veryrealemail@actually.no",
       organisation: childcare_ngo.sample,
       focus_area: FocusArea.all.sample,
@@ -102,7 +102,7 @@ puts 'generating projects...'
     end
     me = Project.create(
       name:project_name,
-      description:"fuck off",
+      description:"non-offensive project description",
       main_contact:"veryrealemail@actually.no",
       organisation: community_ngo.sample,
       focus_area: FocusArea.all.sample,
@@ -117,7 +117,7 @@ puts 'generating projects...'
     end
     me = Project.create(
       name:project_name,
-      description:"fuck off",
+      description:"non-offensive project description",
       main_contact:"veryrealemail@actually.no",
       organisation: environmental_ngo.sample,
       focus_area: FocusArea.all.sample,
@@ -170,7 +170,7 @@ bigboi.users.push(User.create!(email:"bigboi@big.boi",password:'123456'))
     end
     me = Project.create(
       name:project_name,
-      description:"fuck off",
+      description:"non-offensive project description",
       main_contact:"veryrealemail@actually.no",
       organisation: orgs.sample,
       focus_area: FocusArea.all.sample,
@@ -195,7 +195,7 @@ bigboi.users.push(User.create!(email:"bigboi@big.boi",password:'123456'))
     end
     me = Project.create(
       name:project_name,
-      description:"fuck off",
+      description:"non-offensive project description",
       main_contact:"veryrealemail@actually.no",
       organisation: orgs.sample,
       focus_area: FocusArea.all.sample,
@@ -220,7 +220,7 @@ bigboi.users.push(User.create!(email:"bigboi@big.boi",password:'123456'))
     end
     me = Project.create(
       name:project_name,
-      description:"fuck off",
+      description:"non-offensive project description",
       main_contact:"veryrealemail@actually.no",
       organisation: orgs.sample,
       focus_area: FocusArea.all.sample,
@@ -245,7 +245,7 @@ bigboi.users.push(User.create!(email:"bigboi@big.boi",password:'123456'))
     end
     me = Project.create(
       name:project_name,
-      description:"fuck off",
+      description:"non-offensive project description",
       main_contact:"veryrealemail@actually.no",
       organisation: orgs.sample,
       focus_area: FocusArea.all.sample,

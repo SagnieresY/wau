@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   skip_after_action :verify_authorized, only: :search
 
-  def project_csv
+  def project_csv(investments = current_user.organisation.investments)
 
     authorize current_user.organisation.projects.first
     data_string = ""
@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
         installments_attributes.push(line.split(',')[4..8]) #seprates installment info
       end
     end
-    byebug
+
     current_project = ''
     investment_obj = ''
     projects_attributes.each_with_index do |project, index|
