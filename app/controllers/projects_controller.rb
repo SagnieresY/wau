@@ -7,11 +7,11 @@ class ProjectsController < ApplicationController
 
     geos_amount = investments.sort_by{|invest| invest.project.geos.count}.last.project.geos.count
     tags_amount = investments.sort_by{|invest| invest.investment_tags.count}.last.investment_tags.count
-    data_string = "Project Name, Project Description, Receiving Organisation, Charity ID, Investment Status, Installment Task, Installment Amount, Installment status,#{' Geo,'*geos_amount}#{' Tag,'*tags_amount}\n"
+    data_string = "Project Name, Project Description, Receiving Organisation, Charity ID, Project Contact Email, Investment Status, Installment Task, Installment Amount, Installment status,#{'Geo,'*geos_amount}#{'Tag,'*tags_amount}\n"
 
     investments.each do |investment|
       investment.installments.each do |installment|
-        data_string += "#{investment.project.name},#{investment.project.description},#{investment.project.organisation.name},#{investment.project.main_contact},#{installment.task},#{installment.amount},#{installment.deadline.to_s},#{installment.status}\n"
+        data_string += "#{investment.project.name},#{investment.project.description},#{investment.project.organisation.name},#{investment.project.organisation.charity_number},#{investment.project.main_contact},#{installment.task},#{installment.amount},#{installment.deadline.to_s},#{installment.status}\n"
       end
     end
 
@@ -24,20 +24,23 @@ class ProjectsController < ApplicationController
     projects_csv = params[:projects_csv] #file
     projects_attributes = []
     geos = []
+    tags = []
     installments_attributes = []
     geo_index = 0
     tag_index = 0
     File.open(projects_csv.path,"r") do |f| #reads file
       f.each_with_index do |line,index|
-        line.chomp!
+        row = line.split(',').map(&:chomp)
+        row.delete('')
         if index.zero?
-          tag_index = line.split(',').index('Tag')
-          geo_index = line.split(',').index('Geo')
+          tag_index = row.index('Tag')
+          geo_index = row.index('Geo')
           next
         end
-        byebug
+
         projects_attributes.push(line.split(',')[0..3]) #seperates project info
         installments_attributes.push(line.split(',')[4..8]) #seprates installment info
+        byebug
       end
     end
 
