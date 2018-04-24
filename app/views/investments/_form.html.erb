@@ -1,6 +1,8 @@
 <div class="devise-container">
 	<h2><%= t("form.investment.title") %></h2>
 	<%= simple_form_for([@investment]) do |f| %>
+	<%= f.association :investment_tags, collection: current_user.organisation.investment_tags.all
+	 %>
 		<%= f.simple_fields_for :project do |builder| %>
 			<%= render 'project_fields', f: builder %>
 		<% end %>

@@ -9,7 +9,7 @@ class InvestmentsController < ApplicationController
     @page = "completed_page" if params.has_key?(:completed_page)
   end
 
-    def completed_index
+  def completed_index
     @completed_investments = completed_investments_paginated
     authorize @completed_investments.first
 

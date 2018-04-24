@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       resources :installments, only: [:new, :create, :edit, :update, :destroy]
     end
 
+    resources :investment_tags
+
     resources :projects, only: [:show, :new, :create, :edit, :update]
     get '/no_organisation', to: 'pages#no_organisation', as: :no_organisation
     get '/archive', to: 'pages#archive', as: :archive
