@@ -4,12 +4,17 @@ class ProjectsController < ApplicationController
   def project_csv(investments = current_user.organisation.investments)
 
     authorize current_user.organisation.projects.first
-    data_string = ""
-    current_user.organisation.investments.each do |investment|
+
+    geos_amount = investments.sort_by{|invest| invest.project.geos.count}.last.project.geos.count
+    tags_amount = investments.sort_by{|invest| invest.investment_tags.count}.last.investment_tags.count
+    data_string = "Project Name, Project Description, Receiving Organisation, Charity ID, Investment Status, Installment Task, Installment Amount, Installment status,#{' Geo,'*geos_amount}#{' Tag,'*tags_amount}\n"
+
+    investments.each do |investment|
       investment.installments.each do |installment|
         data_string += "#{investment.project.name},#{investment.project.description},#{investment.project.organisation.name},#{investment.project.main_contact},#{installment.task},#{installment.amount},#{installment.deadline.to_s},#{installment.status}\n"
       end
     end
+
     send_data data_string, filename: "Projects-#{Date.today.to_s}.csv", type: 'text/csv'
   end
 
@@ -18,25 +23,22 @@ class ProjectsController < ApplicationController
     authorize current_user
     projects_csv = params[:projects_csv] #file
     projects_attributes = []
+    geos = []
     installments_attributes = []
+    geo_index = 0
+    tag_index = 0
     File.open(projects_csv.path,"r") do |f| #reads file
-      f.each do |line|
+      f.each_with_index do |line,index|
+        line.chomp!
+        if index.zero?
+          tag_index = line.split(',').index('Tag')
+          geo_index = line.split(',').index('Geo')
+          next
+        end
+        byebug
         projects_attributes.push(line.split(',')[0..3]) #seperates project info
         installments_attributes.push(line.split(',')[4..8]) #seprates installment info
       end
-    end
-
-    current_project = ''
-    investment_obj = ''
-    projects_attributes.each_with_index do |project, index|
-      current_installment = installments_attributes[index] #gets installments info for project
-      organisation_obj = Organisation.create!(name:project[2])
-      project_obj = Project.create!(name:project[0],description:project[1],organisation:organisation_obj,main_contact:project[3],main_contact:project[4])
-      unless current_project == project[0]
-        investment_obj = Investment.create!(project:project_obj,organisation:current_user.organisation)
-      end
-      Installment.create!(investment:investment_obj,task:current_installment[0],amount:current_installment[1],deadline:Date.parse(current_installment[2]),status:current_installment[3].chomp)
-      current_project = project[0]
     end
 
     redirect_to downloads_path
