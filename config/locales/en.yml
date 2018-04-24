@@ -150,8 +150,13 @@ en:
         delete_button: 'Delete'
         add_button: 'Add more installments'
       project:
+        title: 'Project Information'
         name: 'Project Name'
         hint: 'You can pick more than one neighborhood by holding the ctrl key and clicking.'
+      organisation:
+        title: 'Receiving Organisation'
+        name: 'Organisation Name'
+        charity_numer: 'Charity Number'
     project_title: "New Project"
     save: "Save"
   landing:

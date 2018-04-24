@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 20180424124848) do
     t.string "logo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "charity_id"
+    t.integer "charity_number"
   end
 
   create_table "pg_search_documents", force: :cascade do |t|
