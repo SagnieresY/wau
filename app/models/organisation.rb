@@ -14,7 +14,8 @@ class Organisation < ApplicationRecord
   has_many :focus_areas, through: :investments
   has_many :investment_tags
   validates :name, presence: true, uniqueness: true
-  
+  validates :charity_number, presence: true, uniqueness: true
+
   attribute :name
 
 
@@ -27,10 +28,6 @@ class Organisation < ApplicationRecord
 
     return organisations[0] #if yes it returns it
   end
-
-
-  validates :charity_number, presence: true, uniqueness: true
-  attribute :name
 
   def destroy
     installments.each{|i| i.destroy!}
@@ -182,6 +179,13 @@ class Organisation < ApplicationRecord
       end
     end
     return amounts_by_date
+  end
+
+  def receiving_organisations
+    project_ids = self.projects.ids
+    @receiving_organisations = []
+    self.projects.includes(:organisation).where("projects.id":project_ids).each {|p| @receiving_organisations << p.organisation}
+    @receiving_organisations.uniq
   end
 end
 

@@ -157,7 +157,7 @@ class PagesController < ApplicationController
     @locked_installments_geo_chart = @installments.locked.joins(:geos).group("geos.name").sum(:amount)
     @unlocked_installments_geo_chart = @installments.unlocked.joins(:geos).group("geos.name").sum(:amount)
 
-    # #Returns hash by NGO & sum(:amount)
+    #Returns hash by NGO & sum(:amount)
     @locked_installments_ngo_chart = @installments.locked.joins(project: :organisation).group("organisations.name").sum(:amount)
     @unlocked_installments_ngo_chart = @installments.unlocked.joins(project: :organisation).group("organisations.name").sum(:amount)
 

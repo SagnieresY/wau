@@ -11,9 +11,15 @@ class Investment < ApplicationRecord
   validates :organisation, presence: true
   validates :status, presence: true
   accepts_nested_attributes_for :project
+  accepts_nested_attributes_for :organisation,
+                                allow_destroy: true,
+                                reject_if: proc { |att| att['charity_number'].blank? }
   accepts_nested_attributes_for :installments,
                                 allow_destroy: true,
                                 reject_if: proc { |att| att['amount'].blank? }
+  accepts_nested_attributes_for :investment_tags,
+                                allow_destroy: true,
+                                reject_if: proc { |att| att['name'].blank? }
 
   scope :completed, -> { where(completed: 'true') }
   scope :active, -> {where(completed: 'false')}
@@ -24,6 +30,10 @@ class Investment < ApplicationRecord
 
   def reject!
     update!(status:"rejected")
+
+    #make installments rescinded
+    installments.each {|installment| installment.rescind!}
+    byebug
   end
 
   def forecasted_amount

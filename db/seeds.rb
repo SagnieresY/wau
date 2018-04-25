@@ -155,9 +155,9 @@ end
 
 puts 'generating investments and their installments and adding tags...'
 Project.all.each do |p|
-  Organisation.all.each do |f|
-    i = Investment.create(project:p,organisation:f)
-    i.investment_tags.push(InvestmentTag.all.sample(2))
+  Organisation.all.each do |o|
+    i = Investment.create(project:p,organisation:o)
+    i.investment_tags.push(o.investment_tags.all.sample(2))
     rand(1..4).times do
       Installment.create!(task:INSTALLMENT_TASK.sample,investment:i,amount:(INSTALLMENT_AMOUNT.sample*[100,1000].sample),deadline:Faker::Date.forward(180))
     end
