@@ -34,7 +34,6 @@ gem 'jquery-tablesorter'
 gem 'kaminari'
 gem 'groupdate'
 gem 'calculate-all'
-gem 'rails-erd', group: :development
 
 group :development do
   gem 'web-console', '>= 3.3.0'
