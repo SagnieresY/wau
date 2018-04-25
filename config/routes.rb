@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     get '/ngo/:query', to: 'organisations#search', as: :ngo_search
     get '/neighborhood/:query', to:  "geos#search", as: :geo_search
     get '/project/:query', to: "projects#search"
+    get '/tag/:query', to: "investments#search", as: :tag_search
     get '/downloads', to: 'pages#downloads', as: :downloads
     get '/investments_csv', to: "investments#to_csv", as: :investments_csv
     get '/users_csv', to: "users#users_csv", as: :users_csv
