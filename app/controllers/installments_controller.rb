@@ -1,7 +1,9 @@
 class InstallmentsController < ApplicationController
+ 
   before_action :selected_installment, only: [:edit, :update, :destroy, :unlock, :rescind ]
   before_action :find_investment, only: [:create, :new, :edit, :update, :destroy]
-#Installment
+
+
   def new
     @installment = Installment.new
     authorize @investment
@@ -45,6 +47,7 @@ class InstallmentsController < ApplicationController
     authorize @installment
     @investment = @installment.investment
     @installment.unlock!
+    @investment.update_status
     @investment.completed? #check if investment is completed
 
     # render json: {
@@ -54,6 +57,11 @@ class InstallmentsController < ApplicationController
     @page = params[:page]
     if true
       # reset_global_variables
+      t = Time.new(Time.now.year,1,1,0,0,0,'+00:00')
+      @year = t.year
+      @unlocked_installments = current_user.organisation.unlocked_installments
+      @locked_installments = current_user.organisation.locked_installments
+
       respond_to do |format|
         format.html { unlock_installment_path }
         format.js
@@ -77,11 +85,17 @@ class InstallmentsController < ApplicationController
     authorize @installment
     @investment = @installment.investment
     @installment.rescind!
+    @investment.update_status
     @investment.completed? #check if investment is completed
 
     @page = params[:page]
     if true
       # reset_global_variables
+      t = Time.new(Time.now.year,1,1,0,0,0,'+00:00')
+      @year = t.year
+      @unlocked_installments = current_user.organisation.unlocked_installments
+      @locked_installments = current_user.organisation.locked_installments
+
       respond_to do |format|
         format.html { rescind_installment_path }
         format.js
@@ -107,16 +121,4 @@ class InstallmentsController < ApplicationController
   def selected_installment
     @installment = Installment.find(params[:id])
   end
-
-  # def reset_global_variables
-  #   @investments_by_month_locked_cummulative = current_user.organisation.cummulative_locked_amount_investment_by_installments_deadline_month
-  #   @investments_by_month_unlocked_cummulative = current_user.organisation.cummulative_unlocked_amount_investment_by_installments_deadline_month
-
-  #   investments_by_focus_area = current_user.organisation.investments_by_focus_area.map do |focus_area, investments|
-  #     [focus_area,investments.map(&:forecasted_amount).reduce(0,:+)]
-  #   end
-  #   @investments_by_focus_area = investments_by_focus_area.to_h
-
-
-  # end
 end

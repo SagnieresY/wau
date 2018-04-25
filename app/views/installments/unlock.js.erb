@@ -18,4 +18,12 @@
   $("#unlocked-amount").html( "<%= j render '/partials/total_unlocked_home' %>" );
   $("#investment_count_home").html( "<%= j render '/partials/investment_count_home' %>" );
   $("#<%= @installment.id %>").remove();
+
+  var timeChart = Chartkick.charts["home_timeseries"];
+  
+  var newTimeData =  [{name: "Unlocked", data: <%= raw cumulate_my_hash(@unlocked_installments.current_year_monthly_amount(year_range(@year))).to_json %> } ,
+  {name: "Locked", data: <%= raw cumulate_my_hash(@locked_installments.current_year_monthly_amount(year_range(@year))).to_json %> }];
+
+  timeChart.updateData(newTimeData);
+
 <% end %>

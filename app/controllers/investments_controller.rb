@@ -167,11 +167,15 @@ class InvestmentsController < ApplicationController
   private
 
   def active_investments_paginated
-    Kaminari.paginate_array(current_user.organisation.uncompleted_investments.sort_by{|i| i.next_installment&.days_left}).page(params[:active_page]).per(10)
+    Kaminari.paginate_array(current_user.organisation.active_investments.sort_by{|i| i.next_installment&.days_left}).page(params[:active_page]).per(10)
   end
 
   def completed_investments_paginated
     Kaminari.paginate_array(current_user.organisation.completed_investments).page(params[:completed_page]).per(10)
+  end
+
+  def rejected_investments_paginated
+    Kaminari.paginate_array(current_user.organisation.rejected_investments).page(params[:completed_page]).per(10)
   end
 
   def id

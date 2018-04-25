@@ -7,7 +7,7 @@
 </script>
 <!-- CUMMULATIVE INSTALLMENT BY DATE CHART -->
 <%= area_chart [
-    {name: "Unocked", data: cumulate_my_hash(@unlocked_installments.current_year_monthly_amount(year_range(@year)))},
+    {name: "Unlocked", data: cumulate_my_hash(@unlocked_installments.current_year_monthly_amount(year_range(@year)))},
     {name: "Locked", data: cumulate_my_hash(@locked_installments.current_year_monthly_amount(year_range(@year)))}],
     id: "home_timeseries",
     points: false,
