@@ -25,6 +25,22 @@ class Investment < ApplicationRecord
   scope :active, -> {where(status: 'active')}
   scope :rejected, -> {where(status: 'rejected')}
 
+  def active?
+    status == 'active'
+  end
+
+  def activate!
+    update!(status:"active")
+  end
+
+  def completed?
+    status == 'completed'
+  end
+
+  def complete!
+    update!(status:"completed") if installments.reject{ |m|  m.unlocked? || m.rescinded?}.blank?
+  end
+
   def rejected?
     status == 'rejected'
   end
@@ -34,7 +50,16 @@ class Investment < ApplicationRecord
 
     #make installments rescinded
     installments.each {|installment| installment.rescind!}
-    byebug
+  end
+
+  def update_status
+    if installments.reject{ |m|  m.rescinded?}.blank?
+      update!(status:"rejected") 
+    elsif installments.reject{ |m|  m.unlocked? || m.rescinded?}.blank?
+      update!(status:"completed") 
+    else  
+      update!(status:"active")
+    end
   end
 
   def forecasted_amount
@@ -60,12 +85,6 @@ class Investment < ApplicationRecord
 
   def last_installment
     installments_by_nearest_deadline.last
-  end
-
-  def completed?
-    update!(completed:true) if installments.reject{ |m|  m.unlocked? || m.rescinded?}.blank?
-    update!(completed:false) unless installments.reject{ |m|  m.unlocked? || m.rescinded?}.blank?
-    return completed
   end
 
   def active_year

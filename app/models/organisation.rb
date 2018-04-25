@@ -37,12 +37,19 @@ class Organisation < ApplicationRecord
   end
   
   def completed_investments
-    investments.where(completed:true)
+    investments.where(status:"completed")
   end
 
-  def uncompleted_investments
+  def active_investments
+    investments.where(status:"active")
+  end
 
-    investments.where(completed:false).reject{|i| i.rejected?}
+  def rejected_investments
+    investments.where(status:"rejected")
+  end
+
+  def approved_investments
+    investments.where(status:["active","completed"])
   end
 
   def investments_by_focus_area(completed = false)
@@ -68,7 +75,7 @@ class Organisation < ApplicationRecord
   end
 
   def next_installments # array of next installments of investments
-    uncompleted_investments.map(&:next_installment)
+    active_investments.map(&:next_installment)
   end
 
   def unlocked_amount #amount given via installments that are unlocked
