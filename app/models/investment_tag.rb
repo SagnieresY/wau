@@ -1,4 +1,4 @@
-.
+
 
 class InvestmentTag < ApplicationRecord
   belongs_to :organisation

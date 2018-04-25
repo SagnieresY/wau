@@ -6,9 +6,9 @@ class GenerateOrgDataJob < ApplicationJob
 
     tag_index = headers.index('Tag')
     geo_index = headers.index('Geo')
-    installments_instances = []
-    current_investment = ''
 
+    current_investment = ''
+    main_query = ''
     installments.each do |installment|
       installment = installment.split(',')
       if installment[7].to_i == 1
@@ -24,10 +24,14 @@ class GenerateOrgDataJob < ApplicationJob
         current_investment.save!
       end
       installment_info = installment[7..11]
-      installments_instances.push(Installment.new(task:installment_info[1],amount:installment_info[2],deadline:Date.parse(installment_info[3]),status:installment_info[4],investment:current_investment))
 
+      main_query += "('#{installment_info[1]}', #{installment_info[2]}, '#{installment_info[3]}', '#{installment_info[4]}', #{current_investment.id}, '#{Date.today.to_s}', '#{Date.today.to_s}'),"
     end
-    installments_instances.each { |inst| inst.save!(validate: false )}
+
+    ActiveRecord::Base.connection.execute("INSERT INTO installments
+      (task, amount, deadline, status, investment_id, created_at, updated_at)
+      VALUES
+      #{main_query.chop}")
 
 
     # Do something later
