@@ -109,6 +109,7 @@ en:
         title: "Installments"
         status_one: "Completed!"
         status_two: "Not Completed"
+        status_three: "Rejected"
         button: "New Installment"
       table:
         first_column:

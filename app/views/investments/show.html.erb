@@ -4,11 +4,12 @@
       <div class="invest-show-white-info-name">
         <div class="flex-name-center"><%= @investment.project.name %> </div>
         <div class="size-24" >
-          <i><%= @investment.project.organisation.name %> - charity number: <%= @investment.project.organisation.charity_number %> - tags: 
+          <i><%= @investment.project.organisation.name %></i> - <%= @investment.project.organisation.charity_number %>
+        </div>
+        <div class="size-18">
             <% @investment.investment_tags.each do |tag| %> 
-              <p> <%= tag.name %></p>
+              <div class="table-status unlocked-background-color"><%= tag.name.capitalize %></div>  
             <% end %>
-          </i>
         </div>
       </div>
       <%= render partial: "/partials/invest_show_info", investment: @investment %>
@@ -21,13 +22,17 @@
         <%= t(".mid_section.title") %>
       </div>
       <% if @investment.completed %>
-      <div class="table-status unlocked-background-color" id="investment-completed-show">
-        <%= t(".mid_section.status_one") %>
-      </div>
+        <div class="table-status unlocked-background-color" id="investment-completed-show">
+          <%= t(".mid_section.status_one") %>
+        </div>
+      <% elsif @investment.rejected? %>
+        <div class="table-status rescinded-background-color" id="investment-completed-show">
+          <%= t(".mid_section.status_three") %>
+        </div>
       <% else %>
-      <div class="table-status locked-background-color" id="investment-completed-show">
-        <%= t(".mid_section.status_two") %>
-      </div>
+        <div class="table-status locked-background-color" id="investment-completed-show">
+          <%= t(".mid_section.status_two") %>
+        </div>
       <% end %>
       <div class="mid-title-button-right grow">
       <%= link_to new_investment_installment_path(@investment.id), { class: "mid-title-button-body" } do %>
