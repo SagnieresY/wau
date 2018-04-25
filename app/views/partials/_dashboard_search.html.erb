@@ -21,6 +21,11 @@
 
 <%= content_for(:after_js) do %>
   <script>
+    function removeTag(tag){
+      tag.remove();
+      //document.getElementById(tag).remove();
+    }
+
     let searchHeight = 53
     function openTab(evt, tabName) {
     // Declare all variables
@@ -65,15 +70,20 @@
       selectiontags += child.innerHTML
     });
     if (!selectiontags.includes(tag.replace("&","&amp;"))){
-    selection.insertAdjacentHTML('afterbegin',`<h7 class="tag"> ${tag}</h7>`)
+    selection.insertAdjacentHTML('afterbegin',`<h7 id="${tag}" onclick="${tag}.remove()" class="tag"> ${tag}</h7>`)
     }
+
   }
   function clearSuggestions(){
-    ['focusSuggestions','projectSuggestions','ngoSuggestions','neighborhoodSuggestions','tagSuggestions',].forEach((selection) => { // just add some tags whenever you add a new searchfield
-      document.getElementById(selection).childNodes.forEach((child) => {
-        child.remove();
-      });
-    });
+    var times = 10;
+    for(var i=0; i < times; i++){
+
+        ['focusSuggestions','projectSuggestions','ngoSuggestions','neighborhoodSuggestions','tagSuggestions',].forEach((selection) => { // just add some tags whenever you add a new searchfield
+          document.getElementById(selection).childNodes.forEach((child) => {
+            child.remove();
+          });
+        });
+    }
 
   }
 
