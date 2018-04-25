@@ -162,9 +162,15 @@ class PagesController < ApplicationController
     @unlocked_installments_ngo_chart = @installments.unlocked.joins(project: :organisation).group("organisations.name").sum(:amount)
 
     #Returns hash by FA & sum(:amount)
-    @locked_installments_fa_chart = @installments.locked.joins(:focus_area).group('focus_areas.id').sum(:amount)
-    @unlocked_installments_fa_chart = @installments.unlocked.joins(:focus_area).group('focus_areas.id').sum(:amount)
+    locked_hash = @installments.locked.joins(:focus_area).group('focus_areas.id').sum(:amount)
+    unlocked_hash = @installments.unlocked.joins(:focus_area).group('focus_areas.id').sum(:amount)
 
+    locked_hash.keys.each { |k| locked_hash[FocusArea.find(k).name] = locked_hash.delete(k) }
+    @locked_installments_fa_chart = locked_hash
+
+    unlocked_hash.keys.each { |k| unlocked_hash[FocusArea.find(k).name] = unlocked_hash.delete(k) }
+    @unlocked_installments_fa_chart = unlocked_hash
+    byebug
 
     #Returns hash by PROJECT & sum(:amount)
     @locked_installments_project_chart = @installments.locked.joins(:project).group('projects.name').sum(:amount)
