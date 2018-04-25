@@ -35,7 +35,6 @@ gem 'kaminari'
 gem 'groupdate'
 gem 'calculate-all'
 
-
 group :development do
   gem 'web-console', '>= 3.3.0'
 end
