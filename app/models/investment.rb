@@ -9,7 +9,7 @@ class Investment < ApplicationRecord
   has_and_belongs_to_many :investment_tags
   validates :project, presence: true
   validates :organisation, presence: true
-  validates :status, presence: true
+  validates :status, presence: true, inclusion: { in: %w(active completed rejected) }
   accepts_nested_attributes_for :project
   accepts_nested_attributes_for :organisation,
                                 allow_destroy: true,
@@ -21,8 +21,9 @@ class Investment < ApplicationRecord
                                 allow_destroy: true,
                                 reject_if: proc { |att| att['name'].blank? }
 
-  scope :completed, -> { where(completed: 'true') }
-  scope :active, -> {where(completed: 'false')}
+  scope :completed, -> { where(status: 'completed') }
+  scope :active, -> {where(status: 'active')}
+  scope :rejected, -> {where(status: 'rejected')}
 
   def rejected?
     status == 'rejected'
