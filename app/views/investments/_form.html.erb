@@ -1,10 +1,11 @@
-<div class="devise-container">
-	<h2><%= t("form.investment.title") %></h2>
-	<%= simple_form_for([@investment]) do |f| %>
-		
+<br>
 
-		<!-- FORM FOR ORGANISATION -->
-		<div class="size-24 green-text">
+<%= simple_form_for([@investment]) do |f| %>
+
+	<!-- FORM FOR ORGANISATION -->
+	<div class="white-dropshadow-card container">
+		<%= t("form.investment.title") %>
+		<div class="size-24 green-text ">
 			<%= t("form.investment.organisation.title") %>
 		</div>
 
@@ -24,16 +25,24 @@
 				<% end %>
 			</div>
 		</div>
+	</div>
 
-		<!-- FORM FOR PROJECT -->
+	<br>
+
+	<!-- FORM FOR PROJECT -->
+	<div class="white-dropshadow-card container">
 		<div class="size-24 green-text">
 			<%= t("form.investment.project.title") %>
 		</div>
 		<%= f.simple_fields_for :project do |project| %>
 			<%= render 'project_fields', f: project %>
 		<% end %>
+	</div>
 
-		<!-- FORMS FOR CREATING 1 OR MORE INSTALLMENTS -->
+	<br>
+
+	<!-- FORMS FOR CREATING 1 OR MORE INSTALLMENTS -->
+	<div class="white-dropshadow-card container">
 		<div class="size-24 green-text">
 			<%= t("form.investment.installment.title") %>
 		</div>
@@ -54,8 +63,12 @@
 		</table> 
 
 		<%= link_to_add_association t("form.investment.installment.add_button"), f, :installments, class: 'btn btn-success', data: { association_insertion_node: '.installment', association_insertion_method: :append } %>
+	</div>
+
+	<br>
 
 	<!-- FORM FOR INVESTMENT_TAG -->
+	<div class="white-dropshadow-card container">
 		<div class="size-24 green-text">
 			<%= t("form.investment.investment_tag.title") %>
 		</div>
@@ -73,10 +86,9 @@
 				<%= link_to_add_association t("form.investment.investment_tag.add_button"), f, :investment_tags, class: 'btn btn-success', data: { association_insertion_node: '.investment-tag' } %>
 			</div>
 		</div>
+		<%= f.submit t("form.save"), class: "btn btn-success col-xs-12" %>
+	</div>
 
-
-		<br>
-		<%= f.submit t("form.save"), class: "btn btn-success"%>
-	<% end %>
 	<br>
-</div>
+<% end %>
+<br>
