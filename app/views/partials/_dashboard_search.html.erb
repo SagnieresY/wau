@@ -1,7 +1,7 @@
 
 <div id="search-container" class="row margin-top-bottom-6">
   <div class="col-md-12 white-dropshadow-card green-text">
-    <% search_buttons = ['Focus Area', 'Date', 'NGO', 'Neighborhood','Project'] %>
+    <% search_buttons = ['Focus Area', 'Date', 'NGO', 'Neighborhood','Project', 'Tag'] %>
     <div class="search-buttons">
       <h3>Search by: </h3>
     <% search_buttons.each do |tab| %>
@@ -69,7 +69,7 @@
     }
   }
   function clearSuggestions(){
-    ['focusSuggestions'].forEach((selection) => { // just add some tags whenever you add a new searchfield
+    ['focusSuggestions','projectSuggestions','ngoSuggestions','neighborhoodSuggestions','tagSuggestions',].forEach((selection) => { // just add some tags whenever you add a new searchfield
       document.getElementById(selection).childNodes.forEach((child) => {
         child.remove();
       });
@@ -79,7 +79,7 @@
 
   function mainSearch(){
     var url = '?search=true'
-    var fields = ['focus_selection','ngo_selection','neighborhood_selection','project_selection']
+    var fields = ['focus_selection','ngo_selection','neighborhood_selection','project_selection','tag_selection']
     fields.forEach((selection) => {
       var field = selection.split('_')[0]
       console.log(field)
