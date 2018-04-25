@@ -1,15 +1,24 @@
 class ProjectsController < ApplicationController
   skip_after_action :verify_authorized, only: :search
 
-  def project_csv(investments = current_user.organisation.investments)
+  def project_csv(investments = current_user.organisation.investments.dup)
 
     authorize current_user.organisation.projects.first
-    data_string = ""
-    current_user.organisation.investments.each do |investment|
-      investment.installments.each do |installment|
-        data_string += "#{investment.project.name},#{investment.project.description},#{investment.project.organisation.name},#{investment.project.main_contact},#{installment.task},#{installment.amount},#{installment.deadline.to_s},#{installment.status}\n"
+
+    geos_amount = investments.sort_by{|invest| invest.project.geos.count}.last.project.geos.count
+    tags_amount = investments.sort_by{|invest| invest.investment_tags.count}.last.investment_tags.count
+    data_string = "Project Name, Project Description, Receiving Organisation, Charity ID, Project Contact Email, Project Focus Area, Investment Status, Installment index, Installment Task, Installment Amount, Installment Deadline, Installment status,#{'Geo,'*geos_amount}#{'Tag,'*tags_amount}\n"
+
+    investments.each do |investment|
+      investment.installments_by_nearest_deadline.each do |installment|
+        project = installment.investment.project
+        data_string += "#{project.name},#{project.description},#{project.organisation.name},#{project.organisation.charity_number},#{project.main_contact},#{project.focus_area.name.gsub(',','|')},#{investment.status}, #{installment.investment_index.to_i + 1},#{installment.task},#{installment.amount},#{installment.deadline.to_s},#{installment.status}"
+        data_string += ",#{investment.geos.map(&:name).join(',')}#{', '*(geos_amount-investment.geos.count)}"
+        data_string += ",#{investment.investment_tags.map(&:name).join(',')}#{', '*(tags_amount-investment.investment_tags.count)}"
+        data_string += "\n"
       end
     end
+
     send_data data_string, filename: "Projects-#{Date.today.to_s}.csv", type: 'text/csv'
   end
 
@@ -17,29 +26,13 @@ class ProjectsController < ApplicationController
 
     authorize current_user
     projects_csv = params[:projects_csv] #file
-    projects_attributes = []
-    installments_attributes = []
+
+    full_data = []
     File.open(projects_csv.path,"r") do |f| #reads file
-      f.each do |line|
-        projects_attributes.push(line.split(',')[0..3]) #seperates project info
-        installments_attributes.push(line.split(',')[4..8]) #seprates installment info
-      end
+      full_data = f.read.split("\n")
     end
-
-    current_project = ''
-    investment_obj = ''
-    projects_attributes.each_with_index do |project, index|
-      current_installment = installments_attributes[index] #gets installments info for project
-      organisation_obj = Organisation.create!(name:project[2])
-      project_obj = Project.create!(name:project[0],description:project[1],organisation:organisation_obj,main_contact:project[3],main_contact:project[4])
-      unless current_project == project[0]
-        investment_obj = Investment.create!(project:project_obj,organisation:current_user.organisation)
-      end
-      Installment.create!(investment:investment_obj,task:current_installment[0],amount:current_installment[1],deadline:Date.parse(current_installment[2]),status:current_installment[3].chomp)
-      current_project = project[0]
-    end
-
-    redirect_to downloads_path
+     GenerateOrgDataJob.perform_now(full_data,current_user.organisation)
+     redirect_to downloads_path
   end
   def search
     @projects = {results:[]}
