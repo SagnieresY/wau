@@ -1,6 +1,7 @@
-<h3>Tag Search:</h3>
 <div class="search-content">
-  <div class="input">
+
+  <div class="size-24 green-text">Tag search: </div>
+    <div class="input">
     <input type="text" id="tag_query">
     <div id="tagSuggestions" class="suggestions"></div>
 
@@ -12,6 +13,7 @@
 
   <script>
     function fetchSuggestionsTag(){
+
       clearSuggestions();
       let inputTag = document.getElementById('tag_query').value
       $.ajax({
