@@ -34,7 +34,10 @@ gem 'jquery-tablesorter'
 gem 'kaminari'
 gem 'groupdate'
 gem 'calculate-all'
+<<<<<<< HEAD
 
+=======
+>>>>>>> df5e0d7eb7f557f2e0aa605fce8079b1b0247a5d
 
 group :development do
   gem 'web-console', '>= 3.3.0'
