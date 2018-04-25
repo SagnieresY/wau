@@ -1,24 +1,37 @@
 <div class="devise-container">
 	<h2><%= t("form.investment.title") %></h2>
 	<%= simple_form_for([@investment]) do |f| %>
-		<%= f.association :investment_tags, collection: current_user.organisation.investment_tags.all, include_blank: false, include_hidden: false %>
+		
 
 		<!-- FORM FOR ORGANISATION -->
 		<div class="size-24 green-text">
 			<%= t("form.investment.organisation.title") %>
 		</div>
-		<%= f.simple_fields_for :organisation do |builder| %>
-			<%= render 'organisation_fields', f: builder %>
-		<% end %>
+
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#existing-org"> <%= t("form.investment.installment..organisation.existing") %> </a></li>
+			<li><a data-toggle="tab" href="#new-org"><%= t("form.investment.installment.organisation.new") %></a></li>
+		</ul>
+
+		<div class="tab-content">
+			<div id="existing-org" class="tab-pane fade in active">
+				<br>
+				<%= f.association :organisation, collection: current_user.organisation.receiving_organisations, prompt: 'Choose an existing organisation', label: false %>
+			</div>
+			<div id="new-org" class="organisation tab-pane fade">
+				<%= f.simple_fields_for :organisation do |organisation| %>
+				<%= render 'organisation_fields', f: organisation %>
+				<% end %>
+			</div>
+		</div>
 
 		<!-- FORM FOR PROJECT -->
 		<div class="size-24 green-text">
 			<%= t("form.investment.project.title") %>
 		</div>
-		<%= f.simple_fields_for :project do |builder| %>
-			<%= render 'project_fields', f: builder %>
+		<%= f.simple_fields_for :project do |project| %>
+			<%= render 'project_fields', f: project %>
 		<% end %>
-
 
 		<!-- FORMS FOR CREATING 1 OR MORE INSTALLMENTS -->
 		<div class="size-24 green-text">
@@ -41,6 +54,27 @@
 		</table> 
 
 		<%= link_to_add_association t("form.investment.installment.add_button"), f, :installments, class: 'btn btn-success', data: { association_insertion_node: '.installment', association_insertion_method: :append } %>
+
+	<!-- FORM FOR INVESTMENT_TAG -->
+		<div class="size-24 green-text">
+			<%= t("form.investment.investment_tag.title") %>
+		</div>
+	<!-- Select all existing tags -->
+		<div class="row">
+			<div class="col-md-4"> <%= f.association :investment_tags, collection: current_user.organisation.investment_tags.all, label: "Existing Tags" %>
+			</div>
+			
+			<!-- Will have new tags added -->
+			<br>
+			<div class="investment-tag">
+			</div>
+			
+			<div class="col-md-2">
+				<%= link_to_add_association t("form.investment.investment_tag.add_button"), f, :investment_tags, class: 'btn btn-success', data: { association_insertion_node: '.investment-tag' } %>
+			</div>
+		</div>
+
+
 		<br>
 		<%= f.submit t("form.save"), class: "btn btn-success"%>
 	<% end %>

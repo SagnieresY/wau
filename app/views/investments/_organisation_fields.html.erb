@@ -1,4 +1,8 @@
-<div class="nested-fields">
-	<%= f.input :name, label: t("form.investment.organisation.name") %>
-    <%= f.input :charity_number, label: t("form.investment.organisation.charity_id") %>
+<div class="nested-fields row">
+	<div class="col-md-8">
+		<%= f.input :name, label: false, placeholder: t("form.investment.investment_tag.name") %>
+	</div>
+	<div class="col-md-4" id="charity_number_box">
+		<%= f.input :charity_number, label: false, placeholder: t("form.investment.organisation.charity_number")  %>
+	</div>
 </div>

@@ -1,5 +1,6 @@
 class InvestmentsController < ApplicationController
   before_action :selected_investment, only:[:reject]
+
   def index
     @fuck_off_pundit = policy_scope(current_user.organisation.investments.last)
     @active_investments =  active_investments_paginated
@@ -32,22 +33,57 @@ class InvestmentsController < ApplicationController
   def reject
     authorize @investment
     @investment.reject!
-    redirect_to investments_path
+    redirect_to investments_path(@investment)
   end
 
   def new
     @investment = Investment.new
     @investment.project = Project.new
+    @investment.organisation = Organisation.new
     @investment.installments << Installment.new(task:t("form.investment.installment.sub_task"), deadline: Date.today, investment: @investment, amount: 10)
     authorize @investment
   end
 
   def create
-    project = Project.create_with_check(params.to_unsafe_h[:investment][:project_attributes][:organisation],params.to_unsafe_h[:investment][:project_attributes])
+    byebug
+    #Checks for organisation and returns or creates one.
+    if params[:investment][:organisation_id].present?
+      organisation = Organisation.find(params[:investment][:organisation_id])
+    
+    #find_by charity number if it already exists in the DB
+    elsif Organisation.find_by(charity_number: params[:investment][:organisation_attributes][:charity_number]).present?
+      organisation = Organisation.find_by(charity_number: params[:investment][:organisation_attributes][:charity_number])
+    
+    #else create it
+    else
+      organisation = Organisation.create!(name: params[:investment][:organisation_attributes][:name], charity_number: params[:investment][:organisation_attributes][:charity_number])
+    end
+
+    #Checks for InvestmentTag and pushes them on the investment
+    tags = []
+
+    #Checks if tag exist already and adds to array
+    if params[:investment][:investment_tag_ids].present?
+      noEmptyTags = params[:investment][:investment_tag_ids].reject { |c| c.empty? }
+      noEmptyTags.each {|tag_id| tags << InvestmentTag.find(tag_id)}
+    end
+
+    #Checks if tag exist already and adds to array
+    if params[:investment][:investment_tags_attributes].keys.present?
+      params[:investment][:investment_tags_attributes].each {|_,value| tags << InvestmentTag.create!(name:value["name"]) }
+    end
+
+    project = Project.new(params.to_unsafe_h[:investment][:project_attributes])
+    project.organisation = organisation
     @investment = Investment.new(investment_params)
     @investment.organisation = current_user.organisation
     @investment.project = project
+    @investment.investment_tags.push(tags)
     authorize @investment
+
+
+    byebug
+    
 
     if @investment.save && @investment.installments.count == 0
       @investment.installments << Installment.create!(task:t("form.investment.installment.sub_task"), deadline: Date.today, investment: @investment, amount: 0)
@@ -141,8 +177,10 @@ class InvestmentsController < ApplicationController
       .require(:investment).permit(
         :project_id,
         { :investment_tag_ids => [] },
+        organisation_attributes: Organisation.attribute_names.map(&:to_sym).push(:_destroy),
         installments_attributes: Installment.attribute_names.map(&:to_sym).push(:_destroy),
-        project_attributes: [:name,:description,:focus_area_id,:main_contact,{ :geo_ids => [] }, :_destroy, :organisation_id])
+        project_attributes: [:name,:description,:focus_area_id,:main_contact,{ :geo_ids => [] }, :_destroy],
+        investment_tag_attributes: InvestmentTag.attribute_names.map(&:to_sym).push(:_destroy))
   end
 
 

@@ -155,8 +155,14 @@ en:
         hint: 'You can pick more than one neighborhood by holding the ctrl key and clicking.'
       organisation:
         title: 'Receiving Organisation'
+        existing: 'Existing'
+        new: 'New'
         name: 'Organisation Name'
-        charity_numer: 'Charity Number'
+        charity_number: 'Charity Number'
+      investment_tag:
+        title: 'Tag'
+        new: 'New Tag'
+        add_button: 'New tag'
     project_title: "New Project"
     save: "Save"
   landing:
