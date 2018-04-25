@@ -5,6 +5,7 @@ class OrganisationTest < ActiveSupport::TestCase
   #   assert true
   # end
   setup do
+
     @test_org = Organisation.create(name:'test', charity_number:"1234aa")
     @test_focus = FocusArea.create!(name:'test')
     @test_geo = Geo.create(name:'test land')
@@ -13,7 +14,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   end
   def reset_org
-    @test_org = Organisation.create(name:rand(1..1000).to_s)
+    @test_org = Organisation.create(name:rand(1..1000).to_s, charity_number:12341)
     @test_investment = Investment.create(organisation:@test_org,project:@test_project)
   end
   test "doesnt save without a name" do
@@ -21,7 +22,7 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test "saves with name" do
-    assert Organisation.new(name:'testt').save
+    assert Organisation.new(name:'testt',charity_number:1231).save
   end
 
   test "doesnt save without uniq name" do
