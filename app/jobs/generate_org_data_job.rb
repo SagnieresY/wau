@@ -1,12 +1,12 @@
 class GenerateOrgDataJob < ApplicationJob
-  queue_as :default
+  queue_as :low_priority
   def perform(installments,org)
 
     headers = installments.delete_at(0).split(',')
 
     tag_index = headers.index('Tag')
     geo_index = headers.index('Geo')
-
+    installments_instances = []
     current_investment = ''
 
     installments.each do |installment|
@@ -24,10 +24,10 @@ class GenerateOrgDataJob < ApplicationJob
         current_investment.save!
       end
       installment_info = installment[7..11]
-      Installment.create(task:installment_info[1],amount:installment_info[2],deadline:Date.parse(installment_info[3]),status:installment_info[4],investment:current_investment)
+      installments_instances.push(Installment.new(task:installment_info[1],amount:installment_info[2],deadline:Date.parse(installment_info[3]),status:installment_info[4],investment:current_investment))
 
     end
-
+    installments_instances.each { |inst| inst.save!(validate: false )}
 
 
     # Do something later
