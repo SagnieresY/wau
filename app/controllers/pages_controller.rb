@@ -32,43 +32,17 @@ class PagesController < ApplicationController
                                                                 .group_by(&:investment_id).collect{|k,v| v.first}
                                                                 .first(25)
 
-          # .group_by_year(:deadline, range: current_year)
 
-          # TAKES LOCKED INVESTMENTS AND RETURNS CUMULATED HASH BY FOCUS AREA
-          @cumulated_fa_locked_amount = {}
-          @locked_installments = @locked_installments.where("extract(year from deadline) = #{@year}")
-          @locked_installments.each do |installment|
-            focus_area = installment.focus_area.name
-            amount = installment.amount
-            if @cumulated_fa_locked_amount.key?(focus_area)
-                unless amount.nil?
-                @cumulated_fa_locked_amount[focus_area] += amount
-                else amount.nil?
-                @cumulated_fa_locked_amount[focus_area] = 0
-              end
-            else
-                @cumulated_fa_locked_amount[focus_area] = amount
-            end
-          end
-          @cumulated_fa_locked_amount
+          #Gets installments by FA cummulates and returns  
+          locked_hash = @locked_installments.joins(:focus_area).group('focus_areas.id').sum(:amount)
+          unlocked_hash = @unlocked_installments.joins(:focus_area).group('focus_areas.id').sum(:amount)
 
-          # TAKES UNLOCKED INVESTMENTS AND RETURNS CUMULATED HASH BY FOCUS AREA
-          @cumulated_fa_unlocked_amount = {}
-          @unlocked_installments = @unlocked_installments.where("extract(year from deadline) = #{@year}")
-          @unlocked_installments.each do |installment|
-            focus_area = installment.focus_area.name
-            amount = installment.amount
-            if @cumulated_fa_unlocked_amount.key?(focus_area)
-                unless amount.nil?
-                @cumulated_fa_unlocked_amount[focus_area] += amount
-                else amount.nil?
-                @cumulated_fa_unlocked_amount[focus_area] = 0
-              end
-            else
-                @cumulated_fa_unlocked_amount[focus_area] = amount
-            end
-          end
-        # @years_of_service = Installment.years_of_service(current_user.organisation)
+          locked_hash.keys.each { |k| locked_hash[FocusArea.find(k).name] = locked_hash.delete(k) }
+          @locked_installments_fa_chart = locked_hash
+
+          unlocked_hash.keys.each { |k| unlocked_hash[FocusArea.find(k).name] = unlocked_hash.delete(k) }
+          @unlocked_installments_fa_chart = unlocked_hash
+
       else
         redirect_to no_organisation_path
       end
@@ -165,12 +139,12 @@ class PagesController < ApplicationController
     locked_hash = @installments.locked.joins(:focus_area).group('focus_areas.id').sum(:amount)
     unlocked_hash = @installments.unlocked.joins(:focus_area).group('focus_areas.id').sum(:amount)
 
+    #Changes the keys of FA ID to FA NAME
     locked_hash.keys.each { |k| locked_hash[FocusArea.find(k).name] = locked_hash.delete(k) }
     @locked_installments_fa_chart = locked_hash
 
     unlocked_hash.keys.each { |k| unlocked_hash[FocusArea.find(k).name] = unlocked_hash.delete(k) }
     @unlocked_installments_fa_chart = unlocked_hash
-    byebug
 
     #Returns hash by PROJECT & sum(:amount)
     @locked_installments_project_chart = @installments.locked.joins(:project).group('projects.name').sum(:amount)

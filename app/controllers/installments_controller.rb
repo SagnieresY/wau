@@ -59,8 +59,22 @@ class InstallmentsController < ApplicationController
       # reset_global_variables
       t = Time.new(Time.now.year,1,1,0,0,0,'+00:00')
       @year = t.year
+      
+      #prepares installments for charts
       @unlocked_installments = current_user.organisation.unlocked_installments
       @locked_installments = current_user.organisation.locked_installments
+
+      @unlocked_installments = current_user.organisation.unlocked_installments
+      @locked_installments = current_user.organisation.locked_installments
+
+      locked_hash = @locked_installments.joins(:focus_area).group('focus_areas.id').sum(:amount)
+      unlocked_hash = @unlocked_installments.joins(:focus_area).group('focus_areas.id').sum(:amount)
+
+      locked_hash.keys.each { |k| locked_hash[FocusArea.find(k).name] = locked_hash.delete(k) }
+      @locked_installments_fa_chart = locked_hash
+
+      unlocked_hash.keys.each { |k| unlocked_hash[FocusArea.find(k).name] = unlocked_hash.delete(k) }
+      @unlocked_installments_fa_chart = unlocked_hash
 
       respond_to do |format|
         format.html { unlock_installment_path }
@@ -93,8 +107,19 @@ class InstallmentsController < ApplicationController
       # reset_global_variables
       t = Time.new(Time.now.year,1,1,0,0,0,'+00:00')
       @year = t.year
+
+      #prepares installments for charts
       @unlocked_installments = current_user.organisation.unlocked_installments
       @locked_installments = current_user.organisation.locked_installments
+
+      locked_hash = @locked_installments.joins(:focus_area).group('focus_areas.id').sum(:amount)
+      unlocked_hash = @unlocked_installments.joins(:focus_area).group('focus_areas.id').sum(:amount)
+
+      locked_hash.keys.each { |k| locked_hash[FocusArea.find(k).name] = locked_hash.delete(k) }
+      @locked_installments_fa_chart = locked_hash
+
+      unlocked_hash.keys.each { |k| unlocked_hash[FocusArea.find(k).name] = unlocked_hash.delete(k) }
+      @unlocked_installments_fa_chart = unlocked_hash
 
       respond_to do |format|
         format.html { rescind_installment_path }
