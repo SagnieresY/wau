@@ -1,0 +1,38 @@
+<h3>Tag Search:</h3>
+<div class="search-content">
+  <div class="input">
+    <input type="text" id="tag_query">
+    <div id="tagSuggestions" class="suggestions"></div>
+
+  </div>
+  <div id="tag_selection"></div>
+</div>
+
+<%= content_for(:after_js) do %>
+
+  <script>
+    function fetchSuggestionsTag(){
+      clearSuggestions();
+      let inputTag = document.getElementById('tag_query').value
+      $.ajax({
+      url: `/tag/${inputTag}`,
+      type: 'GET',
+      dataType: 'json',
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+      },
+      success: function(data){data.results.forEach((word) => addSuggestionTag(word)); },
+      error: function(xhr, status, response) {console.log('could not fetch request')}
+    });
+    };
+
+    function addSuggestionTag(suggestion){
+      const tagSuggestions = document.getElementById('tagSuggestions')
+      tagSuggestions.insertAdjacentHTML('afterbegin', `<li class="suggestion" onclick="addTag('tag_selection','${suggestion.replace("'","|")}');">${suggestion}</li>`);
+    }
+
+    const searchTag = document.getElementById('tag_query')
+    searchTag.addEventListener('keyup',fetchSuggestionsTag)
+  </script>
+<% end %>
+

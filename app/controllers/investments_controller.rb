@@ -1,5 +1,15 @@
 class InvestmentsController < ApplicationController
   before_action :selected_investment, only:[:reject]
+  skip_after_action :verify_authorized, only: [:search]
+  
+  def search
+    @tags = {results:[]}
+    InvestmentTag.search_by_name(params[:query]).uniq.each_with_index do |tag, i|
+      @tags[:results].push(tag.name)
+    end
+    @tags[:results] = @tags[:results].uniq
+    render json: @tags
+  end
 
   def index
     @fuck_off_pundit = policy_scope(current_user.organisation.investments.last)

@@ -19,16 +19,17 @@ class Project < ApplicationRecord
   validates :main_contact, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
     message: "Please enter an valid email" }
   accepts_nested_attributes_for :investments
-
-  attribute :name
-
+  validates :name, uniqueness: true
 
   attribute :name
   def self.create!(project_attributes) #improved project create!
-    projects = Project.where(name:project_attributes[:name]) #gets project by name
+    project_attributes = project_attributes.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+    projects = Project.search_by_name(project_attributes[:name]) #gets project by name
 
-    if projects.blank? #check if a project whith the name exists
+    if projects.count.zero? #check if a project whith the name exists
       return super(project_attributes) #if not it creates it
+    else
+
     end
 
     return projects[0] #if yes it returns it

@@ -104,7 +104,7 @@ class PagesController < ApplicationController
     @end_date = end_date.strftime("%d/%m/%Y")
 
     #Get installments with date range and joins tables
-    @installments = current_user.organisation.installments.where(deadline: start_date..end_date).includes(:investment, :project, :focus_area, :organisation)
+    @installments = current_user.organisation.installments.where(deadline: start_date..end_date).includes(:investment, :project, :focus_area, :organisation, :investment_tags)
 
     #Updates installments with GEO selection if there is one
     unless params[:neighborhood].blank?
@@ -133,6 +133,11 @@ class PagesController < ApplicationController
       @installments = @installments.joins(:project).where("projects.name":project_array)
     end
 
+    unless params[:tag].blank?
+      tag_array = params[:tag].strip.gsub('and','&').gsub(', ',',').split(',' )
+      @installments = @installments.joins(:investment_tags).where("investment_tags.name":tag_array)
+
+    end
     #Return hash by TIME depending on range
     @locked_installments_time_year = @installments.locked.group_by_year(:deadline, range: start_date..end_date).sum(:amount)
     @unlocked_installments_time_year = @installments.unlocked.group_by_year(:deadline, range: start_date..end_date).sum(:amount)
