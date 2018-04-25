@@ -3,7 +3,9 @@
   margin-top: 5px;
   margin-bottom: 5px;
 }
-
+.search-label {
+  margin-right:30px;
+}
 .search-buttons {
   display:flex;
   justify-content: space-around;
@@ -42,8 +44,10 @@
 .tag{
   border-radius:30px;
   color: $green;
+
   padding:5px;
   border: 2px solid $green;
+
   margin-left:3px;
 }
 
