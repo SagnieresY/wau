@@ -22,6 +22,7 @@ class Installment < ApplicationRecord
   scope :unlocked, -> { where(status: 'unlocked') }
   scope :locked, -> { where(status: 'locked') }
   scope :rescinded, -> { where(status: 'rescinded') }
+  scope :permitted, -> { where(status: ['unlocked', 'locked'] ) }
 
   def days_left
     #calculates the days left til deadline

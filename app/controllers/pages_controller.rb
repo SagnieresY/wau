@@ -1,16 +1,6 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, :only => [:home,:landing]
   def home
-    #installment
-    #Milestone
-    #todo read chart maker doc
-    #upcoming installments for each project
-        #project name
-        #projectect amount
-        #given amount
-        #task
-        #time leftr
-
       if current_user.nil?
         @bg = "bg-landing"
         render :landing
@@ -32,7 +22,6 @@ class PagesController < ApplicationController
                                                                 .group_by(&:investment_id).collect{|k,v| v.first}
                                                                 .first(25)
 
-
           #Gets installments by FA cummulates and returns  
           locked_hash = @locked_installments.joins(:focus_area).group('focus_areas.id').sum(:amount)
           unlocked_hash = @unlocked_installments.joins(:focus_area).group('focus_areas.id').sum(:amount)
@@ -49,11 +38,6 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-
-    #Prepares the installments for graphs / tables and includes investment, focus_area and projects in the query
-    # @locked_installments = current_user.organisation.locked_installments.includes( :investment, :focus_area, :project)
-    # @unlocked_installments = current_user.organisation.unlocked_installments.includes(:investment, :focus_area, :project)
-
 
     #Sets current year as start / end date
     t = Time.new(Time.now.year,1,1,0,0,0,'+00:00')
@@ -78,7 +62,7 @@ class PagesController < ApplicationController
     @end_date = end_date.strftime("%d/%m/%Y")
 
     #Get installments with date range and joins tables
-    @installments = current_user.organisation.installments.where(deadline: start_date..end_date).includes(:investment, :project, :focus_area, :organisation, :investment_tags)
+    @installments = current_user.organisation.installments.where(deadline: start_date..end_date).includes(:investment, :project, :focus_area, :organisation)
 
     #Updates installments with GEO selection if there is one
     unless params[:neighborhood].blank?
