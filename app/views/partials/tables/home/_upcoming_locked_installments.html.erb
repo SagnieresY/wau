@@ -29,9 +29,9 @@
           </td>
           <td>
             <% if installment.days_left < 0 %>
-              <div class="late"><%= t("home.table_fourth_column.content", days: installment.days_left) %></div>
+              <div class="label label-danger lb-sm"><%= t("home.table_fourth_column.content", days: installment.days_left) %></div>
             <% elsif installment.days_left < 7 %>
-              <div class="almost-late"><%= t("home.table_fourth_column.content", days: installment.days_left) %></div>
+              <div class="label label-warning lb-sm"><%= t("home.table_fourth_column.content", days: installment.days_left) %></div>
             <% else %>
               <div><%= t("home.table_fourth_column.content", days: installment.days_left) %></div>
             <% end %>

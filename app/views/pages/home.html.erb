@@ -1,18 +1,14 @@
-<h1><%= params[:year] %></h1>
-<div class=home-wrapper>
-  <div class="white-info-parent-flex">
-    <div class="container-home-info-box">
-      <div id="investment_count_home" class="white-info-child-box">
+<br>
+<div class="row">
+      <div id="investment_count_home" class="col-md-4 margin-top-bottom-6">
         <%= render partial: "/partials/investment_count_home" %>
       </div>
-      <div id="unlocked-amount" class="white-info-child-box">
+      <div id="unlocked-amount" class="col-md-4 margin-top-bottom-6 no-right-padding-md">
         <%= render partial: "/partials/total_unlocked_home" %>
       </div>
-      <div id="forecasted-amount" class="white-info-child-box">
+      <div id="forecasted-amount" class="col-md-4 margin-top-bottom-6">
         <%= render partial: "/partials/forecasted_amount_home" %>
       </div>
-    </div>
-  </div>
 </div>
 
 <div id="charts-home" class="chart-box">
