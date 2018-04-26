@@ -32,6 +32,7 @@
   color: white!important;
 }
 .suggestions {
+
   margin-bottom:30px;
   border: 1px solid lightgrey;
   background-color:#e5e8e5;
@@ -51,6 +52,8 @@
 
 .search-content {
   display:flex;
+  flex-wrap: wrap;
+
 }
 .searchfield {
   margin:20px;
@@ -62,12 +65,13 @@
   font-size:15px;
   padding:5px;
   border: 4px solid $green;
-
+  height:38px;
   margin-left:3px;
   webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
+  margin-bottom:4px;
 }
 #date-search-wrapper {
   display:flex!important;
@@ -79,6 +83,9 @@
 // END DASHBOARD SEARCH
 .tag-container {
   display:flex;
+  position:absolute;
+  flex-wrap:wrap;
+  left:440px;
 
 }
 .dashboard-chart{
