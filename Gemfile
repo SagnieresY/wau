@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.4.3'
-
+gem 'flatpickr_rails'
 gem 'select2-rails'
 gem 'underscore-rails'
 gem 'chartkick'

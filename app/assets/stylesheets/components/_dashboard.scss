@@ -1,7 +1,7 @@
 //DASHOBARD SEARCH
 .search-container{
   color:black!important;
-  font-size:24px;
+  font-size:24px!important;
 }
 .margin-top-bottom {
   margin-top: 5px;
@@ -70,12 +70,17 @@
   user-select: none; /* Standard */
 }
 #date-search-wrapper {
-  display:flex;
+  display:flex!important;
   margin-bottom:30px;
+  color:black;
+  font-size:24px;
 }
 
 // END DASHBOARD SEARCH
+.tag-container {
+  display:flex;
 
+}
 .dashboard-chart{
   height: 35vh;
 }
