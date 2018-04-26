@@ -1,4 +1,8 @@
 //DASHOBARD SEARCH
+.search-container{
+  color:black!important;
+  font-size:24px;
+}
 .margin-top-bottom {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -8,8 +12,8 @@
 }
 .search-buttons {
   display:flex;
-  justify-content: space-around;
   border-bottom: 1px solid #ccc;
+  color:black!important;
 }
 
 .search-input {
@@ -28,11 +32,20 @@
 }
 .suggestions {
   margin-bottom:30px;
+  border: 1px solid lightgrey;
+  background-color:#e5e8e5;
 }
 .suggestion {
   background-color:white;
   display:block;
   color: $green;
+  border-bottom: 1px solid lightgrey;
+  font-size:15px;
+  font-weight: bold;
+  webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }
 
 .search-content {
@@ -44,11 +57,19 @@
 .tag{
   border-radius:30px;
   color: $green;
-
+  font-weight:bolder;
+  font-size:15px;
   padding:5px;
   border: 2px solid $green;
 
   margin-left:3px;
+  webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+#date-search-wrapper {
+  display:flex;
 }
 
 // END DASHBOARD SEARCH
@@ -61,6 +82,7 @@
     overflow: hidden;
     border:none;
     background-color: white;
+    font-size:24px;
 }
 //COMMMMMMMMMMENT
 /* Style the buttons that are used to open the tab content */
