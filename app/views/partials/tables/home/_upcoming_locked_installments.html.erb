@@ -1,88 +1,94 @@
-<div class="table-responsive">
-  <table class="table table-hover">
-    <thead>
-      <tr class="white-background header-row-installment">
-        <th class="col-xs-2">
-          <div class="tablesorter-header-inner">
-            <%= t("home.table_ngo_column.title") %>
-            <i class="fas fa-arrows-alt-v margin-left-auto"></i>
-          </div>
-        </th>
-        <th class="col-xs-2">
-          <div class="tablesorter-header-inner">
-            <%= t("home.table_project_column.title") %>
-            <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
-          </div>
-        </th>
-        <th class="col-xs-1">
-          <div class="tablesorter-header-inner">
-            <%= t("home.table_fa_column.title") %>
-            <i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i>
-          </div>
-        </th>
-        <th class="col-xs-1">
-          <div class="tablesorter-header-inner">
-            <%= t("home.table_installment_column.title") %>
-            <i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i>
-          </div>
-        </th>
-        <th class="col-xs-1">
-          <div class="tablesorter-header-inner">
-            <%= t("home.table_deadline_column.title") %>
-            <i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i>
-          </div>
-        </th>
-        <th class="col-xs-1">
-          <div class="tablesorter-header-inner">
-            <%= t("home.table_amount_column.title") %>
-            <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
-          </div>
-        </th>
-        <th class="col-xs-2" id="installment-table-crud-width">
-          <div class="header-table-button color-green"><i class="fas fa-lock-open"></i></div>
-          <div class="header-table-button color-red"><i class="fas fa-times"></i></div>
-          <div class="header-table-button color-yellow"><i class="fas fa-pencil-alt color-yellow"></i></div>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @first_page_locked_installments.each_with_index do |installment, index| %>
-      <tr id="<%= installment.id %>" class="white-background table-row-installment" data-installment-id="<%= installment.id %>">
-        <td><%= installment.project.organisation.name %></td>
-        <td>
-          <%= link_to investment_path(installment.investment), {class: "green-link-text"} do %>
-          <%= installment.project.name %>
-          <% end %>
-        </td>
-        <td><%= installment.focus_area.name %></td>
-        <td>
-          <div> <%= t("home.table_installment_column.content", installment_index: installment.investment_index + 1, installment_count: installment.investment.installments.count) %> </div>
-        </td>
-        <td>
-          <% if installment.days_left < 0 %>
-          <div class="label label-danger lb-sm"><%= t("home.table_deadline_column.content", days: installment.days_left) %></div>
-          <% elsif installment.days_left < 7 %>
-          <div class="label label-warning lb-sm"><%= t("home.table_deadline_column.content", days: installment.days_left) %></div>
-          <% else %>
-          <div><%= t("home.table_deadline_column.content", days: installment.days_left) %></div>
-          <% end %>
-        </td>
-        <td> <div><%= nice_money(installment.amount) %></div></td>
-        <td>
-          <div class="table-button-flex">
-            <%= link_to unlock_installment_path(id: installment.id, page: 'home'), :remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
-            <i class="fas fa-lock-open"></i>
+<% if @first_page_locked_installments.nil? %>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr class="white-background header-row-installment">
+          <th class="col-xs-2">
+            <div class="tablesorter-header-inner">
+              <%= t("home.table_ngo_column.title") %>
+              <i class="fas fa-arrows-alt-v margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-xs-2">
+            <div class="tablesorter-header-inner">
+              <%= t("home.table_project_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-xs-1">
+            <div class="tablesorter-header-inner">
+              <%= t("home.table_fa_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-xs-1">
+            <div class="tablesorter-header-inner">
+              <%= t("home.table_installment_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-xs-1">
+            <div class="tablesorter-header-inner">
+              <%= t("home.table_deadline_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-xs-1">
+            <div class="tablesorter-header-inner">
+              <%= t("home.table_amount_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-xs-2" id="installment-table-crud-width">
+            <div class="header-table-button color-green"><i class="fas fa-lock-open"></i></div>
+            <div class="header-table-button color-red"><i class="fas fa-times"></i></div>
+            <div class="header-table-button color-yellow"><i class="fas fa-pencil-alt color-yellow"></i></div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @first_page_locked_installments.each_with_index do |installment, index| %>
+        <tr id="<%= installment.id %>" class="white-background table-row-installment" data-installment-id="<%= installment.id %>">
+          <td><%= installment.project.organisation.name %></td>
+          <td>
+            <%= link_to investment_path(installment.investment), {class: "green-link-text"} do %>
+            <%= installment.project.name %>
             <% end %>
-            <%= link_to rescind_installment_path(id: installment.id, page: 'home'), :remote => true, :method => :post, :class => "rescind-button-table button-appear-hover" do %>
-            <i class="fas fa-times"></i>
+          </td>
+          <td><%= installment.focus_area.name %></td>
+          <td>
+            <div> <%= t("home.table_installment_column.content", installment_index: installment.investment_index + 1, installment_count: installment.investment.installments.count) %> </div>
+          </td>
+          <td>
+            <% if installment.days_left < 0 %>
+            <div class="label label-danger lb-sm"><%= t("home.table_deadline_column.content", days: installment.days_left) %></div>
+            <% elsif installment.days_left < 7 %>
+            <div class="label label-warning lb-sm"><%= t("home.table_deadline_column.content", days: installment.days_left) %></div>
+            <% else %>
+            <div><%= t("home.table_deadline_column.content", days: installment.days_left) %></div>
             <% end %>
-            <%= link_to edit_investment_installment_path(installment.investment, installment), { class: "edit-button-table button-appear-hover" } do %>
-            <i class="fas fa-pencil-alt"></i>
-            <% end %>
-          </div>
-        </td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+          </td>
+          <td> <div><%= nice_money(installment.amount) %></div></td>
+          <td>
+            <div class="table-button-flex">
+              <%= link_to unlock_installment_path(id: installment.id, page: 'home'), :remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
+              <i class="fas fa-lock-open"></i>
+              <% end %>
+              <%= link_to rescind_installment_path(id: installment.id, page: 'home'), :remote => true, :method => :post, :class => "rescind-button-table button-appear-hover" do %>
+              <i class="fas fa-times"></i>
+              <% end %>
+              <%= link_to edit_investment_installment_path(installment.investment, installment), { class: "edit-button-table button-appear-hover" } do %>
+              <i class="fas fa-pencil-alt"></i>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <div class="white-dropshadow-card green-text size-24 margin-top-bottom-6" style="text-align:center;">
+    <%= t("home.no_installments") %>
+  </div>
+<% end %>

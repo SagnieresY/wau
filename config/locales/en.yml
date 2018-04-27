@@ -57,6 +57,7 @@ en:
       title: "Amount"
     table_fa_column:
       title: "Focus Area"
+    no_installments: "You do not have any upcoming installments this year!"
   investments:
     index:
       info_bar:
