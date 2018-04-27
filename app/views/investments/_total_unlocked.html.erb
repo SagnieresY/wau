@@ -1,6 +1,6 @@
-<div class="white-dropshadow-card">
-	<div class="size-24"><%= nice_money(@investment.unlocked_amount) %></div>
-	<div> 
+<div id="invest-show-unlocked-amount" class="white-dropshadow-card green-text center-item">
+	<div class="size-24"> <%= nice_money(@investment.unlocked_amount) %></div>
+	<div class="size-12">
 		<% if @investment.completed? %>
 			<%= t("investments.show.info_bar.mid_box.status_one") %>
 		<% else %>

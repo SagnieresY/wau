@@ -68,6 +68,20 @@ td {
   color: $green;
 }
 
+.flex-center-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-item {
+  text-align: center;
+}
+
+.size-32 {
+  font-size: 32px;
+}
+
 .size-24 {
   font-size: 24px;
 }

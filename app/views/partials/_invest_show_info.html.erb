@@ -1,15 +1,16 @@
 
 <% if @investment.completed? %>
-  <div id="invest-show-focus-area-show" class="col-md-2">
-    <div id="invest-show-focus-area" class="white-dropshadow-card"> 
+  <div class="col-sm-2">
+    <div id="invest-show-focus-area" class="white-dropshadow-card green-text flex-center-center"> 
       <%= @investment.project.focus_area.name %>
     </div>
   </div>
-  <div id="invest-show-unlocked-amount" class="col-md-2">
-    <%= render "total_unlocked", investment: @investment %>
+  <div class="col-sm-2">
+      <%= render "total_unlocked", investment: @investment %>
   </div>
-  <div id="invest-show-forecasted-amount" class="col-md-2">
-    <%= render partial: "/partials/forecasted_amount_invest_show", investment: @investment %>
+  <div class="col-sm-2">
+      <%= render partial: "/partials/forecasted_amount_invest_show", investment: @investment %>
+    </div>
   </div>
 
 <% else %>
