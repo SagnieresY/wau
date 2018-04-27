@@ -24,7 +24,7 @@
               <div> <%= t("investments.index.table.fourth_column.content", installment_index: investment.next_installment.investment_index + 1, installment_count: investment.installments.count) %> </div>
             </td>
             <td>
-              <div class="table-button-flex">
+              <div class="flex-space-around">
                 <% if investment.next_installment.days_left < 0 %>
                    <div class="late"><%= t("investments.index.table.fifth_column.content", days: investment.next_installment.days_left) %></div>
                 <% elsif investment.next_installment.days_left < 7 %>
@@ -38,7 +38,7 @@
               </div>
             </td>
           <td>
-            <div class="table-button-flex">
+            <div class="flex-space-around">
               <%= link_to edit_project_path(investment.project), { class: "edit-investment-button-table" } do %>
               <%= t("investments.index.table.sixth_column.content_one") %>
               <% end %>

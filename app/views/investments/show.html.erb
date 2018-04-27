@@ -86,7 +86,7 @@
           <td><%=  nice_money(installment.amount) %></td>
           <td><%= installment.task %></td>
           <td>
-            <div class="table-button-flex">
+            <div class="flex-space-around">
               <%= link_to unlock_installment_path(id: installment.id, page: 'show'),:remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
               <i class="fas fa-lock-open"></i>
               <% end %>

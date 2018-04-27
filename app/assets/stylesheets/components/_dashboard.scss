@@ -108,12 +108,11 @@
 }
 
 .tablinks {
-    overflow: hidden;
     border:none;
     background-color: white;
-    font-size:24px;
     border-radius:none;
 }
+
 //COMMMMMMMMMMENT
 /* Style the buttons that are used to open the tab content */
 .tab button {
@@ -142,10 +141,6 @@
 
 /* Style the tab content */
 .tabcontent {
-    display: none;
-    padding: 6px 12px;
-    border-top: none;
-    margin-bottom:30px;
 }
 
 #second-chart-row{
