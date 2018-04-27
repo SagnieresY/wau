@@ -93,15 +93,20 @@ en:
         focus_area_column:
           title: "Focus Area"
         completed:
-          third_column:
+          invested_column:
             title: "Invested"
-          fourth_column:
-            title: "Installment"
+          installment_column:
+            title: "Installments"
+          status_column:
+            title: "Status"
             content: "Completed"
-          fifth_column:
+          edit_column:
             title: "Edit"
-            content_one: "Installment"
-            content_two: "Project"
+            content_one: "Project"
+      no_content: 
+        completed: "You don't have any completed investments!"
+        active: "You don't have any active investments!"
+        rejected: "Yon don't have any rejected investments!"
     show:
       info_bar:
         mid_box:

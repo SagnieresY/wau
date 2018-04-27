@@ -1,8 +1,7 @@
 
 <div id="active" class="tabcontent" style="display:block!important;">
-  <input type="text" class="searchInvest" id="searchBarActive" onkeyup="searchActive()" placeholder= "<%= t("investments.index.search_bar.active") %>">
-
   <% unless @active_investments.nil? %>
+  <input type="text" class="searchInvest" id="searchBarActive" onkeyup="searchActive()" placeholder= "<%= t("investments.index.search_bar.active") %>">
   <div class="table-responsive">
     <table id="activeTable" class="table table-hover dropshadow-around">
       <thead>
@@ -86,8 +85,11 @@
           </td>
           <td>
             <div class="flex-space-around">
-              <%= link_to edit_project_path(investment.project), { class: "edit-investment-button-table" } do %>
+              <%= link_to edit_installment_path(investment.next_installment), { class: "label label-warning lb-sm" } do %>
               <%= t("investments.index.table.edit_column.content_one") %>
+              <% end %>
+              <%= link_to edit_project_path(investment.project), { class: "label label-warning lb-sm" } do %>
+              <%= t("investments.index.table.edit_column.content_two") %>
               <% end %>
             </div>
           </td>
@@ -102,6 +104,6 @@
 </div>
 <% else %>
   <div class="white-dropshadow-card green-text size-24 margin-top-bottom-6" style="text-align:center;">
-    <%= t("home.no_installments") %>
+    <%= t("investment.index.no_content.active") %>
   </div>
 <% end %>

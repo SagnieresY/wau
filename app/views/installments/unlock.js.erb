@@ -15,8 +15,8 @@
   <% end %>
 
 <% elsif @page == 'home' %>
-  $("#unlocked-amount").html( "<%= j render '/partials/total_unlocked_home' %>" );
-  $("#investment_count_home").html( "<%= j render '/partials/investment_count_home' %>" );
+  $("#unlocked-amount").html( "<%= j render '/partials/info-box/total_unlocked_box' %>" );
+  $("#investment_count_home").html( "<%= j render '/partials/info-box/investment_count_box' %>" );
   $("#<%= @installment.id %>").remove();
 
   // Gets the TIMES chart from homepage, recalculates the data et updates.
