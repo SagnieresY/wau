@@ -1,48 +1,50 @@
-<% if @first_page_locked_installments.nil? %>
+<% unless @first_page_locked_installments.nil? %>
   <div class="table-responsive">
-    <table class="table table-hover">
+    <table class="table table-hover dropshadow-around">
       <thead>
         <tr class="white-background header-row-installment">
-          <th class="col-xs-2">
-            <div class="tablesorter-header-inner">
+          <th class="col-sm-2">
+            <div class="flex-space-around">
               <%= t("home.table_ngo_column.title") %>
               <i class="fas fa-arrows-alt-v margin-left-auto"></i>
             </div>
           </th>
-          <th class="col-xs-2">
-            <div class="tablesorter-header-inner">
+          <th class="col-sm-3">
+            <div class="flex-space-around">
               <%= t("home.table_project_column.title") %>
               <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
             </div>
           </th>
-          <th class="col-xs-1">
-            <div class="tablesorter-header-inner">
+          <th class="col-sm-2">
+            <div class="flex-space-around">
               <%= t("home.table_fa_column.title") %>
               <i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i>
             </div>
           </th>
-          <th class="col-xs-1">
-            <div class="tablesorter-header-inner">
+          <th class="col-sm-1">
+            <div class="flex-space-around">
               <%= t("home.table_installment_column.title") %>
               <i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i>
             </div>
           </th>
-          <th class="col-xs-1">
-            <div class="tablesorter-header-inner">
+          <th class="col-sm-1">
+            <div class="flex-space-around">
               <%= t("home.table_deadline_column.title") %>
               <i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i>
             </div>
           </th>
-          <th class="col-xs-1">
-            <div class="tablesorter-header-inner">
+          <th class="col-sm-1">
+            <div class="flex-space-around">
               <%= t("home.table_amount_column.title") %>
               <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
             </div>
           </th>
-          <th class="col-xs-2" id="installment-table-crud-width">
-            <div class="header-table-button color-green"><i class="fas fa-lock-open"></i></div>
-            <div class="header-table-button color-red"><i class="fas fa-times"></i></div>
-            <div class="header-table-button color-yellow"><i class="fas fa-pencil-alt color-yellow"></i></div>
+          <th class="col-sm-2" id="installment-table-crud-width">
+            <div class="flex-space-around">
+              <div class="header-table-button color-green"><i class="fas fa-lock-open"></i></div>
+              <div class="header-table-button color-red"><i class="fas fa-times"></i></div>
+              <div class="header-table-button color-yellow"><i class="fas fa-pencil-alt color-yellow"></i></div>
+            </div>
           </th>
         </tr>
       </thead>
@@ -70,7 +72,7 @@
           </td>
           <td> <div><%= nice_money(installment.amount) %></div></td>
           <td>
-            <div class="table-button-flex">
+            <div class="flex-space-around">
               <%= link_to unlock_installment_path(id: installment.id, page: 'home'), :remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
               <i class="fas fa-lock-open"></i>
               <% end %>

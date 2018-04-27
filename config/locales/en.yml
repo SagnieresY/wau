@@ -74,22 +74,24 @@ en:
         tab:
           title_one: "Active Investments"
           title_two: "Completed Investments"
-        first_column:
+        ngo_column:
           title: "NGO"
-        second_column:
+        project_column:
           title: "Project Name"
-        third_column:
+        forecasted_column:
           title: "Forecasted"
-        fourth_column:
+        installment_column:
           title: "Installment"
           content: " %{installment_index} of %{installment_count}"
-        fifth_column:
+        deadline_column:
           title: "Deadline"
           content: "%{days} days"
-        sixth_column:
+        edit_column:
           title: "Edit"
           content_one: "Installment"
           content_two: "Project"
+        focus_area_column:
+          title: "Focus Area"
         completed:
           third_column:
             title: "Invested"
