@@ -88,8 +88,6 @@ en:
           content: "%{days} days"
         edit_column:
           title: "Edit"
-          content_one: "Installment"
-          content_two: "Project"
         focus_area_column:
           title: "Focus Area"
         completed:
@@ -102,7 +100,6 @@ en:
             content: "Completed"
           edit_column:
             title: "Edit"
-            content_one: "Project"
       no_content: 
         completed: "You don't have any completed investments!"
         active: "You don't have any active investments!"

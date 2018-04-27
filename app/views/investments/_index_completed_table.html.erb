@@ -68,8 +68,8 @@
           </td>
           <td>
             <div class="flex-space-around">
-              <%= link_to edit_project_path(investment.project), { class: "edit-investment-button-table" } do %>
-              <%= t("investments.index.table.completed.edit_column.content_one") %>
+              <%= link_to edit_investment_path(investment), { class: "label label-warning lb-sm button-appear-hover" } do %>
+              <i class="fas fa-pencil-alt"></i>
               <% end %>
             </div>
           </td>

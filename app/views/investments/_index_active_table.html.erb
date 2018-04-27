@@ -6,13 +6,13 @@
     <table id="activeTable" class="table table-hover dropshadow-around">
       <thead>
         <tr class="white-background header-row-installment">
-          <th class="col-sm-2">
+          <th class="col-sm-3">
             <div class="flex-space-around">
               <%= t("investments.index.table.ngo_column.title") %>
               <i class="fas fa-arrows-alt-v margin-left-auto"></i>
             </div>
           </th>
-          <th class="col-sm-2">
+          <th class="col-sm-3">
             <div class="flex-space-around">
               <%= t("investments.index.table.project_column.title") %>
               <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
@@ -36,7 +36,7 @@
               <i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i>
             </div>
           </th>
-          <th class="col-sm-2">
+          <th class="col-sm-1">
             <div class="flex-space-around">
               <%= t("investments.index.table.deadline_column.title") %>
               <i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i>
@@ -58,8 +58,8 @@
           <td><%= investment.focus_area.name %></td>
           <td><%= nice_money(investment.forecasted_amount) %></td>
           <td>
-            <div>
               <%= t("investments.index.table.installment_column.content", installment_index: investment.next_installment.investment_index + 1, installment_count: investment.installments.count) %>
+            </div>
             </div>
           </td>
           <td>
@@ -77,19 +77,12 @@
                 <%= t("investments.index.table.deadline_column.content", days: investment.next_installment.days_left) %>
               </div>
               <% end %>
-
-              <%= link_to investment_path(investment), { class: "milestone-view-button-table" } do %>
-                <i class="fas fa-plus"></i>
-              <% end %>
             </div>
           </td>
           <td>
             <div class="flex-space-around">
-              <%= link_to edit_installment_path(investment.next_installment), { class: "label label-warning lb-sm" } do %>
-              <%= t("investments.index.table.edit_column.content_one") %>
-              <% end %>
-              <%= link_to edit_project_path(investment.project), { class: "label label-warning lb-sm" } do %>
-              <%= t("investments.index.table.edit_column.content_two") %>
+              <%= link_to edit_investment_path(investment), { class: "label label-warning lb-sm button-appear-hover" } do %>
+              <i class="fas fa-pencil-alt"></i>
               <% end %>
             </div>
           </td>
