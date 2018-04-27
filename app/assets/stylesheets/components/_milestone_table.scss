@@ -30,7 +30,7 @@ table tr:last-child td:last-child {
   border-radius: 10px;
 }
 
-// #milestone-table-crud-width{
+// #installment-table-crud-width{
 //   text-align: center;
 // }
 
@@ -93,14 +93,14 @@ table tr:last-child td:last-child {
   justify-content: space-around;
 }
 
-tr.header-row-milestone {
+tr.header-row-installment {
   .margin-left-auto {
     margin-left: auto;
     line-height: unset;
   }
 }
 
-tr.table-row-milestone {
+tr.table-row-installment {
   .button-appear-hover {
     display: none;
   }
@@ -112,7 +112,7 @@ tr.table-row-milestone {
 }
 
 tr.table-row-investment {
-  .milestone-view-button-table {
+  .installment-view-button-table {
     background: transparent;
     color: transparent;
     text-align: center;
@@ -131,7 +131,7 @@ tr.table-row-investment {
     display: none;
   }
   &:hover {
-    .milestone-view-button-table {
+    .installment-view-button-table {
       background-color: $yellow;
       color: white;
     }

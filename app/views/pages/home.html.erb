@@ -1,14 +1,14 @@
 <br>
 <div class="row">
-      <div id="investment_count_home" class="col-sm-4 margin-top-bottom-6">
-        <%= render partial: "/partials/investment_count_home" %>
-      </div>
-      <div id="unlocked-amount" class="col-sm-4 margin-top-bottom-6 no-right-padding-md">
-        <%= render partial: "/partials/total_unlocked_home" %>
-      </div>
-      <div id="forecasted-amount" class="col-sm-4 margin-top-bottom-6">
-        <%= render partial: "/partials/forecasted_amount_home" %>
-      </div>
+  <div id="investment_count_home" class="col-sm-4 margin-top-bottom-6">
+    <%= render partial: "/partials/investment_count_home" %>
+  </div>
+  <div id="unlocked-amount" class="col-sm-4 margin-top-bottom-6 no-right-padding-md">
+    <%= render partial: "/partials/total_unlocked_home" %>
+  </div>
+  <div id="forecasted-amount" class="col-sm-4 margin-top-bottom-6">
+    <%= render partial: "/partials/forecasted_amount_home" %>
+  </div>
 </div>
 
 <div id="charts-home" class="row">
@@ -16,21 +16,20 @@
 </div>
 
 
-<div class="mid-title-box">
-  <div class="mid-title-flex">
-    <div class="title-mid-home-page-text">
-      <h3> <%= t("home.mid_section_title") %> </h3>
-    </div>
-    <div class="mid-title-button-right grow">
-      <%= link_to new_investment_path, { class: "mid-title-button-body" } do %>
-      <%= t("home.mid_section_button") %>
-      <% end %>
-    </div>
+<div class="row margin-top-bottom-6">  
+  <div class="col-sm-6 size-24">
+    <%= t("home.mid_section_title").upcase %>
+  </div>
+  <div class="col-sm-6 left-end-flex-md-up">
+    <%= link_to new_investment_path, { class: "btn btn-success col-sm-offset-8" } do %>
+    <%= t("home.mid_section_button").upcase %>
+    <% end %>
   </div>
 </div>
 
+
 <div id="tables">
-    <%= render partial: 'partials/tables/home/upcoming_locked_installments' %>
+  <%= render partial: 'partials/tables/home/upcoming_locked_installments' %>
 </div>
 
 <%= content_for(:after_js) do %>

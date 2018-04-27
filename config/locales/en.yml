@@ -43,18 +43,20 @@ en:
       line_title: "FY Forecasted Investments"
     mid_section_title: "Upcoming Installments"
     mid_section_button: "New Investment"
-    table_first_column:
+    table_ngo_column:
       title: "NGO"
-    table_second_column:
+    table_Project_column:
       title: "Project Name"
-    table_third_column:
+    table_installment_column:
       title: "Installment"
       content: " %{installment_index} of %{installment_count}"
-    table_fourth_column:
+    table_deadline_column:
       title: "Deadline"
       content: "%{days} days"
-    table_fifth_column:
+    table_amount_column:
       title: "Amount"
+    table_fa_column:
+      title: "Focus Area"
   investments:
     index:
       info_bar:

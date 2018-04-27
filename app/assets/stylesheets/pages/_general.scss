@@ -21,7 +21,7 @@ td {
 }
 
 // Takes away the padding on mobile/tablet
-@media(min-width:992px){
+@media(min-width:768px){
   .no-right-padding-md {
     padding-right: 0px;
   }
@@ -33,9 +33,12 @@ td {
   .margin-15 {
     margin: 0px 15px 0px 15px;
   }
+
+  .left-end-flex-md-up {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
-
-
 
 .no-margin-right {
   margin-right: 0px;
