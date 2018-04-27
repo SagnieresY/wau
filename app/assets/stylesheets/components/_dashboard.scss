@@ -3,6 +3,15 @@
   color:black!important;
   font-size:24px!important;
 }
+.lb-sm {
+  font-size:12px;
+  font-weight:normal;
+}
+
+.lb-md {
+  font-size:18px;
+  font-weight:normal;
+}
 .margin-top-bottom {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -21,6 +30,8 @@
   display:flex;
 
 }
+
+
 .search-btn {
   color: $green;
   border: 3px solid $green;
@@ -48,10 +59,14 @@
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
-}
 
+}
+.bold {
+  font-weight:bold;
+}
 .search-content {
   display:flex;
+  position:relative;
   flex-wrap: wrap;
 
 }
@@ -75,7 +90,6 @@
 }
 #date-search-wrapper {
   display:flex!important;
-  margin-bottom:30px;
   color:black;
   font-size:24px;
 }
@@ -83,7 +97,6 @@
 // END DASHBOARD SEARCH
 .tag-container {
   display:flex;
-  position:absolute;
   flex-wrap:wrap;
   left:440px;
 
@@ -97,6 +110,7 @@
     border:none;
     background-color: white;
     font-size:24px;
+    border-radius:none;
 }
 //COMMMMMMMMMMENT
 /* Style the buttons that are used to open the tab content */
@@ -129,6 +143,7 @@
     display: none;
     padding: 6px 12px;
     border-top: none;
+    margin-bottom:30px;
 }
 
 #second-chart-row{

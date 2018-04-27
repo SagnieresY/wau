@@ -1,13 +1,15 @@
-<div class="search-content">
+<div class="search-content col-md-3">
 
-  <div class="size-24 green-text search-label"><label for="focus_query">Focus:</label></div>
-    <div class="input form-group">
+  <label class="size-24 green-text search-label" for="focus_query">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Focus:</label>
+
+  <div class="input form-group">
     <input type="text" class="form-control" id="focus_query">
     <div id="focusSuggestions" class="suggestions"></div>
-
   </div>
-  <div class="tag-container" id="focus_selection"></div>
+
 </div>
+
+<div class="col-md-5 tag-container" id="focus_selection"></div>
 
 <%= content_for(:after_js) do %>
 
