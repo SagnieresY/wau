@@ -30,6 +30,8 @@
   display:flex;
 
 }
+
+
 .search-btn {
   color: $green;
   border: 3px solid $green;
@@ -88,7 +90,6 @@
 }
 #date-search-wrapper {
   display:flex!important;
-  margin-bottom:30px;
   color:black;
   font-size:24px;
 }
@@ -96,7 +97,6 @@
 // END DASHBOARD SEARCH
 .tag-container {
   display:flex;
-  position:absolute;
   flex-wrap:wrap;
   left:440px;
 
@@ -143,6 +143,7 @@
     display: none;
     padding: 6px 12px;
     border-top: none;
+    margin-bottom:30px;
 }
 
 #second-chart-row{
