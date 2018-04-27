@@ -1,10 +1,28 @@
-<div id="invest-show-unlocked-amount" class="white-dropshadow-card green-text center-item">
-	<div class="size-24"> <%= nice_money(@investment.unlocked_amount) %></div>
-	<div class="size-12">
-		<% if @investment.completed? %>
-			<%= t("investments.show.info_bar.mid_box.status_one") %>
-		<% else %>
-			<%= t("investments.show.info_bar.mid_box.status_one") %>
-		<% end %>
+<% if @investment.completed? %>
+	<div id="invest-show-unlocked-amount" class="green-dropshadow-card white-text center-item">
+		<div class="size-24"> <%= nice_money(@investment.unlocked_amount) %></div>
+		<div class="size-12">
+				<%= t("investments.show.info_bar.mid_box.status_one") %>
+		</div>
 	</div>
-</div>
+
+<% elsif @investment.rejected?%>
+	<div id="invest-show-unlocked-amount" class="red-dropshadow-card white-text center-item">
+		<div class="size-24">
+			<%= nice_money(@investment.unlocked_amount) %>		
+		</div>
+		<div class="size-12">
+			<%= t("investments.show.info_bar.mid_box.status_one") %>
+		</div>
+	</div>
+
+<% else %>
+	<div id="invest-show-unlocked-amount" class="white-dropshadow-card green-text center-item">
+		<div class="size-24">
+			<%= nice_money(@investment.unlocked_amount) %>
+		</div>
+		<div class="size-12">
+			<%= t("investments.show.info_bar.mid_box.status_one") %>
+		</div>
+	</div>
+<% end %>

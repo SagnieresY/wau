@@ -1,8 +1,30 @@
-<div id="invest-show-forecasted-amount" class="white-dropshadow-card green-text center-item">
-<div class="size-24"> <%= nice_money(@investment.forecasted_amount) %></div>
-	<% if @investment.completed? %>
-		<%= t("investments.show.info_bar.right_box.status_one") %>
-	<% else %>
-		<%= t("investments.show.info_bar.right_box.status_two") %>
-	<% end %>
-</div>
+<% if @investment.completed? %>
+	<div id="invest-show-forecasted-amount" class="green-dropshadow-card white-text center-item">
+		<div class="size-24">
+			<%= nice_money(@investment.forecasted_amount) %>
+		</div>
+		<div class="size-12">
+			<%= t("investments.show.info_bar.right_box.status_one") %>
+		</div>
+	</div>
+
+<% elsif @investment.rejected? %>
+	<div id="invest-show-forecasted-amount" class="red-dropshadow-card white-text center-item">
+		<div class="size-24">
+			<%= nice_money(@investment.forecasted_amount) %>
+			</div>
+		<div class="size-12">
+			<%= t("investments.show.info_bar.right_box.status_two") %>
+		</div>
+	</div>
+
+<% else %>
+	<div id="invest-show-forecasted-amount" class="white-dropshadow-card green-text center-item">
+		<div class="size-24">
+			<%= nice_money(@investment.forecasted_amount) %>
+		</div>
+		<div class="size-12">
+			<%= t("investments.show.info_bar.right_box.status_two") %>
+		</div>
+	</div>
+<% end %>
