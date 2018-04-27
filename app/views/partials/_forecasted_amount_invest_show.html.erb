@@ -1,8 +1,10 @@
-<div class="size-24"> <%= nice_money(@investment.forecasted_amount) %></div>
-<div>
-	<% if @investment.completed %>
-		<%= t("investments.show.info_bar.right_box.status_one") %>
-	<% else %>
-		<%= t("investments.show.info_bar.right_box.status_two") %>
-	<% end %>
+<div class="white-dropshadow-card">
+	<div class="size-24"> <%= nice_money(@investment.forecasted_amount) %></div>
+	<div>
+		<% if @investment.completed? %>
+			<%= t("investments.show.info_bar.right_box.status_one") %>
+		<% else %>
+			<%= t("investments.show.info_bar.right_box.status_two") %>
+		<% end %>
+	</div>
 </div>
