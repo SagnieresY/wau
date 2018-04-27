@@ -1,12 +1,12 @@
 
 <div class="search-content">
 
-  <div class="size-24 green-text search-label">Neighborhood search: </div>  <div class="input">
-    <input type="text" id="neighborhood_query">
+  <div class="size-24 search-label"><label for="neighborhood_query">Neighborhood:</label> </div>  <div class="input">
+    <input class="form-control" type="text" id="neighborhood_query">
     <div id="neighborhoodSuggestions" class="suggestions"></div>
 
   </div>
-  <div id="neighborhood_selection"></div>
+  <div class="tag-container" id="neighborhood_selection"></div>
 </div>
 
 <%= content_for(:after_js) do %>

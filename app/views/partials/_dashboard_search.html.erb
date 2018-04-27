@@ -2,12 +2,12 @@
 <div id="search-container" class="row margin-top-bottom-6">
   <div class="col-md-12 white-dropshadow-card green-text">
     <% search_buttons = ['Focus Area', 'Date', 'NGO', 'Neighborhood','Project', 'Tag'] %>
-    <div class="search-buttons">
-      <h3>Search by: </h3>
+    <div  class="search-buttons size-24">
+      <h3>Search by:&nbsp;&nbsp;&nbsp;</h3>
     <% search_buttons.each do |tab| %>
-      <button class="tablinks" onclick="openTab(event,'<%= tab %>')"><%= tab %></button>
+      <button class="tablinks btn btn-success" style="color:black!important;" onclick="openTab(event,'<%= tab %>')"><%= tab %></button>&nbsp;&nbsp;&nbsp;
     <% end %>
-    <button class="search-btn" onclick="mainSearch()">search!</button>
+    <button class="btn btn-success size-24" onclick="mainSearch()">search!</button>
     </div>
     <% search_buttons.each do |tab| %>
 
@@ -21,8 +21,14 @@
 
 <%= content_for(:after_js) do %>
   <script>
+
     function removeTag(tag){
-      tag.remove();
+      if (typeof tag == "string") {
+        document.getElementById(tag).remove()
+      }else{
+        tag.remove()
+      }
+
       //document.getElementById(tag).remove();
     }
 
@@ -70,7 +76,7 @@
       selectiontags += child.innerHTML
     });
     if (!selectiontags.includes(tag.replace("&","&amp;"))){
-    selection.insertAdjacentHTML('afterbegin',`<h7 id="${tag}" onclick="${tag}.remove()" class="tag"> ${tag}</h7>`)
+    selection.insertAdjacentHTML('afterbegin',`<h7 id="${tag}" onclick="removeTag('${tag}')" class="tag">${tag} </h7>`)
     }
 
   }

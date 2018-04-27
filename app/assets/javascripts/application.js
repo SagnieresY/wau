@@ -18,6 +18,8 @@
 //= require chartkick
 //= require underscore
 //= require select2
+//= require flatpickr
+
 //= require_tree
 
 $(document).ready(function() {
