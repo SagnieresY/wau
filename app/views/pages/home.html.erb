@@ -17,13 +17,13 @@
 
 
 <div class="row margin-top-bottom-6">  
-  <div class="col-sm-6 size-24">
-    <%= t("home.mid_section_title").upcase %>
-  </div>
-  <div class="col-sm-6 left-end-flex-md-up">
-    <%= link_to new_investment_path, { class: "btn btn-success col-sm-offset-8" } do %>
+  <div class="col-sm-6 col-sm-push-6 left-end-flex-md-up">
+    <%= link_to new_investment_path, { class: "btn btn-success" } do %>
     <%= t("home.mid_section_button").upcase %>
     <% end %>
+  </div>
+  <div class="col-sm-6 size-24 col-sm-pull-6">
+    <%= t("home.mid_section_title").upcase %>
   </div>
 </div>
 
