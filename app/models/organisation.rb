@@ -48,7 +48,7 @@ class Organisation < ApplicationRecord
     investments.where(status:"rejected")
   end
 
-  def approved_investments
+  def permitted_investments
     investments.where(status:["active","completed"])
   end
 
