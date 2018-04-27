@@ -2,18 +2,20 @@
 
 <div id="search-container" class="row white-dropshadow-card margin-top-bottom-6">
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-2 pull-right-for-real">
+       <label class="size-24" for="">Search by:</label>
+    </div>
+    <div class="col-md-8">
        <% search_buttons = ['Focus Area', 'Date', 'NGO', 'Neighborhood','Project', 'Tag'] %>
-       <label class="size-24" for="a">&nbsp;&nbsp;Search by:&nbsp;&nbsp;&nbsp;</label>
        <% search_buttons.each do |tab| %>
-       <label class="form-check-label" for="defaultCheck1"><%= tab %> </label>
-       <input class="tablinks form-check-input" autocomplete="off" onclick="openTab(event,'<%= tab %>')" type="checkbox" value="" id="defaultCheck1">
+       <label class="form-check-label" for="<%= tab %>-label"><%= tab %> </label>
+       <input class="tablinks form-check-input" autocomplete="off" onclick="openTab(event,'<%= tab %>')" type="checkbox" value="" id="<%= tab %>-label">
        &nbsp;&nbsp;&nbsp;
        <% end %>
     </div>
 
     <div class="col-md-2">
-      <button class="btn btn-xs btn-success size-24"  onclick="mainSearch()">search!</button>
+      <button class="btn btn-xs btn-success size-24 pull-right"  onclick="mainSearch()">search!</button>
     </div>
   </div>
     <% search_buttons.each do |tab| %>
