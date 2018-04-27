@@ -3,9 +3,9 @@
   <div class="col-md-12 white-dropshadow-card green-text">
     <% search_buttons = ['Focus Area', 'Date', 'NGO', 'Neighborhood','Project', 'Tag'] %>
     <div  class="search-buttons size-24">
-      <h3>Search by:&nbsp;&nbsp;&nbsp;</h3>
+      <label for="a">Search by:&nbsp;&nbsp;&nbsp;</label>
     <% search_buttons.each do |tab| %>
-      <button class="tablinks btn btn-success" style="color:black!important;" onclick="openTab(event,'<%= tab %>')"><%= tab %></button>&nbsp;&nbsp;&nbsp;
+      <button class="tablinks btn btn-success bold" style="color:black!important;" onclick="openTab(event,'<%= tab %>')"><%= tab %></button>&nbsp;&nbsp;&nbsp;
     <% end %>
     <button class="btn btn-success size-24" onclick="mainSearch()">search!</button>
     </div>
@@ -53,12 +53,12 @@
       if (document.getElementById(tabName).style.display === "block") {
         document.getElementById(tabName).style.display = "none";
         searchHeight -= 130
-        document.getElementById('search-container').style.height = `${searchHeight}px`
+        document.getElementById('search-container').style.Maxheight = `${searchHeight}px`
 
       }else{
         document.getElementById(tabName).style.display = "block";
         searchHeight += 130
-        document.getElementById('search-container').style.height = `${searchHeight}px`
+        document.getElementById('search-container').style.Maxheight = `${searchHeight}px`
       }
 
 
