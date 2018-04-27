@@ -33,7 +33,7 @@ class PagesController < ApplicationController
                                                                 .first(25)
 
 
-          #Gets installments by FA cummulates and returns  
+          #Gets installments by FA cummulates and returns
           locked_hash = @locked_installments.joins(:focus_area).group('focus_areas.id').sum(:amount)
           unlocked_hash = @unlocked_installments.joins(:focus_area).group('focus_areas.id').sum(:amount)
 
@@ -64,9 +64,8 @@ class PagesController < ApplicationController
     if !params[:min_date].blank? || !params[:min_date].blank?
 
       #Makes (string)date into DATETIME object
-      min_date = params[:min_date].to_time
-      max_date = params[:max_date].to_time
-
+      min_date = params[:min_date].blank? ? Date.new(1800,1,1) : params[:min_date].to_time
+      max_date = params[:max_date].blank? ? Date.new(2100,1,1) : params[:max_date].to_time
 
       #Picks smallest date as start date
       start_date = min_date < max_date ? min_date : max_date

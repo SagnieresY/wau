@@ -7,7 +7,7 @@
        <label class="size-24" for="a">&nbsp;&nbsp;Search by:&nbsp;&nbsp;&nbsp;</label>
        <% search_buttons.each do |tab| %>
        <label class="form-check-label" for="defaultCheck1"><%= tab %> </label>
-       <input class="tablinks form-check-input" onclick="openTab(event,'<%= tab %>')" type="checkbox" value="" id="defaultCheck1">
+       <input class="tablinks form-check-input" autocomplete="off" onclick="openTab(event,'<%= tab %>')" type="checkbox" value="" id="defaultCheck1">
        &nbsp;&nbsp;&nbsp;
        <% end %>
     </div>
@@ -106,17 +106,25 @@
    var fields = ['focus_selection','ngo_selection','neighborhood_selection','project_selection','tag_selection']
    fields.forEach((selection) => {
      var field = selection.split('_')[0]
-     console.log(field)
+     var tab = field[0].toUpperCase() + field.slice(1)
+     tab = (tab == 'Focus') ? 'Focus Area' : tab
+     tab = (tab == 'Ngo') ? 'NGO' : tab
      var tags = ''
-     document.getElementById(selection).childNodes.forEach((child)=>{
-       tags += `${child.innerHTML.replace("&amp;",'and')},`
-       console.log(child.innerHTML)
-     });
-     url += `&${field}=${tags}`
+     console.log(tab)
+     if(document.getElementById(tab).style.display == 'block'){
+      document.getElementById(selection).childNodes.forEach((child) =>{
+        tags += `${child.innerHTML.replace("&amp;",'and')},`
+      })
+      url += `&${field}=${tags}`
+     }
    })
-   url += `&min_date=${document.getElementById('min-date').value}`
 
-   url += `&max_date=${document.getElementById('max-date').value}`
+   if (document.getElementById('Date').style.display == 'block'){
+     url += `&min_date=${document.getElementById('min-date').value}`
+
+     url += `&max_date=${document.getElementById('max-date').value}`
+
+     };
      window.location.replace(`${url}`)
    };
 </script>
