@@ -21,7 +21,7 @@ td {
 }
 
 // Takes away the padding on mobile/tablet
-@media(min-width:992px){
+@media(min-width:768px){
   .no-right-padding-md {
     padding-right: 0px;
   }
@@ -29,18 +29,24 @@ td {
   .no-left-padding-md {
     padding-left: 0px;
   }
+
+  .margin-15 {
+    margin: 0px 15px 0px 15px;
+  }
+
+  .left-end-flex-md-up {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 
+.no-margin-right {
+  margin-right: 0px;
+}
 
-// a,
-// a:link,
-// a:visited,
-// a:hover,
-// a:focus,
-// a:active {
-//   color: inherit; /* blue colors for links too */
-//   text-decoration: inherit; /* no underline */
-// }
+.no-margin-left {
+  margin-left: 0px;
+}
 
 .unlocked-background-color {
   background-color: $green;
@@ -72,5 +78,20 @@ td {
 
 .size-12 {
   font-size: 12px;
+}
+
+.lb-sm {
+  font-size: 12px;
+  font-weight:normal
+}
+
+.lb-md {
+  font-size: 18px;
+  font-weight:normal
+}
+
+.lb-lg {
+  font-size: 24px;
+  font-weight:normal
 }
 

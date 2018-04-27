@@ -1,2 +1,6 @@
-<div class="big-number-green"> <%= current_user.organisation.completed_investments.count %> / <%= current_user.organisation.permitted_investments.count %></div>
-<div class="small-text-gray"> <%= t("home.investment_count_home.title") %> </div>
+<div class="margin-15 no-margin-left">
+	<div class="white-dropshadow-card flex-column">
+		<div class="green-text size-24 no-left-padding-md"> <%= current_user.organisation.completed_investments.count %> / <%= current_user.organisation.permitted_investments.count %></div>
+		<div> <%= t("home.investment_count_home.title") %> </div>
+	</div>
+</div>

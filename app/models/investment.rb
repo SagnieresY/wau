@@ -24,6 +24,7 @@ class Investment < ApplicationRecord
   scope :completed, -> { where(status: 'completed') }
   scope :active, -> {where(status: 'active')}
   scope :rejected, -> {where(status: 'rejected')}
+  scope :permitted_investments, -> {where(status: ['active', 'completed'])}
 
   def active?
     status == 'active'

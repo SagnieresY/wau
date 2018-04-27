@@ -1,14 +1,45 @@
-<div id="main-table" class="tablecontent">
-  <div class="table-container">
-    <table class="table table-hover margin-center dropshadow-around">
+<% if @first_page_locked_installments.nil? %>
+  <div class="table-responsive">
+    <table class="table table-hover">
       <thead>
-        <tr class="white-background header-row-milestone">
-          <th scope="col" width="25%"><div class="tablesorter-header-inner"><%= t("home.table_first_column.title") %><i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
-          <th scope="col" width="30%"><div class="tablesorter-header-inner"><%= t("home.table_second_column.title") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-          <th scope="col" width="7%"><div class="tablesorter-header-inner"><%= t("home.table_third_column.title") %><i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
-          <th scope="col" width="8%"><div class="tablesorter-header-inner"><%= t("home.table_fourth_column.title") %><i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
-          <th scope="col" width="10%"><div class="tablesorter-header-inner"><%= t("home.table_fifth_column.title") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-          <th scope="col" id="milestone-table-crud-width" width="30%">
+        <tr class="white-background header-row-installment">
+          <th class="col-xs-2">
+            <div class="tablesorter-header-inner">
+              <%= t("home.table_ngo_column.title") %>
+              <i class="fas fa-arrows-alt-v margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-xs-2">
+            <div class="tablesorter-header-inner">
+              <%= t("home.table_project_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-xs-1">
+            <div class="tablesorter-header-inner">
+              <%= t("home.table_fa_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-xs-1">
+            <div class="tablesorter-header-inner">
+              <%= t("home.table_installment_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-xs-1">
+            <div class="tablesorter-header-inner">
+              <%= t("home.table_deadline_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-xs-1">
+            <div class="tablesorter-header-inner">
+              <%= t("home.table_amount_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-xs-2" id="installment-table-crud-width">
             <div class="header-table-button color-green"><i class="fas fa-lock-open"></i></div>
             <div class="header-table-button color-red"><i class="fas fa-times"></i></div>
             <div class="header-table-button color-yellow"><i class="fas fa-pencil-alt color-yellow"></i></div>
@@ -17,23 +48,24 @@
       </thead>
       <tbody>
         <% @first_page_locked_installments.each_with_index do |installment, index| %>
-        <tr id="<%= installment.id %>" class="white-background table-row-milestone" data-milestone-id="<%= installment.id %>">
-          <td><%= installment.investment.project.organisation.name %></td>
+        <tr id="<%= installment.id %>" class="white-background table-row-installment" data-installment-id="<%= installment.id %>">
+          <td><%= installment.project.organisation.name %></td>
           <td>
             <%= link_to investment_path(installment.investment), {class: "green-link-text"} do %>
-            <%= installment.investment.project.name %>
+            <%= installment.project.name %>
             <% end %>
           </td>
+          <td><%= installment.focus_area.name %></td>
           <td>
-            <div> <%= t("home.table_third_column.content", installment_index: installment.investment_index + 1, installment_count: installment.investment.installments.count) %> </div>
+            <div> <%= t("home.table_installment_column.content", installment_index: installment.investment_index + 1, installment_count: installment.investment.installments.count) %> </div>
           </td>
           <td>
             <% if installment.days_left < 0 %>
-              <div class="late"><%= t("home.table_fourth_column.content", days: installment.days_left) %></div>
+            <div class="label label-danger lb-sm"><%= t("home.table_deadline_column.content", days: installment.days_left) %></div>
             <% elsif installment.days_left < 7 %>
-              <div class="almost-late"><%= t("home.table_fourth_column.content", days: installment.days_left) %></div>
+            <div class="label label-warning lb-sm"><%= t("home.table_deadline_column.content", days: installment.days_left) %></div>
             <% else %>
-              <div><%= t("home.table_fourth_column.content", days: installment.days_left) %></div>
+            <div><%= t("home.table_deadline_column.content", days: installment.days_left) %></div>
             <% end %>
           </td>
           <td> <div><%= nice_money(installment.amount) %></div></td>
@@ -55,4 +87,8 @@
       </tbody>
     </table>
   </div>
-</div>
+<% else %>
+  <div class="white-dropshadow-card green-text size-24 margin-top-bottom-6" style="text-align:center;">
+    <%= t("home.no_installments") %>
+  </div>
+<% end %>

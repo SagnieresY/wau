@@ -43,18 +43,20 @@ fr:
       line_title: "Dons prévus pour le terme"
     mid_section_title: "Versement à venir"
     mid_section_button: "Créer un don"
-    table_first_column:
+    table_ngo_column:
       title: "Organisme"
-    table_second_column:
+    table_project_column:
       title: "Nom du projet"
-    table_third_column:
+    table_installment_column:
       title: "Versement"
       content: " %{installment_index} de %{installment_count}"
-    table_fourth_column:
+    table_deadline_column:
       title: "Échéance"
       content: "%{days} jours"
-    table_fifth_column:
+    table_amount_column:
       title: "Montant"
+    table_fa_column:
+      title: "Focus Area"
   investments:
     index:
       info_bar:
