@@ -17,7 +17,6 @@
   margin-bottom: 5px;
 }
 .search-label {
-  margin-right:30px;
   color:black;
 }
 .search-buttons {
@@ -25,7 +24,7 @@
   border-bottom: 1px solid #ccc;
   color:black!important;
 }
-
+// did you know that many developers consider front-end a form of torture? You learn something new everyday
 .search-input {
   display:flex;
 
@@ -87,6 +86,11 @@
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
   margin-bottom:4px;
+}
+.pull-right-for-real {
+  display:flex;
+  flex-direction:row-reverse;
+  margin:none!important;
 }
 #date-search-wrapper {
   display:flex!important;
