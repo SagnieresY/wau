@@ -43,7 +43,7 @@ class InvestmentsController < ApplicationController
   def reject
     authorize @investment
     @investment.reject!
-    redirect_to investments_path(@investment)
+    redirect_to investment_path(@investment)
   end
 
   def new
