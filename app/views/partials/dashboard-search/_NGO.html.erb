@@ -1,12 +1,15 @@
-<div class="search-content">
-  <div class="size-24 green-text search-label"><label for="ngo_query">NGO:</label></div>
-  <div class="input">
-    <input class="form-control" type="text" id="ngo_query">
-    <div id="ngoSuggestions" class="suggestions"></div>
+<div class="search-content col-md-3">
 
+  <label class="size-24 green-text search-label" for="ngo_query">NGO:</label>
+
+  <div class="input form-group">
+    <input type="text" class="form-control" id="ngo_query">
+    <div id="ngoSuggestions" class="suggestions"></div>
   </div>
-  <div class="tag-container" id="ngo_selection"></div>
+
 </div>
+
+<div class="col-md-5 tag-container" id="ngo_selection"></div>
 
 <%= content_for(:after_js) do %>
 
