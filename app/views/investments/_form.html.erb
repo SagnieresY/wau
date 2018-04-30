@@ -2,93 +2,82 @@
 
 <%= simple_form_for([@investment]) do |f| %>
 
-	<!-- FORM FOR ORGANISATION -->
-	<div class="white-dropshadow-card container">
-		<%= t("form.investment.title") %>
-		<div class="size-24 green-text ">
-			<%= t("form.investment.organisation.title") %>
-		</div>
+<br>
 
-		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="#existing-org"> <%= t("form.investment.installment..organisation.existing") %> </a></li>
-			<li><a data-toggle="tab" href="#new-org"><%= t("form.investment.installment.organisation.new") %></a></li>
-		</ul>
+<!-- FORM FOR PROJECT -->
+<%= f.simple_fields_for :project do |project| %>
+<%= render 'project_fields', f: project %>
+<% end %>
 
-		<div class="tab-content">
-			<div id="existing-org" class="tab-pane fade in active">
-				<br>
-				<%= f.association :organisation, collection: current_user.organisation.receiving_organisations, prompt: 'Choose an existing organisation', label: false %>
-			</div>
-			<div id="new-org" class="organisation tab-pane fade">
-				<%= f.simple_fields_for :organisation do |organisation| %>
-				<%= render 'organisation_fields', f: organisation %>
-				<% end %>
-			</div>
-		</div>
+<br>
+
+<!-- FORMS FOR CREATING 1 OR MORE INSTALLMENTS -->
+<div class="white-dropshadow-card container">
+	<div class="size-24 green-text">
+		<%= t("form.investment.installment.title") %>
 	</div>
+	<table class='table'>
+		<thead>
+			<tr>
+				<th class="col-sm-2"><%= t("form.investment.installment.amount") %></th>
+				<th class="col-sm-3"><%= t("form.investment.installment.deadline") %></th>
+				<th sclass="col-sm-1"><%= t("form.investment.installment.status") %></th>
+				<th class="col-sm-4"><%= t("form.investment.installment.task") %></th>
+				<th class="col-sm-1"></th>
+			</tr>
+		</thead>
+		<tbody class='installment'>
+			<%= f.simple_fields_for :installments do |builder| %>
+			<%= render 'installment_fields', f: builder %>
+			<% end %>
+		</tbody>
+	</table> 
 
-	<br>
+	<%= link_to_add_association t("form.investment.installment.add_button"), f, :installments, class: 'btn btn-success', data: { association_insertion_node: '.installment', association_insertion_method: :append } %>
+</div>
 
-	<!-- FORM FOR PROJECT -->
-	<div class="white-dropshadow-card container">
-		<div class="size-24 green-text">
-			<%= t("form.investment.project.title") %>
-		</div>
-		<%= f.simple_fields_for :project do |project| %>
-			<%= render 'project_fields', f: project %>
-		<% end %>
+<br>
+
+<!-- FORM FOR INVESTMENT_TAG -->
+<div class="white-dropshadow-card container">
+	<div class="size-24 green-text">
+		<%= t("form.investment.investment_tag.title") %>
 	</div>
-
-	<br>
-
-	<!-- FORMS FOR CREATING 1 OR MORE INSTALLMENTS -->
-	<div class="white-dropshadow-card container">
-		<div class="size-24 green-text">
-			<%= t("form.investment.installment.title") %>
-		</div>
-		<table class='table'>
-			<thead>
-				<tr>
-					<th scope="col" width="25%"><%= t("form.investment.installment.col_one") %></th>
-					<th scope="col" width="30%"><%= t("form.investment.installment.col_two") %></th>
-					<th scope="col" width="35%"><%= t("form.investment.installment.col_three") %></th>
-					<th scope="col" width="10%"></th>
-				</tr>
-			</thead>
-			<tbody class='installment'>
-				<%= f.simple_fields_for :installments do |builder| %>
-			    	<%= render 'installment_fields', f: builder %>
-			 	<% end %>
-			</tbody>
-		</table> 
-
-		<%= link_to_add_association t("form.investment.installment.add_button"), f, :installments, class: 'btn btn-success', data: { association_insertion_node: '.installment', association_insertion_method: :append } %>
-	</div>
-
-	<br>
-
-	<!-- FORM FOR INVESTMENT_TAG -->
-	<div class="white-dropshadow-card container">
-		<div class="size-24 green-text">
-			<%= t("form.investment.investment_tag.title") %>
-		</div>
 	<!-- Select all existing tags -->
-		<div class="row">
-			<div class="col-md-4"> <%= f.association :investment_tags, collection: current_user.organisation.investment_tags.all, label: "Existing Tags" %>
-			</div>
-			
-			<!-- Will have new tags added -->
-			<br>
-			<div class="investment-tag">
-			</div>
-			
-			<div class="col-md-2">
-				<%= link_to_add_association t("form.investment.investment_tag.add_button"), f, :investment_tags, class: 'btn btn-success', data: { association_insertion_node: '.investment-tag' } %>
-			</div>
+	<div class="row">
+		<div class="col-md-4"> <%= f.association :investment_tags, collection: current_user.organisation.investment_tags.all, label: "Existing Tags" %>
 		</div>
-		<%= f.submit t("form.save"), class: "btn btn-success col-xs-12" %>
-	</div>
 
-	<br>
+		<!-- Will have new tags added -->
+		<br>
+		<div class="investment-tag">
+		</div>
+
+		<div class="col-md-2">
+			<%= link_to_add_association t("form.investment.investment_tag.add_button"), f, :investment_tags, class: 'btn btn-success', data: { association_insertion_node: '.investment-tag' } %>
+		</div>
+	</div>
+	<%= f.submit t("form.save"), class: "btn btn-success col-xs-12" %>
+</div>
+
+<br>
 <% end %>
 <br>
+
+<%= content_for(:after_js) do %>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		$('.organisation')
+		.on('cocoon:before-insert', function() {
+			$(".organisation_from_list").hide();
+			$(".organisation a.add_fields").hide();
+		})
+
+		.on("cocoon:before-remove", function() {
+			$(".organisation_from_list").show();
+			$(".organisation a.add_fields").show();
+		})
+	});
+</script>
+<% end %>

@@ -148,31 +148,33 @@ en:
       project_name: "Project Name: %{name}"
       ngo_name: "NGO Name: %{name}"
     investment:
-      title: "New Investment"
-      installment:
-        title: 'Installments'
-        col_one: 'Amount'
-        col_two: 'Deadline'
-        col_three: 'Task'
-        sub_task: 'Please add a task'
-        delete_button: 'Delete'
-        add_button: 'Add more installments'
-      project:
-        title: 'Project Information'
-        name: 'Project Name'
-        hint: 'You can pick more than one neighborhood by holding the ctrl key and clicking.'
+      edit: "Edit Investment"
+      new: "New Investment"
       organisation:
-        title: 'Receiving Organisation'
+        title: '1 - Receiving Organisation'
         existing: 'Existing'
         new: 'New'
         name: 'Organisation Name'
+      project:
+        title: '2 - Project Information'
+        name: 'Project Name'
+        hint: 'You can pick more than one neighborhood by holding the ctrl key and clicking.'
         charity_number: 'Charity Number'
+      installment:
+        title: '3 - Installments'
+        amount: 'Amount'
+        deadline: 'Deadline'
+        task: 'Task'
+        sub_task: 'Please add a task'
+        status: 'Status'
+        delete_button: 'Delete'
+        add_button: 'Add more installments'
       investment_tag:
-        title: 'Tag'
+        title: '4 - Tags'
         new: 'New Tag'
         add_button: 'New tag'
     project_title: "New Project"
-    save: "Save"
+    save: "Save the investment"
   landing:
     title: "Manage your charitable investments"
     sub_title: "Get to know the real impact of your donation through a streamlined dashboard"

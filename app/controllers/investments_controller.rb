@@ -43,44 +43,66 @@ class InvestmentsController < ApplicationController
   def reject
     authorize @investment
     @investment.reject!
-    redirect_to investments_path(@investment)
+    redirect_to investment_path(@investment)
   end
 
   def new
     @investment = Investment.new
     @investment.project = Project.new
-    @investment.organisation = Organisation.new
+    @investment.organisation = current_user.organisation
     @investment.installments << Installment.new(task:t("form.investment.installment.sub_task"), deadline: Date.today, investment: @investment, amount: 10)
     authorize @investment
   end
 
   def create
-    byebug
-    #Checks for organisation and returns or creates one.
-    if params[:investment][:organisation_id].present?
-      organisation = Organisation.find(params[:investment][:organisation_id])
+    simplified_params(investment_params)
+
+    #Checks if user is trying to create a new organisation
+    if @organisation_attributes.present?
+      
+      #find_by charity number if it already exists in the DB
+      if Organisation.find_by(charity_number: @organisation_attributes[:charity_number]).present?
+        organisation = Organisation.find_by(charity_number: @organisation_attributes[:charity_number])
     
-    #find_by charity number if it already exists in the DB
-    elsif Organisation.find_by(charity_number: params[:investment][:organisation_attributes][:charity_number]).present?
-      organisation = Organisation.find_by(charity_number: params[:investment][:organisation_attributes][:charity_number])
-    
-    #else create it
+      #else create it
+      else
+        organisation = Organisation.create(name: @organisation_attributes[:name], charity_number: @organisation_attributes[:charity_number])
+        byebug
+
+        if organisation.save
+          organisation
+        else 
+          new
+          flash[:alert] = "Not saved due to new Org. Issues"
+          render :new
+          return
+        end
+      end
+
+    #Checks if user is selecting existing organisation and returns it
+    elsif @project_attributes[:organisation_id].present?
+      organisation = Organisation.find(@project_attributes[:organisation_id])
+    #Else renders new
     else
-      organisation = Organisation.create!(name: params[:investment][:organisation_attributes][:name], charity_number: params[:investment][:organisation_attributes][:charity_number])
+      new
+      flash[:alert] = "Not saved due to NOTHING Org. Issues"
+      render :new
+      return
     end
 
+    byebug
     #Checks for InvestmentTag and pushes them on the investment
     tags = []
 
     #Checks if tag exist already and adds to array
-    if params[:investment][:investment_tag_ids].present?
-      noEmptyTags = params[:investment][:investment_tag_ids].reject { |c| c.empty? }
+    if @investment_tag_ids.present?
+      noEmptyTags = @investment_tag_ids.reject { |c| c.empty? }
       noEmptyTags.each {|tag_id| tags << InvestmentTag.find(tag_id)}
     end
 
     #Checks if tag exist already and adds to array
-    if params[:investment][:investment_tags_attributes].keys.present?
-      params[:investment][:investment_tags_attributes].each {|_,value| tags << InvestmentTag.create!(name:value["name"]) }
+    if @investment_tag_attributes.present?
+      @investment_tag_attributes.each {|_,value| tags << InvestmentTag.create!(name:value["name"]) }
     end
 
     project = Project.new(params.to_unsafe_h[:investment][:project_attributes])
@@ -90,10 +112,6 @@ class InvestmentsController < ApplicationController
     @investment.project = project
     @investment.investment_tags.push(tags)
     authorize @investment
-
-
-    byebug
-    
 
     if @investment.save && @investment.installments.count == 0
       @investment.installments << Installment.create!(task:t("form.investment.installment.sub_task"), deadline: Date.today, investment: @investment, amount: 0)
@@ -191,11 +209,15 @@ class InvestmentsController < ApplicationController
       .require(:investment).permit(
         :project_id,
         { :investment_tag_ids => [] },
-        organisation_attributes: Organisation.attribute_names.map(&:to_sym).push(:_destroy),
         installments_attributes: Installment.attribute_names.map(&:to_sym).push(:_destroy),
-        project_attributes: [:name,:description,:focus_area_id,:main_contact,{ :geo_ids => [] }, :_destroy],
+        project_attributes: [:name,:description,:focus_area_id,:main_contact,{ :geo_ids => [] }, :organisation_id, {organisation_attributes: Organisation.attribute_names.map(&:to_sym).push(:_destroy)},:_destroy],
         investment_tag_attributes: InvestmentTag.attribute_names.map(&:to_sym).push(:_destroy))
   end
 
-
+  def simplified_params (params)
+    params[:project_attributes][:organisation_attributes].present? ? @organisation_attributes = params[:project_attributes][:organisation_attributes] : @organisation_attributes = nil
+    params[:project_attributes].present? ? @project_attributes = params[:project_attributes] : @project_attributes = nil
+    params[:investment_tag_attributes].present? ? @investment_tag_attributes = params[:investment_tag_attributes] : @investment_tag_attributes = nil
+    params[:investment_tag_ids].present? ? @investment_tag_ids = params[:investment_tag_ids] : @investment_tag_ids = nil
+  end
 end
