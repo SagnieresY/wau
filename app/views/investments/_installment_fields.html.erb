@@ -1,12 +1,9 @@
 <tr class="nested-fields">
-  <td><%= f.input :amount, as: 'integer', label: false %></td>
+  <td> <%= f.input :amount, as: 'integer', label: false %></td>
   <td><%= f.input :deadline, as: :date, label: false %></td>
+  <td><%= f.input :status, collection:[:rescinded, :locked, :unlocked], include_blank: false, include_hidden: false , label: false%></td>
   <td><%= f.input :task, label: false %></td>
   <td>
     <%= link_to_remove_association t("form.investment.installment.delete_button"), f, class: 'btn btn-success btn-xs' %>
   </td>
 </tr>
-
-  
-  
-  

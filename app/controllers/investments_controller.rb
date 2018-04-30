@@ -55,18 +55,34 @@ class InvestmentsController < ApplicationController
   end
 
   def create
-    byebug
-    #Checks for organisation and returns or creates one.
-    if params[:investment][:organisation_id].present?
+
+    #Checks if user is trying to create a new organisation
+    if params[:investment][:organisation_attributes].present?
+      
+      #find_by charity number if it already exists in the DB
+      if Organisation.find_by(charity_number: params[:investment][:organisation_attributes][:charity_number]).present?
+        organisation = Organisation.find_by(charity_number: params[:investment][:organisation_attributes][:charity_number])
+    
+      #else create it
+      else
+        organisation = Organisation.create(name: params[:investment][:organisation_attributes][:name], charity_number: params[:investment][:organisation_attributes][:charity_number])
+
+        byebug
+
+        if organisation.save
+          organisation
+        else 
+          render :new
+        end
+      end
+
+    #Checks if user is selecting existing organisation and returns it
+    elsif params[:investment][:organisation_id].present?
       organisation = Organisation.find(params[:investment][:organisation_id])
-    
-    #find_by charity number if it already exists in the DB
-    elsif Organisation.find_by(charity_number: params[:investment][:organisation_attributes][:charity_number]).present?
-      organisation = Organisation.find_by(charity_number: params[:investment][:organisation_attributes][:charity_number])
-    
-    #else create it
+
+    #Else renders new
     else
-      organisation = Organisation.create!(name: params[:investment][:organisation_attributes][:name], charity_number: params[:investment][:organisation_attributes][:charity_number])
+      render :new
     end
 
     #Checks for InvestmentTag and pushes them on the investment
@@ -78,8 +94,10 @@ class InvestmentsController < ApplicationController
       noEmptyTags.each {|tag_id| tags << InvestmentTag.find(tag_id)}
     end
 
+    byebug
+
     #Checks if tag exist already and adds to array
-    if params[:investment][:investment_tags_attributes].keys.present?
+    if params[:investment][:investment_tags_attributes].present?
       params[:investment][:investment_tags_attributes].each {|_,value| tags << InvestmentTag.create!(name:value["name"]) }
     end
 
