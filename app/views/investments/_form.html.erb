@@ -2,24 +2,6 @@
 
 <%= simple_form_for([@investment]) do |f| %>
 
-<!-- FORM FOR ORGANISATION -->
-<div class="white-dropshadow-card container">
-	<div class="size-24 green-text margin-top-bottom-6">
-		<%= t("form.investment.organisation.title") %>
-		<br>
-	</div>
-
-	<div class="organisation">
-
-		<div class="organisation_from_list">
-			Existing Organisation
-			<%= f.association :organisation, collection: current_user.organisation.receiving_organisations, label: false, prompt: 'Choose an existing organisation' %>
-		</div>
-		<%= link_to_add_association 'Add a new organisation', f, :organisation, data: { association_insertion_node: '.organisation', association_insertion_method: 'append' } %> 
-	</div>
-
-</div>
-
 <br>
 
 <!-- FORM FOR PROJECT -->
@@ -86,3 +68,21 @@
 <br>
 <% end %>
 <br>
+
+<%= content_for(:after_js) do %>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		$('.organisation')
+		.on('cocoon:before-insert', function() {
+			$(".organisation_from_list").hide();
+			$(".organisation a.add_fields").hide();
+		})
+
+		.on("cocoon:before-remove", function() {
+			$(".organisation_from_list").show();
+			$(".organisation a.add_fields").show();
+		})
+	});
+</script>
+<% end %>

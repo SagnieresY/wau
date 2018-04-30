@@ -2,28 +2,9 @@
   <div class="row">
     <div class="col-xs-12">
       <!-- Insert form here -->
-	  	<%= t("form.investment.edit") %>
+	  	<%= t("form.investment.new") %>
 	    <%= render 'form' %>
     </div>
   </div>
 </div>
-
-<%= content_for(:after_js) do %>
-<script type="text/javascript">
-
-$(document).ready(function() {
-    $('.organisation')
-      .on('cocoon:before-insert', function() {
-        $(".organisation_from_list").hide();
-        $(".organisation a.add_fields").hide();
-      })
-
-      .on("cocoon:before-remove", function() {
-        $(".organisation_from_list").show();
-        $(".organisation a.add_fields").show();
-      })
-});
-</script>
-<% end %>
-
 

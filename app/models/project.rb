@@ -19,6 +19,9 @@ class Project < ApplicationRecord
   validates :main_contact, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
     message: "Please enter an valid email" }
   accepts_nested_attributes_for :investments
+  accepts_nested_attributes_for :organisation,
+                                allow_destroy: true,
+                                reject_if: proc { |att| att['charity_number'].blank? }
   validates :name, uniqueness: true
 
   attribute :name

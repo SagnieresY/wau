@@ -96,7 +96,7 @@ class ProjectsController < ApplicationController
   def project_params
     params
     .require(:project)
-    .permit(:name,:description,:focus_area_id,:main_contact,{ :geo_ids => [] },
+    .permit(:name,:description,:focus_area_id,:main_contact, :organisation_id,{ :geo_ids => [] },
       installments_attributes: Installment.attribute_names.map(&:to_sym).push(:_destroy))
   end
 

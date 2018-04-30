@@ -1,6 +1,10 @@
 class OrganisationsController < ApplicationController
   skip_after_action :verify_authorized
 
+  def new
+    @organisation = Organisation.new
+  end
+
   def create
     @organisation = Organisation.new(organisation_params)
     if @organisation.save
