@@ -73,6 +73,7 @@ class InvestmentsController < ApplicationController
           organisation
         else 
           new
+          flash[:alert] = "Not saved due to new Org. Issues"
           render :new
           return
         end
@@ -84,6 +85,7 @@ class InvestmentsController < ApplicationController
     #Else renders new
     else
       new
+      flash[:alert] = "Not saved due to NOTHING Org. Issues"
       render :new
       return
     end

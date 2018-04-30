@@ -1,16 +1,29 @@
 <div class="nested-fields">
-	<%= f.input :name, label: t("form.investment.project.name") %>
-	<%= f.input :main_contact %>
-	<%= f.input :description %>
-	<%= f.association :geos , include_blank: false, include_hidden: false %>
-	<%= f.hint t("form.investment.project.hint") %>
-	<%= f.association :focus_area, include_blank: false, include_hidden: false %>
-
-	<div class="organisation">
-		<div class="organisation_from_list">
-			Existing Organisation
-			<%= f.association :organisation, collection: current_user.organisation.receiving_organisations, label: false, prompt: 'Choose an existing organisation' %>
+	<div class="white-dropshadow-card container">
+		<div class="size-24 green-text margin-top-bottom-6">
+			<%= t("form.investment.organisation.title") %>
+			<br>
 		</div>
-		<%= link_to_add_association 'Add a new organisation', f, :organisation, data: { association_insertion_node: '.organisation', association_insertion_method: 'append' } %> 
+
+		<div class="organisation">
+			<div class="organisation_from_list">
+				Existing Organisation
+				<%= f.association :organisation, collection: current_user.organisation.receiving_organisations, label: false, prompt: 'Choose an existing organisation' %>
+			</div>
+			<%= link_to_add_association 'Add a new organisation', f, :organisation, data: { association_insertion_node: '.organisation', association_insertion_method: 'append' } %> 
+		</div>
 	</div>
+	<br>
+	<div class="white-dropshadow-card container">
+		<div class="size-24 green-text">
+			<%= t("form.investment.project.title") %>
+		</div>
+		<%= f.input :name, label: t("form.investment.project.name") %>
+		<%= f.input :main_contact %>
+		<%= f.input :description %>
+		<%= f.association :geos , include_blank: false, include_hidden: false %>
+		<%= f.hint t("form.investment.project.hint") %>
+		<%= f.association :focus_area, include_blank: false, include_hidden: false %>
+	</div>
+
 </div>

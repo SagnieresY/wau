@@ -5,14 +5,9 @@
 <br>
 
 <!-- FORM FOR PROJECT -->
-<div class="white-dropshadow-card container">
-	<div class="size-24 green-text">
-		<%= t("form.investment.project.title") %>
-	</div>
-	<%= f.simple_fields_for :project do |project| %>
-	<%= render 'project_fields', f: project %>
-	<% end %>
-</div>
+<%= f.simple_fields_for :project do |project| %>
+<%= render 'project_fields', f: project %>
+<% end %>
 
 <br>
 
