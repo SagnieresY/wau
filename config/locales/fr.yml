@@ -161,7 +161,7 @@ fr:
     sub_title: "Découvrez l'impact réél de vos dons grâce à un tableau de bord compréhensif"
   navbar:
     first_tab: "DASHBOARD"
-    second_tab: "DONS" 
+    second_tab: "DONS"
     menu:
       first_dropdown: "Nouveau don"
       second_dropdown: "Déconnexion"
@@ -171,6 +171,34 @@ fr:
       third_dropdown: "Dons"
       fourth_dropdown: "New Investments"
       fifth_dropdown: "Déconnexion"
+  dashboard:
+    search_bar:
+      date-min: "De: "
+      date-max: "À: "
+      focus_area: "Secteur d'intérêt"
+    charts:
+    info:
+      total: "Total: %{amount}"
+      locked: "Verrouillé: %{amount}"
+      unlocked: "Déverrouiller: %{amount}"
+      investment_count: "Nombre d'investissement: %{amount}"
+    time:
+      title:
+      day: "Jour"
+      week: "Semaine"
+      year: "Année"
+    table:
+      header:
+        ngo: "ONG"
+        project_name: "Nom du projet"
+        invested: "Investie"
+        status: "Statut"
+        edit: "Modifier"
+      completed: "Complété"
+      active: "Actif"
+      editable:
+        investment: "Investissement"
+        project: "projet"
   activerecord:
     models:
       investment: "Don"
