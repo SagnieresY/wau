@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.4.3'
+gem 'exception_handler', '~> 0.7.7.0'
 gem 'flatpickr_rails'
 gem 'select2-rails'
 gem 'underscore-rails'

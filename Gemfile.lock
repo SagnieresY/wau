@@ -76,6 +76,10 @@ GEM
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.7.1)
+    exception_handler (0.7.7.0)
+      bundler
+      rails (>= 4.2.0)
+      responders
     execjs (2.7.0)
     faker (1.8.7)
       i18n (>= 0.7)
@@ -273,6 +277,7 @@ DEPENDENCIES
   cocoon
   devise
   devise-i18n
+  exception_handler (~> 0.7.7.0)
   faker
   figaro
   flatpickr_rails

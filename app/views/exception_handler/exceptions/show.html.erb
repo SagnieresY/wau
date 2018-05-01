@@ -1,0 +1,9 @@
+<div class="error-container">
+  <div class="error-content">
+    <%= image_tag "https://res.cloudinary.com/itsgoinbealright/image/upload/c_scale,w_500/v1521035134/Unicorndab.png" %>
+    <div class="error-description">
+      <h1> ERROR: <%= @exception.status %> </h1>
+      <h3><%= @exception.description %></h3>
+    </div>
+  </div>
+</div>
