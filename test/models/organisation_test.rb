@@ -5,7 +5,7 @@ class OrganisationTest < ActiveSupport::TestCase
   #   assert true
   # end
   setup do
-    @test_org = Organisation.create(name:'testing')
+    @test_org = Organisation.create(name:'testing',charity_number:rand(1..10000).to_s)
     @test_focus = FocusArea.create!(name:'test')
     @test_geo = Geo.create(name:'test land')
     @test_project = Project.create!(name:'test',description:'testing',focus_area: @test_focus,main_contact:'www@www.com',organisation: @test_org, geos:[@test_geo])
@@ -13,22 +13,26 @@ class OrganisationTest < ActiveSupport::TestCase
 
   end
   def reset_org
-    @test_org = Organisation.create(name:rand(1..1000).to_s)
+    @test_org = Organisation.create(name:rand(1..1000).to_s,charity_number:rand(1..10000).to_s)
     @test_investment = Investment.create(organisation:@test_org,project:@test_project)
   end
-  test "doesnt save without a name" do
-    assert_not Organisation.new.save
+
+  test "doesnt save without a charity_number" do
+    assert_not Organisation.new(charity_number:'aaaaa').save
   end
 
-  test "saves with name" do
-    assert Organisation.new(name:'testt').save
+  test "doesnt save without a name" do
+    assert_not Organisation.new(charity_number:'aaaaa').save
+  end
+
+  test "saves with name and charity_number" do
+    assert Organisation.new(name:'testt',charity_number:rand(1..10000).to_s).save
   end
 
   test "doesnt save without uniq name" do
     Organisation.create(name:'test')
     assert_not Organisation.new(name:'test').save
   end
-
 
   test "returns correct total locked amount" do
     10.times do
