@@ -56,7 +56,7 @@ fr:
     table_amount_column:
       title: "Montant"
     table_fa_column:
-      title: "Focus Area"
+      title: "Secteur d'intérêt"
   investments:
     index:
       info_bar:
@@ -171,11 +171,19 @@ fr:
       third_dropdown: "Dons"
       fourth_dropdown: "New Investments"
       fifth_dropdown: "Déconnexion"
+  user_mailer:
+    welcome:
+      subject: "Bienvenue sur WAU!"
   dashboard:
     search_bar:
-      date-min: "De: "
-      date-max: "À: "
+      date: "Date"
+      min_date: "De"
+      max_date: "À"
       focus_area: "Secteur d'intérêt"
+      ngo: "OGN"
+      neighborhood: "Cartier"
+      project: "Nom de project"
+      tag: "Tag"
     charts:
     info:
       total: "Total: %{amount}"
