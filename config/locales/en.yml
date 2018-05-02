@@ -197,6 +197,7 @@ en:
       subject: "Welcome to WAU!"
   dashboard:
     search_bar:
+      label: "Search by"
       date: "Dates"
       min_date: "From"
       max_date: "To"
