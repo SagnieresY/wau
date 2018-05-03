@@ -1,5 +1,10 @@
-<div id="home_focus_area" class="home-chart"></div>
-<div id="home_timeseries" class="home-chart"></div>
+<div class="col-sm-6 margin-top-bottom-6">
+    <div id="home_focus_area" class="white-dropshadow-card"></div>
+</div>
+<div class="col-sm-6 margin-top-bottom-6">
+    <div id="home_timeseries" class="white-dropshadow-card"></div>
+</div>
+
 
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
@@ -7,7 +12,7 @@
 </script>
 <!-- CUMMULATIVE INSTALLMENT BY DATE CHART -->
 <%= area_chart [
-    {name: "Unocked", data: cumulate_my_hash(@unlocked_installments.current_year_monthly_amount(year_range(@year)))},
+    {name: "Unlocked", data: cumulate_my_hash(@unlocked_installments.current_year_monthly_amount(year_range(@year)))},
     {name: "Locked", data: cumulate_my_hash(@locked_installments.current_year_monthly_amount(year_range(@year)))}],
     id: "home_timeseries",
     points: false,
@@ -27,36 +32,9 @@
       }
     } %>
 
-<!-- CUMMULATIVE INSTALLMENT BY FOCUS AREA CHART -->
-<!-- current_user.organisation.projects.group(:focus_area).unlocked_installments.sum(:amount)
-Project.group(:focus_area).unlocked_installments.sum(:amount)
-
-Installment.investment.project.group_by{ |p| p.focus_area }
-Project.installments.group_by{ |c| c.focus_area }
-post.comments.group_by{ |c| c.user.country_code }
-
-o.projects.each {|p| p p.focus_area.}
-FocusArea.first.installments.group(:status).sum(:amount)
-
-locked = {}
-Organisation.first.locked_installments.group_by_year(:deadline, range: Time.now.utc.beginning_of_year..Time.now.utc.end_of_year).sum(:amount)
-o.projects.each do |p| 
-    name = p.focus_area.name 
-    amount = p.focus_area.locked_amount_year(current_year)
-
-    if locked.key?(name)
-        locked[name] += amount
-    else
-        locked[name] = amount
-    end
-end
-
-@chart_focus_area_data.map { |status, data|
-    {name: status, data: data}} -->
-
 <%= bar_chart [
-    {name: "Unlocked", data: @cumulated_fa_unlocked_amount},
-    {name: "Locked", data: @cumulated_fa_locked_amount}],
+    {name: "Unlocked", data: @unlocked_installments_fa_chart},
+    {name: "Locked", data: @locked_installments_fa_chart}],
     id: "home_focus_area",
     stacked:true, 
     prefix: "$",

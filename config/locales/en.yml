@@ -43,18 +43,21 @@ en:
       line_title: "FY Forecasted Investments"
     mid_section_title: "Upcoming Installments"
     mid_section_button: "New Investment"
-    table_first_column:
+    table_ngo_column:
       title: "NGO"
-    table_second_column:
+    table_Project_column:
       title: "Project Name"
-    table_third_column:
+    table_installment_column:
       title: "Installment"
       content: " %{installment_index} of %{installment_count}"
-    table_fourth_column:
+    table_deadline_column:
       title: "Deadline"
       content: "%{days} days"
-    table_fifth_column:
+    table_amount_column:
       title: "Amount"
+    table_fa_column:
+      title: "Focus Area"
+    no_installments: "You do not have any upcoming installments this year!"
   investments:
     index:
       info_bar:
@@ -71,32 +74,36 @@ en:
         tab:
           title_one: "Active Investments"
           title_two: "Completed Investments"
-        first_column:
+        ngo_column:
           title: "NGO"
-        second_column:
+        project_column:
           title: "Project Name"
-        third_column:
+        forecasted_column:
           title: "Forecasted"
-        fourth_column:
+        installment_column:
           title: "Installment"
           content: " %{installment_index} of %{installment_count}"
-        fifth_column:
+        deadline_column:
           title: "Deadline"
           content: "%{days} days"
-        sixth_column:
+        edit_column:
           title: "Edit"
-          content_one: "Installment"
-          content_two: "Project"
+        focus_area_column:
+          title: "Focus Area"
         completed:
-          third_column:
+          invested_column:
             title: "Invested"
-          fourth_column:
-            title: "Installment"
+          installment_column:
+            title: "Installments"
+          status_column:
+            title: "Status"
             content: "Completed"
-          fifth_column:
+          edit_column:
             title: "Edit"
-            content_one: "Installment"
-            content_two: "Project"
+      no_content:
+        completed: "You don't have any completed investments!"
+        active: "You don't have any active investments!"
+        rejected: "Yon don't have any rejected investments!"
     show:
       info_bar:
         mid_box:
@@ -141,31 +148,33 @@ en:
       project_name: "Project Name: %{name}"
       ngo_name: "NGO Name: %{name}"
     investment:
-      title: "New Investment"
-      installment:
-        title: 'Installments'
-        col_one: 'Amount'
-        col_two: 'Deadline'
-        col_three: 'Task'
-        sub_task: 'Please add a task'
-        delete_button: 'Delete'
-        add_button: 'Add more installments'
-      project:
-        title: 'Project Information'
-        name: 'Project Name'
-        hint: 'You can pick more than one neighborhood by holding the ctrl key and clicking.'
+      edit: "Edit Investment"
+      new: "New Investment"
       organisation:
-        title: 'Receiving Organisation'
+        title: '1 - Receiving Organisation'
         existing: 'Existing'
         new: 'New'
         name: 'Organisation Name'
+      project:
+        title: '2 - Project Information'
+        name: 'Project Name'
+        hint: 'You can pick more than one neighborhood by holding the ctrl key and clicking.'
         charity_number: 'Charity Number'
+      installment:
+        title: '3 - Installments'
+        amount: 'Amount'
+        deadline: 'Deadline'
+        task: 'Task'
+        sub_task: 'Please add a task'
+        status: 'Status'
+        delete_button: 'Delete'
+        add_button: 'Add more installments'
       investment_tag:
-        title: 'Tag'
+        title: '4 - Tags'
         new: 'New Tag'
         add_button: 'New tag'
     project_title: "New Project"
-    save: "Save"
+    save: "Save the investment"
   landing:
     title: "Manage your charitable investments"
     sub_title: "Get to know the real impact of your donation through a streamlined dashboard"
@@ -188,9 +197,15 @@ en:
       subject: "Welcome to WAU!"
   dashboard:
     search_bar:
-      date_min: "min date"
-      date_max: "max date"
-      focus_area: "focus area"
+      label: "Search by"
+      date: "Dates"
+      min_date: "From"
+      max_date: "To"
+      focus_area: "Focus area"
+      ngo: "NGO"
+      neighborhood: "Neighborhood"
+      project_name: "Project name"
+      tag: "Tag"
     charts:
       info:
         total: "Total: %{amount}"

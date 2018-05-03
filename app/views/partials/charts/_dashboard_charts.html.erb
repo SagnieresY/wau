@@ -1,7 +1,7 @@
 
 <div class="row margin-top-bottom-6">
     <div class="col-md-12 white-dropshadow-card">
-        <p> <%= t("dashboard.charts.info.total", amount: nice_money(@installments.sum(:amount))) %></p>
+        <p> <%= t("dashboard.charts.info.total", amount: nice_money(@installments.permitted.sum(:amount))) %></p>
         <p> <%= t("dashboard.charts.info.unlocked", amount: nice_money(@installments.locked.sum(:amount))) %></p>
         <p> <%= t("dashboard.charts.info.locked", amount: nice_money(@installments.unlocked.sum(:amount))) %></p>
         <p> <%= t("dashboard.charts.info.investment_count", amount: @investments.count) %></p>

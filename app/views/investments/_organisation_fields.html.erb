@@ -1,9 +1,15 @@
-<div class="nested-fields row">
-	<br>
-	<div class="col-md-8">
-		<%= f.input :name, label: false, placeholder: t("form.investment.organisation.name") %>
-	</div>
-	<div class="col-md-4" id="charity_number_box">
-		<%= f.input :charity_number, label: false, placeholder: t("form.investment.organisation.charity_number")  %>
+<div class="nested-fields">
+
+	New Organisation
+	<div class="row">
+		<div class="col-sm-6">
+			<%= f.input :name, 	label: false, placeholder: t("form.investment.organisation.name") %>
+		</div>
+		<div class="col-sm-4" id="charity_number_box">
+			<%= f.input :charity_number, label: false, placeholder: t("form.investment.organisation.charity_number")  %>
+		</div>
+		<div class="col-sm-2"> 
+			<%= link_to_remove_association "Delete", f, class: 'btn btn-success btn-sm flex-center-center' %>
+		</div>
 	</div>
 </div>

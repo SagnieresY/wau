@@ -1,16 +1,6 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, :only => [:home,:landing]
   def home
-    #installment
-    #Milestone
-    #todo read chart maker doc
-    #upcoming installments for each project
-        #project name
-        #projectect amount
-        #given amount
-        #task
-        #time leftr
-
       if current_user.nil?
         @bg = "bg-landing"
         render :landing
@@ -32,54 +22,23 @@ class PagesController < ApplicationController
                                                                 .group_by(&:investment_id).collect{|k,v| v.first}
                                                                 .first(25)
 
-          # .group_by_year(:deadline, range: current_year)
 
-          # TAKES LOCKED INVESTMENTS AND RETURNS CUMULATED HASH BY FOCUS AREA
-          @cumulated_fa_locked_amount = {}
-          @locked_installments = @locked_installments.where("extract(year from deadline) = #{@year}")
-          @locked_installments.each do |installment|
-            focus_area = installment.focus_area.name
-            amount = installment.amount
-            if @cumulated_fa_locked_amount.key?(focus_area)
-                unless amount.nil?
-                @cumulated_fa_locked_amount[focus_area] += amount
-                else amount.nil?
-                @cumulated_fa_locked_amount[focus_area] = 0
-              end
-            else
-                @cumulated_fa_locked_amount[focus_area] = amount
-            end
-          end
-          @cumulated_fa_locked_amount
+          #Gets installments by FA cummulates and returns  
+          locked_hash = @locked_installments.joins(:focus_area).group('focus_areas.id').sum(:amount)
+          unlocked_hash = @unlocked_installments.joins(:focus_area).group('focus_areas.id').sum(:amount)
 
-          # TAKES UNLOCKED INVESTMENTS AND RETURNS CUMULATED HASH BY FOCUS AREA
-          @cumulated_fa_unlocked_amount = {}
-          @unlocked_installments = @unlocked_installments.where("extract(year from deadline) = #{@year}")
-          @unlocked_installments.each do |installment|
-            focus_area = installment.focus_area.name
-            amount = installment.amount
-            if @cumulated_fa_unlocked_amount.key?(focus_area)
-                unless amount.nil?
-                @cumulated_fa_unlocked_amount[focus_area] += amount
-                else amount.nil?
-                @cumulated_fa_unlocked_amount[focus_area] = 0
-              end
-            else
-                @cumulated_fa_unlocked_amount[focus_area] = amount
-            end
-          end
-        # @years_of_service = Installment.years_of_service(current_user.organisation)
+          locked_hash.keys.each { |k| locked_hash[FocusArea.find(k).name] = locked_hash.delete(k) }
+          @locked_installments_fa_chart = locked_hash
+
+          unlocked_hash.keys.each { |k| unlocked_hash[FocusArea.find(k).name] = unlocked_hash.delete(k) }
+          @unlocked_installments_fa_chart = unlocked_hash
+
       else
         redirect_to no_organisation_path
       end
   end
 
   def dashboard
-
-    #Prepares the installments for graphs / tables and includes investment, focus_area and projects in the query
-    # @locked_installments = current_user.organisation.locked_installments.includes( :investment, :focus_area, :project)
-    # @unlocked_installments = current_user.organisation.unlocked_installments.includes(:investment, :focus_area, :project)
-
 
     #Sets current year as start / end date
     t = Time.new(Time.now.year,1,1,0,0,0,'+00:00')
@@ -90,9 +49,8 @@ class PagesController < ApplicationController
     if !params[:min_date].blank? || !params[:min_date].blank?
 
       #Makes (string)date into DATETIME object
-      min_date = params[:min_date].to_time
-      max_date = params[:max_date].to_time
-
+      min_date = params[:min_date].blank? ? Date.new(1800,1,1) : params[:min_date].to_time
+      max_date = params[:max_date].blank? ? Date.new(2100,1,1) : params[:max_date].to_time
 
       #Picks smallest date as start date
       start_date = min_date < max_date ? min_date : max_date
@@ -104,7 +62,7 @@ class PagesController < ApplicationController
     @end_date = end_date.strftime("%d/%m/%Y")
 
     #Get installments with date range and joins tables
-    @installments = current_user.organisation.installments.where(deadline: start_date..end_date).includes(:investment, :project, :focus_area, :organisation, :investment_tags)
+    @installments = current_user.organisation.installments.where(deadline: start_date..end_date).includes(:investment, :project, :focus_area, :organisation)
 
     #Updates installments with GEO selection if there is one
     unless params[:neighborhood].blank?
@@ -162,9 +120,15 @@ class PagesController < ApplicationController
     @unlocked_installments_ngo_chart = @installments.unlocked.joins(project: :organisation).group("organisations.name").sum(:amount)
 
     #Returns hash by FA & sum(:amount)
-    @locked_installments_fa_chart = @installments.locked.joins(:focus_area).group('focus_areas.id').sum(:amount)
-    @unlocked_installments_fa_chart = @installments.unlocked.joins(:focus_area).group('focus_areas.id').sum(:amount)
+    locked_hash = @installments.locked.joins(:focus_area).group('focus_areas.id').sum(:amount)
+    unlocked_hash = @installments.unlocked.joins(:focus_area).group('focus_areas.id').sum(:amount)
 
+    #Changes the keys of FA ID to FA NAME
+    locked_hash.keys.each { |k| locked_hash[FocusArea.find(k).name] = locked_hash.delete(k) }
+    @locked_installments_fa_chart = locked_hash
+
+    unlocked_hash.keys.each { |k| unlocked_hash[FocusArea.find(k).name] = unlocked_hash.delete(k) }
+    @unlocked_installments_fa_chart = unlocked_hash
 
     #Returns hash by PROJECT & sum(:amount)
     @locked_installments_project_chart = @installments.locked.joins(:project).group('projects.name').sum(:amount)

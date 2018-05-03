@@ -1,41 +1,31 @@
 <br>
-<div class="white-info-parent-flex">
-  <div class="container-home-info-box">
-    <div class="white-info-child-box">
-      <div class="big-number-green"> <%= current_user.organisation.completed_investments.count %> / <%= current_user.organisation.investments.count %></div>
-      <div class="small-text-gray">  <%= t(".info_bar.title_left") %> </div>
-    </div>
-    <div class="white-info-child-box">
-      <div class="big-number-green"><%= nice_money(current_user.organisation.unlocked_amount) %></div>
-      <div class="small-text-gray"> <%= t(".info_bar.title_mid") %>  </div>
-    </div>
-    <div class="white-info-child-box">
-      <div class="big-number-green"> <%= nice_money(current_user.organisation.amount_for_year) %></div>
-      <div class="small-text-gray"> <%= t(".info_bar.title_right") %> </div>
-    </div>
+<div class="row">
+  <div id="investment_count_home" class="col-sm-4 margin-top-bottom-6">
+    <%= render partial: "/partials/info-box/investment_count_box" %>
+  </div>
+  <div id="unlocked-amount" class="col-sm-4 margin-top-bottom-6">
+    <%= render partial: "/partials/info-box/total_unlocked_box" %>
+  </div>
+  <div id="forecasted-amount" class="col-sm-4 margin-top-bottom-6">
+    <%= render partial: "/partials/info-box/forecasted_amount_box" %>
   </div>
 </div>
 
-<div class="mid-title-box">
-  <div class="mid-title-flex">
-    <div class="title-mid-home-page-text">
-      <h3><%= t(".mid_section.title") %></h3>
-    </div>
-    <div class="mid-title-button-right grow">
-      <%= link_to new_investment_path, { class: "mid-title-button-body" } do %>
-      <%= t(".mid_section.button") %>
-      <% end %>
-    </div>
+<div class="row margin-top-bottom-6">  
+  <div class="col-sm-6 col-sm-push-6 left-end-flex-md-up">
+    <%= link_to new_investment_path, { class: "btn btn-success" } do %>
+    <%= t(".mid_section.button") .upcase %>
+    <% end %>
+  </div>
+  <div class="col-sm-6 size-24 col-sm-pull-6">
+    <%= t(".mid_section.title").upcase %>
   </div>
 </div>
 
-
-<div class="flex-tab">
-  <%=  link_to t(".table.tab.title_one"), active_investments_path, remote: true, method: :post,id: "active-tab", class: "tablinks active", :onclick =>  'openTab(event, "active")' %>
-  <%=  link_to t(".table.tab.title_two"), completed_investments_path, remote: true, method: :post, id: "completed-tab", class: "tablinks inactive", :onclick =>  'openTab(event, "completed")'%>
-</div>
-
-<button type="button" id="button">Advanced Search</button>
+  <ul class="flex-tab nav nav-pills">
+    <%=  link_to t(".table.tab.title_one"), active_investments_path, remote: true, method: :post,id: "active-tab", class: "tablinks active", :onclick =>  'openTab(event, "active")' %>
+    <%=  link_to t(".table.tab.title_two"), completed_investments_path, remote: true, method: :post, id: "completed-tab", class: "tablinks inactive", :onclick =>  'openTab(event, "completed")'%>
+  </ul>
 
 <div id="index-tables">
   <%= render partial: "index_active_table"  %>
@@ -128,23 +118,7 @@
 
 
   // call the tablesorter plugin
-  $('table').tablesorter({
-    theme: 'blue',
-    widgets: ["filter"],
-    widgetOptions : {
-      // filter_anyMatch replaced! Instead use the filter_external option
-      // Set to use a jQuery selector (or jQuery object) pointing to the
-      // external filter (column specific or any match)
-      filter_external : '.search',
-      // add a default type search to the first name column
-      filter_defaultFilter: { 1 : '~{query}' },
-      // include column filters
-      filter_columnFilters: true,
-      filter_placeholder: { search : 'Search...' },
-      filter_saveFilters : true,
-      filter_reset: '.reset'
-    }
-  });
+  $('table').tablesorter();
 
 </script>
 <% end %>

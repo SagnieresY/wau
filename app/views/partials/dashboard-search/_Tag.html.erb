@@ -1,17 +1,22 @@
-<h3>Tag Search:</h3>
-<div class="search-content">
-  <div class="input">
-    <input type="text" id="tag_query">
-    <div id="tagSuggestions" class="suggestions"></div>
+<div class="search-content col-md-2 pull-right-for-real">
 
-  </div>
-  <div id="tag_selection"></div>
+  <label class="size-24 green-text search-label" for="tag_query"><%= t("dashboard.search_bar.tag") %>:</label>
 </div>
+<div class ="col-md-2">
+  <div class="input form-group">
+    <input type="text" class="form-control" id="tag_query">
+    <div id="tagSuggestions" class="suggestions"></div>
+  </div>
+
+</div>
+
+<div class="col-md-5 tag-container" id="tag_selection"></div>
 
 <%= content_for(:after_js) do %>
 
   <script>
     function fetchSuggestionsTag(){
+
       clearSuggestions();
       let inputTag = document.getElementById('tag_query').value
       $.ajax({

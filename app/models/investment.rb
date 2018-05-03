@@ -9,7 +9,7 @@ class Investment < ApplicationRecord
   has_and_belongs_to_many :investment_tags
   validates :project, presence: true
   validates :organisation, presence: true
-  validates :status, presence: true
+  validates :status, presence: true, inclusion: { in: %w(active completed rejected) }
   accepts_nested_attributes_for :project
   accepts_nested_attributes_for :organisation,
                                 allow_destroy: true,
@@ -21,8 +21,26 @@ class Investment < ApplicationRecord
                                 allow_destroy: true,
                                 reject_if: proc { |att| att['name'].blank? }
 
-  scope :completed, -> { where(completed: 'true') }
-  scope :active, -> {where(completed: 'false')}
+  scope :completed, -> { where(status: 'completed') }
+  scope :active, -> {where(status: 'active')}
+  scope :rejected, -> {where(status: 'rejected')}
+  scope :permitted_investments, -> {where(status: ['active', 'completed'])}
+
+  def active?
+    status == 'active'
+  end
+
+  def activate!
+    update!(status:"active")
+  end
+
+  def completed?
+    status == 'completed'
+  end
+
+  def complete!
+    update!(status:"completed") if installments.reject{ |m|  m.unlocked? || m.rescinded?}.blank?
+  end
 
   def rejected?
     status == 'rejected'
@@ -33,7 +51,16 @@ class Investment < ApplicationRecord
 
     #make installments rescinded
     installments.each {|installment| installment.rescind!}
-    byebug
+  end
+
+  def update_status
+    if installments.reject{ |m|  m.rescinded?}.blank?
+      update!(status:"rejected") 
+    elsif installments.reject{ |m|  m.unlocked? || m.rescinded?}.blank?
+      update!(status:"completed") 
+    else  
+      update!(status:"active")
+    end
   end
 
   def forecasted_amount
@@ -59,12 +86,6 @@ class Investment < ApplicationRecord
 
   def last_installment
     installments_by_nearest_deadline.last
-  end
-
-  def completed?
-    update!(completed:true) if installments.reject{ |m|  m.unlocked? || m.rescinded?}.blank?
-    update!(completed:false) unless installments.reject{ |m|  m.unlocked? || m.rescinded?}.blank?
-    return completed
   end
 
   def active_year

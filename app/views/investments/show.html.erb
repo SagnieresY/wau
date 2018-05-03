@@ -1,27 +1,28 @@
-  <div class="white-info-parent-flex">
-
-    <div class="container-invest-show-info-box ">
-      <div class="invest-show-white-info-name">
-        <div class="flex-name-center"><%= @investment.project.name %> </div>
-        <div class="size-24" >
-          <i><%= @investment.project.organisation.name %></i> - <%= @investment.project.organisation.charity_number %>
-        </div>
-        <div class="size-18">
-            <% @investment.investment_tags.each do |tag| %> 
-              <div class="table-status unlocked-background-color"><%= tag.name.capitalize %></div>  
-            <% end %>
-        </div>
+  <div class="row margin-top-bottom-6">
+    <div class="col-sm-6 size-32">
+      <div>
+        <%= @investment.project.name %>
       </div>
-      <%= render partial: "/partials/invest_show_info", investment: @investment %>
+    <div class="size-18" >
+      <i><%= @investment.project.organisation.name %></i> - <%= @investment.project.organisation.charity_number %>
+    </div>
+    <div class="size-18">
+      <% @investment.investment_tags.each do |tag| %> 
+      <div class="table-status unlocked-background-color"><%= tag.name.capitalize %>
+      </div>  
+      <% end %>
     </div>
   </div>
+  <%= render partial: "/partials/invest_show_info", investment: @investment %>
+</div>
+
 
   <div class="mid-title-box">
     <div class="mid-title-flex">
       <div class="title-mid-invest-show-page-text">
         <%= t(".mid_section.title") %>
       </div>
-      <% if @investment.completed %>
+      <% if @investment.completed? %>
         <div class="table-status unlocked-background-color" id="investment-completed-show">
           <%= t(".mid_section.status_one") %>
         </div>
@@ -86,7 +87,7 @@
           <td><%=  nice_money(installment.amount) %></td>
           <td><%= installment.task %></td>
           <td>
-            <div class="table-button-flex">
+            <div class="flex-space-around">
               <%= link_to unlock_installment_path(id: installment.id, page: 'show'),:remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
               <i class="fas fa-lock-open"></i>
               <% end %>
