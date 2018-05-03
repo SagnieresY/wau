@@ -1,23 +1,30 @@
 
-<% if @investment.completed %>
-  <div id="invest-show-focus-area-show" class="invest-show-info-child-box unlocked-background-color white-text">
-    <div id="invest-show-focus-area" > <%= @investment.project.focus_area.name %></div>
+<% if @investment.completed? %>
+  <div class="col-sm-2 margin-top-bottom-6">
+    <div id="invest-show-focus-area" class="green-dropshadow-card white-text flex-center-center"> 
+      <%= @investment.project.focus_area.name %>
+    </div>
   </div>
-  <div id="invest-show-unlocked-amount" class="invest-show-info-child-box unlocked-background-color white-text">
-    <%= render "total_unlocked", investment: @investment %>
+  
+<% elsif @investment.rejected? %>
+  <div class="col-sm-2 margin-top-bottom-6">
+    <div id="invest-show-focus-area" class="red-dropshadow-card white-text flex-center-center"> 
+      <%= @investment.project.focus_area.name %>
+    </div>
   </div>
-  <div id="invest-show-forecasted-amount" class="invest-show-info-child-box unlocked-background-color white-text">
-    <%= render partial: "/partials/forecasted_amount_invest_show", investment: @investment %>
-  </div>
-
+  
 <% else %>
-  <div id="invest-show-focus-area-show" class="invest-show-info-child-box white-background-color green-text ">
-    <div id="invest-show-focus-area"> <%= @investment.project.focus_area.name %></div>
-  </div>
-  <div id="invest-show-unlocked-amount" class="invest-show-info-child-box white-background-color green-text">
-    <%= render "total_unlocked", investment: @investment %>
-  </div>
-  <div id="invest-show-forecasted-amount" class="invest-show-info-child-box white-background-color green-text">
-    <%= render partial: "/partials/forecasted_amount_invest_show", investment: @investment %>
+  <div class="col-sm-2 margin-top-bottom-6">
+    <div id="invest-show-focus-area" class="white-dropshadow-card green-text flex-center-center"> 
+      <%= @investment.project.focus_area.name %>
+    </div>
   </div>
 <% end %>
+
+<div class="col-sm-2 margin-top-bottom-6">
+    <%= render "total_unlocked", investment: @investment %>
+</div>
+<div class="col-sm-2 margin-top-bottom-6">
+    <%= render partial: "/partials/forecasted_amount_invest_show", investment: @investment %>
+</div>
+

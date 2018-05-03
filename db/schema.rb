@@ -72,12 +72,11 @@ ActiveRecord::Schema.define(version: 20180424124848) do
   end
 
   create_table "investments", force: :cascade do |t|
-    t.boolean "completed", default: false
     t.bigint "organisation_id"
     t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "status", default: "ongoing"
+    t.string "status", default: "active"
     t.index ["organisation_id"], name: "index_investments_on_organisation_id"
     t.index ["project_id"], name: "index_investments_on_project_id"
   end

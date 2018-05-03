@@ -1,39 +1,35 @@
-<h1><%= params[:year] %></h1>
-<div class=home-wrapper>
-  <div class="white-info-parent-flex">
-    <div class="container-home-info-box">
-      <div id="investment_count_home" class="white-info-child-box">
-        <%= render partial: "/partials/investment_count_home" %>
-      </div>
-      <div id="unlocked-amount" class="white-info-child-box">
-        <%= render partial: "/partials/total_unlocked_home" %>
-      </div>
-      <div id="forecasted-amount" class="white-info-child-box">
-        <%= render partial: "/partials/forecasted_amount_home" %>
-      </div>
-    </div>
+<br>
+<div class="row">
+  <div id="investment_count_home" class="col-sm-4 margin-top-bottom-6">
+    <%= render partial: "/partials/info-box/investment_count_box" %>
+  </div>
+  <div id="unlocked-amount" class="col-sm-4 margin-top-bottom-6">
+    <%= render partial: "/partials/info-box/total_unlocked_box" %>
+  </div>
+  <div id="forecasted-amount" class="col-sm-4 margin-top-bottom-6">
+    <%= render partial: "/partials/info-box/forecasted_amount_box" %>
   </div>
 </div>
 
-<div id="charts-home" class="chart-box">
+<div id="charts-home" class="row">
   <%= render partial: "/partials/charts/home_charts" %>
 </div>
 
-<div class="mid-title-box">
-  <div class="mid-title-flex">
-    <div class="title-mid-home-page-text">
-      <h3> <%= t("home.mid_section_title") %> </h3>
-    </div>
-    <div class="mid-title-button-right grow">
-      <%= link_to new_investment_path, { class: "mid-title-button-body" } do %>
-      <%= t("home.mid_section_button") %>
-      <% end %>
-    </div>
+
+<div class="row margin-top-bottom-6">  
+  <div class="col-sm-6 col-sm-push-6 left-end-flex-md-up">
+    <%= link_to new_investment_path, { class: "btn btn-success" } do %>
+    <%= t("home.mid_section_button").upcase %>
+    <% end %>
+  </div>
+  <div class="col-sm-6 size-24 col-sm-pull-6">
+    <%= t("home.mid_section_title").upcase %>
   </div>
 </div>
 
+
 <div id="tables">
-    <%= render partial: 'partials/tables/home/upcoming_locked_installments' %>
+  <%= render partial: 'partials/tables/home/upcoming_locked_installments' %>
 </div>
 
 <%= content_for(:after_js) do %>

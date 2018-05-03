@@ -1,12 +1,16 @@
-<h3>Focus Search:</h3>
-<div class="search-content">
-  <div class="input">
-    <input type="text" id="focus_query">
-    <div id="focusSuggestions" class="suggestions"></div>
+<div class="search-content col-md-2 pull-right-for-real">
 
-  </div>
-  <div id="focus_selection"></div>
+  <label class="size-24 green-text search-label" for="focus_query"><%= t("dashboard.search_bar.focus_area") %></label>
 </div>
+<div class="col-md-2">
+  <div class="input form-group">
+    <input type="text" class="form-control" id="focus_query">
+    <div id="focusSuggestions" class="suggestions"></div>
+  </div>
+
+</div>
+
+<div class="col-md-5 tag-container" id="focus_selection"></div>
 
 <%= content_for(:after_js) do %>
 

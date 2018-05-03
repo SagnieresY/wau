@@ -7,6 +7,7 @@ class FocusAreaTest < ActiveSupport::TestCase
   # end
   setup do
     @test_org = Organisation.create(name:'test', charity_number:rand(1..10000).to_s)
+
     @test_focus = FocusArea.create!(name:'test')
     @test_geo = Geo.create(name:'test land')
     @test_project = Project.create!(name:'test',description:'testing',focus_area: @test_focus,main_contact:'www@www.com',organisation: @test_org, geos:[@test_geo])

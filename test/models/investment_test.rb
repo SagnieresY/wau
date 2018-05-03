@@ -5,6 +5,7 @@ class InvestmentTest < ActiveSupport::TestCase
   #   assert true
   # end
   setup do
+
     @test_org = Organisation.create(name:'test',charity_number:rand(1..10000).to_s)
     @test_focus = FocusArea.create!(name:'test')
     @test_geo = Geo.create(name:'test land')

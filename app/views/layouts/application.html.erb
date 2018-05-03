@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%= Chartkick.options[:html] = '' %>
+  <%= Chartkick.options[:html] = '' %>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title><%= meta_title %></title>
@@ -25,7 +25,7 @@
 <body class="<%= @bg %>">
   <%= render 'partials/navbar' if should_render_navbar? %>
   <%= render 'partials/navbar_landing' if should_render_navbar_landing? %>
-  <%# render 'partials/flashes' unless action_name == "home" %>
+  <%= render 'partials/flashes' %>
   <div class="main-content container">
     <%= yield %>
   </div>

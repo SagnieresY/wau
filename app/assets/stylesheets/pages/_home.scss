@@ -2,20 +2,12 @@
   background-color: #F8E5FF;
 }
 
-.chart-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 20px;
+#home_focus_area {
+  height:35vh;
 }
 
-.home-chart {
-  width: 45vw;
-  height: 35vh;
-  background: white;
-  border-radius: 4px;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.102751);
-  padding-right: 1px;
+#home_timeseries {
+  height:35vh;
 }
 
 .home-content {
