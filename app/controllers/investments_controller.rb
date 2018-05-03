@@ -100,19 +100,27 @@ class InvestmentsController < ApplicationController
 
     #Checks if creating new tags
     if @investment_tags_attributes.present?
-      
-      @investment_tags_attributes.each {|_,value| InvestmentTag.new(name:value["name"], organisation: current_user.organisation) }
+      tags_to_create = []
+      @investment_tags_attributes.each do |key,value| 
+        #checks if tag exists already and is not selected already and adds in investment_tag_ids if does
+        if current_user.organisation.investment_tags.find_by(name:value["name"]) && @investment_tag_ids.exclude?(current_user.organisation.investment_tags.find_by(name:value["name"]).id.to_s)
+          @investment_tag_ids << current_user.organisation.investment_tags.find_by(name:value["name"]).id.to_s
+          @investment_tags_attributes.delete key
+          byebug
+        else
+          tags_to_create << InvestmentTag.create!(name:value["name"], organisation: current_user.organisation)
+        end
+      end
     end
-
 
     project = Project.new(params.to_unsafe_h[:investment][:project_attributes])
     project.organisation = organisation
     @investment = Investment.new(investment_params)
     @investment.organisation = current_user.organisation
     @investment.project = project
-    # @investment.investment_tags.push(tags)
+    @investment.investment_tags.push(tags_to_create) unless tags_to_create.nil? 
     authorize @investment
-    # byebug
+    byebug
 
     if @investment.save && @investment.installments.count == 0
       @investment.installments << Installment.create!(task:t("form.investment.installment.sub_task"), deadline: Date.today, investment: @investment, amount: 0)
@@ -147,13 +155,6 @@ class InvestmentsController < ApplicationController
   def show
     @investment = Investment.find(id)
     authorize @investment
-    #installments for project
-        #amount for installment
-        #task
-        #time due
-        #time left
-        #total amount if all unlocked
-        #currently gaved
   end
 
   def destroy
