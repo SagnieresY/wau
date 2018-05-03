@@ -14,7 +14,7 @@ class Organisation < ApplicationRecord
   has_many :focus_areas, through: :investments
   has_many :investment_tags
   validates :name, presence: true, uniqueness: true
-  validates :charity_number, presence: true, uniqueness: true
+  validates :charity_number, uniqueness: true, format: { with: /\d{9}[A-Z]{2}\d{4}/i, message: "Please enter an valid charity id" }
 
   attribute :name
 
@@ -35,7 +35,7 @@ class Organisation < ApplicationRecord
     projects.where(organisation: self).each{|i| i.destroy}
     super
   end
-  
+
   def completed_investments
     investments.where(status:"completed")
   end
