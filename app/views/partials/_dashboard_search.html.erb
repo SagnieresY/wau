@@ -3,19 +3,19 @@
 <div id="search-container" class="row white-dropshadow-card margin-top-bottom-6">
   <div class="row">
     <div class="col-md-2 pull-right-for-real">
-       <label class="size-24" for="">Search by:</label>
+       <label class="size-24" for=""><%= t("dashboard.search_bar.label") %>:</label>
     </div>
     <div class="col-md-8">
        <% search_buttons = ['Focus Area', 'Date', 'NGO', 'Neighborhood','Project', 'Tag'] %>
        <% search_buttons.each do |tab| %>
-       <label class="form-check-label" for="<%= tab %>-label"><%= tab %> </label>
+       <label class="form-check-label" for="<%= tab %>-label"><%=t("dashboard.search_bar.#{tab.downcase}")  %> </label>
        <input class="tablinks form-check-input" autocomplete="off" onclick="openTab(event,'<%= tab %>')" type="checkbox" value="" id="<%= tab %>-label">
        &nbsp;&nbsp;&nbsp;
        <% end %>
     </div>
 
     <div class="col-md-2">
-      <button class="btn btn-xs btn-success size-24 pull-right"  onclick="mainSearch()">search!</button>
+      <button class="btn btn-xs btn-success size-24 pull-right"  onclick="mainSearch()"><%= t("dashboard.search_bar.label").split(' ')[0] %>!</button>
     </div>
   </div>
     <% search_buttons.each do |tab| %>

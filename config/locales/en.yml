@@ -100,7 +100,7 @@ en:
             content: "Completed"
           edit_column:
             title: "Edit"
-      no_content: 
+      no_content:
         completed: "You don't have any completed investments!"
         active: "You don't have any active investments!"
         rejected: "Yon don't have any rejected investments!"
@@ -197,9 +197,15 @@ en:
       subject: "Welcome to WAU!"
   dashboard:
     search_bar:
-      date_min: "min date"
-      date_max: "max date"
-      focus_area: "focus area"
+      label: "Search by"
+      date: "Dates"
+      min_date: "From"
+      max_date: "To"
+      focus_area: "Focus area"
+      ngo: "NGO"
+      neighborhood: "Neighborhood"
+      project_name: "Project name"
+      tag: "Tag"
     charts:
       info:
         total: "Total: %{amount}"

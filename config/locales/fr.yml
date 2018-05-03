@@ -56,7 +56,7 @@ fr:
     table_amount_column:
       title: "Montant"
     table_fa_column:
-      title: "Focus Area"
+      title: "Secteur d'intérêt"
   investments:
     index:
       info_bar:
@@ -73,22 +73,26 @@ fr:
         tab:
           title_one: "Dons actifs"
           title_two: "Dons complétés"
-        first_column:
+        ngo_column:
           title: "Organisme"
-        second_column:
+        project_column:
           title: "Nom du projet"
-        third_column:
+        forecasted_column:
           title: "Prévu"
-        fourth_column:
+        amount_column:
           title: "Versement"
           content: " %{installment_index} of %{installment_count}"
-        fifth_column:
+        deadline_column:
           title: "Échéance"
           content: "%{days} jours"
-        sixth_column:
+        edit_column:
           title: "Modifier"
           content_one: "Projet"
           content_two: "Versement"
+        focus_area_column:
+          title: "Secteur d'interêt"
+        installment_column:
+          title: "Versement"
         completed:
           third_column:
             title: "Versé"
@@ -142,7 +146,8 @@ fr:
       project_name: "Nom du projet: %{name}"
       ngo_name: "Nom de l'organisme: %{name}"
     investment:
-      title: "Nouveau don"
+      new: "Nouveau don"
+      edit: "Modifier l'investissement"
       installment:
         title: 'Versements'
         col_one: 'Montant'
@@ -161,7 +166,7 @@ fr:
     sub_title: "Découvrez l'impact réél de vos dons grâce à un tableau de bord compréhensif"
   navbar:
     first_tab: "DASHBOARD"
-    second_tab: "DONS" 
+    second_tab: "DONS"
     menu:
       first_dropdown: "Nouveau don"
       second_dropdown: "Déconnexion"
@@ -171,6 +176,43 @@ fr:
       third_dropdown: "Dons"
       fourth_dropdown: "New Investments"
       fifth_dropdown: "Déconnexion"
+  user_mailer:
+    welcome:
+      subject: "Bienvenue sur WAU!"
+  dashboard:
+    search_bar:
+      label: "Chercher par"
+      date: "Date"
+      min_date: "De"
+      max_date: "À"
+      focus_area: "Secteur d'intérêt"
+      ngo: "OGN"
+      neighborhood: "Cartier"
+      project: "Nom de project"
+      tag: "Tag"
+    charts:
+    info:
+      total: "Total: %{amount}"
+      locked: "Verrouillé: %{amount}"
+      unlocked: "Déverrouiller: %{amount}"
+      investment_count: "Nombre d'investissement: %{amount}"
+    time:
+      title:
+      day: "Jour"
+      week: "Semaine"
+      year: "Année"
+    table:
+      header:
+        ngo: "ONG"
+        project_name: "Nom du projet"
+        invested: "Investie"
+        status: "Statut"
+        edit: "Modifier"
+      completed: "Complété"
+      active: "Actif"
+      editable:
+        investment: "Investissement"
+        project: "projet"
   activerecord:
     models:
       investment: "Don"

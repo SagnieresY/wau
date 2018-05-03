@@ -1,4 +1,4 @@
-<br>
+  <br>
 
 <%= simple_form_for([@investment]) do |f| %>
 
@@ -31,7 +31,7 @@
 			<%= render 'installment_fields', f: builder %>
 			<% end %>
 		</tbody>
-	</table> 
+	</table>
 
 	<%= link_to_add_association t("form.investment.installment.add_button"), f, :installments, class: 'btn btn-success', data: { association_insertion_node: '.installment', association_insertion_method: :append } %>
 </div>
