@@ -9,7 +9,7 @@ class InstallmentTest < ActiveSupport::TestCase
     @test_focus = FocusArea.create!(name:'test')
     @test_geo = Geo.create(name:'test land')
     @test_project = Project.create!(name:'test',description:'testing',focus_area: @test_focus,main_contact:'www@www.com',organisation: @test_org, geos:[@test_geo])
-    @test_investment = Investment.create!(organisation:@test_org,project:@test_project)
+    @test_investment = Investment.create!(organisation:@test_org,project:@test_project, status:"active")
   end
 
   def create_installments
