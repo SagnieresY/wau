@@ -195,11 +195,19 @@ fr:
         title: "PA investissements prévus entre %{begining_date} et %{ending_date}"
       tag:
         title: "PA investissements prévus par tags"
-    info:
-      total: "Total: %{amount}"
-      locked: "Verrouillé: %{amount}"
-      unlocked: "Déverrouiller: %{amount}"
-      investment_count: "Nombre d'investissement: %{amount}"
+      fa:
+        title: "PA investissements prévus par secteur d'intérêt"
+      ngo:
+        title: "PA investissements prévus par OGN"
+      geo:
+        title: "PA investissements prévus par cartier"
+      project:
+        title: "PA investissements prévus par projet"
+      info:
+        total: "Total"
+        locked: "Verrouillé"
+        unlocked: "Déverrouillé"
+        investment_count: "Nombre d'investissement"
     time:
       title:
       day: "Jour"

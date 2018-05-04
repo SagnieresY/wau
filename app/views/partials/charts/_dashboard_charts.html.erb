@@ -78,8 +78,8 @@
 
 <!-- DATE CHART: Cumulative installments by month in chronological order -->
 <%= area_chart [
-    {name: "Unlocked", data: @unlocked_installments_time_day},
-    {name: "Locked", data: @locked_installments_time_day}],
+    {name: t("dashboard.charts.info.unlocked"), data: @unlocked_installments_time_day},
+    {name: t("dashboard.charts.info.locked"), data: @locked_installments_time_day}],
     id: "dash_timeseries_day",
     stacked: true,
     prefix: "$",
@@ -110,8 +110,8 @@
 } %>
 
 <%= area_chart [
-    {name: "Unlocked", data: @unlocked_installments_time_week},
-    {name: "Locked", data: @locked_installments_time_week}],
+    {name: t("dashboard.charts.info.unlocked"), data: @unlocked_installments_time_week},
+    {name: t("dashboard.charts.info.locked"), data: @locked_installments_time_week}],
     id: "dash_timeseries_week",
     stacked: true,
     prefix: "$",
@@ -141,8 +141,8 @@
 } %>
 
 <%= area_chart [
-    {name: "Unlocked", data: @unlocked_installments_time_month},
-    {name: "Locked", data: @locked_installments_time_month}],
+    {name: t("dashboard.charts.info.unlocked"), data: @unlocked_installments_time_month},
+    {name: t("dashboard.charts.info.locked"), data: @locked_installments_time_month}],
     id: "dash_timeseries_month",
     stacked: true,
     prefix: "$",
@@ -172,8 +172,8 @@
 } %>
 
 <%= area_chart [
-    {name: "Unlocked", data: @unlocked_installments_time_year},
-    {name: "Locked", data: @locked_installments_time_year}],
+    {name: t("dashboard.charts.info.unlocked"), data: @unlocked_installments_time_year},
+    {name: t("dashboard.charts.info.locked"), data: @locked_installments_time_year}],
     id: "dash_timeseries_year",
     stacked: true,
     prefix: "$",
@@ -203,8 +203,8 @@
 } %>
 
 <%= bar_chart [
-    {name: "Unlocked", data: @unlocked_installments_fa_chart},
-    {name: "Locked", data: @locked_installments_fa_chart}],
+    {name: t("dashboard.charts.info.unlocked"), data: @unlocked_installments_fa_chart},
+    {name: t("dashboard.charts.info.locked"), data: @locked_installments_fa_chart}],
     id: "dash_fa_bars",
     stacked:true,
     prefix: "$",
@@ -219,7 +219,7 @@
         },
       title: {
         display: true,
-        text: 'FY Forecasted Investments By Focus Area'
+        text: t("dashboard.charts.fa.title")
       },
       scales: {
         xAxes: [{
@@ -235,8 +235,8 @@
     } %>
 
 <%= bar_chart [
-    {name: "Unocked", data: @unlocked_installments_ngo_chart},
-    {name: "Locked", data: @locked_installments_ngo_chart}],
+    {name: t("dashboard.charts.info.unlocked"), data: @unlocked_installments_ngo_chart},
+    {name: t("dashboard.charts.info.locked"), data: @locked_installments_ngo_chart}],
     id: "dash_ngo_bars",
     stacked:true,
     prefix: "$",
@@ -251,7 +251,7 @@
         },
       title: {
         display: true,
-        text: 'FY Forecasted Investments By NGO'
+        text: t("dashboard.charts.ngo.title")
       },
     scales: {
         xAxes: [{
@@ -267,8 +267,8 @@
 } %>
 
 <%= bar_chart [
-    {name: "Unlocked", data:  @unlocked_installments_geo_chart},
-    {name: "Locked", data:  @locked_installments_geo_chart}],
+    {name: t("dashboard.charts.info.unlocked"), data:  @unlocked_installments_geo_chart},
+    {name: t("dashboard.charts.info.locked"), data:  @locked_installments_geo_chart}],
     id: "dash_geo_bars",
     stacked:true,
     prefix: "$",
@@ -283,7 +283,7 @@
         },
       title: {
         display: true,
-        text: 'FY Forecasted Investments By Neighborhood'
+        text: t("dashboard.charts.geo.title")
       },
       scales: {
         xAxes: [{
@@ -299,8 +299,8 @@
 } %>
 
 <%= bar_chart [
-    {name: "Unlocked", data:  @unlocked_installments_project_chart},
-    {name: "Locked", data:  @locked_installments_project_chart}],
+    {name: t("dashboard.charts.info.unlocked"), data:  @unlocked_installments_project_chart},
+    {name: t("dashboard.charts.info.locked"), data:  @locked_installments_project_chart}],
     id: "dash_project_bars",
     stacked:true,
     prefix: "$",
@@ -315,7 +315,7 @@
         },
       title: {
         display: true,
-        text: 'FY Forecasted Investments By Projects'
+        text: t("dashboard.charts.project.title")
       },
       scales: {
         xAxes: [{
@@ -331,8 +331,8 @@
 } %>
 
 <%= bar_chart [
-    {name: "Unlocked", data:  @unlocked_installments_tag_chart},
-    {name: "Locked", data:  @locked_installments_tag_chart}],
+    {name: t("dashboard.charts.info.unlocked"), data:  @unlocked_installments_tag_chart},
+    {name: t("dashboard.charts.info.locked"), data:  @locked_installments_tag_chart}],
     id: "dash_tag_bars",
     stacked:true,
     prefix: "$",

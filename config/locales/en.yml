@@ -217,6 +217,14 @@ en:
         title: "FY Forecasted Investments between %{begining_date} and %{ending_date}"
       tag:
         title: "FY Forecasted Investments By Tag"
+      fa:
+        title: "FY Forecasted Investments By Focus Area"
+      ngo:
+        title: "FY Forecasted Investments By NGO"
+      geo:
+        title: "FY Forecasted Investments By Neighborhood"
+      project:
+        title: "FY Forecasted Investments By Project"
       info:
         total: "Total"
         locked: "Locked"
