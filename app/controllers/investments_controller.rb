@@ -14,7 +14,7 @@ class InvestmentsController < ApplicationController
   def index
     @fuck_off_pundit = policy_scope(current_user.organisation.investments.last)
     @active_investments =  active_investments_paginated
-    @completed_investments = completed_investments_paginated
+    @completed_investments = completed_investments_paginated.push(*rejected_investments_paginated)
 
     @page = "active_page" if params.has_key?(:active_page)
     @page = "completed_page" if params.has_key?(:completed_page)
@@ -92,7 +92,7 @@ class InvestmentsController < ApplicationController
 
     # Checks if creating new tags
     if @investment_tags_attributes.present?
-      @investment_tags_attributes.each do |key,value| 
+      @investment_tags_attributes.each do |key,value|
         #checks if tag exists already and is not selected already and adds in investment_tag_ids if does
         if current_user.organisation.investment_tags.find_by(name:value["name"]) && @investment_tag_ids.exclude?(current_user.organisation.investment_tags.find_by(name:value["name"]).id.to_s)
           params[:investment][:investment_tag_ids] << current_user.organisation.investment_tags.find_by(name:value["name"]).id.to_s
@@ -182,7 +182,7 @@ class InvestmentsController < ApplicationController
   end
 
   def completed_investments_paginated
-    Kaminari.paginate_array(current_user.organisation.completed_investments).page(params[:completed_page]).per(10)
+    Kaminari.paginate_array(current_user.organisation.completed_investments.to_a.push(*current_user.organisation.rejected_investments.to_a)).page(params[:completed_page]).per(10)
   end
 
   def rejected_investments_paginated

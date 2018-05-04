@@ -6,7 +6,8 @@
     <div class="col-md-8 size-18">
        <% search_buttons = ['Focus Area', 'Date', 'NGO', 'Neighborhood','Project', 'Tag'] %>
        <% search_buttons.each do |tab| %>
-       <label class="form-check-label" for="<%= tab %>-label"><%=t("dashboard.search_bar.#{tab.downcase}")  %> </label>
+       <% tab_label = tab == "Focus Area" ? "focus_area" : tab.downcase %>
+       <label class="form-check-label" for="<%= tab %>-label"><%=t("dashboard.search_bar.#{tab_label}")  %> </label>
        <input class="tablinks form-check-input" autocomplete="off" onclick="openTab(event,'<%= tab %>')" type="checkbox" value="" id="<%= tab %>-label">
        &nbsp;&nbsp;&nbsp;
        <% end %>

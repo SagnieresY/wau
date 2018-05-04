@@ -151,6 +151,9 @@ en:
       edit: "Edit Investment"
       new: "New Investment"
       organisation:
+        choose_org: 'Choose an existing organisation'
+        existing_org: "Existing Organisation"
+        add_new_org: "Add a new organisation"
         title: '1 - Receiving Organisation'
         existing: 'Existing'
         new: 'New'
@@ -171,6 +174,7 @@ en:
         delete_button: 'Delete'
         add_button: 'Add more installments'
       investment_tag:
+        existing: "Existing Tags"
         title: '4 - Tags'
         new: 'New Tag'
         add_button: 'New tag'
@@ -213,6 +217,18 @@ en:
       project_name: "Project name"
       tag: "Tag"
     charts:
+      time:
+        title: "FY Forecasted Investments between %{begining_date} and %{ending_date}"
+      tag:
+        title: "FY Forecasted Investments By Tag"
+      fa:
+        title: "FY Forecasted Investments By Focus Area"
+      ngo:
+        title: "FY Forecasted Investments By NGO"
+      geo:
+        title: "FY Forecasted Investments By Neighborhood"
+      project:
+        title: "FY Forecasted Investments By Project"
       info:
         total: "Total"
         locked: "Locked"

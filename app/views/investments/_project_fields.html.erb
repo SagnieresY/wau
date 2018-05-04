@@ -7,10 +7,10 @@
 
 		<div class="organisation">
 			<div class="organisation_from_list">
-				Existing Organisation
-				<%= f.association :organisation, collection: current_user.organisation.receiving_organisations, label: false, prompt: 'Choose an existing organisation' %>
+				<%= t("form.investment.organisation.existing_org") %>
+				<%= f.association :organisation, collection: current_user.organisation.receiving_organisations, label: false, prompt: t("form.investment.organisation.choose_org") %>
 			</div>
-			<%= link_to_add_association 'Add a new organisation', f, :organisation, data: { association_insertion_node: '.organisation', association_insertion_method: 'append' } %> 
+			<%= link_to_add_association t("form.investment.organisation.add_new_org"), f, :organisation, data: { association_insertion_node: '.organisation', association_insertion_method: 'append' } %>
 		</div>
 	</div>
 	<br>
