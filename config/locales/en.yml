@@ -155,6 +155,7 @@ en:
         existing: 'Existing'
         new: 'New'
         name: 'Organisation Name'
+        charity_number: 'Charity Number'
       project:
         title: '2 - Project Information'
         name: 'Project Name'
@@ -175,6 +176,11 @@ en:
         add_button: 'New tag'
     project_title: "New Project"
     save: "Save the investment"
+    flash_message:
+      new_org: "Couldn't save the new organisation please try again."
+      no_org: "Couldn't save, please add an Organisation"
+      success: "Investment for %{organisation}'s project: '%{project}' was successfully created!"
+      no_success: "Couldn't save, please try again"
   landing:
     title: "Manage your charitable investments"
     sub_title: "Get to know the real impact of your donation through a streamlined dashboard"
@@ -208,10 +214,10 @@ en:
       tag: "Tag"
     charts:
       info:
-        total: "Total: %{amount}"
-        locked: "Locked: %{amount}"
-        unlocked: "Unlocked: %{amount}"
-        investment_count: "Number of investments: %{amount}"
+        total: "Total"
+        locked: "Locked"
+        unlocked: "Unlocked"
+        investment_count: "Number of investments"
       time:
         title:
         day: "Day"

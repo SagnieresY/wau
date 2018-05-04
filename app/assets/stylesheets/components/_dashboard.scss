@@ -42,18 +42,17 @@
   color: white!important;
 }
 .suggestions {
-
-  margin-bottom:30px;
-  border: 1px solid lightgrey;
-  background-color:#e5e8e5;
+  // margin-bottom:30px;
+  // border: 1px solid lightgrey;
+  // background-color:#e5e8e5;
 }
+
 .suggestion {
   background-color:white;
   display:block;
   color: $green;
   border-bottom: 1px solid lightgrey;
-  font-size:15px;
-  font-weight: bold;
+  font-size:12px;
   webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */

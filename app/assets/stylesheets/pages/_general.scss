@@ -21,7 +21,7 @@ td {
 }
 
 // Takes away the padding on mobile/tablet
-@media(min-width:768px){
+@media(min-width:991px){
   .no-right-padding-md {
     padding-right: 0px;
   }
@@ -46,6 +46,10 @@ td {
 
 .no-margin-left {
   margin-left: 0px;
+}
+
+.padding-15 {
+  padding: 15px;
 }
 
 .unlocked-background-color {

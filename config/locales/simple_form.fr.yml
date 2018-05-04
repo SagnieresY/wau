@@ -35,3 +35,9 @@ fr:
           rescinded: 'Annulé'
           unlocked: 'Débloqué'
           locked: 'Verrouillé'
+      investment:
+        installment:
+          status:
+            rescinded: 'Annulé'
+            unlocked: 'Débloqué'
+            locked: 'Verrouillé'
