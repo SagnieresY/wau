@@ -72,7 +72,7 @@ class InvestmentsController < ApplicationController
           organisation
         else 
           new
-          flash[:alert] = "Not saved (line 78)"
+          flash[:alert] = "Couldn't save the new organisation please try again."
           render :new
           return
         end
@@ -84,7 +84,7 @@ class InvestmentsController < ApplicationController
     #Else renders new
     else
       new
-      flash[:alert] = "Not saved due (line 90)"
+      flash[:alert] = "Couldn't save"
       @investment.project.organisation = Organisation.new
       render :new
       return
@@ -97,7 +97,6 @@ class InvestmentsController < ApplicationController
         if current_user.organisation.investment_tags.find_by(name:value["name"]) && @investment_tag_ids.exclude?(current_user.organisation.investment_tags.find_by(name:value["name"]).id.to_s)
           params[:investment][:investment_tag_ids] << current_user.organisation.investment_tags.find_by(name:value["name"]).id.to_s
           params[:investment][:investment_tags_attributes].delete key
-          byebug
         #Else update with current user org.
         else
           params[:investment][:investment_tags_attributes][key].merge!(organisation_id: current_user.organisation.id)
