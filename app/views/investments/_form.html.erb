@@ -47,7 +47,6 @@
 	<div class="row">
 		<div class="col-md-4"> <%= f.association :investment_tags, collection: current_user.organisation.investment_tags.all.order('name'), label: t("form.investment.investment_tag.existing") %>
 		</div>
-
 		<!-- Will have new tags added -->
 		<br>
 		<div class="investment-tag">
