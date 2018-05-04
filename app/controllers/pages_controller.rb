@@ -75,11 +75,13 @@ class PagesController < ApplicationController
       FocusArea.all.each {|fa| fa_hash[fa.name] = fa.id}
 
       params[:focus].strip.gsub('and','&').gsub(', ',',').split(',').each {|fa| fa_array_id << fa_hash[fa]}
+
       @installments = @installments.joins(:focus_area).where('focus_areas.id':fa_array_id)
     end
 
     #Updates installments with NGO selection if there is one
     unless params[:ngo].blank?
+
       org_array = params[:ngo].strip.gsub('and','&').gsub(', ',',').split(',')
       @installments = @installments.joins(project: :organisation).where("organisations.name":org_array)
     end

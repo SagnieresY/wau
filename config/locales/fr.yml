@@ -206,7 +206,7 @@ fr:
       project: "Nom de project"
       tag: "Tag"
     charts:
-      time:
+      timechart:
         title: "PA investissements prévus entre %{begining_date} et %{ending_date}"
       tag:
         title: "PA investissements prévus par tags"
