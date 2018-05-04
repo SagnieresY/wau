@@ -1,32 +1,57 @@
 
 <div class="row margin-top-bottom-6">
-    <div class="col-md-12 white-dropshadow-card">
-        <p> <%= t("dashboard.charts.info.total", amount: nice_money(@installments.permitted.sum(:amount))) %></p>
-        <p> <%= t("dashboard.charts.info.unlocked", amount: nice_money(@installments.locked.sum(:amount))) %></p>
-        <p> <%= t("dashboard.charts.info.locked", amount: nice_money(@installments.unlocked.sum(:amount))) %></p>
-        <p> <%= t("dashboard.charts.info.investment_count", amount: @investments.count) %></p>
-        <ul class="nav nav-tabs">
-          <li><a data-toggle="tab" href="#day">Day</a></li>
-          <li><a data-toggle="tab" href="#week">Week</a></li>
-          <li class="active"><a data-toggle="tab" href="#month">Month</a></li>
-          <li><a data-toggle="tab" href="#year">Year</a></li>
-        </ul>
-        <div class="tab-content">
-            <div id="day" class="tab-pane fade">
-                <div id="dash_timeseries_day" class="dashboard-chart"></div>
+    <div class="col-md-3 no-left-padding-md">
+        <div class="white-dropshadow-card flex-column">
+            <div class="green-text size-24"> 
+                <%= nice_money(@installments.permitted.sum(:amount)) %>
             </div>
-            <div id="week" class="tab-pane fade">
-                <div id="dash_timeseries_week" class="dashboard-chart"></div>
+            <div>
+                <%= t("dashboard.charts.info.total") %>  
             </div>
-            <div id="month" class="tab-pane fade in active">
-                <div id="dash_timeseries_month" class="dashboard-chart"></div>
+        </div>
+    </div>
+    <div class="col-md-3 no-left-padding-md ">
+        <div class="white-dropshadow-card flex-column">
+            <div class="green-text size-24"> 
+                <%= nice_money(@installments.locked.sum(:amount)) %>
             </div>
-            <div id="year" class="tab-pane fade">
-                <div id="dash_timeseries_year" class="dashboard-chart"></div>
+            <div>
+                <%= t("dashboard.charts.info.locked") %> 
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 no-right-padding-md">
+        <div class="white-dropshadow-card flex-column">
+            <div class="green-text size-24"> 
+                <%= nice_money(@installments.unlocked.sum(:amount)) %>
+            </div>
+            <div>
+                <%= t("dashboard.charts.info.unlocked") %>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 no-right-padding-md">
+        <div class="white-dropshadow-card flex-column">
+            <div class="green-text size-24"> 
+                <%= @investments.count %>
+            </div>
+            <div>
+                <%= t("dashboard.charts.info.investment_count") %>
             </div>
         </div>
     </div>
 </div>
+
+
+<div class="row margin-top-bottom-6">
+    <div class="col-md-6 no-left-padding-md">
+        <div id="dash_timeseries_month" class="dashboard-chart white-dropshadow-card"></div>
+    </div>
+    <div class="col-md-6 no-right-padding-md">
+        <div id="dash_tag_bars" class="dashboard-chart white-dropshadow-card"></div>
+    </div>
+</div>
+
 <div class="row margin-top-bottom-6">
     <div class="col-md-6 no-left-padding-md">
         <div id="dash_fa_bars" class="dashboard-chart white-dropshadow-card"></div>
@@ -43,6 +68,8 @@
         <div id="dash_project_bars" class="dashboard-chart white-dropshadow-card"></div>
     </div>
 </div>
+
+
 
 <%= content_for(:after_js) do %>
 <script type="text/javascript">
@@ -67,7 +94,6 @@
         },
       title: {
         display: true,
-
         text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
       },
       scales: {
@@ -81,7 +107,6 @@
                         display:false
                     }
                 }]},
-
 } %>
 
 <%= area_chart [
@@ -100,7 +125,6 @@
         },
       title: {
         display: true,
-
         text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
       },
       scales: {
@@ -114,7 +138,6 @@
                         display:false
                     }
                 }]},
-
 } %>
 
 <%= area_chart [
@@ -133,7 +156,6 @@
         },
       title: {
         display: true,
-
         text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
       },
       scales: {
@@ -147,7 +169,6 @@
                         display:false
                     }
                 }]},
-
 } %>
 
 <%= area_chart [
@@ -166,7 +187,6 @@
         },
       title: {
         display: true,
-
         text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
       },
       scales: {
@@ -180,7 +200,6 @@
                         display:false
                     }
                 }]},
-
 } %>
 
 <%= bar_chart [
@@ -277,7 +296,7 @@
                         display:false
                     }
                 }]},
-    } %>
+} %>
 
 <%= bar_chart [
     {name: "Unlocked", data:  @unlocked_installments_project_chart},
@@ -311,9 +330,41 @@
                 }]},
 } %>
 
-  <script>
-    function openChart(evt, chartName) {
-    // Declare all variables
+<%= bar_chart [
+    {name: "Unlocked", data:  @unlocked_installments_tag_chart},
+    {name: "Locked", data:  @locked_installments_tag_chart}],
+    id: "dash_tag_bars",
+    stacked:true,
+    prefix: "$",
+    thousands: ",",
+    download: true,
+    colors: ["#8D81D2", "#AE6CB5"],
+    library: {
+        tooltips: {
+            enabled: true,
+            mode: 'index',
+            intersect: false
+            },
+        title: {
+            display: true,
+            text: 'FY Forecasted Investments By Tag'
+            },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display:false
+                }
+                }],
+            yAxes: [{
+                gridLines: {
+                    display:false
+                }
+    }]},
+} %>
+
+<script>
+function openChart(evt, chartName) {
+// Declare all variables
     var i, tabcontent, tablinks;
 
     // Get all elements with class="tabcontent" and hide them
@@ -332,6 +383,6 @@
     document.getElementById(chartName).style.display = "block";
     evt.currentTarget.className += " active";
 }
-  </script>
+</script>
 <% end %>
 
