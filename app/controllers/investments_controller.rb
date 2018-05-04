@@ -1,7 +1,7 @@
 class InvestmentsController < ApplicationController
   before_action :selected_investment, only:[:reject]
   skip_after_action :verify_authorized, only: [:search]
-  
+
   def search
     @tags = {results:[]}
     InvestmentTag.search_by_name(params[:query]).uniq.each_with_index do |tag, i|
@@ -59,18 +59,18 @@ class InvestmentsController < ApplicationController
 
     #Checks if user is trying to create a new organisation
     if @organisation_attributes.present?
-      
+
       #find_by charity number if it already exists in the DB
       if Organisation.find_by(charity_number: @organisation_attributes[:charity_number]).present?
         organisation = Organisation.find_by(charity_number: @organisation_attributes[:charity_number])
-    
+
       #else create it
       else
         organisation = Organisation.create(name: @organisation_attributes[:name], charity_number: @organisation_attributes[:charity_number])
 
         if organisation.save
           organisation
-        else 
+        else
           new
           flash[:alert] = t("form.flash_message.new_org")
           render :new

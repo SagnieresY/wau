@@ -56,13 +56,13 @@ neighbourhood_montreal.each do |neighbourhood|
 end
 
 
-humanrights_ngo = ['Amnesty International', 'UNICEF', 'Human Rights Watch'].map{|ngo| Organisation.create!(name:ngo,charity_number:rand(10000.99999))}
+humanrights_ngo = ['Amnesty International', 'UNICEF', 'Human Rights Watch'].map{|ngo| Organisation.create!(name:ngo,charity_number:"#{rand(100000000..999999999)}RR6969")}
 humanrights_project_name = ['Welcome Refugees to Montreal', 'Open a New Shelter', 'Fund Awareness Campaign']
-childcare_ngo = ['Save The Children Canada', 'Montreal Children\'s Hospital'].map{|ngo| Organisation.create!(name:ngo,charity_number:rand(10000.99999))}
+childcare_ngo = ['Save The Children Canada', 'Montreal Children\'s Hospital'].map{|ngo| Organisation.create!(name:ngo,charity_number:"#{rand(100000000..999999999)}RR6969")}
 childcare_project_name = ['Give Coding lessons in School', 'Cancer Research']
-community_ngo = ['Santropole Roulant', 'YMCA', 'Women Aware Femme Averties', 'Kids Code Jeunesse'].map{|ngo| Organisation.create!(name:ngo,charity_number:rand(10000.99999))}
+community_ngo = ['Santropole Roulant', 'YMCA', 'Women Aware Femme Averties', 'Kids Code Jeunesse'].map{|ngo| Organisation.create!(name:ngo,charity_number:"#{rand(100000000..999999999)}RR6969")}
 community_project_name = ['Open New Farms', 'Renovate basketball court', 'Legal Defense', 'Create Afterschool Programs']
-environmental_ngo = ['Equiterre', 'Canadian Wind Energy Association', 'Greenpeace Canada'].map{|ngo| Organisation.create!(name:ngo,charity_number:rand(10000.99999))}
+environmental_ngo = ['Equiterre', 'Canadian Wind Energy Association', 'Greenpeace Canada'].map{|ngo| Organisation.create!(name:ngo,charity_number:"#{rand(100000000..999999999)}RR6969")}
 environmental_project_name = ['Energy-Efficient Lighting', 'R&D for Electric Turbines', 'Global Climate March']
 
 puts "generating tags"
@@ -141,7 +141,7 @@ end
 puts 'generating organisations...'
 organisation_name = ['Mont Royale Organisation', 'Red Wagon Organisation']
 organisation_name.each do |organisation|
-  Organisation.create(name:organisation, logo:Faker::Cat.breed,charity_number:rand(10000..99999))
+  Organisation.create(name:organisation, logo:Faker::Cat.breed,charity_number:"#{rand(100000000..999999999)}RR6969")
 end
 
 puts 'Adding users to organisations...'
