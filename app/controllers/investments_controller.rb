@@ -90,25 +90,17 @@ class InvestmentsController < ApplicationController
       return
     end
 
-    # #Checks for InvestmentTag and pushes them on the investment
-    # tags = []
-    # #Checks if tag exist already and adds to array
-    # if @investment_tag_ids.present?
-    #   noEmptyTags = @investment_tag_ids.reject { |c| c.empty? }
-    #   noEmptyTags.each {|tag_id| tags << InvestmentTag.find(tag_id)}
-    # end
-
-    #Checks if creating new tags
+    # Checks if creating new tags
     if @investment_tags_attributes.present?
-      tags_to_create = []
       @investment_tags_attributes.each do |key,value| 
         #checks if tag exists already and is not selected already and adds in investment_tag_ids if does
         if current_user.organisation.investment_tags.find_by(name:value["name"]) && @investment_tag_ids.exclude?(current_user.organisation.investment_tags.find_by(name:value["name"]).id.to_s)
-          @investment_tag_ids << current_user.organisation.investment_tags.find_by(name:value["name"]).id.to_s
-          @investment_tags_attributes.delete key
+          params[:investment][:investment_tag_ids] << current_user.organisation.investment_tags.find_by(name:value["name"]).id.to_s
+          params[:investment][:investment_tags_attributes].delete key
           byebug
+        #Else update with current user org.
         else
-          tags_to_create << InvestmentTag.create!(name:value["name"], organisation: current_user.organisation)
+          params[:investment][:investment_tags_attributes][key].merge!(organisation_id: current_user.organisation.id)
         end
       end
     end
@@ -118,21 +110,19 @@ class InvestmentsController < ApplicationController
     @investment = Investment.new(investment_params)
     @investment.organisation = current_user.organisation
     @investment.project = project
-    @investment.investment_tags.push(tags_to_create) unless tags_to_create.nil? 
     authorize @investment
-    byebug
 
     if @investment.save && @investment.installments.count == 0
       @investment.installments << Installment.create!(task:t("form.investment.installment.sub_task"), deadline: Date.today, investment: @investment, amount: 0)
-      flash[:notice] = "Investment successfully created"
+      flash[:notice] = "Investment for #{organisation.name}'s project: '#{project.name.capitalize}' was successfully created!"
       redirect_to investment_path(@investment)
 
     elsif @investment.save && @investment.installments.count > 0
-      flash[:notice] = "Investment successfully created"
+      flash[:notice] = "Investment for #{organisation.name}'s project: '#{project.name.capitalize}' was successfully created!"
       redirect_to investment_path(@investment)
 
     else
-      flash[:alert] = "Couldn't save! (LINE 126}"
+      flash[:alert] = "Couldn't save!"
       @investment.project.organisation = organisation
       render :new
       return
@@ -215,7 +205,7 @@ class InvestmentsController < ApplicationController
         { :investment_tag_ids => [] },
         installments_attributes: Installment.attribute_names.map(&:to_sym).push(:_destroy),
         project_attributes: [:name,:description,:focus_area_id,:main_contact,{ :geo_ids => [] }, :organisation_id, {organisation_attributes: Organisation.attribute_names.map(&:to_sym).push(:_destroy)},:_destroy],
-        investment_tags_attributes: InvestmentTag.attribute_names.map(&:to_sym).push(:_destroy))
+        investment_tags_attributes: [:name, :organisation_id, :_destroy])
   end
 
   def simplified_params (params)
