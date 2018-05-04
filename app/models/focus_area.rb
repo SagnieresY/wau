@@ -3,7 +3,7 @@
   has_many :investments, through: :projects
   has_many :installments, through: :investments
   has_many :organisation, through: :investments
-
+  validates :name, presence: true
   translates :name
   include PgSearch
   has_many :focus_area_translations
@@ -16,6 +16,7 @@
       tsearch: { prefix: true }
     }
   attribute :name
+
   def year_range(year)
     # Returns a Time Range of year.
     # To be used with GROUP_BY_ (GROUPDATE)
