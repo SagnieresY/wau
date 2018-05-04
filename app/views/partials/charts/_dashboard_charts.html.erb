@@ -2,27 +2,27 @@
 <div class="row margin-top-bottom-6">
     <div class="col-md-3 no-left-padding-md">
         <div class="white-dropshadow-card flex-column">
-            <div class="green-text size-24"> 
+            <div class="green-text size-24">
                 <%= nice_money(@installments.permitted.sum(:amount)) %>
             </div>
             <div>
-                <%= t("dashboard.charts.info.total") %>  
+                <%= t("dashboard.charts.info.total") %>
             </div>
         </div>
     </div>
     <div class="col-md-3 no-left-padding-md ">
         <div class="white-dropshadow-card flex-column">
-            <div class="green-text size-24"> 
+            <div class="green-text size-24">
                 <%= nice_money(@installments.locked.sum(:amount)) %>
             </div>
             <div>
-                <%= t("dashboard.charts.info.locked") %> 
+                <%= t("dashboard.charts.info.locked") %>
             </div>
         </div>
     </div>
     <div class="col-md-3 no-right-padding-md">
         <div class="white-dropshadow-card flex-column">
-            <div class="green-text size-24"> 
+            <div class="green-text size-24">
                 <%= nice_money(@installments.unlocked.sum(:amount)) %>
             </div>
             <div>
@@ -32,7 +32,7 @@
     </div>
     <div class="col-md-3 no-right-padding-md">
         <div class="white-dropshadow-card flex-column">
-            <div class="green-text size-24"> 
+            <div class="green-text size-24">
                 <%= @investments.count %>
             </div>
             <div>
@@ -94,7 +94,7 @@
         },
       title: {
         display: true,
-        text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
+        text: t("dashboard.charts.time.title", begining_date: @start_date, ending_date: @end_date)
       },
       scales: {
         xAxes: [{
@@ -125,7 +125,7 @@
         },
       title: {
         display: true,
-        text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
+        text: t("dashboard.charts.time.title", begining_date: @start_date, ending_date: @end_date)
       },
       scales: {
         xAxes: [{
@@ -156,7 +156,7 @@
         },
       title: {
         display: true,
-        text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
+        text: t("dashboard.charts.time.title", begining_date: @start_date, ending_date: @end_date)
       },
       scales: {
         xAxes: [{
@@ -187,7 +187,7 @@
         },
       title: {
         display: true,
-        text: "FY Forecasted Investments between #{@start_date} and #{@end_date}"
+        text: t("dashboard.charts.time.title", begining_date: @start_date, ending_date: @end_date)
       },
       scales: {
         xAxes: [{
@@ -347,7 +347,7 @@
             },
         title: {
             display: true,
-            text: 'FY Forecasted Investments By Tag'
+            text: t("dashboard.charts.tag.title")
             },
         scales: {
             xAxes: [{

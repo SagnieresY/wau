@@ -213,6 +213,10 @@ en:
       project_name: "Project name"
       tag: "Tag"
     charts:
+      time:
+        title: "FY Forecasted Investments between %{begining_date} and %{ending_date}"
+      tag:
+        title: "FY Forecasted Investments By Tag"
       info:
         total: "Total"
         locked: "Locked"

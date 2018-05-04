@@ -191,6 +191,10 @@ fr:
       project: "Nom de project"
       tag: "Tag"
     charts:
+      time:
+        title: "PA investissements prévus entre %{begining_date} et %{ending_date}"
+      tag:
+        title: "PA investissements prévus par tags"
     info:
       total: "Total: %{amount}"
       locked: "Verrouillé: %{amount}"
