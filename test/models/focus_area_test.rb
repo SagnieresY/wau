@@ -17,7 +17,9 @@ class FocusAreaTest < ActiveSupport::TestCase
   def reset_org
     @test_org = Organisation.create(name:rand(1..1000).to_s,charity_number:rand(1..10000).to_s)
     @test_investment = Investment.create(organisation:@test_org,project:@test_project,status:"active")
+    byebug
     @test_focus.installments.destroy_all
+
 
   end
 
@@ -57,7 +59,7 @@ class FocusAreaTest < ActiveSupport::TestCase
       Installment.create(task:"a",amount:1,deadline:Date.today,investment:@test_investment,organisation:@test_org,status:"unlocked")
       array.push(Installment.create(task:"a",amount:1,deadline:Date.today,investment:@test_investment,organisation:@test_org,status:"recinded"))
     end
-    byebug
+
     assert array == @test_focus.rescinded_installments
   end
 
