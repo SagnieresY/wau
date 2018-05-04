@@ -1,11 +1,9 @@
-
-
-<div id="search-container" class="row white-dropshadow-card margin-top-bottom-6">
+<div id="search-container" class="row white-dropshadow-card margin-top-bottom-6 padding-15">
   <div class="row">
-    <div class="col-md-2 pull-right-for-real">
-       <label class="size-24" for=""><%= t("dashboard.search_bar.label") %>:</label>
+    <div class="col-md-2 left-end-flex-md-up">
+       <label class="size-18" for=""><%= t("dashboard.search_bar.label") %>:</label>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8 size-18">
        <% search_buttons = ['Focus Area', 'Date', 'NGO', 'Neighborhood','Project', 'Tag'] %>
        <% search_buttons.each do |tab| %>
        <label class="form-check-label" for="<%= tab %>-label"><%=t("dashboard.search_bar.#{tab.downcase}")  %> </label>
@@ -15,7 +13,7 @@
     </div>
 
     <div class="col-md-2">
-      <button class="btn btn-xs btn-success size-24 pull-right"  onclick="mainSearch()"><%= t("dashboard.search_bar.label").split(' ')[0] %>!</button>
+      <button class="btn btn-xs btn-success size-18 pull-right"  onclick="mainSearch()"><%= t("dashboard.search_bar.label").split(' ')[0] %>!</button>
     </div>
   </div>
     <% search_buttons.each do |tab| %>
