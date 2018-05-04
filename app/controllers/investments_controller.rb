@@ -72,7 +72,7 @@ class InvestmentsController < ApplicationController
           organisation
         else 
           new
-          flash[:alert] = "Not saved (line 78)"
+          flash[:alert] = t("form.flash_message.new_org")
           render :new
           return
         end
@@ -84,7 +84,7 @@ class InvestmentsController < ApplicationController
     #Else renders new
     else
       new
-      flash[:alert] = "Not saved due (line 90)"
+      flash[:alert] = t("form.flash_message.no_org")
       @investment.project.organisation = Organisation.new
       render :new
       return
@@ -97,7 +97,6 @@ class InvestmentsController < ApplicationController
         if current_user.organisation.investment_tags.find_by(name:value["name"]) && @investment_tag_ids.exclude?(current_user.organisation.investment_tags.find_by(name:value["name"]).id.to_s)
           params[:investment][:investment_tag_ids] << current_user.organisation.investment_tags.find_by(name:value["name"]).id.to_s
           params[:investment][:investment_tags_attributes].delete key
-          byebug
         #Else update with current user org.
         else
           params[:investment][:investment_tags_attributes][key].merge!(organisation_id: current_user.organisation.id)
@@ -114,15 +113,15 @@ class InvestmentsController < ApplicationController
 
     if @investment.save && @investment.installments.count == 0
       @investment.installments << Installment.create!(task:t("form.investment.installment.sub_task"), deadline: Date.today, investment: @investment, amount: 0)
-      flash[:notice] = "Investment for #{organisation.name}'s project: '#{project.name.capitalize}' was successfully created!"
+      flash[:notice] = t("form.flash_message.success", organisation: organisation.name, project: project.name.capitalize)
       redirect_to investment_path(@investment)
 
     elsif @investment.save && @investment.installments.count > 0
-      flash[:notice] = "Investment for #{organisation.name}'s project: '#{project.name.capitalize}' was successfully created!"
+      flash[:notice] = t("form.flash_message.success", organisation: organisation.name, project: project.name.capitalize)
       redirect_to investment_path(@investment)
 
     else
-      flash[:alert] = "Couldn't save!"
+      flash[:alert] = t("form.flash_message.no_success")
       @investment.project.organisation = organisation
       render :new
       return
