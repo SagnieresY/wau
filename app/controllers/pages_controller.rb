@@ -22,7 +22,6 @@ class PagesController < ApplicationController
                                                                 .group_by(&:investment_id).collect{|k,v| v.first}
                                                                 .first(25)
 
-
           #Gets installments by FA cummulates and returns  
           locked_hash = @locked_installments.joins(:focus_area).group('focus_areas.id').sum(:amount)
           unlocked_hash = @unlocked_installments.joins(:focus_area).group('focus_areas.id').sum(:amount)
@@ -94,8 +93,8 @@ class PagesController < ApplicationController
     unless params[:tag].blank?
       tag_array = params[:tag].strip.gsub('and','&').gsub(', ',',').split(',' )
       @installments = @installments.joins(:investment_tags).where("investment_tags.name":tag_array)
-
     end
+
     #Return hash by TIME depending on range
     @locked_installments_time_year = @installments.locked.group_by_year(:deadline, range: start_date..end_date).sum(:amount)
     @unlocked_installments_time_year = @installments.unlocked.group_by_year(:deadline, range: start_date..end_date).sum(:amount)
@@ -133,6 +132,10 @@ class PagesController < ApplicationController
     #Returns hash by PROJECT & sum(:amount)
     @locked_installments_project_chart = @installments.locked.joins(:project).group('projects.name').sum(:amount)
     @unlocked_installments_project_chart = @installments.unlocked.joins(:project).group('projects.name').sum(:amount)
+
+    #Returns hash by TAG & sum(:amount)
+    @locked_installments_tag_chart = @installments.locked.joins(:investment_tags).group('investment_tags.name').sum(:amount)
+    @unlocked_installments_tag_chart = @installments.unlocked.joins(:investment_tags).group('investment_tags.name').sum(:amount)
 
     #Returns installments grouped by investments for TABLE
     installment_ids = @installments.ids

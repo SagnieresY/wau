@@ -214,10 +214,10 @@ en:
       tag: "Tag"
     charts:
       info:
-        total: "Total: %{amount}"
-        locked: "Locked: %{amount}"
-        unlocked: "Unlocked: %{amount}"
-        investment_count: "Number of investments: %{amount}"
+        total: "Total"
+        locked: "Locked"
+        unlocked: "Unlocked"
+        investment_count: "Number of investments"
       time:
         title:
         day: "Day"
