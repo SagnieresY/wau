@@ -156,9 +156,24 @@ fr:
         sub_task: 'SVP rajouté une description'
         delete_button: 'Supprimer'
         add_button: 'Rajouté un versement'
+      organisation:
+        choose_org: "Choisir une organisation"
+        existing_org: "Organisations"
+        add_new_org: "Rajouter une nouvelle organisation"
+        title: '1 - Organisation'
+        existing: 'Existant'
+        new: 'Nouveau'
+        name: "Nom de l'organisation"
+        charity_number: 'Identifiant de charité'
       project:
+        title: "2- Informations sur le projet"
         name: 'Nom du projet'
         hint: 'Il est possible de choisir plusieurs quartiers.'
+      investment_tag:
+        existing: "Vos tags"
+        title: '4 - Tags'
+        new: 'Nouvelle tag'
+        add_button: 'Nouvelle tag'
     project_title: "Nouveau projet"
     save: "Sauvegarder"
   landing:
