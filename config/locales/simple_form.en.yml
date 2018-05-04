@@ -35,6 +35,12 @@ en:
           rescinded: 'Rescinded'
           unlocked: 'Unlocked'
           locked: 'Locked'
+      investment:
+        installment:
+          status:
+            rescinded: 'Rescinded'
+            unlocked: 'Unlocked'
+            locked: 'Locked'
       project:
         status:
           rescinded: 'Rescinded'

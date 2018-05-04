@@ -72,7 +72,7 @@ class InvestmentsController < ApplicationController
           organisation
         else 
           new
-          flash[:alert] = "Couldn't save the new organisation please try again."
+          flash[:alert] = t("form.flash_message.new_org")
           render :new
           return
         end
@@ -84,7 +84,7 @@ class InvestmentsController < ApplicationController
     #Else renders new
     else
       new
-      flash[:alert] = "Couldn't save"
+      flash[:alert] = t("form.flash_message.no_org")
       @investment.project.organisation = Organisation.new
       render :new
       return
@@ -113,15 +113,15 @@ class InvestmentsController < ApplicationController
 
     if @investment.save && @investment.installments.count == 0
       @investment.installments << Installment.create!(task:t("form.investment.installment.sub_task"), deadline: Date.today, investment: @investment, amount: 0)
-      flash[:notice] = "Investment for #{organisation.name}'s project: '#{project.name.capitalize}' was successfully created!"
+      flash[:notice] = t("form.flash_message.success", organisation: organisation.name, project: project.name.capitalize)
       redirect_to investment_path(@investment)
 
     elsif @investment.save && @investment.installments.count > 0
-      flash[:notice] = "Investment for #{organisation.name}'s project: '#{project.name.capitalize}' was successfully created!"
+      flash[:notice] = t("form.flash_message.success", organisation: organisation.name, project: project.name.capitalize)
       redirect_to investment_path(@investment)
 
     else
-      flash[:alert] = "Couldn't save!"
+      flash[:alert] = t("form.flash_message.no_success")
       @investment.project.organisation = organisation
       render :new
       return
