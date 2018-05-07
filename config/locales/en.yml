@@ -70,10 +70,12 @@ en:
       search_bar:
         active: "Search for active investments..."
         completed: "Search for completed investments..."
+        rejected: "Search for rejected investments..."
       table:
         tab:
           title_one: "Active Investments"
           title_two: "Completed Investments"
+          title_three: "Rejected Investments"
         ngo_column:
           title: "NGO"
         project_column:

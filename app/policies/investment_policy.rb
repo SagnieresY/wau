@@ -23,6 +23,10 @@ class InvestmentPolicy < ApplicationPolicy
     user.organisation
   end
 
+  def rejected_index?
+    user.organisation
+  end
+
   def new?
     user.organisation
   end

@@ -69,10 +69,12 @@ fr:
       search_bar:
         active: "Recherche de dons actifs..."
         completed: "Recherche de dons complétés..."
+        rejected: "Recherche de dons rejetés"
       table:
         tab:
           title_one: "Dons actifs"
           title_two: "Dons complétés"
+          title_three: "Dons rejeté"
         ngo_column:
           title: "Organisme"
         project_column:
