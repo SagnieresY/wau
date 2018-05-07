@@ -72,7 +72,7 @@ class PagesController < ApplicationController
     unless params[:focus].blank?
       fa_hash = {}
       fa_array_id = []
-      FocusArea.all.each {|fa| fa_hash[fa.name] = fa.id}
+      FocusArea.all.each {|fa| fa_hash[fa.focus_area_translations.where(locale:"en")[0].name] = fa.id}
 
       params[:focus].strip.gsub('and','&').gsub(', ',',').split(',').each {|fa| fa_array_id << fa_hash[fa]}
 
