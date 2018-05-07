@@ -11,7 +11,7 @@
   </div>
 </div>
 
-<div class="row margin-top-bottom-6">  
+<div class="row margin-top-bottom-6">
   <div class="col-sm-6 col-sm-push-6 left-end-flex-md-up">
     <%= link_to new_investment_path, { class: "btn btn-success" } do %>
     <%= t(".mid_section.button") .upcase %>
@@ -25,6 +25,8 @@
   <ul class="flex-tab nav nav-pills">
     <%=  link_to t(".table.tab.title_one"), active_investments_path, remote: true, method: :post,id: "active-tab", class: "tablinks active", :onclick =>  'openTab(event, "active")' %>
     <%=  link_to t(".table.tab.title_two"), completed_investments_path, remote: true, method: :post, id: "completed-tab", class: "tablinks inactive", :onclick =>  'openTab(event, "completed")'%>
+    <%= link_to t(".table.tab.title_three"), rejected_investments_path, remote: true,
+    method: :post, id: "rejected-tab", class: "tablinks inactive", :onclick => 'openTab(event, "rejected")' %>
   </ul>
 
 <div id="index-tables">
@@ -115,6 +117,27 @@
     }
   }
 
+function searchRejected() {
+  // Declare variables
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("searchBarRejected");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("rejectedTable");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      td2 = tr[i].getElementsByTagName("td")[1];
+      if (td || td2) {
+        if (td.innerHTML.toUpperCase().indexOf(filter) > -1 || td2.innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
 
 
   // call the tablesorter plugin

@@ -14,8 +14,8 @@ class InvestmentsController < ApplicationController
   def index
     @fuck_off_pundit = policy_scope(current_user.organisation.investments.last)
     @active_investments =  active_investments_paginated
-    @completed_investments = completed_investments_paginated.push(*rejected_investments_paginated)
-
+    @completed_investments = completed_investments_paginated
+    @rejected_investments = rejected_investments_paginated
     @page = "active_page" if params.has_key?(:active_page)
     @page = "completed_page" if params.has_key?(:completed_page)
   end
@@ -36,6 +36,17 @@ class InvestmentsController < ApplicationController
 
     respond_to do |format|
       format.js  { active_investments_path }
+      format.html
+    end
+  end
+
+
+  def rejected_index
+    @rejected_investments =  rejected_investments_paginated
+    authorize @rejected_investments.first
+
+    respond_to do |format|
+      format.js  { rejected_investments_path }
       format.html
     end
   end
@@ -182,7 +193,7 @@ class InvestmentsController < ApplicationController
   end
 
   def completed_investments_paginated
-    Kaminari.paginate_array(current_user.organisation.completed_investments.to_a.push(*current_user.organisation.rejected_investments.to_a)).page(params[:completed_page]).per(10)
+    Kaminari.paginate_array(current_user.organisation.completed_investments).page(params[:completed_page]).per(10)
   end
 
   def rejected_investments_paginated
