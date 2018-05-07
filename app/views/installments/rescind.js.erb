@@ -1,6 +1,6 @@
 <% if @page == "show" %>
-  $("#invest-show-forecasted-amount").html( "<%= j render partial: '/partials/info-box/forecasted_amount_invest_show', investment: @installment.investment %>" );
   $("#invest-show-unlocked-amount").html( "<%= j render 'investments/total_unlocked', investment: @installment.investment %>" );
+  $("#invest-show-forecasted-amount").html( "<%= j render partial: '/partials/forecasted_amount_invest_show', investment: @installment.investment %>" );
   $("#invest-show-table-<%= @installment.id %> > td:nth-child(2) > div").removeClass().addClass("table-status rescinded-background-color").text("<%= t("investments.show.table.second_column.content.status_three") %>");
   <% if @investment.completed? %>
     console.log(<%= @investment.completed? %>)
