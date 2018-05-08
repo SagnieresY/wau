@@ -1,3 +1,4 @@
+
 <% if @page == "show" %>
   $("#invest-show-unlocked-amount").html( "<%= j render 'investments/total_unlocked', investment: @installment.investment %>" );
   $("#invest-show-forecasted-amount").html( "<%= j render partial: '/partials/forecasted_amount_invest_show', investment: @installment.investment %>" );
@@ -8,7 +9,7 @@
     $("#invest-show-forecasted-amount").removeClass().addClass("invest-show-info-child-box unlocked-background-color white-text");
     $("#invest-show-unlocked-amount").removeClass().addClass("invest-show-info-child-box unlocked-background-color white-text");
     $("#invest-show-focus-area-show").removeClass().addClass("invest-show-info-child-box unlocked-background-color white-text");
-    $("#invest-show-focus-area").removeClass().addClass("white-text");
+    $("#invest-show-focus-area").removeClass().addClass("white-text green-dropshadow-card center-item");
     console.log("done")
   <% else %>
     console.log($(".investment-completed-show"));
