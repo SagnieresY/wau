@@ -1,0 +1,4 @@
+$("#index-tables").html("<%= escape_javascript render partial: "index_rejected_table" %>");
+$("#active-investments-table").html("<%= escape_javascript(paginate(@rejected_investments, remote: true, :param_name => "active_page")) %>");
+$("#active-tab").xaddClass("active")
+$("#completed-tab").removeClass("active")

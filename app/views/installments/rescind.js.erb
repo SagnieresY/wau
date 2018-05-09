@@ -1,17 +1,15 @@
+
 <% if @page == "show" %>
-  $("#invest-show-unlocked-amount").html( "<%= j render 'investments/total_unlocked', investment: @installment.investment %>" );
   $("#invest-show-forecasted-amount").html( "<%= j render partial: '/partials/forecasted_amount_invest_show', investment: @installment.investment %>" );
-  $("#invest-show-table-<%= @installment.id %> > td:nth-child(2) > div").removeClass().addClass("table-status rescinded-background-color").text("<%= t("investments.show.table.second_column.content.status_three") %>");
-  <% if @investment.completed? %>
-    console.log(<%= @investment.completed? %>)
-    $("#investment-completed-show").removeClass().addClass("table-status unlocked-background-color").text("<%= t("investments.show.mid_section.status_one") %>");
-    $("#invest-show-forecasted-amount").removeClass().addClass("invest-show-info-child-box unlocked-background-color white-text");
-    $("#invest-show-unlocked-amount").removeClass().addClass("invest-show-info-child-box unlocked-background-color white-text");
-    $("#invest-show-focus-area-show").removeClass().addClass("invest-show-info-child-box unlocked-background-color white-text");
-    $("#invest-show-focus-area").removeClass().removeClass().addClass("white-text");
-    console.log("done")
+  $("#invest-show-unlocked-amount").html( "<%= j render 'investments/total_unlocked', investment: @installment.investment %>" );
+  $("#invest-show-table-<%= @installment.id %> > td:nth-child(2) > div").removeClass().addClass("table-status rescinded-background-color").text('<%= t("investments.show.table.second_column.content.status_three") %>');
+  <% if @investment.rejected? %>
+    $("#investment-completed-show").removeClass().addClass("table-status rescinded-background-color").text("<%= t("investments.show.mid_section.status_three") %>");
+    $("#invest-show-forecasted-amount").removeClass().addClass("invest-show-info-child-box rescinded-background-color white-text");
+    $("#invest-show-unlocked-amount").removeClass().addClass("invest-show-info-child-box rescinded-background-color white-text");
+    $("#invest-show-focus-area-show").removeClass().addClass("invest-show-info-child-box rescinded-background-color white-text");
+    $("#invest-show-focus-area").removeClass().removeClass().addClass("white-text red-dropshadow-card");
   <% else %>
-    console.log($(".investment-completed-show"));
   <% end %>
 
 <% elsif @page == 'home' %>

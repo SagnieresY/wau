@@ -178,6 +178,11 @@ fr:
         add_button: 'Nouvelle tag'
     project_title: "Nouveau projet"
     save: "Sauvegarder"
+    flash_message:
+      new_org: "Couldn't save the new organisation please try again."
+      no_org: "Couldn't save, please add an Organisation"
+      success: "Investment for %{organisation}'s project: '%{project}' was successfully created!"
+      no_success: "Couldn't save, please try again"
   landing:
     title: "Gérer vos dons"
     sub_title: "Découvrez l'impact réél de vos dons grâce à un tableau de bord compréhensif"

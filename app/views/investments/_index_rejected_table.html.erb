@@ -1,0 +1,89 @@
+<div id="rejected" class="tabcontent" style="display:block!important;">
+<% unless @rejected_investments.nil? %>
+<div class="rejected-investments">
+  <input type="text" class="searchInvest" id="searchBarRejected" onkeyup="searchRejected()" placeholder="<%= t("investments.index.search_bar.rejected") %>">
+  <div class="table-responsive">
+    <table id="rejectedTable" class="table table-hover dropshadow-around">
+      <thead>
+        <tr class="white-background header-row-installment">
+          <th class="col-sm-3">
+            <div class="flex-space-around">
+              <%= t("investments.index.table.ngo_column.title") %>
+              <i class="fas fa-arrows-alt-v margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-sm-3">
+            <div class="flex-space-around">
+              <%= t("investments.index.table.project_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-sm-2">
+            <div class="flex-space-around">
+              <%= t("investments.index.table.focus_area_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-sm-1">
+            <div class="flex-space-around">
+              <%= t("investments.index.table.rejected.invested_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-sm-1">
+            <div class="flex-space-around">
+              <%= t("investments.index.table.rejected.installment_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-sm-1">
+            <div class="flex-space-around">
+              <%= t("investments.index.table.rejected.status_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-sm-1" style="text-align: center;"><%= t("investments.index.table.edit_column.title") %>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @rejected_investments.each do |investment| %>
+        <tr class="white-background table-row-investment" data-investment-id="<%= investment.id %>">
+          <td><%= investment.project.organisation.name.capitalize %></td>
+          <td>
+            <%= link_to investment_path(investment), {class: "green-link-text"} do %>
+            <%= investment.project.name %>
+            <% end %>
+          </td>
+          <td><%= investment.focus_area.name %></td>
+          <td><%= nice_money(investment.forecasted_amount) %></td>
+          <td>
+            <div>
+              <%= investment.installments.count %>
+            </div>
+          </td>
+          <td>
+            <div class="label label-success lb-sm"><%= t("investments.index.table.rejected.status_column.content") %></div>
+          </td>
+          <td>
+            <div class="flex-space-around">
+              <%= link_to edit_investment_path(investment), { class: "label label-warning lb-sm button-appear-hover" } do %>
+              <i class="fas fa-pencil-alt"></i>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div id="active-investments-table">
+    <%= paginate @rejected_investments, remote: true, :param_name => "rejected_page" %>
+  </div>
+</div>
+<% else %>
+  <div class="white-dropshadow-card green-text size-24 margin-top-bottom-6" style="text-align:center;">
+    <%= t("investment.index.no_content.rejected") %>
+  </div>
+<% end %>
+

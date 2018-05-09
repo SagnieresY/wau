@@ -1,5 +1,5 @@
 class InstallmentsController < ApplicationController
- 
+
   before_action :selected_installment, only: [:edit, :update, :destroy, :unlock, :rescind ]
   before_action :find_investment, only: [:create, :new, :edit, :update, :destroy]
 
@@ -59,7 +59,7 @@ class InstallmentsController < ApplicationController
       # reset_global_variables
       t = Time.new(Time.now.year,1,1,0,0,0,'+00:00')
       @year = t.year
-      
+
       #prepares installments for charts
       @unlocked_installments = current_user.organisation.unlocked_installments
       @locked_installments = current_user.organisation.locked_installments
