@@ -20,6 +20,10 @@ td {
   margin-bottom: 6px;
 }
 
+.margin-4 {
+  margin: 4px;
+}
+
 // Takes away the padding on mobile/tablet
 @media(min-width:991px){
   .no-right-padding-md {
@@ -112,4 +116,5 @@ td {
   font-size: 24px;
   font-weight:normal
 }
+
 
