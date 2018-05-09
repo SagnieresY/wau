@@ -55,7 +55,7 @@ class InstallmentsController < ApplicationController
     #   stats: @installment.investment.unlocked_amount
     # }
     @page = params[:page]
-    if true
+    if @page == "home"
       # reset_global_variables
       t = Time.new(Time.now.year,1,1,0,0,0,'+00:00')
       @year = t.year
@@ -80,6 +80,13 @@ class InstallmentsController < ApplicationController
         format.html { unlock_installment_path }
         format.js
       end
+
+    elsif @page == "show"
+      respond_to do |format|
+        format.html { unlock_installment_path }
+        format.js
+      end
+
     else
       respond_to do |format|
         format.html { render 'investment/show'}

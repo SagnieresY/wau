@@ -22,7 +22,7 @@
 <% end %>
 
 <div class="col-sm-2 margin-top-bottom-6">
-    <%= render "total_unlocked", investment: @investment %>
+    <%= render "/partials/invest_show_total_unlocked", investment: @investment %>
 </div>
 <div class="col-sm-2 margin-top-bottom-6">
     <%= render partial: "/partials/forecasted_amount_invest_show", investment: @investment %>

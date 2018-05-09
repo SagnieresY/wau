@@ -6,16 +6,17 @@
     <div class="size-18" >
       <i><%= @investment.project.organisation.name %></i> - <%= @investment.project.organisation.charity_number %>
     </div>
-    <div class="size-18">
+    <div class="lb-md">
       <% @investment.investment_tags.each do |tag| %> 
-      <div class="table-status unlocked-background-color"><%= tag.name.capitalize %>
+      <div class="label label-success margin-4"><%= tag.name.capitalize %>
       </div>  
       <% end %>
     </div>
   </div>
-  <%= render partial: "/partials/invest_show_info", investment: @investment %>
+  <div id="invest-show-info">
+    <%= render partial: "/partials/invest_show_info", investment: @investment %>
+  </div>
 </div>
-
 
   <div class="mid-title-box">
     <div class="mid-title-flex">
