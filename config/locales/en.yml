@@ -102,6 +102,16 @@ en:
             content: "Completed"
           edit_column:
             title: "Edit"
+        rejected:
+          invested_column:
+            title: "Invested"
+          installment_column:
+            title: "Installments"
+          status_column:
+            title: "Status"
+            content: "Rejected"
+          edit_column:
+            title: "Edit"
       no_content:
         completed: "You don't have any completed investments!"
         active: "You don't have any active investments!"
