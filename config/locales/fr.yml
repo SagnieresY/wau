@@ -186,6 +186,8 @@ fr:
   landing:
     title: "Gérer vos dons"
     sub_title: "Découvrez l'impact réél de vos dons grâce à un tableau de bord compréhensif"
+    navbar:
+      button: "Connexion"
   navbar:
     first_tab: "DASHBOARD"
     second_tab: "DONS"
