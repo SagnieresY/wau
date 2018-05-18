@@ -109,15 +109,13 @@ class PagesController < ApplicationController
     @locked_installments_time_day = @installments.locked.group_by_day(:deadline, range: start_date..end_date).sum(:amount)
     @unlocked_installments_time_day = @installments.unlocked.group_by_day(:deadline, range: start_date..end_date).sum(:amount)
 
-
-
     #Returns hash by GEO & sum(:amount)
-    @locked_installments_geo_chart = Organisation.otherify(@installments.locked.joins(:geos).group("geos.name").sum(:amount))
-    @unlocked_installments_geo_chart = Organisation.otherify(@installments.unlocked.joins(:geos).group("geos.name").sum(:amount))
+    @locked_installments_geo_chart = otherify(@installments.locked.joins(:geos).group("geos.name").sum(:amount))
+    @unlocked_installments_geo_chart = otherify(@installments.unlocked.joins(:geos).group("geos.name").sum(:amount))
 
     #Returns hash by NGO & sum(:amount)
-    @locked_installments_ngo_chart = Organisation.otherify(@installments.locked.joins(project: :organisation).group("organisations.name").sum(:amount))
-    @unlocked_installments_ngo_chart = Organisation.otherify(@installments.unlocked.joins(project: :organisation).group("organisations.name").sum(:amount))
+    @locked_installments_ngo_chart = otherify(@installments.locked.joins(project: :organisation).group("organisations.name").sum(:amount))
+    @unlocked_installments_ngo_chart = otherify(@installments.unlocked.joins(project: :organisation).group("organisations.name").sum(:amount))
 
     #Returns hash by FA & sum(:amount)
     locked_hash = @installments.locked.joins(:focus_area).group('focus_areas.id').sum(:amount)
@@ -125,18 +123,18 @@ class PagesController < ApplicationController
 
     #Changes the keys of FA ID to FA NAME
     locked_hash.keys.each { |k| locked_hash[FocusArea.find(k).name] = locked_hash.delete(k) }
-    @locked_installments_fa_chart = Organisation.otherify(locked_hash)
+    @locked_installments_fa_chart = otherify(locked_hash)
 
     unlocked_hash.keys.each { |k| unlocked_hash[FocusArea.find(k).name] = unlocked_hash.delete(k) }
-    @unlocked_installments_fa_chart = Organisation.otherify(unlocked_hash)
+    @unlocked_installments_fa_chart = otherify(unlocked_hash)
 
     #Returns hash by PROJECT & sum(:amount)
-    @locked_installments_project_chart = Organisation.otherify(@installments.locked.joins(:project).group('projects.name').sum(:amount))
-    @unlocked_installments_project_chart = Organisation.otherify(@installments.unlocked.joins(:project).group('projects.name').sum(:amount))
+    @locked_installments_project_chart = otherify(@installments.locked.joins(:project).group('projects.name').sum(:amount))
+    @unlocked_installments_project_chart = otherify(@installments.unlocked.joins(:project).group('projects.name').sum(:amount))
 
     #Returns hash by TAG & sum(:amount)
-    @locked_installments_tag_chart = @installments.locked.joins(:investment_tags).group('investment_tags.name').sum(:amount)
-    @unlocked_installments_tag_chart = @installments.unlocked.joins(:investment_tags).group('investment_tags.name').sum(:amount)
+    @locked_installments_tag_chart = otherify(@installments.locked.joins(:investment_tags).group('investment_tags.name').sum(:amount))
+    @unlocked_installments_tag_chart = otherify(@installments.unlocked.joins(:investment_tags).group('investment_tags.name').sum(:amount))
 
     #Returns installments grouped by investments for TABLE
     installment_ids = @installments.ids
@@ -151,6 +149,20 @@ class PagesController < ApplicationController
   end
 
   def downloads
+  end
+
+  private
+
+  def otherify(hash)
+    otherified_hash = hash.sort{ |criteria, amount| criteria[1]<=>amount[1] }.reverse[(0..3)].to_h
+    if hash.count > 3
+      others = hash.sort{ |criteria, amount| criteria[1]<=>amount[1] }.reverse[(4..-1)]
+      others = others.map{|criteria| criteria[1]}.reduce(0,:+)
+      otherified_hash["OTHERS"] = others
+      otherified_hash
+    else
+      otherified_hash
+    end
   end
 
 
