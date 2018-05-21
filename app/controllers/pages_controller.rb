@@ -99,27 +99,34 @@ class PagesController < ApplicationController
     #Return hash by TIME depending on range
     @locked_installments_time_year = @installments.locked.group_by_year(:deadline, range: start_date..end_date).sum(:amount)
     @unlocked_installments_time_year = @installments.unlocked.group_by_year(:deadline, range: start_date..end_date).sum(:amount)
+    @rescinded_installments_time_year = @installments.rescinded.group_by_year(:deadline, range: start_date..end_date).sum(:amount)
 
     @locked_installments_time_month = @installments.locked.group_by_month(:deadline, range: start_date..end_date).sum(:amount)
     @unlocked_installments_time_month = @installments.unlocked.group_by_month(:deadline, range: start_date..end_date).sum(:amount)
+    @rescinded_installments_time_month = @installments.rescinded.group_by_month(:deadline, range: start_date..end_date).sum(:amount)
 
     @locked_installments_time_week = @installments.locked.group_by_week(:deadline, range: start_date..end_date).sum(:amount)
     @unlocked_installments_time_week = @installments.unlocked.group_by_week(:deadline, range: start_date..end_date).sum(:amount)
+    @rescinded_installments_time_week = @installments.rescinded.group_by_week(:deadline, range: start_date..end_date).sum(:amount)
 
     @locked_installments_time_day = @installments.locked.group_by_day(:deadline, range: start_date..end_date).sum(:amount)
     @unlocked_installments_time_day = @installments.unlocked.group_by_day(:deadline, range: start_date..end_date).sum(:amount)
+    @rescinded_installments_time_day = @installments.rescinded.group_by_day(:deadline, range: start_date..end_date).sum(:amount)
 
     #Returns hash by GEO & sum(:amount)
     @locked_installments_geo_chart = otherify(@installments.locked.joins(:geos).group("geos.name").sum(:amount))
     @unlocked_installments_geo_chart = otherify(@installments.unlocked.joins(:geos).group("geos.name").sum(:amount))
+    @rescinded_installments_geo_chart = otherify(@installments.rescinded.joins(:geos).group("geos.name").sum(:amount))
 
     #Returns hash by NGO & sum(:amount)
     @locked_installments_ngo_chart = otherify(@installments.locked.joins(project: :organisation).group("organisations.name").sum(:amount))
     @unlocked_installments_ngo_chart = otherify(@installments.unlocked.joins(project: :organisation).group("organisations.name").sum(:amount))
+    @rescinded_installments_ngo_chart = otherify(@installments.rescinded.joins(project: :organisation).group("organisations.name").sum(:amount))
 
     #Returns hash by FA & sum(:amount)
     locked_hash = @installments.locked.joins(:focus_area).group('focus_areas.id').sum(:amount)
     unlocked_hash = @installments.unlocked.joins(:focus_area).group('focus_areas.id').sum(:amount)
+    rescinded_hash = @installments.rescinded.joins(:focus_area).group('focus_areas.id').sum(:amount)
 
     #Changes the keys of FA ID to FA NAME
     locked_hash.keys.each { |k| locked_hash[FocusArea.find(k).name] = locked_hash.delete(k) }
@@ -128,13 +135,18 @@ class PagesController < ApplicationController
     unlocked_hash.keys.each { |k| unlocked_hash[FocusArea.find(k).name] = unlocked_hash.delete(k) }
     @unlocked_installments_fa_chart = otherify(unlocked_hash)
 
+    rescinded_hash.keys.each { |k| rescinded_hash[FocusArea.find(k).name] = rescinded_hash.delete(k) }
+    @rescinded_installments_fa_chart = otherify(rescinded_hash)
+
     #Returns hash by PROJECT & sum(:amount)
     @locked_installments_project_chart = otherify(@installments.locked.joins(:project).group('projects.name').sum(:amount))
     @unlocked_installments_project_chart = otherify(@installments.unlocked.joins(:project).group('projects.name').sum(:amount))
+    @rescinded_installments_project_chart = otherify(@installments.rescinded.joins(:project).group('projects.name').sum(:amount))
 
     #Returns hash by TAG & sum(:amount)
     @locked_installments_tag_chart = otherify(@installments.locked.joins(:investment_tags).group('investment_tags.name').sum(:amount))
     @unlocked_installments_tag_chart = otherify(@installments.unlocked.joins(:investment_tags).group('investment_tags.name').sum(:amount))
+    @rescinded_installments_tag_chart = otherify(@installments.rescinded.joins(:investment_tags).group('investment_tags.name').sum(:amount))
 
     #Returns installments grouped by investments for TABLE
     installment_ids = @installments.ids

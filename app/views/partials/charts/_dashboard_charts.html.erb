@@ -79,14 +79,15 @@
 <!-- DATE CHART: Cumulative installments by month in chronological order -->
 <%= area_chart [
     {name: t("dashboard.charts.info.unlocked"), data: @unlocked_installments_time_day},
-    {name: t("dashboard.charts.info.locked"), data: @locked_installments_time_day}],
+    {name: t("dashboard.charts.info.locked"), data: @locked_installments_time_day},
+    {name: t("dashboard.charts.info.rescinded"), data: @rescinded_installments_time_day}],
     messages: {empty: "Sorry, there is no corresponding data, please try again"},
     id: "dash_timeseries_day",
     stacked: true,
     prefix: "$",
     thousands: ",",
     points: false,
-    colors: ["#8D81D2","#AE6CB5"],
+    colors: ["#8D81D2","#AE6CB5", "#C40000"],
     library: {
         tooltips: {
             enabled: true,
@@ -112,13 +113,14 @@
 
 <%= area_chart [
     {name: t("dashboard.charts.info.unlocked"), data: @unlocked_installments_time_week},
-    {name: t("dashboard.charts.info.locked"), data: @locked_installments_time_week}],
+    {name: t("dashboard.charts.info.locked"), data: @locked_installments_time_week},
+    {name: t("dashboard.charts.info.rescinded"), data: @rescinded_installments_time_week}],
     messages: {empty: "Sorry, there is no corresponding data, please try again"},
     id: "dash_timeseries_week",
     stacked: true,
     prefix: "$",
     thousands: ",",
-    colors: ["#8D81D2","#AE6CB5"],
+    colors: ["#8D81D2","#AE6CB5", "#C40000"],
     library: {
         tooltips: {
             enabled: true,
@@ -144,13 +146,14 @@
 
 <%= area_chart [
     {name: t("dashboard.charts.info.unlocked"), data: @unlocked_installments_time_month},
-    {name: t("dashboard.charts.info.locked"), data: @locked_installments_time_month}],
+    {name: t("dashboard.charts.info.locked"), data: @locked_installments_time_month},
+    {name: t("dashboard.charts.info.rescinded"), data: @rescinded_installments_time_month}],
     messages: {empty: "Sorry, there is no corresponding data, please try again"},
     id: "dash_timeseries_month",
     stacked: true,
     prefix: "$",
     thousands: ",",
-    colors: ["#8D81D2","#AE6CB5"],
+    colors: ["#8D81D2","#AE6CB5", "#C40000"],
     library: {
         tooltips: {
             enabled: true,
@@ -176,13 +179,14 @@
 
 <%= area_chart [
     {name: t("dashboard.charts.info.unlocked"), data: @unlocked_installments_time_year},
-    {name: t("dashboard.charts.info.locked"), data: @locked_installments_time_year}],
+    {name: t("dashboard.charts.info.locked"), data: @locked_installments_time_year},
+    {name: t("dashboard.charts.info.rescinded"), data: @rescinded_installments_time_year}],
     messages: {empty: "Sorry, there is no corresponding data, please try again"},
     id: "dash_timeseries_year",
     stacked: true,
     prefix: "$",
     thousands: ",",
-    colors: ["#8D81D2","#AE6CB5"],
+    colors: ["#8D81D2","#AE6CB5", "#C40000"],
     library: {
         tooltips: {
             enabled: true,
@@ -208,14 +212,15 @@
 
 <%= bar_chart [
     {name: t("dashboard.charts.info.unlocked"), data: @unlocked_installments_fa_chart},
-    {name: t("dashboard.charts.info.locked"), data: @locked_installments_fa_chart}],
+    {name: t("dashboard.charts.info.locked"), data: @locked_installments_fa_chart},
+    {name: t("dashboard.charts.info.rescinded"), data: @rescinded_installments_fa_chart}],
     messages: {empty: "Sorry, there is no corresponding data, please try again"},
     id: "dash_fa_bars",
-    stacked:true,
+    stacked: true,
     prefix: "$",
     thousands: ",",
     download: true,
-    colors: ["#8D81D2", "#AE6CB5"],
+    colors: ["#8D81D2", "#AE6CB5", "#C40000"],
     library: {
         tooltips: {
         enabled: true,
@@ -241,14 +246,15 @@
 
 <%= bar_chart [
     {name: t("dashboard.charts.info.unlocked"), data: @unlocked_installments_ngo_chart},
-    {name: t("dashboard.charts.info.locked"), data: @locked_installments_ngo_chart}],
+    {name: t("dashboard.charts.info.locked"), data: @locked_installments_ngo_chart},
+    {name: t("dashboard.charts.info.rescinded"), data: @rescinded_installments_ngo_chart}],
     messages: {empty: "Sorry, there is no corresponding data, please try again"},
     id: "dash_ngo_bars",
     stacked:true,
     prefix: "$",
     thousands: ",",
     download: true,
-    colors: ["#8D81D2", "#AE6CB5"],
+    colors: ["#8D81D2","#AE6CB5", "#C40000"],
     library: {
         tooltips: {
         enabled: true,
@@ -274,14 +280,15 @@
 
 <%= bar_chart [
     {name: t("dashboard.charts.info.unlocked"), data:  @unlocked_installments_geo_chart},
-    {name: t("dashboard.charts.info.locked"), data:  @locked_installments_geo_chart}],
+    {name: t("dashboard.charts.info.locked"), data:  @locked_installments_geo_chart},
+    {name: t("dashboard.charts.info.rescinded"), data:  @rescinded_installments_geo_chart}],
     messages: {empty: "Sorry, there is no corresponding data, please try again"},
     id: "dash_geo_bars",
     stacked:true,
     prefix: "$",
     thousands: ",",
     download: true,
-    colors: ["#8D81D2", "#AE6CB5"],
+    colors: ["#8D81D2","#AE6CB5", "#C40000"],
     library: {
         tooltips: {
         enabled: true,
@@ -307,14 +314,15 @@
 
 <%= bar_chart [
     {name: t("dashboard.charts.info.unlocked"), data:  @unlocked_installments_project_chart},
-    {name: t("dashboard.charts.info.locked"), data:  @locked_installments_project_chart}],
+    {name: t("dashboard.charts.info.locked"), data:  @locked_installments_project_chart},
+    {name: t("dashboard.charts.info.rescinded"), data:  @rescinded_installments_project_chart}],
     messages: {empty: "Sorry, there is no corresponding data, please try again"},
     id: "dash_project_bars",
     stacked:true,
     prefix: "$",
     thousands: ",",
     download: true,
-    colors: ["#8D81D2", "#AE6CB5"],
+    colors: ["#8D81D2","#AE6CB5", "#C40000"],
     library: {
         tooltips: {
         enabled: true,
@@ -340,14 +348,15 @@
 
 <%= bar_chart [
     {name: t("dashboard.charts.info.unlocked"), data:  @unlocked_installments_tag_chart},
-    {name: t("dashboard.charts.info.locked"), data:  @locked_installments_tag_chart}],
+    {name: t("dashboard.charts.info.locked"), data:  @locked_installments_tag_chart},
+    {name: t("dashboard.charts.info.rescinded"), data:  @rescinded_installments_tag_chart}],
     messages: {empty: "Sorry, there is no corresponding data, please try again"},
     id: "dash_tag_bars",
     stacked:true,
     prefix: "$",
     thousands: ",",
     download: true,
-    colors: ["#8D81D2", "#AE6CB5"],
+    colors: ["#8D81D2","#AE6CB5", "#C40000"],
     library: {
         tooltips: {
             enabled: true,
