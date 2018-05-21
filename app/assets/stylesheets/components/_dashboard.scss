@@ -1,50 +1,10 @@
 //DASHOBARD SEARCH
-.search-container{
-  color:black!important;
-  font-size:24px!important;
-}
-.lb-sm {
-  font-size:12px;
-  font-weight:normal;
-}
-
-.lb-md {
-  font-size:18px;
-  font-weight:normal;
-}
-.margin-top-bottom {
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
 .search-label {
   color:black;
 }
-.search-buttons {
-  display:flex;
-  border-bottom: 1px solid #ccc;
-  color:black!important;
-}
-// did you know that many developers consider front-end a form of torture? You learn something new everyday
+
 .search-input {
   display:flex;
-
-}
-
-
-.search-btn {
-  color: $green;
-  border: 3px solid $green;
-  background-color:white;
-  font-size:17px;
-}
-.active-tab {
-  background-color: $green!important;
-  color: white!important;
-}
-.suggestions {
-  // margin-bottom:30px;
-  // border: 1px solid lightgrey;
-  // background-color:#e5e8e5;
 }
 
 .suggestion {
@@ -57,39 +17,13 @@
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
+}
 
-}
-.bold {
-  font-weight:bold;
-}
 .search-content {
   display:flex;
   position:relative;
   flex-wrap: wrap;
 
-}
-.searchfield {
-  margin:20px;
-}
-.tag{
-  border-radius:20px;
-  color: $green;
-  font-weight:bolder;
-  font-size:15px;
-  padding:5px;
-  border: 4px solid $green;
-  height:38px;
-  margin-left:3px;
-  webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+/Edge */
-  user-select: none; /* Standard */
-  margin-bottom:4px;
-}
-.pull-right-for-real {
-  display:flex;
-  flex-direction:row-reverse;
-  margin:none!important;
 }
 
 // END DASHBOARD SEARCH
@@ -98,7 +32,7 @@
   flex-wrap:wrap;
 }
 .dashboard-chart{
-  height: 35vh;
+  height: 42vh;
 }
 
 .tablinks {
@@ -107,41 +41,8 @@
     border-radius:none;
 }
 
-//COMMMMMMMMMMENT
-/* Style the buttons that are used to open the tab content */
-.tab button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    transition: 0.3s;
-}
-.tab h3 {
-  text-align:center;
-  text-decoration: underline;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-    background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-    background-color: #ccc;
-}
-
 /* Style the tab content */
 .tabcontent {
   display:none;
-}
-
-#second-chart-row{
-  display:flex;
-  margin-right:0px;
-  margin-left:0px;
-
 }
 

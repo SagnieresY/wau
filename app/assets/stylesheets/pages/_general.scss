@@ -42,6 +42,14 @@ td {
     display: flex;
     justify-content: flex-end;
   }
+
+  .col-half-offset-md {
+    margin-left:4.166666667%
+  }
+
+  .green-right-border-md {
+    border-right: 1px solid $green;
+  }
 }
 
 .no-margin-right {
