@@ -1,7 +1,7 @@
-
-<div class="row margin-top-bottom-6 white-dropshadow-card">
-    <div class="col-md-2 no-left-padding-md green-right-border-md">
-        <div class="flex-column">
+<div class="row">
+<div class="flex-grid-fifths margin-top-bottom-6">
+    <div class="col">
+        <div class="white-dropshadow-card flex-column">
             <div class="green-text size-24">
                 <%= nice_money(@installments.permitted.sum(:amount)) %>
             </div>
@@ -10,18 +10,8 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2 no-left-padding-md col-half-offset-md green-right-border-md">
-        <div class="flex-column">
-            <div class="green-text size-24">
-                <%= nice_money(@installments.locked.sum(:amount)) %>
-            </div>
-            <div>
-                <%= t("dashboard.charts.info.locked") %>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-2 no-right-padding-md col-half-offset-md green-right-border-md">
-        <div class="flex-column">
+    <div class="col">
+        <div class="white-dropshadow-card flex-column">
             <div class="green-text size-24">
                 <%= nice_money(@installments.unlocked.sum(:amount)) %>
             </div>
@@ -30,8 +20,18 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2 no-right-padding-md col-half-offset-md green-right-border-md">
-        <div class="flex-column">
+    <div class="col">
+        <div class="white-dropshadow-card flex-column">
+            <div class="green-text size-24">
+                <%= nice_money(@installments.locked.sum(:amount)) %>
+            </div>
+            <div>
+                <%= t("dashboard.charts.info.locked") %>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="white-dropshadow-card flex-column">
             <div class="green-text size-24">
                 <%= nice_money(@installments.rescinded.sum(:amount)) %>
             </div>
@@ -40,8 +40,8 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2 no-right-padding-md col-half-offset-md ">
-        <div class="flex-column">
+    <div class="col">
+        <div class="white-dropshadow-card flex-column">
             <div class="green-text size-24">
                 <%= @investments.count %>
             </div>
@@ -50,6 +50,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 

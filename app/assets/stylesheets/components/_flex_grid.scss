@@ -4,17 +4,17 @@
 .flex-grid .col {
   flex: 1;
 }
-.flex-grid-thirds {
+.flex-grid-fifths {
   display: flex;
   justify-content: space-between;
 }
-.flex-grid-thirds .col {
-  width: 22%;
+.flex-grid-fifths .col {
+  width: 18%;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 992px) {
   .flex-grid,
-  .flex-grid-thirds {
+  .flex-grid-fifth {
     display: block;
     .col {
       width: 100%;
