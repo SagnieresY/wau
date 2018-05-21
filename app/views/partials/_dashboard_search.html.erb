@@ -4,9 +4,10 @@
        <label class="size-18" for=""><%= t("dashboard.search_bar.label") %>:</label>
     </div>
     <div class="col-md-8 size-18">
-       <% search_buttons = ['Focus Area', 'Date', 'NGO', 'Neighborhood','Project', 'Tag'] %>
+       <% search_buttons = ['Focus Area', 'Date', 'NGO', 'Neighborhood','Project', 'Tag', 'Installment Status'] %>
        <% search_buttons.each do |tab| %>
        <% tab_label = tab == "Focus Area" ? "focus_area" : tab.downcase %>
+       <% tab_label = tab == "Installment Status" ? "installment_status" : tab.downcase %>
        <label class="form-check-label" for="<%= tab %>-label"><%=t("dashboard.search_bar.#{tab_label}")  %> </label>
        <input class="tablinks form-check-input" autocomplete="off" onclick="openTab(event,'<%= tab %>')" type="checkbox" value="" id="<%= tab %>-label">
        &nbsp;&nbsp;&nbsp;
@@ -20,6 +21,7 @@
     <% search_buttons.each do |tab| %>
     <div id="<%= tab %>" class="tabcontent search-input row" >
        <% tab = tab == 'Focus Area' ? 'focus_area' : tab  %>
+       <% tab = tab == "Installment Status" ? "installment_status" : tab %>
 
        <%= render partial: "/partials/dashboard-search/#{tab}" %>
 

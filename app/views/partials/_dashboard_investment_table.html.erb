@@ -30,11 +30,8 @@
         </td>
         <td>
           <div class="flex-space-around">
-            <%= link_to investment_path(investment), { class: "edit-investment-button-table button-appear-hover" } do %>
-            <%= t("dashboard.table.editable.investment") %>
-            <% end %>
-            <%= link_to edit_project_path(investment.project), { class: "edit-investment-button-table button-appear-hover" } do %>
-              <%= t("dashboard.table.editable.project") %>
+            <%= link_to edit_investment_path(investment), { class: "edit-investment-button-table button-appear-hover" } do %>
+              <%= t("dashboard.table.editable.investment") %>
             <% end %>
           </div>
         </td>

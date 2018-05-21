@@ -228,6 +228,10 @@ en:
       neighborhood: "Neighborhood"
       project_name: "Project name"
       tag: "Tag"
+      status: "Installment Status"
+      locked: "Locked"
+      unlocked: "Unlocked"
+      rescinded: "Rescinded"
     charts:
       timechart:
         title: "FY Forecasted Investments between %{begining_date} and %{ending_date}"
@@ -256,12 +260,11 @@ en:
       header:
         ngo:  "NGO"
         project_name: "Project Name"
-        invested: "Invested"
+        invested: "Invested during selected period"
         status: "Status"
         edit: "Edit"
       completed: "Completed"
       active: "Active"
       editable:
         investment: "Investment"
-        project: "Project"
 

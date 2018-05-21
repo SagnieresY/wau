@@ -165,5 +165,8 @@ class PagesController < ApplicationController
     end
   end
 
+  def check_zero(hash)
+  end
+
 
 end
