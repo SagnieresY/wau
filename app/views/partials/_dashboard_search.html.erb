@@ -128,7 +128,17 @@
      url += `&max_date=${document.getElementById('max-date').value}`
 
      };
-     window.location.replace(`${url}`)
+
+   if (document.getElementById('Installment Status').style.display == 'block'){
+     url += `&locked=${document.getElementById('search-locked').value}`
+
+     url += `&unlocked=${document.getElementById('search-unlocked').value}`
+
+     url += `&rescinded=${document.getElementById('search-rescinded').value}`
+
+     };
+     
+    window.location.replace(`${url}`)
    };
 </script>
 <% end %>
