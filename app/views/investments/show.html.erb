@@ -44,21 +44,52 @@
     </div>
   </div>
 
-  <div class="table-container">
-    <table class="table table-hover margin-center dropshadow-around">
+  <div class="table-responsive">
+    <table class="table table-hover dropshadow-around">
       <thead>
         <tr class="white-background">
-          <th scope="col" width="10%"><div class="tablesorter-header-inner"><i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
-          <th scope="col" width="15%"><div class="tablesorter-header-inner"><%= t(".table.second_column.title") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-          <th scope="col" width="15%"><div class="tablesorter-header-inner"><%= t(".table.third_column.title") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-          <th scope="col" width="10%"><div class="tablesorter-header-inner"><%= t(".table.fourth_column.title") %><i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
-          <th scope="col" width="35%"><div class="tablesorter-header-inner"> <%= t(".table.fifth_column.title") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-          <th scope="col" width="15%"></th>
+          <th class="col-sm-1">
+            <div class="flex-space-between">
+              <%= t(".table.first_column.title") %>
+              <i class="fas fa-arrows-alt-v margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-sm-1">
+            <div class="flex-space-between">
+              <%= t(".table.second_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-sm-1">
+            <div class="flex-space-between">
+              <%= t(".table.third_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-sm-1">
+            <div class="flex-space-between">
+              <%= t(".table.fourth_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-sm-3">
+            <div class="flex-space-between"> 
+              <%= t(".table.fifth_column.title") %>
+              <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
+            </div>
+          </th>
+          <th class="col-sm-2">
+            <div class="flex-space-around">
+              <div class="header-table-button color-green"><i class="fas fa-lock-open"></i></div>
+              <div class="header-table-button color-red"><i class="fas fa-times"></i></div>
+              <div class="header-table-button color-yellow"><i class="fas fa-pencil-alt color-yellow"></i></div>
+            </div>
+          </th>
         </tr>
       </thead>
       <tbody>
         <% @investment.installments_by_nearest_deadline.each_with_index do |installment,index|  %>
-        <tr id="invest-show-table-<%= installment.id %>" class="white-background table-row-milestone" data-installment-id="<%= installment.id %>" data-investment-id="<%= installment.investment.id %>">
+        <tr id="invest-show-table-<%= installment.id %>" class="white-background row-button-appear" data-installment-id="<%= installment.id %>" data-investment-id="<%= installment.investment.id %>">
           <td><%= t(".table.first_column.content", index: index + 1) %> </td>
           <% unless installment.rescinded? %>
             <% if installment.unlocked? %>
@@ -89,13 +120,13 @@
           <td><%= installment.task %></td>
           <td>
             <div class="flex-space-around">
-              <%= link_to unlock_installment_path(id: installment.id, page: 'show'),:remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
+              <%= link_to unlock_installment_path(id: installment.id, page: 'show'), :remote => true, :method => :post, :class => "unlock-button button button-appear-hover" do %>
               <i class="fas fa-lock-open"></i>
               <% end %>
-              <%= link_to rescind_installment_path(id: installment.id, page: 'show'),:remote => true, :method => :post, :class => "rescind-button-table button-appear-hover" do %>
+              <%= link_to rescind_installment_path(id: installment.id, page: 'show'), :remote => true, :method => :post, :class => "rescind-button button button-appear-hover" do %>
               <i class="fas fa-times"></i>
               <% end %>
-              <%= link_to edit_investment_installment_path(installment.investment, installment), { class: "edit-button-table button-appear-hover" } do %>
+              <%= link_to edit_investment_installment_path(installment.investment, installment), { class: "edit-button button button-appear-hover" } do %>
               <i class="fas fa-pencil-alt"></i>
               <% end %>
             </div>

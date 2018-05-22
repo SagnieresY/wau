@@ -132,7 +132,8 @@ en:
         button: "New Installment"
       table:
         first_column:
-          content: "Installment %{index}"
+          title: "Installment"
+          content: "%{index}"
         second_column:
           title: "Status"
           content:

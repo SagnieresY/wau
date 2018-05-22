@@ -31,7 +31,7 @@ table tr:last-child td:last-child {
 
 .header-table-button {
   text-align: center;
-  width: 30%;
+  width: 30px;
 }
 
 .color-green {
@@ -49,6 +49,11 @@ table tr:last-child td:last-child {
 .flex-space-around{
   display: flex;
   justify-content: space-around;
+}
+
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
 }
 
 tr.header-row-installment {
@@ -69,7 +74,7 @@ tr.row-button-appear {
     }
     .button {
       text-align: center;
-      width: 35px;
+      width: 30%;
     }
     .button:hover {
       border-radius: 4px;
