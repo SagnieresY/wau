@@ -1,15 +1,25 @@
 <div id="search-container" class="row white-dropshadow-card margin-top-bottom-6 padding-15">
   <div class="row">
     <div class="col-md-2 left-end-flex-md-up">
+      <label class="size-18" for=""><%= t("dashboard.search_bar.installments_type") %>:</label>
+    </div>
+    <div class="col-md-8 size-18">
+      <label class="checkbox-inline"><input type="checkbox" id="search-locked" value="true"><%= t("dashboard.search_bar.locked") %></label>
+      <label class="checkbox-inline"><input type="checkbox" id="search-unlocked" value="true"><%= t("dashboard.search_bar.unlocked") %></label>
+      <label class="checkbox-inline"><input type="checkbox" id="search-rescinded" value="true"><%= t("dashboard.search_bar.rescinded") %></label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2 left-end-flex-md-up">
        <label class="size-18" for=""><%= t("dashboard.search_bar.label") %>:</label>
     </div>
     <div class="col-md-8 size-18">
-       <% search_buttons = ['Focus Area', 'Date', 'NGO', 'Neighborhood','Project', 'Tag', 'Installment Status'] %>
+       <% search_buttons = ['Focus Area', 'Date', 'NGO', 'Neighborhood','Project', 'Tag'] %>
        <% search_buttons.each do |tab| %>
        <% tab_label = tab == "Focus Area" ? "focus_area" : tab.downcase %>
-       <% tab_label = tab == "Installment Status" ? "installment_status" : tab.downcase %>
-       <label class="form-check-label" for="<%= tab %>-label"><%=t("dashboard.search_bar.#{tab_label}")  %> </label>
        <input class="tablinks form-check-input" autocomplete="off" onclick="openTab(event,'<%= tab %>')" type="checkbox" value="" id="<%= tab %>-label">
+       <label class="form-check-label" for="<%= tab %>-label"><%=t("dashboard.search_bar.#{tab_label}")  %> </label>
        &nbsp;&nbsp;&nbsp;
        <% end %>
     </div>
@@ -21,7 +31,6 @@
     <% search_buttons.each do |tab| %>
     <div id="<%= tab %>" class="tabcontent search-input row" >
        <% tab = tab == 'Focus Area' ? 'focus_area' : tab  %>
-       <% tab = tab == "Installment Status" ? "installment_status" : tab %>
 
        <%= render partial: "/partials/dashboard-search/#{tab}" %>
 
@@ -127,14 +136,19 @@
 
      url += `&max_date=${document.getElementById('max-date').value}`
 
-     };
+    };
 
-   if (document.getElementById('Installment Status').style.display == 'block'){
+   if (document.getElementById('search-locked').checked){
      url += `&locked=${document.getElementById('search-locked').value}`
-
+    };
+  
+   if (document.getElementById('search-unlocked').checked){
      url += `&unlocked=${document.getElementById('search-unlocked').value}`
+    };
 
-     };
+  if (document.getElementById('search-rescinded').checked){
+     url += `&rescinded=${document.getElementById('search-rescinded').value}`
+    };
 
     window.location.replace(`${url}`)
    };

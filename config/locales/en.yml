@@ -220,6 +220,7 @@ en:
   dashboard:
     search_bar:
       label: "Search by"
+      installments_type: "Installments"
       date: "Dates"
       min_date: "From"
       max_date: "To"
