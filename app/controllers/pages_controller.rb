@@ -113,6 +113,7 @@ class PagesController < ApplicationController
     #Returns installments grouped by investments for TABLE
     installment_ids = @installments.ids
     @investments = Investment.joins(:installments).where("installments.id":installment_ids).distinct
+    
   end
 
   def landing

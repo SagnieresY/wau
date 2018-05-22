@@ -23,6 +23,7 @@ class Installment < ApplicationRecord
   scope :locked, -> { where(status: 'locked') }
   scope :rescinded, -> { where(status: 'rescinded') }
   scope :permitted, -> { where(status: ['unlocked', 'locked'] ) }
+  scope :deadline_between, lambda {|start_date, end_date| where("deadline >= ? AND deadline <= ?", start_date, end_date )}
 
   def days_left
     #calculates the days left til deadline

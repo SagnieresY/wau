@@ -261,8 +261,12 @@ en:
     table:
       header:
         ngo:  "NGO"
+        ngo_number:  "Charity Number"
         project_name: "Project Name"
-        invested: "Invested during selected period"
+        amount_text: "Amount during selected period"
+        locked: "Locked"
+        unlocked: "Unlocked"
+        rescinded: "Rescinded"
         status: "Status"
         edit: "Edit"
       completed: "Completed"
