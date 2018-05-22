@@ -145,15 +145,16 @@ class InvestmentsController < ApplicationController
   end
 
   def update
-    investment = selected_investment
-    authorize investment
-    investment.update(investment_params)
-    redirect_to investment_path(selected_investment)
+    @investment = selected_investment
     authorize @investment
+    @investment.update(investment_params)
+    @investment.update_status
+    redirect_to investment_path(selected_investment)
   end
 
   def show
     @investment = Investment.find(id)
+    @investment.update_status
     authorize @investment
   end
 

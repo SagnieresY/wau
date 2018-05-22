@@ -25,14 +25,13 @@ class InstallmentsController < ApplicationController
   def edit
     authorize @installment
     authorize @investment
-    @investment.completed?
   end
 
   def update
     authorize @installment
     @installment.update!(installment_params)
     @installment.save!
-    @installment.investment.completed?
+    @investment.update_status
     puts installment_params
     redirect_to investment_path(@investment)
   end

@@ -1,0 +1,25 @@
+<div class="mid-title-box">
+  <div class="mid-title-flex">
+    <div class="title-mid-invest-show-page-text">
+      <%= t("investments.show.mid_section.title") %>
+    </div>
+    <% if @investment.completed? %>
+    <div class="table-status unlocked-background-color" id="investment-completed-show">
+      <%= t("investments.show.mid_section.status_one") %>
+    </div>
+    <% elsif @investment.rejected? %>
+    <div class="table-status rescinded-background-color" id="investment-completed-show">
+      <%= t("investments.show.mid_section.status_three") %>
+    </div>
+    <% else %>
+    <div class="table-status locked-background-color" id="investment-completed-show">
+      <%= t("investments.show.mid_section.status_two") %>
+    </div>
+    <% end %>
+    <div class="mid-title-button-right grow">
+      <%= link_to new_investment_installment_path(@investment.id), { class: "mid-title-button-body" } do %>
+      <%= t("investments.show.mid_section.button") %>
+      <% end %>
+    </div>
+  </div>
+</div>

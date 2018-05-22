@@ -1,6 +1,7 @@
 
 <% if @page == "show" %>
   $("#invest-show-info").html( "<%= j render partial: '/partials/invest_show_info', investment: @investment %>" );
+  $("#invest-show-break-line").html( "<%= j render partial: '/partials/invest_show_break_line', investment: @investment %>" );
   $("#invest-show-table-<%= @installment.id %> > td:nth-child(2) > div").removeClass().addClass("table-status rescinded-background-color").text('<%= t("investments.show.table.second_column.content.status_three") %>');
 
 <% elsif @page == 'home' %>
