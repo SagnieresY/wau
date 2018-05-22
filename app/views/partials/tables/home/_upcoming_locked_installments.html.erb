@@ -50,7 +50,7 @@
       </thead>
       <tbody>
         <% @first_page_locked_installments.each_with_index do |installment, index| %>
-        <tr id="<%= installment.id %>" class="white-background table-row-installment" data-installment-id="<%= installment.id %>">
+        <tr id="<%= installment.id %>" class="white-background row-button-appear" data-installment-id="<%= installment.id %>">
           <td><%= installment.project.organisation.name %></td>
           <td>
             <%= link_to investment_path(installment.investment), {class: "green-link-text"} do %>

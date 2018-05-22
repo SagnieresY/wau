@@ -21,18 +21,13 @@ table tr:last-child td:first-child {
 }
 
 table tr:last-child td:last-child {
-    border-bottom-right-radius: 4 px;
+    border-bottom-right-radius: 4px;
 }
-
 
 .dropshadow-around {
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.102751);
   border-radius: 10px;
 }
-
-// #installment-table-crud-width{
-//   text-align: center;
-// }
 
 .header-table-button {
   text-align: center;
@@ -100,48 +95,13 @@ tr.header-row-installment {
   }
 }
 
-tr.table-row-installment {
+tr.row-button-appear {
   .button-appear-hover {
-    display: none;
+    visibility: hidden;
   }
   &:hover {
     .button-appear-hover {
-      display: block;
-    }
-  }
-}
-
-tr.table-row-investment {
-  .installment-view-button-table {
-    background: transparent;
-    color: transparent;
-    text-align: center;
-    width: 50%;
-    margin-left: 5px;
-    border-radius: 4px;
-  }
-  .edit-investment-button-table {
-    background: transparent;
-    color: transparent;
-    border-radius: 4px;
-    padding: 0px 5px;
-  }
- 
-  .button-appear-hover {
-    display: none;
-  }
-  
-  &:hover {
-    .installment-view-button-table {
-      background-color: $yellow;
-      color: white;
-    }
-    .button-appear-hover {
-      display: block;
-    }
-    .edit-investment-button-table {
-    color: white;
-    background-color: $yellow;
+      visibility: visible;
     }
   }
 }

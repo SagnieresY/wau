@@ -6,10 +6,10 @@
      <tr class="white-background">
         <th rowspan="2" class="col-sm-2"><div class="tablesorter-header-inner"><%= t("dashboard.table.header.ngo") %><i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
         <th rowspan="2" class="col-sm-1"><div class="tablesorter-header-inner"><%= t("dashboard.table.header.ngo_number") %><i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
-        <th rowspan="2" class="col-sm-3"><div class="tablesorter-header-inner"><%= t("dashboard.table.header.project_name") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+        <th rowspan="2" class="col-sm-2"><div class="tablesorter-header-inner"><%= t("dashboard.table.header.project_name") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
         <th colspan="3" class="col-sm-3"><div class="tablesorter-header-inner"><%= t("dashboard.table.header.amount_text") %></div></th>
         <th rowspan="2" class="col-sm-1"><div class="tablesorter-header-inner"><%= t("dashboard.table.header.status") %><i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
-        <th rowspan="2" class="col-sm-2" style="text-align: center;"><%= t("dashboard.table.header.edit") %></th>
+        <th rowspan="2" class="col-sm-1" style="text-align: center;"><%= t("dashboard.table.header.edit") %></th>
       </tr>
       <tr class="white-background">
         <th scope="col" class="col-sm-1"><div class="tablesorter-header-inner"><%= t("dashboard.table.header.unlocked") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
@@ -19,7 +19,7 @@
     </thead>
     <tbody>
       <% @investments.each do |investment| %>
-      <tr class="white-background table-row-investment" data-investment-id="<%= investment.id %>">
+      <tr class="white-background row-button-appear" data-investment-id="<%= investment.id %>">
         <td><%= investment.project.organisation.name.capitalize %></td>
         <td><%= investment.project.organisation.charity_number %></td>
         <td>
@@ -32,17 +32,17 @@
         <td><%= nice_money(investment.installments.deadline_between(@start_date, @end_date).rescinded.sum(:amount)) %></td>
         <td>
           <% if investment.completed? %>
-          <div class="completed-icon"><%= t("dashboard.table.completed") %></div>
+            <div class="label label-success lb-sm"><%= t("dashboard.table.completed") %></div>
+          <% elsif investment.rejected? %>
+            <div class="label label-danger lb-sm"><%= t("dashboard.table.rejected") %></div>
           <% else %>
-          <div class="active-icon"><%= t("dashboard.table.active") %></div>
+            <div class="label label-warning lb-sm"><%= t("dashboard.table.active") %></div>
           <% end %>
         </td>
         <td>
-          <div class="flex-space-around">
-            <%= link_to edit_investment_path(investment), { class: "edit-investment-button-table button-appear-hover" } do %>
+            <%= link_to edit_investment_path(investment), { class: "label label-info lb-sm button-appear-hover" } do %>
               <%= t("dashboard.table.editable.investment") %>
             <% end %>
-          </div>
         </td>
       </tr>
       <% end %>

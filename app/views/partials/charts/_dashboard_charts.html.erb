@@ -1,56 +1,56 @@
 <div class="row">
-<div class="flex-grid-fifths margin-top-bottom-6">
-    <div class="col">
-        <div class="white-dropshadow-card flex-column">
-            <div class="green-text size-24">
-                <%= nice_money(@installments.permitted.sum(:amount)) %>
+    <div class="flex-grid-fifths margin-top-bottom-6">
+        <div class="col">
+            <div class="white-dropshadow-card flex-column">
+                <div class="green-text size-24">
+                    <%= nice_money(@installments.permitted.sum(:amount)) %>
+                </div>
+                <div>
+                    <%= t("dashboard.charts.info.total") %>
+                </div>
             </div>
-            <div>
-                <%= t("dashboard.charts.info.total") %>
+        </div>
+        <div class="col">
+            <div class="white-dropshadow-card flex-column">
+                <div class="green-text size-24">
+                    <%= nice_money(@installments.unlocked.sum(:amount)) %>
+                </div>
+                <div>
+                    <%= t("dashboard.charts.info.unlocked") %>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="white-dropshadow-card flex-column">
+                <div class="green-text size-24">
+                    <%= nice_money(@installments.locked.sum(:amount)) %>
+                </div>
+                <div>
+                    <%= t("dashboard.charts.info.locked") %>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="white-dropshadow-card flex-column">
+                <div class="green-text size-24">
+                    <%= nice_money(@installments.rescinded.sum(:amount)) %>
+                </div>
+                <div>
+                    <%= t("dashboard.charts.info.rescinded") %>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="white-dropshadow-card flex-column">
+                <div class="green-text size-24">
+                    <%= @investments.count %>
+                </div>
+                <div>
+                    <%= t("dashboard.charts.info.investment_count") %>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col">
-        <div class="white-dropshadow-card flex-column">
-            <div class="green-text size-24">
-                <%= nice_money(@installments.unlocked.sum(:amount)) %>
-            </div>
-            <div>
-                <%= t("dashboard.charts.info.unlocked") %>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="white-dropshadow-card flex-column">
-            <div class="green-text size-24">
-                <%= nice_money(@installments.locked.sum(:amount)) %>
-            </div>
-            <div>
-                <%= t("dashboard.charts.info.locked") %>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="white-dropshadow-card flex-column">
-            <div class="green-text size-24">
-                <%= nice_money(@installments.rescinded.sum(:amount)) %>
-            </div>
-            <div>
-                <%= t("dashboard.charts.info.rescinded") %>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="white-dropshadow-card flex-column">
-            <div class="green-text size-24">
-                <%= @investments.count %>
-            </div>
-            <div>
-                <%= t("dashboard.charts.info.investment_count") %>
-            </div>
-        </div>
-    </div>
-</div>
 </div>
 
 

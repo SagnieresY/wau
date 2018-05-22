@@ -12,7 +12,7 @@
         </thead>
       <tbody>
         <% @active_investments.each do |investment| %>
-          <tr class="white-background table-row-investment" data-investment-id="<%= investment.id %>">
+          <tr class="white-background row-button-appear" data-investment-id="<%= investment.id %>">
             <td><%= investment.project.organisation.name.capitalize %></td>
             <td>
               <%= link_to investment_path(investment), {class: "green-link-text"} do %>
@@ -38,11 +38,9 @@
               </div>
             </td>
           <td>
-            <div class="flex-space-around">
-              <%= link_to edit_project_path(investment.project), { class: "edit-investment-button-table" } do %>
+              <%= link_to edit_project_path(investment.project), { class: "label label-info lb-sm button-appear-hover" } do %>
               <%= t("investments.index.table.sixth_column.content_one") %>
               <% end %>
-            </div>
           </td>
           <% end %>
         </tbody>

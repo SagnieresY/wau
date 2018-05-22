@@ -49,7 +49,7 @@
       </thead>
       <tbody>
         <% @completed_investments.each do |investment| %>
-        <tr class="white-background table-row-investment" data-investment-id="<%= investment.id %>">
+        <tr class="white-background row-button-appear" data-investment-id="<%= investment.id %>">
           <td><%= investment.project.organisation.name.capitalize %></td>
           <td>
             <%= link_to investment_path(investment), {class: "green-link-text"} do %>
@@ -67,11 +67,9 @@
             <div class="label label-success lb-sm"><%= t("investments.index.table.completed.status_column.content") %></div>
           </td>
           <td>
-            <div class="flex-space-around">
-              <%= link_to edit_investment_path(investment), { class: "label label-warning lb-sm button-appear-hover" } do %>
-              <i class="fas fa-pencil-alt"></i>
-              <% end %>
-            </div>
+            <%= link_to edit_investment_path(investment), { class: "label label-info lb-sm button-appear-hover" } do %>
+            <i class="fas fa-pencil-alt"></i>
+            <% end %>
           </td>
         </tr>
         <% end %>
