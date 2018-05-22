@@ -247,11 +247,11 @@ en:
       project:
         title: "FY Forecasted Investments By Project"
       info:
-        total: "Total"
+        total: "Total Active"
         locked: "Locked"
         unlocked: "Unlocked"
         rescinded: "Rescinded"
-        investment_count: "Number of investments"
+        investment_count: "Investments"
       time:
         title:
         day: "Day"

@@ -46,43 +46,6 @@ table tr:last-child td:last-child {
   color: $yellow;
 }
 
-
-.unlock-button-table {
-  color: $green;
-  text-align: center;
-  width: 30%;
-}
-
-.unlock-button-table:hover {
-  color: white;
-  background-color: $green;
-  border-radius: 4px;
-}
-
-.rescind-button-table {
-  color: $red;
-  text-align: center;
-  width: 30%;
-}
-
-.rescind-button-table:hover {
-  color: white;
-  background-color: $red;
-  border-radius: 4px;
-}
-
-.edit-button-table {
-  color: $yellow;
-  text-align: center;
-  width: 30%;
-}
-
-.edit-button-table:hover {
-  color: white;
-  background-color: $yellow;
-  border-radius: 4px;
-}
-
 .flex-space-around{
   display: flex;
   justify-content: space-around;
@@ -99,9 +62,38 @@ tr.row-button-appear {
   .button-appear-hover {
     visibility: hidden;
   }
+  
   &:hover {
     .button-appear-hover {
       visibility: visible;
+    }
+    .button {
+      text-align: center;
+      width: 35px;
+    }
+    .button:hover {
+      border-radius: 4px;
+    }
+    .unlock-button {
+      color: $green;
+    }
+    .unlock-button:hover {
+      color: white;
+      background-color: $green;
+    }
+    .rescind-button {
+      color: $red;
+    }
+    .rescind-button:hover {
+      color: white;
+      background-color: $red;
+    }
+    .edit-button {
+      color: $yellow;
+    }
+    .edit-button:hover {
+      color: white;
+      background-color: $yellow;
     }
   }
 }

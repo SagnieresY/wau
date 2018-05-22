@@ -73,13 +73,13 @@
           <td> <div><%= nice_money(installment.amount) %></div></td>
           <td>
             <div class="flex-space-around">
-              <%= link_to unlock_installment_path(id: installment.id, page: 'home'), :remote => true, :method => :post, :class => "unlock-button-table button-appear-hover" do %>
+              <%= link_to unlock_installment_path(id: installment.id, page: 'home'), :remote => true, :method => :post, :class => "unlock-button button button-appear-hover" do %>
               <i class="fas fa-lock-open"></i>
               <% end %>
-              <%= link_to rescind_installment_path(id: installment.id, page: 'home'), :remote => true, :method => :post, :class => "rescind-button-table button-appear-hover" do %>
+              <%= link_to rescind_installment_path(id: installment.id, page: 'home'), :remote => true, :method => :post, :class => "rescind-button button button-appear-hover" do %>
               <i class="fas fa-times"></i>
               <% end %>
-              <%= link_to edit_investment_installment_path(installment.investment, installment), { class: "edit-button-table button-appear-hover" } do %>
+              <%= link_to edit_investment_installment_path(installment.investment, installment), { class: "edit-button button button-appear-hover" } do %>
               <i class="fas fa-pencil-alt"></i>
               <% end %>
             </div>

@@ -12,9 +12,9 @@
   width: 18%;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 768px) {
   .flex-grid,
-  .flex-grid-fifth {
+  .flex-grid-fifths {
     display: block;
     .col {
       width: 100%;
