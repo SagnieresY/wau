@@ -119,12 +119,6 @@ class PagesController < ApplicationController
     render :layout => false
   end
 
-  def no_organisation
-  end
-
-  def downloads
-  end
-
   private
 
   def otherify(hash)
@@ -142,7 +136,8 @@ class PagesController < ApplicationController
 
 
   def unlocked_selected?
-    if params[:unlocked]
+    if params[:unlocked] && @installments.unlocked.sum(:amount) > 0 
+
       #Return hash by TIME depending on range
       @unlocked_installments_time_year = @installments.unlocked.group_by_year(:deadline, range: @start_date..@end_date).sum(:amount)
       @unlocked_installments_time_month = @installments.unlocked.group_by_month(:deadline, range: @start_date..@end_date).sum(:amount)
@@ -172,7 +167,7 @@ class PagesController < ApplicationController
   end
 
   def locked_selected?
-    if params[:locked]
+    if params[:locked] && @installments.locked.sum(:amount) > 0
       #Return hash by TIME depending on range
       @locked_installments_time_year = @installments.locked.group_by_year(:deadline, range: @start_date..@end_date).sum(:amount)
       @locked_installments_time_month = @installments.locked.group_by_month(:deadline, range: @start_date..@end_date).sum(:amount)
@@ -202,7 +197,7 @@ class PagesController < ApplicationController
   end
 
   def rescinded_selected?
-     if params[:rescinded] == "true"
+     if params[:rescinded] && @installments.rescinded.sum(:amount) > 0
       #Return hash by TIME depending on range
       @rescinded_installments_time_year = @installments.rescinded.group_by_year(:deadline, range: @start_date..@end_date).sum(:amount)
       @rescinded_installments_time_month = @installments.rescinded.group_by_month(:deadline, range: @start_date..@end_date).sum(:amount)
