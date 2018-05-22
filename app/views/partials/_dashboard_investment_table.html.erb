@@ -4,17 +4,55 @@
   <table id="completedTable" class="table table-hover margin-center dropshadow-around">
     <thead>
      <tr class="white-background">
-        <th rowspan="2" class="col-sm-2"><div class="tablesorter-header-inner"><%= t("dashboard.table.header.ngo") %><i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
-        <th rowspan="2" class="col-sm-1"><div class="tablesorter-header-inner"><%= t("dashboard.table.header.ngo_number") %><i class="fas fa-arrows-alt-v margin-left-auto"></i></div></th>
-        <th rowspan="2" class="col-sm-2"><div class="tablesorter-header-inner"><%= t("dashboard.table.header.project_name") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-        <th colspan="3" class="col-sm-3"><div class="tablesorter-header-inner"><%= t("dashboard.table.header.amount_text") %></div></th>
-        <th rowspan="2" class="col-sm-1"><div class="tablesorter-header-inner"><%= t("dashboard.table.header.status") %><i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i></div></th>
-        <th rowspan="2" class="col-sm-1" style="text-align: center;"><%= t("dashboard.table.header.edit") %></th>
+      <th rowspan="2" class="col-sm-2">
+        <div class="flex-space-around">
+          <%= t("dashboard.table.header.ngo") %>
+          <i class="fas fa-arrows-alt-v margin-left-auto"></i>
+        </div>
+      </th>
+      <th rowspan="2" class="col-sm-1">
+        <div class="flex-space-around">
+          <%= t("dashboard.table.header.ngo_number") %><i class="fas fa-arrows-alt-v margin-left-auto"></i>
+        </div>
+      </th>
+      <th rowspan="2" class="col-sm-2">
+        <div class="flex-space-around">
+          <%= t("dashboard.table.header.project_name") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
+          </div>
+        </th>
+        <th colspan="3" class="col-sm-3">
+          <div class="flex-space-around">
+            <%= t("dashboard.table.header.amount_text") %>
+          </div>
+        </th>
+        <th rowspan="2" class="col-sm-1">
+          <div class="flex-space-around">
+            <%= t("dashboard.table.header.status") %><i class="fas fa-arrows-alt-v center-justified  margin-left-auto"></i>
+          </div>
+        </th>
+        <th rowspan="2" class="col-sm-1" style="text-align: center;">
+          <%= t("dashboard.table.header.edit") %>
+        </th>
       </tr>
       <tr class="white-background">
-        <th scope="col" class="col-sm-1"><div class="tablesorter-header-inner"><%= t("dashboard.table.header.unlocked") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-        <th scope="col" class="col-sm-1"><div class="tablesorter-header-inner"><%= t("dashboard.table.header.locked") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
-        <th scope="col" class="col-sm-1"><div class="tablesorter-header-inner"><%= t("dashboard.table.header.rescinded") %><i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i></div></th>
+        <th scope="col" class="col-sm-1">
+          <div class="flex-space-around">
+            <%= t("dashboard.table.header.unlocked") %>
+            <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
+          </div>
+        </th>
+        <th scope="col" class="col-sm-1">
+          <div class="flex-space-around">
+            <%= t("dashboard.table.header.locked") %>
+            <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
+          </div>
+        </th>
+        <th scope="col" class="col-sm-1">
+          <div class="flex-space-around">
+            <%= t("dashboard.table.header.rescinded") %>
+            <i class="fas fa-arrows-alt-v center-justified margin-left-auto"></i>
+          </div>
+        </th>
       </tr>
     </thead>
     <tbody>
