@@ -107,7 +107,7 @@
         },
       title: {
         display: true,
-        text: t("dashboard.charts.time.title", begining_date: @start_date, ending_date: @end_date)
+        text: t("dashboard.charts.time.title", begining_date: @start_date_chart, ending_date: @end_date_chart)
       },
       scales: {
         xAxes: [{
@@ -140,7 +140,7 @@
         },
       title: {
         display: true,
-        text: t("dashboard.charts.timechart.title", begining_date: @start_date, ending_date: @end_date)
+        text: t("dashboard.charts.timechart.title", begining_date: @start_date_chart, ending_date: @end_date_chart)
       },
       scales: {
         xAxes: [{
@@ -173,7 +173,7 @@
         },
       title: {
         display: true,
-        text: t("dashboard.charts.timechart.title", begining_date: @start_date, ending_date: @end_date)
+        text: t("dashboard.charts.timechart.title", begining_date: @start_date_chart, ending_date: @end_date_chart)
       },
       scales: {
         xAxes: [{
@@ -184,9 +184,9 @@
         yAxes: [{
                     gridLines: {
                         display:false
-                    }
+                    },
                 }]},
-}, messages: {empty: "No data"} %>
+} %>
 
 <%= area_chart [
     {name: t("dashboard.charts.info.unlocked"), data: @unlocked_installments_time_year},
@@ -206,7 +206,7 @@
         },
       title: {
         display: true,
-        text: t("dashboard.charts.time.title", begining_date: @start_date, ending_date: @end_date)
+        text: t("dashboard.charts.time.title", begining_date: @start_date_chart, ending_date: @end_date_chart)
       },
       scales: {
         xAxes: [{

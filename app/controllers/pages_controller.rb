@@ -40,8 +40,8 @@ class PagesController < ApplicationController
 
     #Sets current year as start / end date
     t = Time.new(Time.now.year,1,1,0,0,0,'+00:00')
-    start_date = t.beginning_of_year
-    end_date = t.end_of_year
+    @start_date = t.beginning_of_year
+    @end_date = t.end_of_year
 
     #Updates to filter for specific time range if there is one
     if !params[:min_date].blank? || !params[:min_date].blank?
@@ -51,16 +51,16 @@ class PagesController < ApplicationController
       max_date = params[:max_date].blank? ? Date.new(2100,1,1) : params[:max_date].to_time
 
       #Picks smallest date as start date
-      start_date = min_date < max_date ? min_date : max_date
-      end_date = max_date > min_date ? max_date : min_date
+      @start_date = min_date < max_date ? min_date : max_date
+      @end_date = max_date > min_date ? max_date : min_date
     end
 
     #Formats date for chart
-    @start_date = start_date.strftime("%d/%m/%Y")
-    @end_date = end_date.strftime("%d/%m/%Y")
+    @start_date_chart = @start_date.strftime("%d/%m/%Y")
+    @end_date_chart = @end_date.strftime("%d/%m/%Y")
 
     #Get installments with date range and joins tables
-    @installments = current_user.organisation.installments.where(deadline: start_date..end_date).includes(:investment, :project, :focus_area, :organisation)
+    @installments = current_user.organisation.installments.where(deadline: @start_date..@end_date).includes(:investment, :project, :focus_area, :organisation)
 
     #Updates installments with GEO selection if there is one
     unless params[:neighborhood].blank?
@@ -96,57 +96,19 @@ class PagesController < ApplicationController
       @installments = @installments.joins(:investment_tags).where("investment_tags.name":tag_array)
     end
 
-    #Return hash by TIME depending on range
-    @locked_installments_time_year = @installments.locked.group_by_year(:deadline, range: start_date..end_date).sum(:amount)
-    @unlocked_installments_time_year = @installments.unlocked.group_by_year(:deadline, range: start_date..end_date).sum(:amount)
-    @rescinded_installments_time_year = @installments.rescinded.group_by_year(:deadline, range: start_date..end_date).sum(:amount)
+    if params[:unlocked].present? == false && params[:locked].present? == false && params[:rescinded].present? == false
+      params[:unlocked] = true
+      params[:locked] = true
+    end
 
-    @locked_installments_time_month = @installments.locked.group_by_month(:deadline, range: start_date..end_date).sum(:amount)
-    @unlocked_installments_time_month = @installments.unlocked.group_by_month(:deadline, range: start_date..end_date).sum(:amount)
-    @rescinded_installments_time_month = @installments.rescinded.group_by_month(:deadline, range: start_date..end_date).sum(:amount)
+    #checks if unlocked is selected and returns unlocked installments
+    unlocked_selected?
 
-    @locked_installments_time_week = @installments.locked.group_by_week(:deadline, range: start_date..end_date).sum(:amount)
-    @unlocked_installments_time_week = @installments.unlocked.group_by_week(:deadline, range: start_date..end_date).sum(:amount)
-    @rescinded_installments_time_week = @installments.rescinded.group_by_week(:deadline, range: start_date..end_date).sum(:amount)
-
-    @locked_installments_time_day = @installments.locked.group_by_day(:deadline, range: start_date..end_date).sum(:amount)
-    @unlocked_installments_time_day = @installments.unlocked.group_by_day(:deadline, range: start_date..end_date).sum(:amount)
-    @rescinded_installments_time_day = @installments.rescinded.group_by_day(:deadline, range: start_date..end_date).sum(:amount)
-
-    #Returns hash by GEO & sum(:amount)
-    @locked_installments_geo_chart = otherify(@installments.locked.joins(:geos).group("geos.name").sum(:amount))
-    @unlocked_installments_geo_chart = otherify(@installments.unlocked.joins(:geos).group("geos.name").sum(:amount))
-    @rescinded_installments_geo_chart = otherify(@installments.rescinded.joins(:geos).group("geos.name").sum(:amount))
-
-    #Returns hash by NGO & sum(:amount)
-    @locked_installments_ngo_chart = otherify(@installments.locked.joins(project: :organisation).group("organisations.name").sum(:amount))
-    @unlocked_installments_ngo_chart = otherify(@installments.unlocked.joins(project: :organisation).group("organisations.name").sum(:amount))
-    @rescinded_installments_ngo_chart = otherify(@installments.rescinded.joins(project: :organisation).group("organisations.name").sum(:amount))
-
-    #Returns hash by FA & sum(:amount)
-    locked_hash = @installments.locked.joins(:focus_area).group('focus_areas.id').sum(:amount)
-    unlocked_hash = @installments.unlocked.joins(:focus_area).group('focus_areas.id').sum(:amount)
-    rescinded_hash = @installments.rescinded.joins(:focus_area).group('focus_areas.id').sum(:amount)
-
-    #Changes the keys of FA ID to FA NAME
-    locked_hash.keys.each { |k| locked_hash[FocusArea.find(k).name] = locked_hash.delete(k) }
-    @locked_installments_fa_chart = otherify(locked_hash)
-
-    unlocked_hash.keys.each { |k| unlocked_hash[FocusArea.find(k).name] = unlocked_hash.delete(k) }
-    @unlocked_installments_fa_chart = otherify(unlocked_hash)
-
-    rescinded_hash.keys.each { |k| rescinded_hash[FocusArea.find(k).name] = rescinded_hash.delete(k) }
-    @rescinded_installments_fa_chart = otherify(rescinded_hash)
-
-    #Returns hash by PROJECT & sum(:amount)
-    @locked_installments_project_chart = otherify(@installments.locked.joins(:project).group('projects.name').sum(:amount))
-    @unlocked_installments_project_chart = otherify(@installments.unlocked.joins(:project).group('projects.name').sum(:amount))
-    @rescinded_installments_project_chart = otherify(@installments.rescinded.joins(:project).group('projects.name').sum(:amount))
-
-    #Returns hash by TAG & sum(:amount)
-    @locked_installments_tag_chart = otherify(@installments.locked.joins(:investment_tags).group('investment_tags.name').sum(:amount))
-    @unlocked_installments_tag_chart = otherify(@installments.unlocked.joins(:investment_tags).group('investment_tags.name').sum(:amount))
-    @rescinded_installments_tag_chart = otherify(@installments.rescinded.joins(:investment_tags).group('investment_tags.name').sum(:amount))
+    #checks if locked is selected and returns locked installments
+    locked_selected?
+    
+    #checks if rescinded is selected and returns rescinded installments
+    rescinded_selected?
 
     #Returns installments grouped by investments for TABLE
     installment_ids = @installments.ids
@@ -155,12 +117,6 @@ class PagesController < ApplicationController
 
   def landing
     render :layout => false
-  end
-
-  def no_organisation
-  end
-
-  def downloads
   end
 
   private
@@ -177,8 +133,96 @@ class PagesController < ApplicationController
     end
   end
 
-  def check_zero(hash)
+
+
+  def unlocked_selected?
+    if params[:unlocked] && @installments.unlocked.sum(:amount) > 0 
+
+      #Return hash by TIME depending on range
+      @unlocked_installments_time_year = @installments.unlocked.group_by_year(:deadline, range: @start_date..@end_date).sum(:amount)
+      @unlocked_installments_time_month = @installments.unlocked.group_by_month(:deadline, range: @start_date..@end_date).sum(:amount)
+      @unlocked_installments_time_week = @installments.unlocked.group_by_week(:deadline, range: @start_date..@end_date).sum(:amount)
+      @unlocked_installments_time_day = @installments.unlocked.group_by_day(:deadline, range: @start_date..@end_date).sum(:amount)
+
+      #Returns hash by GEO & sum(:amount)
+      @unlocked_installments_geo_chart = otherify(@installments.unlocked.joins(:geos).group("geos.name").sum(:amount))
+
+      #Returns hash by NGO & sum(:amount)
+      @unlocked_installments_ngo_chart = otherify(@installments.unlocked.joins(project: :organisation).group("organisations.name").sum(:amount))
+
+      #Returns hash by FA & sum(:amount)
+      unlocked_hash = @installments.unlocked.joins(:focus_area).group('focus_areas.id').sum(:amount)
+
+      #Changes the keys of FA ID to FA NAME
+      unlocked_hash.keys.each { |k| unlocked_hash[FocusArea.find(k).name] = unlocked_hash.delete(k) }
+      @unlocked_installments_fa_chart = otherify(unlocked_hash)
+
+      #Returns hash by PROJECT & sum(:amount)
+      @unlocked_installments_project_chart = otherify(@installments.unlocked.joins(:project).group('projects.name').sum(:amount))
+
+      #Returns hash by TAG & sum(:amount)
+      @unlocked_installments_tag_chart = otherify(@installments.unlocked.joins(:investment_tags).group('investment_tags.name').sum(:amount))
+
+    end
   end
 
+  def locked_selected?
+    if params[:locked] && @installments.locked.sum(:amount) > 0
+      #Return hash by TIME depending on range
+      @locked_installments_time_year = @installments.locked.group_by_year(:deadline, range: @start_date..@end_date).sum(:amount)
+      @locked_installments_time_month = @installments.locked.group_by_month(:deadline, range: @start_date..@end_date).sum(:amount)
+      @locked_installments_time_week = @installments.locked.group_by_week(:deadline, range: @start_date..@end_date).sum(:amount)
+      @locked_installments_time_day = @installments.locked.group_by_day(:deadline, range: @start_date..@end_date).sum(:amount)
+
+      #Returns hash by GEO & sum(:amount)
+      @locked_installments_geo_chart = otherify(@installments.locked.joins(:geos).group("geos.name").sum(:amount))
+
+      #Returns hash by NGO & sum(:amount)
+      @locked_installments_ngo_chart = otherify(@installments.locked.joins(project: :organisation).group("organisations.name").sum(:amount))
+
+      #Returns hash by FA & sum(:amount)
+      locked_hash = @installments.locked.joins(:focus_area).group('focus_areas.id').sum(:amount)
+
+      #Changes the keys of FA ID to FA NAME
+      locked_hash.keys.each { |k| locked_hash[FocusArea.find(k).name] = locked_hash.delete(k) }
+      @locked_installments_fa_chart = otherify(locked_hash)
+
+      #Returns hash by PROJECT & sum(:amount)
+      @locked_installments_project_chart = otherify(@installments.locked.joins(:project).group('projects.name').sum(:amount))
+
+      #Returns hash by TAG & sum(:amount)
+      @locked_installments_tag_chart = otherify(@installments.locked.joins(:investment_tags).group('investment_tags.name').sum(:amount))
+
+    end
+  end
+
+  def rescinded_selected?
+     if params[:rescinded] && @installments.rescinded.sum(:amount) > 0
+      #Return hash by TIME depending on range
+      @rescinded_installments_time_year = @installments.rescinded.group_by_year(:deadline, range: @start_date..@end_date).sum(:amount)
+      @rescinded_installments_time_month = @installments.rescinded.group_by_month(:deadline, range: @start_date..@end_date).sum(:amount)
+      @rescinded_installments_time_week = @installments.rescinded.group_by_week(:deadline, range: @start_date..@end_date).sum(:amount)
+      @rescinded_installments_time_day = @installments.rescinded.group_by_day(:deadline, range: @start_date..@end_date).sum(:amount)
+      
+      #Returns hash by GEO & sum(:amount)
+      @rescinded_installments_geo_chart = otherify(@installments.rescinded.joins(:geos).group("geos.name").sum(:amount))
+      
+      #Returns hash by NGO & sum(:amount)
+      @rescinded_installments_ngo_chart = otherify(@installments.rescinded.joins(project: :organisation).group("organisations.name").sum(:amount))
+      
+      #Returns hash by FA & sum(:amount)
+      rescinded_hash = @installments.rescinded.joins(:focus_area).group('focus_areas.id').sum(:amount)
+      rescinded_hash.keys.each { |k| rescinded_hash[FocusArea.find(k).name] = rescinded_hash.delete(k) }
+      
+      #Changes the keys of FA ID to FA NAME
+      @rescinded_installments_fa_chart = otherify(rescinded_hash)
+      
+      #Returns hash by PROJECT & sum(:amount)
+      @rescinded_installments_project_chart = otherify(@installments.rescinded.joins(:project).group('projects.name').sum(:amount))
+      
+      #Returns hash by TAG & sum(:amount)
+      @rescinded_installments_tag_chart = otherify(@installments.rescinded.joins(:investment_tags).group('investment_tags.name').sum(:amount))
+    end
+  end
 
 end

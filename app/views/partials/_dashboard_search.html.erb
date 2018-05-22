@@ -1,27 +1,36 @@
 <div id="search-container" class="row white-dropshadow-card margin-top-bottom-6 padding-15">
   <div class="row">
     <div class="col-md-2 left-end-flex-md-up">
+      <label class="size-18" for=""><%= t("dashboard.search_bar.installments_type") %>:</label>
+    </div>
+    <div class="col-md-8 size-18">
+      <label class="checkbox-inline"><input type="checkbox" id="search-locked" value="true"><%= t("dashboard.search_bar.locked") %></label>
+      <label class="checkbox-inline"><input type="checkbox" id="search-unlocked" value="true"><%= t("dashboard.search_bar.unlocked") %></label>
+      <label class="checkbox-inline"><input type="checkbox" id="search-rescinded" value="true"><%= t("dashboard.search_bar.rescinded") %></label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2 left-end-flex-md-up">
        <label class="size-18" for=""><%= t("dashboard.search_bar.label") %>:</label>
     </div>
     <div class="col-md-8 size-18">
-       <% search_buttons = ['Focus Area', 'Date', 'NGO', 'Neighborhood','Project', 'Tag', 'Installment Status'] %>
+       <% search_buttons = ['Focus Area', 'Date', 'NGO', 'Neighborhood','Project', 'Tag'] %>
        <% search_buttons.each do |tab| %>
        <% tab_label = tab == "Focus Area" ? "focus_area" : tab.downcase %>
-       <% tab_label = tab == "Installment Status" ? "installment_status" : tab.downcase %>
-       <label class="form-check-label" for="<%= tab %>-label"><%=t("dashboard.search_bar.#{tab_label}")  %> </label>
        <input class="tablinks form-check-input" autocomplete="off" onclick="openTab(event,'<%= tab %>')" type="checkbox" value="" id="<%= tab %>-label">
+       <label class="form-check-label" for="<%= tab %>-label"><%=t("dashboard.search_bar.#{tab_label}")  %> </label>
        &nbsp;&nbsp;&nbsp;
        <% end %>
     </div>
 
     <div class="col-md-2">
-      <button class="btn btn-xs btn-success size-18 pull-right"  onclick="mainSearch()"><%= t("dashboard.search_bar.label").split(' ')[0] %>!</button>
+      <button class="btn btn-xs btn-success size-18 pull-right" id="dash_search_button" onclick="mainSearch()"><%= t("dashboard.search_bar.label").split(' ')[0] %>!</button>
     </div>
   </div>
     <% search_buttons.each do |tab| %>
     <div id="<%= tab %>" class="tabcontent search-input row" >
        <% tab = tab == 'Focus Area' ? 'focus_area' : tab  %>
-       <% tab = tab == "Installment Status" ? "installment_status" : tab %>
 
        <%= render partial: "/partials/dashboard-search/#{tab}" %>
 
@@ -43,101 +52,98 @@
      //document.getElementById(tag).remove();
    }
 
-   let searchHeight = 53
-   function openTab(evt, tabName) {
+  let searchHeight = 53
+  function openTab(evt, tabName) {
    // Declare all variables
-     var i, tabcontent, tablinks;
+    var i, tabcontent, tablinks;
 
-     // Get all elements with class="tabcontent" and hide them
-     // tabcontent = document.getElementsByClassName("tabcontent");
-     // for (i = 0; i < tabcontent.length; i++) {
-     //     tabcontent[i].style.display = "none";
-     // }
+    // Get all elements with class="tablinks" and remove the class "active-tab"
+    tablinks = document.getElementsByClassName("tablinks");
 
-     // Get all elements with class="tablinks" and remove the class "active-tab"
-     tablinks = document.getElementsByClassName("tablinks");
-     // for (i = 0; i < tablinks.length; i++) {
-     //     tablinks[i].className = tablinks[i].className.replace(" active", "");
-     // }
+    // Show the current tab, and add an "active-tab" class to the button that opened the tab
+    if (document.getElementById(tabName).style.display === "block") {
+      document.getElementById(tabName).style.display = "none";
+      searchHeight -= 130
+      document.getElementById('search-container').style.Maxheight = `${searchHeight}px`
 
-     // Show the current tab, and add an "active-tab" class to the button that opened the tab
-     if (document.getElementById(tabName).style.display === "block") {
-       document.getElementById(tabName).style.display = "none";
-       searchHeight -= 130
-       document.getElementById('search-container').style.Maxheight = `${searchHeight}px`
+    } else {
+      document.getElementById(tabName).style.display = "block";
+      searchHeight += 130
+      document.getElementById('search-container').style.Maxheight = `${searchHeight}px`
+    }
 
-     }else{
-       document.getElementById(tabName).style.display = "block";
-       searchHeight += 130
-       document.getElementById('search-container').style.Maxheight = `${searchHeight}px`
-     }
-
-
-     if (evt.currentTarget.className.includes('active')) {
+    if (evt.currentTarget.className.includes('active')) {
        evt.currentTarget.className = evt.currentTarget.className.replace('active', '');
-     }else{
+     } else {
        evt.currentTarget.className += ' active';
      }
+   };
 
-   }
-   function addTag(selectionType, tag) {
-   let selection = document.getElementById(selectionType)
-   var selectiontags = ''
-   selection.childNodes.forEach((child) => {
-     selectiontags += child.innerHTML
-   });
-   if (!selectiontags.includes(tag.replace("&","&amp;"))){
-   selection.insertAdjacentHTML('beforeend',`<label style="margin-right:3px;" class="label label-success lb-sm" id="${tag}" onclick="removeTag('${tag}')" class="tag">${tag}</label>`)
-   }
+  function addTag(selectionType, tag) {
+    let selection = document.getElementById(selectionType)
+    var selectiontags = ''
+    selection.childNodes.forEach((child) => {
+      selectiontags += child.innerHTML
+    });
+    if (!selectiontags.includes(tag.replace("&","&amp;"))){
+    selection.insertAdjacentHTML('beforeend',`<label style="margin-right:3px;" class="label label-success lb-sm" id="${tag}" onclick="removeTag('${tag}')" class="tag">${tag}</label>`)
+    }
 
-   }
-   function clearSuggestions(){
-   var times = 10;
-   for(var i=0; i < times; i++){
+  };
+
+  function clearSuggestions(){
+    var times = 10;
+    for(var i=0; i < times; i++){
 
        ['focusSuggestions','projectSuggestions','ngoSuggestions','neighborhoodSuggestions','tagSuggestions',].forEach((selection) => { // just add some tags whenever you add a new searchfield
          document.getElementById(selection).childNodes.forEach((child) => {
            child.remove();
          });
        });
-   }
+    }
 
-   }
+  };
 
-   function mainSearch(){
-   var url = '?search=true'
-   var fields = ['focus_selection','ngo_selection','neighborhood_selection','project_selection','tag_selection']
-   fields.forEach((selection) => {
-     var field = selection.split('_')[0]
-     var tab = field[0].toUpperCase() + field.slice(1)
-     tab = (tab == 'Focus') ? 'Focus Area' : tab
-     tab = (tab == 'Ngo') ? 'NGO' : tab
-     var tags = ''
-     console.log(tab)
-     if(document.getElementById(tab).style.display == 'block'){
-      document.getElementById(selection).childNodes.forEach((child) =>{
-        tags += `${child.innerHTML.replace("&amp;",'and')},`
-      })
-      url += `&${field}=${tags}`
-     }
-   })
+  function mainSearch(){
+    var url = '?search=true'
+    var fields = ['focus_selection','ngo_selection','neighborhood_selection','project_selection','tag_selection']
+    fields.forEach((selection) => {
+      var field = selection.split('_')[0]
+      var tab = field[0].toUpperCase() + field.slice(1)
+      tab = (tab == 'Focus') ? 'Focus Area' : tab
+      tab = (tab == 'Ngo') ? 'NGO' : tab
+      var tags = ''
+      console.log(tab)
+      if(document.getElementById(tab).style.display == 'block'){
+        document.getElementById(selection).childNodes.forEach((child) =>{
+          tags += `${child.innerHTML.replace("&amp;",'and')},`
+        })
+        url += `&${field}=${tags}`
+      }
+    })
 
-   if (document.getElementById('Date').style.display == 'block'){
-     url += `&min_date=${document.getElementById('min-date').value}`
+    if (document.getElementById('Date').style.display == 'block'){
+      url += `&min_date=${document.getElementById('min-date').value}`
 
-     url += `&max_date=${document.getElementById('max-date').value}`
+      url += `&max_date=${document.getElementById('max-date').value}`
 
-     };
+    };
 
-   if (document.getElementById('Installment Status').style.display == 'block'){
-     url += `&locked=${document.getElementById('search-locked').value}`
+    if (document.getElementById('search-locked').checked){
+      url += `&locked=${document.getElementById('search-locked').value}`
+    };
 
-     url += `&unlocked=${document.getElementById('search-unlocked').value}`
+    if (document.getElementById('search-unlocked').checked){
+      url += `&unlocked=${document.getElementById('search-unlocked').value}`
+    };
 
-     };
-
+    if (document.getElementById('search-rescinded').checked){
+      url += `&rescinded=${document.getElementById('search-rescinded').value}`
+    };
     window.location.replace(`${url}`)
-   };
+  };
+
+
 </script>
 <% end %>
 
