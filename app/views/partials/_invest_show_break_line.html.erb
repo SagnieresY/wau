@@ -17,7 +17,7 @@
     </div>
     <% end %>
     <div class="mid-title-button-right grow">
-      <%= link_to new_investment_installment_path(@investment.id), { class: "mid-title-button-body" } do %>
+      <%= link_to edit_investment_path(@investment), { class: "mid-title-button-body" } do %>
       <%= t("investments.show.mid_section.button") %>
       <% end %>
     </div>
