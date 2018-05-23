@@ -124,15 +124,15 @@ class InvestmentsController < ApplicationController
 
     if @investment.save && @investment.installments.count == 0
       @investment.installments << Installment.create!(task:t("form.investment.installment.sub_task"), deadline: Date.today, investment: @investment, amount: 0)
-      flash[:notice] = t("form.flash_message.success", organisation: organisation.name, project: project.name.capitalize)
+      flash[:notice] = t("form.flash_message.success_creation", organisation: organisation.name, project: project.name.capitalize)
       redirect_to investment_path(@investment)
 
     elsif @investment.save && @investment.installments.count > 0
-      flash[:notice] = t("form.flash_message.success", organisation: organisation.name, project: project.name.capitalize)
+      flash[:notice] = t("form.flash_message.success_creation", organisation: organisation.name, project: project.name.capitalize)
       redirect_to investment_path(@investment)
 
     else
-      flash[:alert] = t("form.flash_message.no_success")
+      flash[:alert] = t("form.flash_message.failed_creation")
       @investment.project.organisation = organisation
       render :new
       return
@@ -145,11 +145,18 @@ class InvestmentsController < ApplicationController
   end
 
   def update
-    @investment = selected_investment
+    @investment = Investment.find(params[:id])
     authorize @investment
-    @investment.update(investment_params)
-    @investment.update_status
-    redirect_to investment_path(selected_investment)
+
+    respond_to do |format|
+      if @investment.update_attributes(investment_params)
+        format.html { redirect_to(@investment, :notice => t("form.flash_message.success_update", organisation: @investment.project.organisation.name, project: @investment.project.name.capitalize)) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @investment.errors, :status => :unprocessable_entity }
+      end
+    end
   end
 
   def show

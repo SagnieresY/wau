@@ -10,15 +10,18 @@ class Investment < ApplicationRecord
   validates :project, presence: true
   validates :organisation, presence: true
   validates :status, presence: true, inclusion: { in: %w(active completed rejected) }
-  accepts_nested_attributes_for :project
+  accepts_nested_attributes_for :project, update_only: true
   accepts_nested_attributes_for :organisation,
                                 allow_destroy: true,
+                                update_only: true,
                                 reject_if: proc { |att| att['charity_number'].blank? }
   accepts_nested_attributes_for :installments,
                                 allow_destroy: true,
+                                update_only: true,
                                 reject_if: proc { |att| att['amount'].blank? }
   accepts_nested_attributes_for :investment_tags,
                                 allow_destroy: true,
+                                update_only: true,
                                 reject_if: proc { |att| att['name'].blank? }
 
   scope :completed, -> { where(status: 'completed') }

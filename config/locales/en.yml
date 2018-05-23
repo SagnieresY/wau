@@ -196,8 +196,9 @@ en:
     flash_message:
       new_org: "Couldn't save the new organisation please try again."
       no_org: "Couldn't save, please add an Organisation"
-      success: "Investment for %{organisation}'s project: '%{project}' was successfully created!"
-      no_success: "Couldn't save, please try again"
+      success_creation: "Investment for %{organisation}'s project: '%{project}' was successfully created!"
+      success_update: "Investment for %{organisation}'s project: '%{project}' was successfully updated!"
+      failed_creation: "Saving was unsuccessful, please try again"
   landing:
     title: "Manage your charitable investments"
     sub_title: "Get to know the real impact of your donation through a streamlined dashboard"
