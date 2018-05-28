@@ -65,9 +65,9 @@
           <%= investment.project.name %>
           <% end %>
         </td>
-        <td><%= nice_money(investment.installments.deadline_between(@start_date, @end_date).unlocked.sum(:amount)) %></td>
-        <td><%= nice_money(investment.installments.deadline_between(@start_date, @end_date).locked.sum(:amount)) %></td>
-        <td><%= nice_money(investment.installments.deadline_between(@start_date, @end_date).rescinded.sum(:amount)) %></td>
+        <td><%= nice_money(investment.installments.deadline_between(@start_date, @end_date).unlocked.sum(:amount)) if params[:unlocked] %></td>
+        <td><%= nice_money(investment.installments.deadline_between(@start_date, @end_date).locked.sum(:amount)) if params[:locked] %></td>
+        <td><%= nice_money(investment.installments.deadline_between(@start_date, @end_date).rescinded.sum(:amount)) if params[:rescinded] %></td>
         <td>
           <% if investment.completed? %>
             <div class="label label-success lb-sm"><%= t("dashboard.table.completed") %></div>
