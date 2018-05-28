@@ -101,6 +101,7 @@ class PagesController < ApplicationController
       params[:locked] = true
     end
 
+    @installment_ids_test =[]
     #checks if unlocked is selected and returns unlocked installments
     unlocked_selected?
 
@@ -113,7 +114,8 @@ class PagesController < ApplicationController
     #Returns installments grouped by investments for TABLE
     installment_ids = @installments.ids
     @investments = Investment.joins(:installments).where("installments.id":installment_ids).distinct
-    
+    @installments_for_table = Installment.find(id=@installment_ids_test)
+    byebug
   end
 
   def landing
@@ -163,7 +165,7 @@ class PagesController < ApplicationController
 
       #Returns hash by TAG & sum(:amount)
       @unlocked_installments_tag_chart = otherify(@installments.unlocked.joins(:investment_tags).group('investment_tags.name').sum(:amount))
-
+      @installment_ids_test << @installments.unlocked.ids
     end
   end
 
@@ -194,6 +196,7 @@ class PagesController < ApplicationController
       #Returns hash by TAG & sum(:amount)
       @locked_installments_tag_chart = otherify(@installments.locked.joins(:investment_tags).group('investment_tags.name').sum(:amount))
 
+      @installment_ids_test << @installments.locked.ids
     end
   end
 
@@ -223,6 +226,8 @@ class PagesController < ApplicationController
       
       #Returns hash by TAG & sum(:amount)
       @rescinded_installments_tag_chart = otherify(@installments.rescinded.joins(:investment_tags).group('investment_tags.name').sum(:amount))
+      
+      @installment_ids_test << @installments.rescinded.ids
     end
   end
 
