@@ -1,5 +1,5 @@
 <!-- COMPLETED TAB -->
-<% unless @installments_for_table.blank? %>
+<% unless @investments.blank? %>
 <div class="table-responsive no-margin-15">
   <table id="completedTable" class="table table-hover margin-center dropshadow-around">
     <thead>
@@ -56,29 +56,29 @@
       </tr>
     </thead>
     <tbody>
-      <% @installments_for_table.each do |installment| %>
-      <tr class="white-background row-button-appear" data-installment-id="<%= installment.id %>">
-        <td><%= installment.project.organisation.name.capitalize %></td>
-        <td><%= installment.project.organisation.charity_number %></td>
+      <% @investments.each do |investment| %>
+      <tr class="white-background row-button-appear" data-investment-id="<%= investment.id %>">
+        <td><%= investment.project.organisation.name.capitalize %></td>
+        <td><%= investment.project.organisation.charity_number %></td>
         <td>
-          <%= link_to investment_path(installment.investment), {class: "green-link-text"} do %>
-          <%= installment.project.name %>
+          <%= link_to investment_path(investment), {class: "green-link-text"} do %>
+          <%= investment.project.name %>
           <% end %>
         </td>
-        <td><%= nice_money(installment.amount) if installment.unlocked? %></td>
-        <td><%= nice_money(installment.amount) if installment.locked? %></td>
-        <td><%= nice_money(installment.amount) if installment.rescinded? %></td>
+        <td><%= nice_money(investment.installments.deadline_between(@start_date, @end_date).unlocked.sum(:amount)) %></td>
+        <td><%= nice_money(investment.installments.deadline_between(@start_date, @end_date).locked.sum(:amount)) %></td>
+        <td><%= nice_money(investment.installments.deadline_between(@start_date, @end_date).rescinded.sum(:amount)) %></td>
         <td>
-          <% if installment.investment.completed? %>
+          <% if investment.completed? %>
             <div class="label label-success lb-sm"><%= t("dashboard.table.completed") %></div>
-          <% elsif installment.investment.rejected? %>
+          <% elsif investment.rejected? %>
             <div class="label label-danger lb-sm"><%= t("dashboard.table.rejected") %></div>
           <% else %>
             <div class="label label-warning lb-sm"><%= t("dashboard.table.active") %></div>
           <% end %>
         </td>
         <td>
-            <%= link_to edit_investment_path(installment.investment), { class: "label label-info lb-sm button-appear-hover" } do %>
+            <%= link_to edit_investment_path(investment), { class: "label label-info lb-sm button-appear-hover" } do %>
               <%= t("dashboard.table.editable.investment") %>
             <% end %>
         </td>
