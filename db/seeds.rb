@@ -66,7 +66,7 @@ environmental_ngo = ['Equiterre', 'Canadian Wind Energy Association', 'Greenpeac
 environmental_project_name = ['Energy-Efficient Lighting', 'R&D for Electric Turbines', 'Global Climate March']
 
 puts "generating tags"
-tags = ["Handicaped Children", "Elderly Motility", "copper", "truck", "neat", "unite", "branch", "educated", "tenuous", "hum", "decisive", "notice"]
+tags = ["Ecolighting", "Carbon Credit", "Alternative Energies", "Biofuel"]
 
 Organisation.all.each do |organisation|
     tags.sample(3).each do |tag|
